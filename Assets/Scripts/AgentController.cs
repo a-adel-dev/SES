@@ -10,6 +10,8 @@ public class AgentController : MonoBehaviour
     [SerializeField] Vector3 destination; //Exposed for Debugging
     NavMeshAgent navMeshAgent;
     bool moving = false;
+    [SerializeField] float standingCounter = 0;
+    [SerializeField] Vector3 velocity;
 
     [SerializeField] bool inClassroom;
     [SerializeField] bool inCorridor;
@@ -25,14 +27,25 @@ public class AgentController : MonoBehaviour
         originalPosition = transform.position;
         lineRenderer = GetComponent<LineRenderer>();
         destination = transform.position;
+        originalPosition = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+        velocity = navMeshAgent.velocity;
         navMeshAgent.SetDestination(destination);
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1,  destination);
+        if (navMeshAgent.velocity.x < .01 && navMeshAgent.velocity.x > -.01 &&
+            navMeshAgent.velocity.y < .01 && navMeshAgent.velocity.y > -.01)
+        {
+            standingCounter += Time.deltaTime;
+        }
+        else
+        {
+            standingCounter = 0;
+        }
     }
 
     public void SetDestination(Vector3 newDestination)
@@ -119,6 +132,16 @@ public class AgentController : MonoBehaviour
     public bool GetHasDestination()
     {
         return hasDestination;
+    }
+
+    public float GetStandingCounter()
+    {
+        return standingCounter;
+    }
+
+    public void GoBack()
+    {
+        destination = originalPosition;
     }
 
 }

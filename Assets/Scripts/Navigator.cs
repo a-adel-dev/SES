@@ -9,9 +9,10 @@ public class Navigator : MonoBehaviour
     int simulationStep;
     Pupil[] pupils;
     int bathroomBreakChance;
+    List<Pupil> pupilsInBathroom = new List<Pupil>();
 
-    
-    
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,17 +50,27 @@ public class Navigator : MonoBehaviour
             }
             timer -= simulationStep;
         }
-
+        
         foreach (Pupil pupil in pupils)
         {
             var agentController = pupil.GetComponent<AgentController>();
-            if (agentController.GetInBathroom() && !agentController.GetInToilet())
+            if (agentController.GetInBathroom() && !pupilsInBathroom.Contains(pupil))
             {
                 Space closestBathroom = FindNearestBathroom(pupil);
                 agentController.SetDestination(closestBathroom.GetAvailableSubspace().position);
-                break;
-                
+                pupilsInBathroom.Add(pupil);
             }
+            if (agentController.GetStandingCounter() > 3 && agentController.GetInBathroom() && !agentController.GetInToilet())
+            {
+                agentController.GoBack();
+            }
+
+            if (agentController.GetStandingCounter() > 10 && agentController.GetInToilet())
+            {
+                agentController.GoBack();
+            }
+
+
         }
     }
 
