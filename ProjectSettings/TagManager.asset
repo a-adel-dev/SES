@@ -9,6 +9,9 @@ TagManager:
   - Bathroom
   - Toilet
   - Classroom
+  - Board
+  - Locker
+  - locator
   layers:
   - Default
   - TransparentFX
