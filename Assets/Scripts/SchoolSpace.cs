@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SchoolSpace : MonoBehaviour
 {
-    SubspaceManager subSpaceManager = new SubspaceManager();
+    public SubspaceManager subSpaceManager = new SubspaceManager();
     [SerializeField] Text text;
     
 
@@ -25,24 +25,6 @@ public class SchoolSpace : MonoBehaviour
         MonitorAvailableSpaces();
     }
 
-    public bool isSubSpaceAvailable()
-    {
-        if (subSpaceManager.GetAvailableSubSpacesCount() > 0)
-            return true;
-        else
-            return false;
-    }
-
-    public SchoolSubSpace AssignSpaceToAgent(AI agent)
-    {
-        SchoolSubSpace subspace = subSpaceManager.GetAvailableSubSpace(agent);
-        return subspace;
-    }
-
-    public void ReleaseSpace(AI agent)
-    {
-        subSpaceManager.ReleaseSpace(agent);
-    }
 
     public void MonitorAvailableSpaces()
     {

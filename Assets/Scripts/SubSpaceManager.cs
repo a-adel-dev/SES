@@ -7,101 +7,91 @@ public class SubSpace
     public SchoolSubSpace space { get; set; }
     public bool available { get; set; }
     public AI agent { get; set; }
-    public int SubSpaceID;
     
-    public SubSpace(SchoolSubSpace space, int ID)
+    public SubSpace(SchoolSubSpace space)
     {
         this.space = space;
         available = true;
-        agent = null;
-        SubSpaceID = ID;
+        agent = null; 
     }
 
-    public SubSpace(SchoolSubSpace space, AI agent, int ID)
+    public SubSpace(SchoolSubSpace space, AI agent)
     {
         this.space = space;
         available = false;
         this.agent = agent;
-        SubSpaceID = ID;
+        
     }
 }
 
 public class SubspaceManager
 {
-    private List<SubSpace> subspaces = new List<SubSpace>();
-    private int availableSpaceCount = 0;
-    private int idCount = 0;
+    private List<SubSpace> subSpaces = new List<SubSpace>(); //list of all subspaces
+    private List<SubSpace> availableSubspaces = new List<SubSpace>(); // list of avbailable subspaces
 
-
-    public void AddAvaialableSpace(SchoolSubSpace subspace)
+    
+    public void AddAvaialableSpace(SchoolSubSpace subspace) // adds an available subspace to both lists
     {
-        SubSpace space = new SubSpace(subspace, idCount);
-        subspaces.Add(space);
-        idCount++;
-        //Debug.Log("Adding space " + space.space + "with ID: " + space.SubSpaceID);
-        availableSpaceCount++;
-        //Debug.Log("Count " + availableSpaceCount);
+        SubSpace subSpace = new SubSpace(subspace);
+        subSpaces.Add(subSpace);
+        availableSubspaces.Add(subSpace);
     }
     
-    public void AddOccupiedSpace(SchoolSubSpace subspace, AI agent, int ID)
+    public void AddOccupiedSpace(SchoolSubSpace subspace, AI agent)
     {
-        SubSpace space = new SubSpace(subspace, agent, ID);
-        subspaces.Add(space);
+        SubSpace space = new SubSpace(subspace, agent);
+        subSpaces.Add(space);
     }
    
-    public SchoolSubSpace GetAvailableSubSpace(AI agent)
+    public SubSpace PopAvailableSubSpace(AI agent)
     {
-        if (availableSpaceCount <= 0)
+        if (availableSubspaces.Count == 0)
             return null;
-        bool spaceNotFound = true; 
-        while (spaceNotFound)
+        else
         {
-            var randomSpot = Random.Range(0, subspaces.Count - 1);
-            if (subspaces[randomSpot].available)
-            {
-                subspaces[randomSpot].available = false;
-                subspaces[randomSpot].agent = agent;
-                spaceNotFound = false;
-                availableSpaceCount--;
-                return subspaces[randomSpot].space;  
-            }
+            var randomSpot = Random.Range(0, subSpaces.Count);
+            SubSpace availableSubspace = availableSubspaces[randomSpot];
+            availableSubspace.agent = agent;
+            availableSubspace.available = false;
+            
+            availableSubspaces.RemoveAt(randomSpot);
+            return availableSubspace;
         }
-        return null;
     }
 
     public void ReleaseSpace(AI agent)
     {
-        foreach (SubSpace subspace in subspaces)
+        foreach (SubSpace subspace in subSpaces)
         {
             if (ReferenceEquals(subspace.agent,agent))
             {
+                availableSubspaces.Add(subspace);
                 subspace.agent = null;
                 subspace.available = true;
             }
         }
-        availableSpaceCount++;
     }
 
     public int GetAvailableSubSpacesCount()
     {
-        return availableSpaceCount;
+        return availableSubspaces.Count;
     }
 
     public void PrintAvailableSpaces()
     {
-        for (int i = 0; i < subspaces.Count ; i++)
+        for (int i = 0; i < subSpaces.Count ; i++)
         {
-            if (subspaces[i].available)
-                Debug.Log("Available space is " + subspaces[i].space + ": " +availableSpaceCount);
+            if (subSpaces[i].available)
+                Debug.Log("Available space is " + subSpaces[i].space + ": " + availableSubspaces.Count);
         }
     }
 
     public string ShowStats()
     {
         string text = "";
-        for (int i = 0; i < subspaces.Count; i++)
+        for (int i = 0; i < availableSubspaces.Count; i++)
         {
-            text += string.Format("space: {0} is {1}\n", subspaces[i].space, subspaces[i].available);
+            text += string.Format("space: {0} is {1}\n", availableSubspaces[i].space, availableSubspaces[i].available);
         }
         return text;
         

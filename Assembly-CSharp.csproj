@@ -87,7 +87,7 @@
     <Compile Include="Assets\Scripts\SubSpaceManager.cs" />
     <Compile Include="Assets\Scripts\currentLocation.cs" />
     <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\TagDialogue.BT.txt" />
-    <None Include="Assets\Behaviors\GetOriginalLocation.BT.txt" />
+    <None Include="Assets\Behaviors\BathroomActivity.BT.txt" />
     <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\PlayTag.commented.BT.txt" />
     <None Include="Assets\PandaBehaviour\Examples\01_Move\Assets\Move.BT.txt" />
     <None Include="Assets\PandaBehaviour\README.txt" />
@@ -98,6 +98,7 @@
     <None Include="Assets\PandaBehaviour\Examples\00_ChangeColor\Assets\ChangeColor.BT.txt" />
     <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Hunter.BT.txt" />
     <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\Computer.BT.txt" />
+    <None Include="Assets\Behaviors\BoardActivity.BT.txt" />
     <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Patroller.BT.txt" />
     <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\PlayTag.BT.txt" />
     <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\AI.BT.lib.txt" />

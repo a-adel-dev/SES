@@ -1,0 +1,10 @@
+tree("Root")
+	sequence
+		MoveToNearestBathroom()
+		ConfirmReach
+		Wait(2.0)
+		ReleaseSubLocation
+		MoveBackToOriginalPosition
+		ConfirmReach
+		Wait(3.0)
+		
