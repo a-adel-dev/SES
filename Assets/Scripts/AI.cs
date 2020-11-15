@@ -10,6 +10,7 @@ public class AI : MonoBehaviour
     private NavMeshAgent navMesh;
     public Vector3 destination;
     private SubSpace currentSubSpace;
+    private SchoolMajorSpace currentSpace;
     
     // Start is called before the first frame update
     void Start()
@@ -52,17 +53,18 @@ public class AI : MonoBehaviour
         Task.current.Succeed();
     }
 
-    [Task]
-    void MoveToNearestBoard()
-    {
-        GameObject closestBoard = FindNearestBoard();
 
-        SubspaceManager closestBoardSpaceManager = closestBoard.GetComponent<SchoolSpace>().subSpaceManager;
-        if (closestBoardSpaceManager.GetAvailableSubSpacesCount() == 0)
+    [Task]
+    void MoveToNearestEntityOfType(string entityType)
+    {
+        SchoolSpace closestEntity = FindNearestEntityOfType(entityType);
+
+        SubspaceManager closestEntitySpaceManager = closestEntity.GetComponent<SchoolSpace>().subSpaceManager;
+        if (closestEntitySpaceManager.GetAvailableSubSpacesCount() == 0)
             Task.current.Fail();
-        else if (closestBoard != null)
+        else if (closestEntity != null)
         {
-            currentSubSpace = closestBoardSpaceManager.PopAvailableSubSpace(this); // add to his inventory
+            currentSubSpace = closestEntitySpaceManager.PopAvailableSubSpace(this); // add to his inventory
             if (currentSubSpace != null)
             {
                 navMesh.SetDestination(currentSubSpace.space.transform.position);
@@ -71,59 +73,56 @@ public class AI : MonoBehaviour
         }
     }
 
-    [Task]
-    void MoveToNearestBathroom()
+    private SchoolSpace FindNearestEntityOfType(string entityType)
     {
-        GameObject closestBathroom = FindNearestBathroom();
 
-        SubspaceManager closestBathroomSpaceManager = closestBathroom.GetComponent<SchoolSpace>().subSpaceManager;
-        if (closestBathroomSpaceManager.GetAvailableSubSpacesCount() == 0)
-            Task.current.Fail();
-        else if (closestBathroom != null)
-        {
-            currentSubSpace = closestBathroomSpaceManager.PopAvailableSubSpace(this); // add to his inventory
-            if (currentSubSpace != null)
-            {
-                navMesh.SetDestination(currentSubSpace.space.transform.position);
-                Task.current.Succeed();
-            }
-        }
-    }
+        List<SchoolSpace> entities = new List<SchoolSpace>();
 
-    private GameObject FindNearestBoard()
-    {
-        GameObject[] boards;
         float nearest = Mathf.Infinity;
-        GameObject closestBoard = null;
-        boards = GameObject.FindGameObjectsWithTag("Board");
-        foreach (GameObject board in boards)
+        SchoolSpace closestEntity = null;
+
+        if (entityType == "board")
         {
-            if (Vector3.Distance(transform.position, board.transform.position) < nearest)
+            entities = currentSpace.spaceManager.GetSpacesOfType("Board");
+        }
+        else if (entityType == "locker")
+        {
+            entities = currentSpace.spaceManager.GetSpacesOfType("Locker");
+        }
+        else if (entityType == "bathroom")
+        {
+            GameObject[] bathrooms = GameObject.FindGameObjectsWithTag("Bathroom");
+            Debug.Log(bathrooms.Length);
+
+            for (int i = 0; i < bathrooms.Length; i++)
             {
-                nearest = Vector3.Distance(this.transform.position, board.transform.position);
-                closestBoard = board;
+                entities.Add(bathrooms[i].GetComponent<SchoolSpace>());
             }
+            Debug.Log("mmm" + (entities.Count).ToString());
+
+            /*
+            foreach (GameObject bathroom in bathrooms)
+            {
+                //Debug.Log("Before: " + entities + (entities.Count).ToString());
+                entities.Add(bathroom.GetComponent<SchoolSpace>());
+                Debug.Log("Adding " + bathroom.name  + "to the list");
+            }
+            Debug.Log("After: " + entities + (entities.Count).ToString());
+            */
         }
 
-        return closestBoard;
-    }
-
-    private GameObject FindNearestBathroom()
-    {
-        GameObject[] bathrooms;
-        float nearest = Mathf.Infinity;
-        GameObject closestBathroom = null;
-        bathrooms = GameObject.FindGameObjectsWithTag("Bathroom");
-        foreach (GameObject bathroom in bathrooms)
+        if (entities != null)
         {
-            if (Vector3.Distance(transform.position, bathroom.transform.position) < nearest)
+            foreach (SchoolSpace entity in entities)
             {
-                nearest = Vector3.Distance(this.transform.position, bathroom.transform.position);
-                closestBathroom = bathroom;
+                if (Vector3.Distance(transform.position, entity.transform.position) < nearest)
+                {
+                    nearest = Vector3.Distance(this.transform.position, entity.transform.position);
+                    closestEntity = entity;
+                }
             }
         }
-
-        return closestBathroom;
+        return closestEntity;
     }
 
     [Task]
@@ -133,4 +132,10 @@ public class AI : MonoBehaviour
         currentSubSpace = null;
         Task.current.Succeed();
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        currentSpace = other.gameObject.GetComponent<SchoolMajorSpace>();
+    }
+
 }

@@ -8,6 +8,7 @@ public class SchoolSpace : MonoBehaviour
     public SubspaceManager subSpaceManager = new SubspaceManager();
     [SerializeField] Text text;
     
+    
 
     void Start()
     {        
@@ -22,7 +23,8 @@ public class SchoolSpace : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MonitorAvailableSpaces();
+        //MonitorAvailableSpaces();
+
     }
 
 
@@ -30,5 +32,8 @@ public class SchoolSpace : MonoBehaviour
     {
         text.text = subSpaceManager.ShowStats();
     }
+
+    
+
 
 }

@@ -19,8 +19,7 @@ public class SubSpace
     {
         this.space = space;
         available = false;
-        this.agent = agent;
-        
+        this.agent = agent; 
     }
 }
 
@@ -29,7 +28,7 @@ public class SubspaceManager
     private List<SubSpace> subSpaces = new List<SubSpace>(); //list of all subspaces
     private List<SubSpace> availableSubspaces = new List<SubSpace>(); // list of avbailable subspaces
 
-    
+
     public void AddAvaialableSpace(SchoolSubSpace subspace) // adds an available subspace to both lists
     {
         SubSpace subSpace = new SubSpace(subspace);
@@ -93,8 +92,40 @@ public class SubspaceManager
         {
             text += string.Format("space: {0} is {1}\n", availableSubspaces[i].space, availableSubspaces[i].available);
         }
-        return text;
-        
+        return text;  
+    }
+
+}
+
+public class SpaceManager
+{
+    //list of spaces
+    List<SchoolSpace> spaces = new List<SchoolSpace>();
+
+    public void AddSpace(SchoolSpace space)
+    {
+        spaces.Add(space);
+    }
+
+    public List<SchoolSpace> GetSpacesOfType(string type)
+    {
+        List<SchoolSpace> spacesOfType = new List<SchoolSpace>();
+        foreach (SchoolSpace space in spaces)
+        {
+            if (space.CompareTag(type))
+            {
+                spacesOfType.Add(space);
+            }
+        }
+        return spacesOfType;
+    }
+
+    public void ShowSpaces()
+    {
+        foreach (SchoolSpace space in spaces)
+        {
+            Debug.Log("Space | " + space);
+        }
     }
 }
 

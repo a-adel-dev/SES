@@ -1,6 +1,6 @@
 tree("Root")
 	sequence
-		MoveToNearestBoard()
+		MoveToNearestEntityOfType("board")
 		ConfirmReach
 		Wait(2.0)
 		ReleaseSubLocation

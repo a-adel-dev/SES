@@ -8,7 +8,7 @@ public class SchoolSubSpace : MonoBehaviour
 
     private void Awake()
     {
-        parent = transform.parent.GetComponent<SchoolSpace>() ;
+        parent = transform.parent.GetComponent<SchoolSpace>();
     }
 
     public SchoolSpace getParentSpace()
