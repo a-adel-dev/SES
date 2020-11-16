@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 610495228}
   - component: {fileID: 2147941102231817569}
   - component: {fileID: 7520724864214269128}
-  - component: {fileID: 6932497879862845290}
   m_Layer: 0
   m_Name: pupil (1)
   m_TagString: Pupil
@@ -269,7 +268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scripts:
-  - {fileID: 4900000, guid: 0a7c0f7c2680cdc4a8a9d8d95c1f6c41, type: 3}
+  - {fileID: 0}
   autoReset: 1
   tickOn: 0
   sourceInfos:
@@ -278,17 +277,3 @@ MonoBehaviour:
     breakPointStatuses: 
     collapsedLines: 
     btScript: 
---- !u!114 &6932497879862845290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3218611111565668269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b8c015b0f6c13489f696c4fe1444ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalPosition: {x: 0, y: 0, z: 0}
-  destination: {x: 0, y: 0, z: 0}
