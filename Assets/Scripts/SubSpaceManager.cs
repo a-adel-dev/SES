@@ -49,7 +49,7 @@ public class SubspaceManager
         else
         {
             var randomSpot = Random.Range(0, subSpaces.Count);
-            SubSpace availableSubspace = availableSubspaces[randomSpot];
+            SubSpace availableSubspace = availableSubspaces[randomSpot]; //needs some kind of transaction crapola
             availableSubspace.agent = agent;
             availableSubspace.available = false;
             

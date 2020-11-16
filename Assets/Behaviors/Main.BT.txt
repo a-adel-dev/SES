@@ -1,0 +1,23 @@
+tree("Root")
+	sequence
+		random (0.1 , 0.1 , 0.1 , 0.7)
+			sequence
+				MoveToNearestEntityOfType("locker")
+				ConfirmReach
+				Wait(2.0)
+			sequence
+				MoveToNearestEntityOfType("board")
+				ConfirmReach
+				Wait(2.0)
+			sequence
+				MoveToNearestEntityOfType("bathroom")
+				ConfirmReach
+				Wait(2.0)
+			sequence
+				Wait(10.0)
+		sequence
+			MoveBackToOriginalPosition
+			ConfirmReach
+			LookAtBoard()
+			Wait(5.0)
+		

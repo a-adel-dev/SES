@@ -11,12 +11,14 @@ public class AI : MonoBehaviour
     public Vector3 destination;
     private SubSpace currentSubSpace;
     private SchoolMajorSpace currentSpace;
+    private float rotSpeed = 2.0f;
+    float dotProd;
     
     // Start is called before the first frame update
     void Start()
     {
         navMesh = GetComponent<NavMeshAgent>();
-        GetOriginalLocation();
+        GetOriginalLocation();   
     }
 
     // Update is called once per frame
@@ -92,23 +94,11 @@ public class AI : MonoBehaviour
         else if (entityType == "bathroom")
         {
             GameObject[] bathrooms = GameObject.FindGameObjectsWithTag("Bathroom");
-            Debug.Log(bathrooms.Length);
 
             for (int i = 0; i < bathrooms.Length; i++)
             {
                 entities.Add(bathrooms[i].GetComponent<SchoolSpace>());
             }
-            Debug.Log("mmm" + (entities.Count).ToString());
-
-            /*
-            foreach (GameObject bathroom in bathrooms)
-            {
-                //Debug.Log("Before: " + entities + (entities.Count).ToString());
-                entities.Add(bathroom.GetComponent<SchoolSpace>());
-                Debug.Log("Adding " + bathroom.name  + "to the list");
-            }
-            Debug.Log("After: " + entities + (entities.Count).ToString());
-            */
         }
 
         if (entities != null)
@@ -133,9 +123,44 @@ public class AI : MonoBehaviour
         Task.current.Succeed();
     }
 
-    private void OnTriggerEnter(Collider other)
+    [Task]
+    void LookAtBoard()
     {
-        currentSpace = other.gameObject.GetComponent<SchoolMajorSpace>();
+        navMesh.updateRotation = false;
+        var goal = currentSpace.spaceManager.GetSpacesOfType("Board")[0].transform;
+        var lookAtGoal = new Vector3(goal.position.x,
+                                    transform.position.y,
+                                    goal.position.z);
+
+        Vector3 direction = lookAtGoal - this.transform.position;
+        this.transform.rotation = Quaternion.Slerp(this.transform.rotation,
+                                                    Quaternion.LookRotation(direction),
+                                                    Time.deltaTime * rotSpeed);
+
+
+        dotProd = Vector3.Dot(direction.normalized, transform.forward);
+        if (dotProd > .95f)
+        {
+            Task.current.Succeed();
+        }
+        navMesh.updateRotation = true;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<SchoolMajorSpace>())
+        {
+            currentSpace = other.gameObject.GetComponent<SchoolMajorSpace>();
+        }
+    }
+
+    private void OnGUI()
+    {
+        GUIStyle style = new GUIStyle();
+
+        style.fontSize = 24;
+
+        //GUI.Label(new Rect(10, 0, 0, 0), "dotProd: " + dotProd, style);
+        //GUI.Label(new Rect(10, 25, 0, 0), currentSpace.spaceManager.GetSpacesOfType("Board")[0].name, style);
+    }
 }

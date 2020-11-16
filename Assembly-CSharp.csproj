@@ -96,9 +96,11 @@
     <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Player.BT.txt" />
     <None Include="Assets\PandaBehaviour\Core\PandaBehaviour.xml" />
     <None Include="Assets\PandaBehaviour\ChangeLog.txt" />
+    <None Include="Assets\Behaviors\Main.BT.txt" />
     <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Sniper.BT.txt" />
     <None Include="Assets\PandaBehaviour\Examples\00_ChangeColor\Assets\ChangeColor.BT.txt" />
     <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Hunter.BT.txt" />
+    <None Include="Assets\Behaviors\GoBack.BT.txt" />
     <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\Computer.BT.txt" />
     <None Include="Assets\Behaviors\BoardActivity.BT.txt" />
     <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Patroller.BT.txt" />

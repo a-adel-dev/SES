@@ -6,5 +6,6 @@ tree("Root")
 		ReleaseSubLocation
 		MoveBackToOriginalPosition
 		ConfirmReach
-		Wait(3.0)
+		LookAtBoard()
+		Wait(5.0)
 		
