@@ -4,24 +4,26 @@ using UnityEngine;
 
 public class Spot : MonoBehaviour
 {
-    public bool available = true;
-    public AI agent { get; set; }
+    private bool available = true;
+    private AI _agent;
 
-
-    public void SetAvailable(bool state)
+    // add an agent to a spot and make it occupied
+    public void FillSpot(AI agent)
     {
-        available = state;
+        available = false;
+        _agent = agent;
     }
 
-    public string IsAvailableText()
+    //make the spot available and return the agent that was occupying the spot
+    public AI ClearSpot()
     {
-        if (available)
-        {
-            return "free";
-        }
-        else
-        {
-            return "not Available";
-        }
+        available = true;
+        return _agent;
+    }
+
+    //check if the spot was available
+    public bool ISpotAvailable()
+    {
+        return available;
     }
 }

@@ -12,6 +12,8 @@ TagManager:
   - Board
   - Locker
   - locator
+  - Desk
+  - BoardSpot
   layers:
   - Default
   - TransparentFX
