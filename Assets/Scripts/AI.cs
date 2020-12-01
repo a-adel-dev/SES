@@ -7,8 +7,11 @@ using UnityEngine.AI;
 public class AI : MonoBehaviour
 {
     NavMeshAgent agent;
-    private bool ready = true;
-    public bool move = false;
+    private bool busy = false;
+    Vector3 originalPosition;
+    
+    
+    //public bool move = false;
     
     
     
@@ -21,24 +24,40 @@ public class AI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if (move)
         {
             agent.SetDestination(new Vector3(-20f, 0, 0));
         }
+        */
     }
 
-    public void Move()
+    public void SetBusyStatusTO(bool status)
     {
-       agent.SetDestination(new Vector3(-20f, 0, 0));  
+        busy = status;
     }
 
-    public void SetReadyStatusTO(bool status)
+    public bool IsBusy()
     {
-        ready = status;
+        return busy;
     }
 
-    public bool IsReady()
+    public void SetBusyTo(bool status)
     {
-        return ready;
+        busy = status;
+    }
+
+    public void SetOriginalPosition(Vector3 position)
+    {
+        originalPosition = position;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Classroom"))
+        {
+            other.GetComponent<Classroom>().GetPupilOutofClassroom(this);
+            //unested
+        }
     }
 }
