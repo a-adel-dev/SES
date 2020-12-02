@@ -4771,7 +4771,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a793dc7ef90442d4c9cafa44cf821cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simTimeScale: 0.2
+  simTimeScale: 2
   numPeriods: 4
   periodLength: 40
   sessionActivityMinTime: 8
@@ -6207,6 +6207,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6679094881373598523, guid: 99b61440493d6b54c9e1d85d2dc9bf69,
         type: 3}
+    - target: {fileID: 3717130888090133382, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3784705064329411916, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_Name

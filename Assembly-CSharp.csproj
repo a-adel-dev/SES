@@ -89,6 +89,7 @@
     <Compile Include="Assets\Scripts\Lab.cs" />
     <Compile Include="Assets\Scripts\SchoolManager.cs" />
     <Compile Include="Assets\Scripts\Spot.cs" />
+    <Compile Include="Assets\Scripts\TeacherAI.cs" />
     <Compile Include="Assets\Scripts\Teachersroom.cs" />
     <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\TagDialogue.BT.txt" />
     <None Include="Assets\Behaviors\LockerActivity.BT.txt" />

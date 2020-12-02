@@ -42,8 +42,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6321500150e13dc46970d816e2b25601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  move: 0
 --- !u!195 &2114567258
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -54,7 +52,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.29565817
-  m_Speed: 3.5
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -66,6 +64,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &986362936103623304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6679094881373598523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e43e7170fb45b4b81dcd16d0ff55d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scripts: []
+  autoReset: 1
+  tickOn: 0
+  sourceInfos: []
 --- !u!1001 &5796555730235035242
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -131,7 +145,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 93ff4e381a623004485bba318caa4b42,
         type: 3}
       propertyPath: m_Name
-      value: pupil
+      value: pupil Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93ff4e381a623004485bba318caa4b42, type: 3}

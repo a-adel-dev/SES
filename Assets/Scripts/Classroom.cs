@@ -1,11 +1,12 @@
 ﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Classroom : MonoBehaviour
 {
     //classroom objects
-    GameObject board;
+    public GameObject board;
     List<Spot> lockers = new List<Spot>();
     List<Spot> boardSpots = new List<Spot>();
     List<Spot> desks = new List<Spot>();
@@ -31,6 +32,8 @@ public class Classroom : MonoBehaviour
     bool spawned = false;
     float timer = 0f;
     int activeSection = 0;
+    bool boardActivity = false;
+    bool groupActivity = false;
     
 
 
@@ -61,6 +64,7 @@ public class Classroom : MonoBehaviour
         SpawnPupils();
         IncreaseClassTime();
         RunClass();
+
     }
 
     private void IncreaseClassTime()
@@ -90,7 +94,6 @@ public class Classroom : MonoBehaviour
                         Quaternion.identity) as GameObject;
 
             pupil.GetComponent<AI>().SetOriginalPosition(new Vector3(deskPosition.x, 0, deskPosition.z));
-            pupil.transform.LookAt(board.gameObject.transform);
             classroomPupils.Add(pupil.GetComponent<AI>());
             pupilsInClass.Add(pupil.GetComponent<AI>());
             pupil.name = "pupil " + counter.ToString();
@@ -123,16 +126,31 @@ public class Classroom : MonoBehaviour
 
     private void ShuffleClassroomPupils()
     {
-        int listLength = classroomPupils.Count;
+        int listLength = pupilsInClass.Count;
         int random;
         AI temp;
         while (--listLength > 0)
         {
             random = UnityEngine.Random.Range(0, listLength);
-            temp = classroomPupils[random];
-            classroomPupils[random] = classroomPupils[listLength];
-            classroomPupils[listLength] = temp;  
+            temp = pupilsInClass[random];
+            pupilsInClass[random] = pupilsInClass[listLength];
+            pupilsInClass[listLength] = temp;  
         }
+    }
+
+    private List<Spot> ShuffleSpots(List<Spot> spots)
+    {
+        int listLength = spots.Count;
+        int random;
+        Spot temp;
+        while (--listLength > 0)
+        {
+            random = UnityEngine.Random.Range(0, listLength);
+            temp = spots[random];
+            spots[random] = spots[listLength];
+            spots[listLength] = temp;
+        }
+        return spots;
     }
 
     public void GetPupilOutofClassroom(AI pupil)
@@ -167,7 +185,7 @@ public class Classroom : MonoBehaviour
     public void ResetClassStructure()
     {
         classStructureTimes = new List<int>();
-        Debug.Log("class structure destroyed!");
+        //Debug.Log("class structure destroyed!");
     }
 
     public void RunClass()
@@ -176,7 +194,7 @@ public class Classroom : MonoBehaviour
             return;
         if (sectionTime < classStructureTimes[activeSection])
         {
-            Debug.Log("class section no. " + (activeSection + 1).ToString());
+            //Debug.Log("class section no. " + (activeSection + 1).ToString());
             //there is a logic bug here as activities can not set to be on during the first section
         }
         else if (sectionTime >= classStructureTimes[activeSection])
@@ -205,13 +223,14 @@ public class Classroom : MonoBehaviour
             {
                 pupil.SetBusyTo(true);
             }
+            StartCoroutine(BoardActivity());
         }
     }
 
     public void StartClass()
     {
         StructureAClass();
-        Debug.Log("class structured!");
+        //Debug.Log("class structured!");
     }
 
     public void EndClass()
@@ -229,5 +248,28 @@ public class Classroom : MonoBehaviour
         }
         classTime = 0;
     }
+
+
+    IEnumerator BoardActivity()
+    {
+        boardSpots = ShuffleSpots(boardSpots);
+        int randomIndex = Random.Range(1, boardSpots.Count);
+        for (int i = 0; i < randomIndex; i++)
+        {
+            pupilsInClass[i].AssignSpot(boardSpots[i]);
+            boardSpots[i].FillSpot(pupilsInClass[i]);
+            pupilsInClass[i].SetDestination(boardSpots[i].transform.position);
+        }
+        yield return new WaitForSecondsRealtime((classStructureTimes[activeSection]-2) * timeStep);
+        for (int i = 0; i < randomIndex; i++)
+        {
+            var spot  = pupilsInClass[i].ReleaseSpot();
+            spot.ClearSpot();
+            pupilsInClass[i].BackToDesk();
+        }
+    }
+
+
+
 
 }

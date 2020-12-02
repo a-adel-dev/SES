@@ -9,10 +9,10 @@ public class AI : MonoBehaviour
     NavMeshAgent agent;
     private bool busy = false;
     Vector3 originalPosition;
-    
-    
-    //public bool move = false;
-    
+    Classroom currentClass;
+    bool idle = true;
+    Spot currentSPot;
+    Vector3 distination;
     
     
     // Start is called before the first frame update
@@ -24,12 +24,18 @@ public class AI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        if (move)
+        SetDestination(distination);
+        SetIdlePose();
+    }
+
+    private void SetIdlePose()
+    {
+        if (Vector3.Distance(transform.position, originalPosition) < .1f)
         {
-            agent.SetDestination(new Vector3(-20f, 0, 0));
+            idle = true;
+            LookAtBoard();
         }
-        */
+        
     }
 
     public void SetBusyStatusTO(bool status)
@@ -57,7 +63,49 @@ public class AI : MonoBehaviour
         if (other.CompareTag("Classroom"))
         {
             other.GetComponent<Classroom>().GetPupilOutofClassroom(this);
-            //unested
+            //untested
         }
+    }
+
+    public void BackToDesk()
+    {
+        distination = originalPosition;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Classroom"))
+        {
+            currentClass = other.GetComponent<Classroom>();
+        }
+    }
+
+    private void LookAtBoard()
+    {
+        if(idle)
+        {
+            Vector3 boardDirection = currentClass.board.gameObject.transform.position;
+            agent.updateRotation = false;
+            //should involve a slerp
+            transform.LookAt(new Vector3 (boardDirection.x, 0, boardDirection.z));
+            agent.updateRotation = true;
+        }
+    }
+
+    public void AssignSpot(Spot spot)
+    {
+        currentSPot = spot;
+    }
+
+    public Spot ReleaseSpot()
+    {
+        Spot releasedSpot = currentSPot;
+        currentSPot = null;
+        return releasedSpot;
+    }
+
+    public void SetDestination(Vector3 destination)
+    {
+        agent.SetDestination(destination);
     }
 }
