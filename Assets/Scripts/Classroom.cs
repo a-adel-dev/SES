@@ -20,6 +20,8 @@ public class Classroom : MonoBehaviour
     int classTime = 0;
     int sectionTime = 0;
     bool classInSession = false;
+    int numSpotsForGroupActivity = 4;
+    [SerializeField] float minDistanceGroupActivity = 3f;
 
     //school variables
     int periodTime;
@@ -40,10 +42,13 @@ public class Classroom : MonoBehaviour
     //exposed variables
     [SerializeField] GameObject pupilPrefab;
     [SerializeField] GameObject teacherPrefab;
+    
 
 
     //temp variables
     public bool move = false;
+    public GameObject indicator;
+    public bool customStructureTimes;
 
     private void Awake()
     {
@@ -58,6 +63,8 @@ public class Classroom : MonoBehaviour
 
     }
 
+
+
     private void Update()
     {
         classInSession = schoolManager.classInSession;
@@ -66,6 +73,8 @@ public class Classroom : MonoBehaviour
         RunClass();
 
     }
+
+
 
     private void IncreaseClassTime()
     {
@@ -160,24 +169,35 @@ public class Classroom : MonoBehaviour
 
     private List<int> StructureAClass()
     {
-        int classSections = Random.Range(2, 8); // generate random class sections
-        List<int> randomPartitions = new List<int>(); //a list to hold the partition numbers
-
-        for (int i = 1; i < classSections+1; i++)
+        if (customStructureTimes)
         {
-            randomPartitions.Add(Random.Range(1, 10));
+            classStructureTimes.Add(1);
+            classStructureTimes.Add(19);
+            classStructureTimes.Add(10);
+            classStructureTimes.Add(10);
         }
-
-        int totalOfRandomPartitions = 0;
-
-        for (int i = 0; i < randomPartitions.Count; i++)
+        else
         {
-            totalOfRandomPartitions += randomPartitions[i];
-        }
+            int classSections = Random.Range(2, 8); // generate random class sections
+            List<int> randomPartitions = new List<int>(); //a list to hold the partition numbers
 
-        for (int i = 0; i < randomPartitions.Count; i++)
-        {
-            classStructureTimes.Add(Mathf.FloorToInt(periodTime * (randomPartitions[i] / (float) totalOfRandomPartitions)));   
+            for (int i = 1; i < classSections+1; i++)
+            {
+                randomPartitions.Add(Random.Range(1, 10));
+            }
+
+            int totalOfRandomPartitions = 0;
+
+            for (int i = 0; i < randomPartitions.Count; i++)
+            {
+                totalOfRandomPartitions += randomPartitions[i];
+            }
+
+            for (int i = 0; i < randomPartitions.Count; i++)
+            {
+                classStructureTimes.Add(Mathf.FloorToInt(periodTime * (randomPartitions[i] / (float) totalOfRandomPartitions)));   
+            }
+            
         }
         return classStructureTimes;
     }
@@ -224,6 +244,8 @@ public class Classroom : MonoBehaviour
                 pupil.SetBusyTo(true);
             }
             StartCoroutine(BoardActivity());
+            StartCoroutine(GroupActivity());
+
         }
     }
 
@@ -269,7 +291,133 @@ public class Classroom : MonoBehaviour
         }
     }
 
+    IEnumerator GroupActivity()
+    {
+        /*
+        List<Spot> initialSelection =new List<Spot>(desks);
+        List<Spot> selectedDesks = new List<Spot>();
+        bool tooClose = false;
+        while (selectedDesks.Count < numSpotsForGroupActivity && initialSelection.Count > 0)
+        {
+            int randomIndex = Random.Range(0, initialSelection.Count);
+            Debug.Log("evaluating " + initialSelection[randomIndex].name);
 
+            if (selectedDesks.Count == 0 )
+            {
+                selectedDesks.Add(initialSelection[randomIndex]);
+                //Debug.Log("Adding desk " + initialSelection[randomIndex].name + " to the list!");
+                initialSelection.RemoveAt(randomIndex);
+                
+            }
+            else
+            {
+                foreach (Spot desk in selectedDesks.ToArray())
+                {
+                    if (!(Vector3.Distance(initialSelection[randomIndex].transform.position
+                                            , desk.transform.position) > minDistanceGroupActivity))
+                    {
+                        tooClose = true;  
+                    }
+                    Debug.Log("comparing " + initialSelection[randomIndex].name + " to " + desk.name +  " and tooClose is: " + tooClose);
+                }   
+            } 
+            if (!tooClose)
+            {
+                selectedDesks.Add(initialSelection[randomIndex]);
+                Debug.Log("Adding desk " + initialSelection[randomIndex].name + " to the list!");
+                initialSelection.RemoveAt(randomIndex);
+            }
+            else
+            {
+                initialSelection.RemoveAt(randomIndex);
+            }
+            tooClose = false;
+        }
+
+        if (selectedDesks.Count < numSpotsForGroupActivity)
+        {
+            selectedDesks = null;
+            Debug.LogError("Could not find all spots for group activity!");
+        }
+
+        foreach (Spot desk in selectedDesks)
+        {
+            //Debug.Log(desk.name);
+            Instantiate(indicator, desk.transform.position, Quaternion.identity);
+        }
+        */
+        List<Spot> selectedDesks = new List<Spot>();
+        
+
+        for (int i = 0; i < 1000; i++)
+        {
+            Debug.Log(i);
+            List<Spot> availableDesks = new List<Spot>(desks);
+
+            while (selectedDesks.Count < numSpotsForGroupActivity && availableDesks.Count > 0)
+            {
+                Spot randomDesk = availableDesks[Random.Range(0, availableDesks.Count)];
+                bool tooClose = false;
+                if (selectedDesks == null)
+                {
+                    selectedDesks.Add(randomDesk);
+                    availableDesks.Remove(randomDesk);
+                }
+                else
+                {
+                    tooClose = CompareProximity(randomDesk, selectedDesks);
+                    if (!tooClose)
+                    {
+                        selectedDesks.Add(randomDesk);
+                        availableDesks.Remove(randomDesk);
+                    }
+                    else
+                    {
+                        availableDesks.Remove(randomDesk);
+                    }
+                }
+            }
+
+            if (selectedDesks.Count >= 4)
+            {
+                break;
+            }
+            else
+            {
+                selectedDesks.Clear();
+            }
+        }
+
+        if (selectedDesks == null)
+        {
+            Debug.LogError("Could not find a solution, please reduce space proximity option!");
+        }
+        else
+        {
+            foreach (Spot desk in selectedDesks)
+            {
+                //Debug.Log(desk.name);
+                Instantiate(indicator, desk.transform.position, Quaternion.identity);
+            }
+        }
+        
+        yield return new WaitForSecondsRealtime((classStructureTimes[activeSection] - 2) * timeStep);
+    }
+
+    bool CompareProximity( Spot randomDesk, List<Spot> desks)
+    {
+        bool tooClose = false;
+        foreach(Spot desk in desks)
+        {
+            if (Vector3.Distance(randomDesk.transform.position, 
+                                    desk.transform.position)< minDistanceGroupActivity)
+            {
+                tooClose = true;
+            }
+        }
+        return tooClose;
+
+    }
 
 
 }

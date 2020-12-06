@@ -6,42 +6,36 @@ using UnityEngine.AI;
 
 public class AI : MonoBehaviour
 {
+    
+    //cached variables 
     NavMeshAgent agent;
+
+
+    //properties
     private bool busy = false;
     Vector3 originalPosition;
     Classroom currentClass;
     bool idle = true;
-    Spot currentSPot;
+    Spot currentSpot;
     Vector3 distination;
     
     
-    // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         SetDestination(distination);
         SetIdlePose();
     }
 
-    private void SetIdlePose()
-    {
-        if (Vector3.Distance(transform.position, originalPosition) < .1f)
-        {
-            idle = true;
-            LookAtBoard();
-        }
-        
-    }
-
-    public void SetBusyStatusTO(bool status)
-    {
-        busy = status;
-    }
+    
+    /*=============================================
+     * Properties Getters, setters
+     * ============================================
+     */
 
     public bool IsBusy()
     {
@@ -57,6 +51,18 @@ public class AI : MonoBehaviour
     {
         originalPosition = position;
     }
+    /*
+    ===============================================
+              Collision space detection
+    ================================================
+    */
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Classroom"))
+        {
+            currentClass = other.GetComponent<Classroom>();
+        }
+    }
 
     private void OnTriggerExit(Collider other)
     {
@@ -67,17 +73,14 @@ public class AI : MonoBehaviour
         }
     }
 
+    /*
+     * =====================================
+     *            Directions Controls
+     * ======================================
+    */
     public void BackToDesk()
     {
         distination = originalPosition;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Classroom"))
-        {
-            currentClass = other.GetComponent<Classroom>();
-        }
     }
 
     private void LookAtBoard()
@@ -92,20 +95,40 @@ public class AI : MonoBehaviour
         }
     }
 
+
+    /*
+     * ================================
+     *          Spot Management
+     * ================================
+     */
     public void AssignSpot(Spot spot)
     {
-        currentSPot = spot;
+        currentSpot = spot;
     }
 
     public Spot ReleaseSpot()
     {
-        Spot releasedSpot = currentSPot;
-        currentSPot = null;
+        Spot releasedSpot = currentSpot;
+        currentSpot = null;
         return releasedSpot;
     }
 
+
+    /*=================================
+     * Continuous Methods
+     * ================================
+     */
     public void SetDestination(Vector3 destination)
     {
         agent.SetDestination(destination);
+    }
+
+    private void SetIdlePose()
+    {
+        if (Vector3.Distance(transform.position, originalPosition) < .1f)
+        {
+            idle = true;
+            LookAtBoard();
+        }
     }
 }
