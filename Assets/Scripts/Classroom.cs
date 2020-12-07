@@ -20,8 +20,10 @@ public class Classroom : MonoBehaviour
     int classTime = 0;
     int sectionTime = 0;
     bool classInSession = false;
-    int numSpotsForGroupActivity = 4;
+    [SerializeField] int numSpotsForGroupActivity = 4;
     [SerializeField] float minDistanceGroupActivity = 3f;
+    [SerializeField] float deskGroupActivityCompensationX = 0f;
+    [SerializeField] float deskGroupActivityCompensationZ = 0f;
 
     //school variables
     int periodTime;
@@ -231,7 +233,7 @@ public class Classroom : MonoBehaviour
         if (classStructureTimes[activeSection] < sessionActivityMinTime)
         {
             activity = false;
-            foreach (AI pupil in classroomPupils)
+            foreach (AI pupil in pupilsInClass)
             {
                 pupil.SetBusyTo(false);
             }
@@ -239,13 +241,25 @@ public class Classroom : MonoBehaviour
         else
         {
             activity = true;
-            foreach (AI pupil in classroomPupils)
+            foreach (AI pupil in pupilsInClass)
             {
                 pupil.SetBusyTo(true);
             }
-            StartCoroutine(BoardActivity());
-            StartCoroutine(GroupActivity());
 
+            PickActivity();
+        }
+    }
+
+    private void PickActivity()
+    {
+        
+        if (Random.Range(0f, 1) < .5f)
+        {
+            StartCoroutine(BoardActivity());
+        }
+        else
+        {
+            StartCoroutine(GroupActivity());
         }
     }
 
@@ -293,65 +307,10 @@ public class Classroom : MonoBehaviour
 
     IEnumerator GroupActivity()
     {
-        /*
-        List<Spot> initialSelection =new List<Spot>(desks);
-        List<Spot> selectedDesks = new List<Spot>();
-        bool tooClose = false;
-        while (selectedDesks.Count < numSpotsForGroupActivity && initialSelection.Count > 0)
-        {
-            int randomIndex = Random.Range(0, initialSelection.Count);
-            Debug.Log("evaluating " + initialSelection[randomIndex].name);
-
-            if (selectedDesks.Count == 0 )
-            {
-                selectedDesks.Add(initialSelection[randomIndex]);
-                //Debug.Log("Adding desk " + initialSelection[randomIndex].name + " to the list!");
-                initialSelection.RemoveAt(randomIndex);
-                
-            }
-            else
-            {
-                foreach (Spot desk in selectedDesks.ToArray())
-                {
-                    if (!(Vector3.Distance(initialSelection[randomIndex].transform.position
-                                            , desk.transform.position) > minDistanceGroupActivity))
-                    {
-                        tooClose = true;  
-                    }
-                    Debug.Log("comparing " + initialSelection[randomIndex].name + " to " + desk.name +  " and tooClose is: " + tooClose);
-                }   
-            } 
-            if (!tooClose)
-            {
-                selectedDesks.Add(initialSelection[randomIndex]);
-                Debug.Log("Adding desk " + initialSelection[randomIndex].name + " to the list!");
-                initialSelection.RemoveAt(randomIndex);
-            }
-            else
-            {
-                initialSelection.RemoveAt(randomIndex);
-            }
-            tooClose = false;
-        }
-
-        if (selectedDesks.Count < numSpotsForGroupActivity)
-        {
-            selectedDesks = null;
-            Debug.LogError("Could not find all spots for group activity!");
-        }
-
-        foreach (Spot desk in selectedDesks)
-        {
-            //Debug.Log(desk.name);
-            Instantiate(indicator, desk.transform.position, Quaternion.identity);
-        }
-        */
-        List<Spot> selectedDesks = new List<Spot>();
         
-
+        List<Spot> selectedDesks = new List<Spot>();
         for (int i = 0; i < 1000; i++)
         {
-            Debug.Log(i);
             List<Spot> availableDesks = new List<Spot>(desks);
 
             while (selectedDesks.Count < numSpotsForGroupActivity && availableDesks.Count > 0)
@@ -394,14 +353,48 @@ public class Classroom : MonoBehaviour
         }
         else
         {
+            List<AI> pupilsAvailableforActivity = new List<AI>(pupilsInClass);
             foreach (Spot desk in selectedDesks)
             {
                 //Debug.Log(desk.name);
-                Instantiate(indicator, desk.transform.position, Quaternion.identity);
+                //Instantiate(indicator, desk.transform.position, Quaternion.identity);
+
+                List<AI> closestStudents = new List<AI>();
+
+                int searchIndex = 1;
+                while (closestStudents.Count < 4)
+                {
+                    foreach (AI pupil in pupilsAvailableforActivity.ToArray())
+                    {
+                        if (Vector3.Distance(desk.transform.position, pupil.transform.position) < searchIndex )
+                        {
+                            closestStudents.Add(pupil);
+                            pupilsAvailableforActivity.Remove(pupil);
+                            if(closestStudents.Count >= 4)
+                            {
+                                break;
+                            }
+                        }    
+                    }
+                    searchIndex++;
+                }
+                searchIndex = 1;
+                foreach(AI pupil in closestStudents)
+                {
+                    pupil.setStoppingDistance(.5f);
+                    pupil.SetDestination(new Vector3(desk.transform.position.x + deskGroupActivityCompensationX,
+                                                        0f,
+                                                        desk.transform.position.z + deskGroupActivityCompensationZ));
+                }
             }
         }
         
         yield return new WaitForSecondsRealtime((classStructureTimes[activeSection] - 2) * timeStep);
+        foreach (AI pupil in pupilsInClass)
+        {
+            pupil.setStoppingDistance(0.3f);
+            pupil.BackToDesk();
+        }
     }
 
     bool CompareProximity( Spot randomDesk, List<Spot> desks)

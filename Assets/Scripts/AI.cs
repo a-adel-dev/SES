@@ -95,6 +95,10 @@ public class AI : MonoBehaviour
         }
     }
 
+    public void setStoppingDistance(float dist)
+    {
+        agent.stoppingDistance = dist;
+    }
 
     /*
      * ================================

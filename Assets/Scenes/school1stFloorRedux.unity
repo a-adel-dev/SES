@@ -6361,12 +6361,17 @@ PrefabInstance:
     - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: customStructureTimes
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: minDistanceGroupActivity
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+        type: 3}
+      propertyPath: deskGroupActivityCompensationZ
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3717130888090133382, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
