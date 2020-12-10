@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Panda;
 
 public class AI : MonoBehaviour
 {
     
     //cached variables 
     NavMeshAgent agent;
+    SchoolManager school;
 
 
     //properties
@@ -18,13 +20,22 @@ public class AI : MonoBehaviour
     bool idle = true;
     Spot currentSpot;
     Vector3 distination;
-    
+
+    //temp properties
+    bool behaviorTesting = true;
     
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        school = FindObjectOfType<SchoolManager>();
+
+        if (behaviorTesting)
+        {
+            GoToBathroom();
+        }
     }
 
+    
     void Update()
     {
         SetDestination(distination);
@@ -36,7 +47,6 @@ public class AI : MonoBehaviour
      * Properties Getters, setters
      * ============================================
      */
-
     public bool IsBusy()
     {
         return busy;
@@ -45,6 +55,14 @@ public class AI : MonoBehaviour
     public void SetBusyTo(bool status)
     {
         busy = status;
+        if (status)
+        {
+            GetComponent<PandaBehaviour>().enabled = false;
+        }
+        else
+        {
+            GetComponent<PandaBehaviour>().enabled = true;
+        }
     }
 
     public void SetOriginalPosition(Vector3 position)
@@ -61,6 +79,11 @@ public class AI : MonoBehaviour
         if (other.CompareTag("Classroom"))
         {
             currentClass = other.GetComponent<Classroom>();
+            //check if student is alrady in class, if not, add it to class
+            if ( !currentClass.IsInsideClass(this))
+            {
+                currentClass.EnterClass(this);
+            }
         }
     }
 
@@ -68,7 +91,8 @@ public class AI : MonoBehaviour
     {
         if (other.CompareTag("Classroom"))
         {
-            other.GetComponent<Classroom>().GetPupilOutofClassroom(this);
+            other.GetComponent<Classroom>().ExitClass(this);
+            currentClass = null;
             //untested
         }
     }
@@ -134,5 +158,15 @@ public class AI : MonoBehaviour
             idle = true;
             LookAtBoard();
         }
+    }
+
+    /*===================================
+     * Behaviors
+     * ==================================
+     */
+
+    private void GoToBathroom()
+    {
+        throw new NotImplementedException();
     }
 }

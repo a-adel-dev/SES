@@ -65,20 +65,20 @@ public class Classroom : MonoBehaviour
 
     }
 
-
-
     private void Update()
     {
         classInSession = schoolManager.classInSession;
         SpawnPupils();
-        IncreaseClassTime();
+        RunClassroomTimer();
         RunClass();
-
     }
 
 
-
-    private void IncreaseClassTime()
+    /*=================================
+     * utility Methods
+     *=================================
+     */
+    private void RunClassroomTimer()
     {
         timer += Time.deltaTime;
         if (timer >= timeStep)
@@ -104,6 +104,7 @@ public class Classroom : MonoBehaviour
                         deskPosition,
                         Quaternion.identity) as GameObject;
 
+            pupil.transform.parent = transform;
             pupil.GetComponent<AI>().SetOriginalPosition(new Vector3(deskPosition.x, 0, deskPosition.z));
             classroomPupils.Add(pupil.GetComponent<AI>());
             pupilsInClass.Add(pupil.GetComponent<AI>());
@@ -114,6 +115,55 @@ public class Classroom : MonoBehaviour
         ShuffleClassroomPupils();        
     }
 
+    private void ShuffleClassroomPupils()
+    {
+        int listLength = pupilsInClass.Count;
+        int random;
+        AI temp;
+        while (--listLength > 0)
+        {
+            random = UnityEngine.Random.Range(0, listLength);
+            temp = pupilsInClass[random];
+            pupilsInClass[random] = pupilsInClass[listLength];
+            pupilsInClass[listLength] = temp;
+        }
+    }
+
+    private List<Spot> ShuffleSpots(List<Spot> spots)
+    {
+        int listLength = spots.Count;
+        int random;
+        Spot temp;
+        while (--listLength > 0)
+        {
+            random = UnityEngine.Random.Range(0, listLength);
+            temp = spots[random];
+            spots[random] = spots[listLength];
+            spots[listLength] = temp;
+        }
+        return spots;
+    }
+
+    bool CompareProximity(Spot randomDesk, List<Spot> desks)
+        //group activity submethod
+    {
+        bool tooClose = false;
+        foreach (Spot desk in desks)
+        {
+            if (Vector3.Distance(randomDesk.transform.position,
+                                    desk.transform.position) < minDistanceGroupActivity)
+            {
+                tooClose = true;
+            }
+        }
+        return tooClose;
+
+    }
+
+    /*==================================
+     * Collecting subsaces
+     * =================================
+     */
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Board"))
@@ -135,39 +185,30 @@ public class Classroom : MonoBehaviour
         }
     }
 
-    private void ShuffleClassroomPupils()
-    {
-        int listLength = pupilsInClass.Count;
-        int random;
-        AI temp;
-        while (--listLength > 0)
-        {
-            random = UnityEngine.Random.Range(0, listLength);
-            temp = pupilsInClass[random];
-            pupilsInClass[random] = pupilsInClass[listLength];
-            pupilsInClass[listLength] = temp;  
-        }
-    }
-
-    private List<Spot> ShuffleSpots(List<Spot> spots)
-    {
-        int listLength = spots.Count;
-        int random;
-        Spot temp;
-        while (--listLength > 0)
-        {
-            random = UnityEngine.Random.Range(0, listLength);
-            temp = spots[random];
-            spots[random] = spots[listLength];
-            spots[listLength] = temp;
-        }
-        return spots;
-    }
-
-    public void GetPupilOutofClassroom(AI pupil)
+    /*==================================
+     * Class IO
+     * =================================
+     */
+    public void ExitClass(AI pupil)
     {
         pupilsInClass.Remove(pupil);
     }
+
+    public void EnterClass(AI pupil)
+    {
+        pupilsInClass.Add(pupil);
+    }
+
+    public bool IsInsideClass(AI pupil)
+    {
+        return (pupilsInClass.Contains(pupil));
+    }
+
+
+    /*====================================
+     * Classroom Main Methods
+     * ===================================
+     */
 
     private List<int> StructureAClass()
     {
@@ -284,8 +325,11 @@ public class Classroom : MonoBehaviour
         }
         classTime = 0;
     }
-
-
+    
+    /*====================================
+     * Classroom Activities
+     * ===================================
+     */
     IEnumerator BoardActivity()
     {
         boardSpots = ShuffleSpots(boardSpots);
@@ -397,20 +441,7 @@ public class Classroom : MonoBehaviour
         }
     }
 
-    bool CompareProximity( Spot randomDesk, List<Spot> desks)
-    {
-        bool tooClose = false;
-        foreach(Spot desk in desks)
-        {
-            if (Vector3.Distance(randomDesk.transform.position, 
-                                    desk.transform.position)< minDistanceGroupActivity)
-            {
-                tooClose = true;
-            }
-        }
-        return tooClose;
-
-    }
+    
 
 
 }
