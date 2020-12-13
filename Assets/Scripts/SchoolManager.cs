@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class SchoolManager : MonoBehaviour
 {
@@ -28,13 +29,15 @@ public class SchoolManager : MonoBehaviour
     //Class internal Properties
     List<int> classTimes = new List<int>();
     float timer = 0f;
-    int currentPeriodIndex = 0; 
+    int currentPeriodIndex = 0;
+    //NavMeshPath path;
+    
 
     private void Awake()
     {
         AllocateSubSpaces();
         ScheduleClasses();
-        
+        //path = new NavMeshPath();
     }
 
     private void Start()
@@ -42,6 +45,16 @@ public class SchoolManager : MonoBehaviour
         StartSchoolDay();
     }
 
+    private void Update()
+    {
+        RunSchoolTimer();
+        OssilateClassSessions();
+    }
+
+    /*==========================================
+     * School Main Methods
+     * =========================================
+     */
     private void StartSchoolDay()
     {
         schoolDay = true;
@@ -50,45 +63,6 @@ public class SchoolManager : MonoBehaviour
         {
             classroom.StartClass();
         }
-    }
-
-    private void AllocateSubSpaces()
-    {
-        var classroomsArray = FindObjectsOfType<Classroom>();
-        foreach (var classroom in classroomsArray)
-        {
-            classrooms.Add(classroom);
-        }
-
-        var bathroomArray = FindObjectsOfType<Bathroom>();
-        foreach (var bathroom in bathroomArray)
-        {
-            bathrooms.Add(bathroom);
-        }
-
-        var corridorArray = FindObjectsOfType<Corridor>();
-        foreach (var corridor in corridorArray)
-        {
-            corridors.Add(corridor);
-        }
-
-        var teacherroomsArray = FindObjectsOfType<Teachersroom>();
-        foreach (var teacherRoom in teacherroomsArray)
-        {
-            teachersrooms.Add(teacherRoom);
-        }
-
-        var labsArray = FindObjectsOfType<Lab>();
-        foreach (var lab in labsArray)
-        {
-            labs.Add(lab);
-        }
-    }
-
-    private void Update()
-    {
-        RecordTime();
-        OssilateClassSessions();
     }
 
     private void OssilateClassSessions()
@@ -125,7 +99,7 @@ public class SchoolManager : MonoBehaviour
                 }
             }
         }
-        
+
     }
 
     private void EndSchoolDay()
@@ -135,7 +109,7 @@ public class SchoolManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    private void RecordTime()
+    private void RunSchoolTimer()
     {
         timer += Time.deltaTime;
         if (timer >= simTimeScale)
@@ -146,6 +120,67 @@ public class SchoolManager : MonoBehaviour
         //Debug.Log(classTime);
     }
 
+    private void ScheduleClasses()
+    {
+        for (int i = 0; i < numPeriods * 2; i++)
+        {
+            if (i == 0)
+            {
+                classTimes.Add(40);
+                continue;
+            }
+            else if (i % 2 != 0)
+            {
+                classTimes.Add(classTimes[i - 1] + (60 - periodLength));
+            }
+            else if (i % 2 == 0)
+            {
+                classTimes.Add(classTimes[i - 1] + periodLength);
+            }
+        }
+
+    }
+    /*==========================================
+     * Collection of subspaces
+     * =========================================
+     */
+    private void AllocateSubSpaces()
+    {
+        var classroomsArray = FindObjectsOfType<Classroom>();
+        foreach (var classroom in classroomsArray)
+        {
+            classrooms.Add(classroom);
+        }
+
+        var bathroomArray = FindObjectsOfType<Bathroom>();
+        foreach (var bathroom in bathroomArray)
+        {
+            bathrooms.Add(bathroom);
+        }
+
+        var corridorArray = FindObjectsOfType<Corridor>();
+        foreach (var corridor in corridorArray)
+        {
+            corridors.Add(corridor);
+        }
+
+        var teacherroomsArray = FindObjectsOfType<Teachersroom>();
+        foreach (var teacherRoom in teacherroomsArray)
+        {
+            teachersrooms.Add(teacherRoom);
+        }
+
+        var labsArray = FindObjectsOfType<Lab>();
+        foreach (var lab in labsArray)
+        {
+            labs.Add(lab);
+        }
+    }
+    
+    /*==========================================
+     * School properties getters, setters
+     * =========================================
+     */
     public int GetPeriodTime()
     {
         return periodLength;
@@ -161,26 +196,65 @@ public class SchoolManager : MonoBehaviour
         return sessionActivityMinTime;
     }
 
-    private void ScheduleClasses()
+    public Bathroom GetNearestBathroom(AI pupil)
     {
-        for (int i = 0; i < numPeriods * 2; i++)
+        Bathroom nearestBathroom = null;
+        float distance = Mathf.Infinity;
+        Vector3 pupilPos = pupil.transform.position;
+        //NavMeshPath path = new NavMeshPath();
+        foreach (Bathroom bathroom in bathrooms)
         {
-            if (i == 0)
+            if (Vector3.Distance(bathroom.transform.position, pupil.transform.position) < distance)
             {
-                classTimes.Add(40);
-                continue;
+                distance = Vector3.Distance(bathroom.transform.position, pupilPos);
+                nearestBathroom = bathroom;
             }
-            else if (i % 2 != 0)
-            { 
-                classTimes.Add(classTimes[i - 1] + (60 - periodLength));
-            }
-            else if (i % 2 == 0)
+            /*
+            //Debug.Log(NavMesh.CalculatePath(pupilPos, bathroom.transform.position, NavMesh.AllAreas, path));
+            Vector3 bathroomPos = bathroom.transform.position;
+            NavMesh.CalculatePath(pupilPos, bathroomPos, NavMesh.AllAreas, path);
+            
+            while (!(path.status == NavMeshPathStatus.PathComplete))
             {
-                classTimes.Add(classTimes[i - 1] + periodLength);
+                NavMeshHit hit;
+                NavMesh.SamplePosition(bathroomPos, out hit, 1, NavMesh.AllAreas);
+                bathroomPos = hit.position;
+                NavMesh.CalculatePath(pupilPos, bathroomPos, NavMesh.AllAreas, path);
             }
+            
+            if (PathLength(path) < distance)
+            {
+                nearestBathroom = bathroom;
+                distance = PathLength(path);
+                Debug.Log(distance);
+            }
+            */
         }
-
+        return nearestBathroom;
     }
+
+    float PathLength(NavMeshPath path)
+    {
+        if (path.corners.Length < 2)
+            return 0;
+
+        Vector3 previousCorner = path.corners[0];
+        float lengthSoFar = 0.0F;
+        int i = 1;
+        while (i < path.corners.Length)
+        {
+            Vector3 currentCorner = path.corners[i];
+            lengthSoFar += Vector3.Distance(previousCorner, currentCorner);
+            previousCorner = currentCorner;
+            i++;
+        }
+        return lengthSoFar;
+    }
+
+    /*===============================================
+     * Debugging
+     * ==============================================
+     */
 
     void OnGUI()
     {

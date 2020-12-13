@@ -17,28 +17,27 @@ public class AI : MonoBehaviour
     private bool busy = false;
     Vector3 originalPosition;
     Classroom currentClass;
-    bool idle = true;
+    Bathroom currentBathroom;
+    bool onDesk;
     Spot currentSpot;
-    Vector3 distination;
+    Vector3 destination;
+    float minToiletTime = 4f;
+    float maxToiletTime = 10f;
 
     //temp properties
-    bool behaviorTesting = true;
+
     
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         school = FindObjectOfType<SchoolManager>();
-
-        if (behaviorTesting)
-        {
-            GoToBathroom();
-        }
     }
 
     
     void Update()
     {
-        SetDestination(distination);
+        agent.SetDestination(destination);
+        //SetDestination(distination);
         SetIdlePose();
     }
 
@@ -85,6 +84,10 @@ public class AI : MonoBehaviour
                 currentClass.EnterClass(this);
             }
         }
+        else if (other.CompareTag("Bathroom"))
+        {
+            currentBathroom = other.GetComponent<Bathroom>();
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -93,7 +96,6 @@ public class AI : MonoBehaviour
         {
             other.GetComponent<Classroom>().ExitClass(this);
             currentClass = null;
-            //untested
         }
     }
 
@@ -102,14 +104,16 @@ public class AI : MonoBehaviour
      *            Directions Controls
      * ======================================
     */
+    [Task]
     public void BackToDesk()
     {
-        distination = originalPosition;
+        destination = originalPosition;
+        Task.current.Succeed();
     }
 
     private void LookAtBoard()
     {
-        if(idle)
+        if(onDesk)
         {
             Vector3 boardDirection = currentClass.board.gameObject.transform.position;
             agent.updateRotation = false;
@@ -146,17 +150,21 @@ public class AI : MonoBehaviour
      * Continuous Methods
      * ================================
      */
-    public void SetDestination(Vector3 destination)
+    public void GuideTo(Vector3 destination)
     {
-        agent.SetDestination(destination);
+        this.destination = destination;
     }
 
     private void SetIdlePose()
     {
         if (Vector3.Distance(transform.position, originalPosition) < .1f)
         {
-            idle = true;
+            onDesk = true;
             LookAtBoard();
+        }
+        else
+        {
+            onDesk = false;
         }
     }
 
@@ -164,9 +172,65 @@ public class AI : MonoBehaviour
      * Behaviors
      * ==================================
      */
-
+    [Task]
     private void GoToBathroom()
     {
-        throw new NotImplementedException();
+        Bathroom nearestBathroom = school.GetNearestBathroom(this);
+        if (nearestBathroom == null)
+        {
+            Task.current.Fail();
+            return;
+        }
+        GuideTo(nearestBathroom.transform.position);
+        Task.current.Succeed();
+    }
+
+    [Task]
+    void ConfirmReach()
+    {
+        if (Task.isInspected)
+        {
+            Task.current.debugInfo = string.Format("dest = {0}", agent.destination);
+        }
+
+        if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
+        {
+            Task.current.Succeed();
+        }
+    }
+    [Task]
+    void ConfirmBathroomReach()
+    {
+        if (Task.isInspected)
+        {
+            Task.current.debugInfo = string.Format("dest = {0}", agent.destination);
+        }
+
+        if (agent.remainingDistance <= 1 && !agent.pathPending)
+        {
+            Task.current.Succeed();
+        }
+    }
+
+    [Task]
+    void GoToToilet()
+    {
+        if (currentBathroom == null) { return; }
+        Spot toilet = currentBathroom.GetAToilet(this);
+        if (toilet == null) 
+        { 
+            Task.current.Fail();
+            return;
+        }
+        currentSpot = toilet;
+        GuideTo(toilet.transform.position);
+        Task.current.Succeed();
+    }
+
+    [Task]
+    void ExitBathroom()
+    {
+        currentBathroom.ReleaseToilet(currentSpot);
+        Task.current.Succeed();
     }
 }

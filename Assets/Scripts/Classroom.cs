@@ -197,6 +197,7 @@ public class Classroom : MonoBehaviour
     public void EnterClass(AI pupil)
     {
         pupilsInClass.Add(pupil);
+        pupil.SetBusyTo(true);
     }
 
     public bool IsInsideClass(AI pupil)
@@ -215,9 +216,9 @@ public class Classroom : MonoBehaviour
         if (customStructureTimes)
         {
             classStructureTimes.Add(1);
-            classStructureTimes.Add(19);
-            classStructureTimes.Add(10);
-            classStructureTimes.Add(10);
+            classStructureTimes.Add(3);
+            classStructureTimes.Add(6);
+            classStructureTimes.Add(29);
         }
         else
         {
@@ -332,112 +333,117 @@ public class Classroom : MonoBehaviour
      */
     IEnumerator BoardActivity()
     {
-        boardSpots = ShuffleSpots(boardSpots);
-        int randomIndex = Random.Range(1, boardSpots.Count);
-        for (int i = 0; i < randomIndex; i++)
+        if (pupilsInClass.Count != 0)
         {
-            pupilsInClass[i].AssignSpot(boardSpots[i]);
-            boardSpots[i].FillSpot(pupilsInClass[i]);
-            pupilsInClass[i].SetDestination(boardSpots[i].transform.position);
-        }
-        yield return new WaitForSecondsRealtime((classStructureTimes[activeSection]-2) * timeStep);
-        for (int i = 0; i < randomIndex; i++)
-        {
-            var spot  = pupilsInClass[i].ReleaseSpot();
-            spot.ClearSpot();
-            pupilsInClass[i].BackToDesk();
-        }
+            boardSpots = ShuffleSpots(boardSpots);
+            int randomIndex = Random.Range(1, boardSpots.Count);
+            for (int i = 0; i < randomIndex; i++)
+            {
+                pupilsInClass[i].AssignSpot(boardSpots[i]);
+                boardSpots[i].FillSpot(pupilsInClass[i]);
+                pupilsInClass[i].GuideTo(boardSpots[i].transform.position);
+            }
+            yield return new WaitForSecondsRealtime((classStructureTimes[activeSection] - 2) * timeStep);
+            for (int i = 0; i < randomIndex; i++)
+            {
+                var spot = pupilsInClass[i].ReleaseSpot();
+                spot.ClearSpot();
+                pupilsInClass[i].BackToDesk();
+            }
+        }    
     }
 
     IEnumerator GroupActivity()
     {
-        
-        List<Spot> selectedDesks = new List<Spot>();
-        for (int i = 0; i < 1000; i++)
+        if (pupilsInClass.Count != 0)
         {
-            List<Spot> availableDesks = new List<Spot>(desks);
-
-            while (selectedDesks.Count < numSpotsForGroupActivity && availableDesks.Count > 0)
+            List<Spot> selectedDesks = new List<Spot>();
+            for (int i = 0; i < 1000; i++)
             {
-                Spot randomDesk = availableDesks[Random.Range(0, availableDesks.Count)];
-                bool tooClose = false;
-                if (selectedDesks == null)
+                List<Spot> availableDesks = new List<Spot>(desks);
+
+                while (selectedDesks.Count < numSpotsForGroupActivity && availableDesks.Count > 0)
                 {
-                    selectedDesks.Add(randomDesk);
-                    availableDesks.Remove(randomDesk);
-                }
-                else
-                {
-                    tooClose = CompareProximity(randomDesk, selectedDesks);
-                    if (!tooClose)
+                    Spot randomDesk = availableDesks[Random.Range(0, availableDesks.Count)];
+                    bool tooClose = false;
+                    if (selectedDesks == null)
                     {
                         selectedDesks.Add(randomDesk);
                         availableDesks.Remove(randomDesk);
                     }
                     else
                     {
-                        availableDesks.Remove(randomDesk);
+                        tooClose = CompareProximity(randomDesk, selectedDesks);
+                        if (!tooClose)
+                        {
+                            selectedDesks.Add(randomDesk);
+                            availableDesks.Remove(randomDesk);
+                        }
+                        else
+                        {
+                            availableDesks.Remove(randomDesk);
+                        }
                     }
+                }
+
+                if (selectedDesks.Count >= 4)
+                {
+                    break;
+                }
+                else
+                {
+                    selectedDesks.Clear();
                 }
             }
 
-            if (selectedDesks.Count >= 4)
+            if (selectedDesks == null)
             {
-                break;
+                Debug.LogError("Could not find a solution, please reduce space proximity option!");
             }
             else
             {
-                selectedDesks.Clear();
-            }
-        }
-
-        if (selectedDesks == null)
-        {
-            Debug.LogError("Could not find a solution, please reduce space proximity option!");
-        }
-        else
-        {
-            List<AI> pupilsAvailableforActivity = new List<AI>(pupilsInClass);
-            foreach (Spot desk in selectedDesks)
-            {
-                //Debug.Log(desk.name);
-                //Instantiate(indicator, desk.transform.position, Quaternion.identity);
-
-                List<AI> closestStudents = new List<AI>();
-
-                int searchIndex = 1;
-                while (closestStudents.Count < 4)
+                List<AI> pupilsAvailableforActivity = new List<AI>(pupilsInClass);
+                foreach (Spot desk in selectedDesks)
                 {
-                    foreach (AI pupil in pupilsAvailableforActivity.ToArray())
+                    //Debug.Log(desk.name);
+                    //Instantiate(indicator, desk.transform.position, Quaternion.identity);
+
+                    List<AI> closestStudents = new List<AI>();
+
+                    int searchIndex = 1;
+                    while (closestStudents.Count < 4)
                     {
-                        if (Vector3.Distance(desk.transform.position, pupil.transform.position) < searchIndex )
+                        foreach (AI pupil in pupilsAvailableforActivity.ToArray())
                         {
-                            closestStudents.Add(pupil);
-                            pupilsAvailableforActivity.Remove(pupil);
-                            if(closestStudents.Count >= 4)
+                            if (Vector3.Distance(desk.transform.position, pupil.transform.position) < searchIndex)
                             {
-                                break;
+                                closestStudents.Add(pupil);
+                                pupilsAvailableforActivity.Remove(pupil);
+                                if (closestStudents.Count >= 4)
+                                {
+                                    break;
+                                }
                             }
-                        }    
+                        }
+                        searchIndex++;
                     }
-                    searchIndex++;
-                }
-                searchIndex = 1;
-                foreach(AI pupil in closestStudents)
-                {
-                    pupil.setStoppingDistance(.5f);
-                    pupil.SetDestination(new Vector3(desk.transform.position.x + deskGroupActivityCompensationX,
-                                                        0f,
-                                                        desk.transform.position.z + deskGroupActivityCompensationZ));
+                    searchIndex = 1;
+                    foreach (AI pupil in closestStudents)
+                    {
+                        pupil.setStoppingDistance(.5f);
+                        pupil.GuideTo(new Vector3(desk.transform.position.x + deskGroupActivityCompensationX,
+                                                            0f,
+                                                            desk.transform.position.z + deskGroupActivityCompensationZ));
+                    }
                 }
             }
-        }
-        
-        yield return new WaitForSecondsRealtime((classStructureTimes[activeSection] - 2) * timeStep);
-        foreach (AI pupil in pupilsInClass)
-        {
-            pupil.setStoppingDistance(0.3f);
-            pupil.BackToDesk();
+
+            yield return new WaitForSecondsRealtime((classStructureTimes[activeSection] - 2) * timeStep);
+            foreach (AI pupil in pupilsInClass)
+            {
+                pupil.setStoppingDistance(0.3f);
+                pupil.BackToDesk();
+            }
         }
     }
 

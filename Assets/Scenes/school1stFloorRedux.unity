@@ -107,15 +107,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.15
+    agentRadius: 0.05
     agentHeight: 1.3
     agentSlope: 45
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
-    manualCellSize: 0
-    cellSize: 0.05
+    manualCellSize: 1
+    cellSize: 0.011
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -175,7 +175,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &40116001
 Transform:
   m_ObjectHideFlags: 0
@@ -226,7 +226,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.8399999
+      value: -3.0299995
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -273,6 +273,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toilet (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
 --- !u!4 &85039274 stripped
@@ -307,7 +312,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.23999977
+      value: -0.9499998
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -353,6 +358,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Toilet (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
@@ -443,7 +453,7 @@ GameObject:
   m_Layer: 0
   m_Name: Bathroom (2)
   m_TagString: Bathroom
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -455,7 +465,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 289861772}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.85, y: 1.5, z: -21.01}
+  m_LocalPosition: {x: 9.85, y: 1.5, z: -19.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 476964427}
@@ -502,8 +512,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8.94, y: 3, z: 4.37}
-  m_Center: {x: 0.20088577, y: 0, z: -0.037525177}
+  m_Size: {x: 8.94, y: 3, z: 4.2144566}
+  m_Center: {x: 0.20088577, y: 0, z: -1.58183}
 --- !u!54 &289861776
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -614,7 +624,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.47
+      value: -1.6599996
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -660,6 +670,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Toilet (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
@@ -793,7 +808,7 @@ PrefabInstance:
     - target: {fileID: 6339724418118805889, guid: 99b61440493d6b54c9e1d85d2dc9bf69,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.34
+      value: -17.96
       objectReference: {fileID: 0}
     - target: {fileID: 6339724418118805889, guid: 99b61440493d6b54c9e1d85d2dc9bf69,
         type: 3}
@@ -803,7 +818,7 @@ PrefabInstance:
     - target: {fileID: 6339724418118805889, guid: 99b61440493d6b54c9e1d85d2dc9bf69,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.13
+      value: -17.59
       objectReference: {fileID: 0}
     - target: {fileID: 6339724418118805889, guid: 99b61440493d6b54c9e1d85d2dc9bf69,
         type: 3}
@@ -844,16 +859,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6339724418118805889, guid: 99b61440493d6b54c9e1d85d2dc9bf69,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6339724418118805889, guid: 99b61440493d6b54c9e1d85d2dc9bf69,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6679094881373598523, guid: 99b61440493d6b54c9e1d85d2dc9bf69,
         type: 3}
@@ -957,7 +962,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.7099999
+      value: -1.9
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -1003,6 +1008,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Toilet (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
@@ -1234,85 +1244,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d7227cd1a64bda48ad436b31b6497b1, type: 3}
---- !u!1 &509104586
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 509104590}
-  - component: {fileID: 509104589}
-  - component: {fileID: 509104588}
-  m_Layer: 0
-  m_Name: Sphere
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!23 &509104588
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 509104586}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &509104589
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 509104586}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &509104590
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 509104586}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.795898, y: 5.86084, z: 12.430048}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &548217881 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
@@ -1351,7 +1282,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.13
+      value: -2.3199997
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -1398,6 +1329,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toilet (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
 --- !u!1001 &569276495
@@ -1410,7 +1346,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.25
+      value: -3.1099997
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -1420,7 +1356,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.8399999
+      value: -3.0299995
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -1467,6 +1403,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toilet (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
 --- !u!1001 &574867524
@@ -1489,7 +1430,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.91
+      value: -0.27999955
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -1536,6 +1477,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toilet (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
 --- !u!1001 &632972993
@@ -1558,7 +1504,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.23999977
+      value: -1.1799984
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -1605,6 +1551,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toilet (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
 --- !u!1001 &662326343
@@ -1627,7 +1578,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.47
+      value: -1.8899982
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -1674,6 +1625,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toilet (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
 --- !u!4 &669825218 stripped
@@ -1702,7 +1658,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.73
+      value: -3.1499982
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -1748,6 +1704,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Toilet (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
@@ -1993,7 +1954,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.91
+      value: -0.50999814
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -2039,6 +2000,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Toilet (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
@@ -2144,7 +2110,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.25
+      value: -3.11
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -2154,7 +2120,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.6199999
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -2201,6 +2167,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toilet (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
 --- !u!4 &770520465 stripped
@@ -2235,7 +2206,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.23999977
+      value: -1.1799984
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -2281,6 +2252,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Toilet (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
@@ -2396,7 +2372,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.13
+      value: -2.5499983
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -2442,6 +2418,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Toilet (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
@@ -2554,7 +2535,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.7099999
+      value: -1.8999995
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -2600,6 +2581,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Toilet (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
@@ -2715,7 +2701,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.73
+      value: -2.9199996
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -2761,6 +2747,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Toilet (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
@@ -2883,7 +2874,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.73
+      value: -2.9199996
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -2929,6 +2920,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Toilet (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
@@ -3026,7 +3022,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.6199999
+      value: 0.20000172
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -3072,6 +3068,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Toilet (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
@@ -3256,7 +3257,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.35
+      value: -0.83999956
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -3302,6 +3303,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Toilet (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
@@ -3386,36 +3392,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1246678759}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1265073360
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1265073361}
-  m_Layer: 0
-  m_Name: Destination
-  m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1265073361
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1265073360}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20.32, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1273688065
 GameObject:
   m_ObjectHideFlags: 0
@@ -3431,7 +3407,7 @@ GameObject:
   m_Layer: 0
   m_Name: Bathroom (1)
   m_TagString: Bathroom
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3446,8 +3422,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8.695349, y: 3, z: 4.4196625}
-  m_Center: {x: 0.20088577, y: 0, z: -0.037525177}
+  m_Size: {x: 8.695349, y: 3, z: 4.163642}
+  m_Center: {x: 0.20088577, y: 0, z: -1.4029603}
 --- !u!54 &1273688067
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3505,7 +3481,7 @@ Transform:
   m_Children:
   - {fileID: 2092606183}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1395571128
 PrefabInstance:
@@ -3675,7 +3651,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.35
+      value: -1.0699981
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -3722,6 +3698,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toilet (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
 --- !u!4 &1441144520 stripped
@@ -3750,7 +3731,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.6199999
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -3797,6 +3778,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toilet (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
 --- !u!4 &1476159450 stripped
@@ -3827,7 +3813,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.25
+      value: -3.1099997
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -3837,7 +3823,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.13
+      value: -2.39
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -3884,6 +3870,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toilet (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
 --- !u!4 &1545891915 stripped
@@ -3914,7 +3905,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.25
+      value: -3.1099997
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -3924,7 +3915,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.91
+      value: -0.36
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -3970,6 +3961,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Toilet (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
@@ -4068,7 +4064,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.61
+      value: -3.0299983
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -4114,6 +4110,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Toilet (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
@@ -4223,7 +4224,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.91
+      value: -0.50999814
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -4269,6 +4270,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Toilet (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
@@ -4459,7 +4465,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.46999893
+      value: -0.9499992
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -4506,6 +4512,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toilet (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
 --- !u!1001 &1702842396
@@ -4528,7 +4539,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.8399999
+      value: -3.259998
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -4575,6 +4586,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toilet (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
 --- !u!4 &1718727939 stripped
@@ -4603,7 +4619,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.8399999
+      value: -3.259998
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -4649,6 +4665,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Toilet (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
@@ -4746,7 +4767,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.7099999
+      value: -2.1299982
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -4793,6 +4814,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toilet (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
 --- !u!4 &1851215745 stripped
@@ -4827,7 +4853,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.35
+      value: -0.97
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -4874,6 +4900,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toilet (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
 --- !u!4 &1868665756 stripped
@@ -4902,7 +4933,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.13
+      value: -2.5499983
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -4948,6 +4979,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Toilet (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
@@ -5132,7 +5168,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.47
+      value: -1.8899982
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -5178,6 +5214,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Toilet (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
@@ -5389,7 +5430,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.25
+      value: -3.1099997
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -5399,7 +5440,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.47
+      value: -1.76
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -5446,6 +5487,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toilet (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
 --- !u!4 &2092606183 stripped
@@ -5464,7 +5510,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.25
+      value: -3.1099997
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -5474,7 +5520,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.23999977
+      value: -1.05
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -5521,6 +5567,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toilet (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
 --- !u!4 &2126631924 stripped
@@ -5549,7 +5600,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.590001
+      value: -2.0099993
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -5596,6 +5647,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toilet (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
 --- !u!1001 &203255003939626813
@@ -5618,7 +5674,7 @@ PrefabInstance:
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.6199999
+      value: 0.4300003
       objectReference: {fileID: 0}
     - target: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
         type: 3}
@@ -5664,6 +5720,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Toilet (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 203255003755251830, guid: dce230e84c6438c4ea841ee0ea8531b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
@@ -5933,7 +5994,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1273688065}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.04, y: 1.5, z: 10.06}
+  m_LocalPosition: {x: -4.04, y: 1.5, z: 11.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1023629132}
@@ -5984,11 +6045,11 @@ PrefabInstance:
         type: 3}
       propertyPath: indicator
       value: 
-      objectReference: {fileID: 509104586}
+      objectReference: {fileID: 0}
     - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: customStructureTimes
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}

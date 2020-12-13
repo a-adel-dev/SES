@@ -1,0 +1,14 @@
+tree("Root")
+	sequence
+		sequence
+			GoToBathroom
+			ConfirmBathroomReach
+			GoToToilet
+			ConfirmReach
+			Wait(5.0)
+			ExitBathroom
+		sequence
+			BackToDesk
+			ConfirmReach
+		
+

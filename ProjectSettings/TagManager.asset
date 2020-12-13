@@ -16,6 +16,7 @@ TagManager:
   - BoardSpot
   - Teachersroom
   - Lab
+  - BathroomTarget
   layers:
   - Default
   - TransparentFX
