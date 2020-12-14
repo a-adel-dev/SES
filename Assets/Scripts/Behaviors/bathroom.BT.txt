@@ -1,14 +1,21 @@
 tree("Root")
-	sequence
+	while not IsBusy
 		sequence
-			GoToBathroom
-			ConfirmBathroomReach
-			GoToToilet
-			ConfirmReach
-			Wait(5.0)
-			ExitBathroom
-		sequence
-			BackToDesk
-			ConfirmReach
+			sequence
+				GoToBathroom
+				ConfirmBathroomReach
+				GoToToilet
+				ConfirmReach
+				random
+					Wait(5.0)
+					Wait(6.0)
+					Wait(7.0)
+					Wait(8.0)
+					Wait(9.0)
+					Wait(10.0)
+				ExitBathroom
+			sequence
+				BackToDesk
+				ConfirmReach
 		
 

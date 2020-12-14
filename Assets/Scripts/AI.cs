@@ -25,12 +25,13 @@ public class AI : MonoBehaviour
     float maxToiletTime = 10f;
 
     //temp properties
-
+    float remainingDistance;
     
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         school = FindObjectOfType<SchoolManager>();
+        
     }
 
     
@@ -39,6 +40,10 @@ public class AI : MonoBehaviour
         agent.SetDestination(destination);
         //SetDestination(distination);
         SetIdlePose();
+        remainingDistance = agent.remainingDistance;
+        var remaining = (destination - this.transform.position);
+        Debug.DrawRay(this.transform.position, remaining, Color.red);
+
     }
 
     
@@ -46,6 +51,7 @@ public class AI : MonoBehaviour
      * Properties Getters, setters
      * ============================================
      */
+    [Task]
     public bool IsBusy()
     {
         return busy;
@@ -54,14 +60,7 @@ public class AI : MonoBehaviour
     public void SetBusyTo(bool status)
     {
         busy = status;
-        if (status)
-        {
-            GetComponent<PandaBehaviour>().enabled = false;
-        }
-        else
-        {
-            GetComponent<PandaBehaviour>().enabled = true;
-        }
+
     }
 
     public void SetOriginalPosition(Vector3 position)
@@ -128,6 +127,12 @@ public class AI : MonoBehaviour
         agent.stoppingDistance = dist;
     }
 
+    public void GuideTo(Vector3 destination)
+    {
+        
+        this.destination = new Vector3 (destination.x, 0f , destination.z);
+    }
+
     /*
      * ================================
      *          Spot Management
@@ -150,10 +155,7 @@ public class AI : MonoBehaviour
      * Continuous Methods
      * ================================
      */
-    public void GuideTo(Vector3 destination)
-    {
-        this.destination = destination;
-    }
+    
 
     private void SetIdlePose()
     {
@@ -233,4 +235,6 @@ public class AI : MonoBehaviour
         currentBathroom.ReleaseToilet(currentSpot);
         Task.current.Succeed();
     }
+
+
 }
