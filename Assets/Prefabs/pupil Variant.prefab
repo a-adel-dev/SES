@@ -78,7 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scripts:
   - {fileID: 4900000, guid: e9459585155a66249bfc3f4424835de5, type: 3}
-  autoReset: 0
+  autoReset: 1
   tickOn: 0
   sourceInfos:
   - isFoldout: 1

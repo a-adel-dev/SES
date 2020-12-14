@@ -103,11 +103,13 @@ public class Classroom : MonoBehaviour
             GameObject pupil = Instantiate(pupilPrefab,
                         deskPosition,
                         Quaternion.identity) as GameObject;
-
+            AI pupilAI = pupil.GetComponent<AI>();
             pupil.transform.parent = transform;
-            pupil.GetComponent<AI>().SetOriginalPosition(new Vector3(deskPosition.x, 0, deskPosition.z));
-            classroomPupils.Add(pupil.GetComponent<AI>());
-            pupilsInClass.Add(pupil.GetComponent<AI>());
+            pupilAI.SetOriginalPosition(new Vector3(deskPosition.x, 0, deskPosition.z));
+            pupilAI.SetMainClassroom(this);
+            pupilAI.SetCurrentClass(this);
+            classroomPupils.Add(pupilAI);
+            pupilsInClass.Add(pupilAI);
             pupil.name = "pupil " + counter.ToString();
             counter++;
         }
@@ -189,22 +191,28 @@ public class Classroom : MonoBehaviour
      * Class IO
      * =================================
      */
-    public void ExitClass(AI pupil)
-    {
-        pupilsInClass.Remove(pupil);
-    }
 
-    public void EnterClass(AI pupil)
-    {
-        pupilsInClass.Add(pupil);
-        pupil.SetBusyTo(true);
-    }
 
     public bool IsInsideClass(AI pupil)
     {
         return (pupilsInClass.Contains(pupil));
     }
 
+    public void AddToPupilsInClass(AI agent)
+    {
+        if (!pupilsInClass.Contains(agent))
+        {
+            pupilsInClass.Add(agent);
+        }
+    }
+
+    public void RemoveFromClass(AI agent)
+    {
+        if (pupilsInClass.Contains(agent))
+        {
+            pupilsInClass.Remove(agent);
+        }
+    }
 
     /*====================================
      * Classroom Main Methods
@@ -275,7 +283,7 @@ public class Classroom : MonoBehaviour
         if (classStructureTimes[activeSection] < sessionActivityMinTime)
         {
             activity = false;
-            foreach (AI pupil in pupilsInClass)
+            foreach (AI pupil in classroomPupils)
             {
                 pupil.SetBusyTo(false);
             }
@@ -283,7 +291,7 @@ public class Classroom : MonoBehaviour
         else
         {
             activity = true;
-            foreach (AI pupil in pupilsInClass)
+            foreach (AI pupil in classroomPupils)
             {
                 pupil.SetBusyTo(true);
             }
@@ -333,6 +341,7 @@ public class Classroom : MonoBehaviour
      */
     IEnumerator BoardActivity()
     {
+        Debug.Log("board");
         if (pupilsInClass.Count != 0)
         {
             boardSpots = ShuffleSpots(boardSpots);
@@ -355,6 +364,7 @@ public class Classroom : MonoBehaviour
 
     IEnumerator GroupActivity()
     {
+        Debug.Log("Group");
         if (pupilsInClass.Count != 0)
         {
             List<Spot> selectedDesks = new List<Spot>();

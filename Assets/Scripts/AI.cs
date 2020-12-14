@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 using Panda;
 
@@ -17,12 +14,14 @@ public class AI : MonoBehaviour
     private bool busy = false;
     Vector3 originalPosition;
     Classroom currentClass;
+    Classroom mainClassroom;
     Bathroom currentBathroom;
     bool onDesk;
     Spot currentSpot;
     Vector3 destination;
     float minToiletTime = 4f;
     float maxToiletTime = 10f;
+    bool wentToBathroom = false;
 
     //temp properties
     float remainingDistance;
@@ -67,6 +66,16 @@ public class AI : MonoBehaviour
     {
         originalPosition = position;
     }
+
+    public void SetMainClassroom(Classroom classroom)
+    {
+        mainClassroom = classroom;
+    }
+
+    public void SetCurrentClassroom(Classroom classroom)
+    {
+        currentClass = classroom;
+    }
     /*
     ===============================================
               Collision space detection
@@ -74,28 +83,20 @@ public class AI : MonoBehaviour
     */
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Classroom"))
-        {
-            currentClass = other.GetComponent<Classroom>();
-            //check if student is alrady in class, if not, add it to class
-            if ( !currentClass.IsInsideClass(this))
-            {
-                currentClass.EnterClass(this);
-            }
-        }
-        else if (other.CompareTag("Bathroom"))
+        if (other.CompareTag("Bathroom"))
         {
             currentBathroom = other.GetComponent<Bathroom>();
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void SetCurrentClass(Classroom classroom)
     {
-        if (other.CompareTag("Classroom"))
-        {
-            other.GetComponent<Classroom>().ExitClass(this);
-            currentClass = null;
-        }
+        currentClass = classroom;
+    }
+
+    public void ClearCurrentClass()
+    {
+        currentClass = null;
     }
 
     /*
@@ -112,7 +113,7 @@ public class AI : MonoBehaviour
 
     private void LookAtBoard()
     {
-        if(onDesk)
+        if(onDesk && currentClass != null)
         {
             Vector3 boardDirection = currentClass.board.gameObject.transform.position;
             agent.updateRotation = false;
@@ -150,12 +151,24 @@ public class AI : MonoBehaviour
         return releasedSpot;
     }
 
+    public void ExitClass(Classroom classroom)
+    {
+        classroom.RemoveFromClass(this);
+        ClearCurrentClass();
+    }
+
+    public void EnterClass(Classroom classroom)
+    {
+        classroom.AddToPupilsInClass(this);
+        SetCurrentClass(classroom);
+        //pupil.SetBusyTo(true);
+    }
 
     /*=================================
      * Continuous Methods
      * ================================
      */
-    
+
 
     private void SetIdlePose()
     {
@@ -177,6 +190,13 @@ public class AI : MonoBehaviour
     [Task]
     private void GoToBathroom()
     {
+        if (!ClearToGo())
+        {
+            Task.current.Fail();
+            return;
+        }
+        wentToBathroom = true;
+        ExitClass(currentClass);
         Bathroom nearestBathroom = school.GetNearestBathroom(this);
         if (nearestBathroom == null)
         {
@@ -233,6 +253,37 @@ public class AI : MonoBehaviour
     void ExitBathroom()
     {
         currentBathroom.ReleaseToilet(currentSpot);
+        Task.current.Succeed();
+    }
+
+    bool ClearToGo()
+    {
+        if (Random.Range(0f, 1f) <.1f )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    [Task]
+    bool WentToBathroom()
+    {
+        return wentToBathroom;
+    }
+
+    [Task]
+    void ClearStatus()
+    {
+        wentToBathroom = false;
+        Task.current.Succeed();
+    }
+
+    [Task]
+    void ResetClassRoom()
+    {
+        currentClass = mainClassroom;
         Task.current.Succeed();
     }
 

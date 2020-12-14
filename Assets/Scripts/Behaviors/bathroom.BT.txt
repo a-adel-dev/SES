@@ -1,21 +1,32 @@
 tree("Root")
-	while not IsBusy
-		sequence
-			sequence
-				GoToBathroom
-				ConfirmBathroomReach
-				GoToToilet
-				ConfirmReach
-				random
-					Wait(5.0)
-					Wait(6.0)
-					Wait(7.0)
-					Wait(8.0)
-					Wait(9.0)
-					Wait(10.0)
-				ExitBathroom
-			sequence
-				BackToDesk
-				ConfirmReach
+		Fallback
+			while not IsBusy
+				Fallback
+					sequence
+						GoToBathroom
+						ConfirmBathroomReach
+						GoToToilet
+						ConfirmReach
+						random
+							Wait(5.0)
+							Wait(6.0)
+							Wait(7.0)
+							Wait(8.0)
+							Wait(9.0)
+							Wait(10.0)
+						ExitBathroom
+						BackToDesk
+						ConfirmReach
+						ResetClassRoom
+					while WentToBathroom
+						sequence
+							BackToDesk
+							ConfirmReach
+					sequence
+						ClearStatus
+						Wait(10.0)
+			BackToDesk
+			ConfirmReach
+			ResetClassRoom
 		
 
