@@ -8,6 +8,7 @@ public class AI : MonoBehaviour
     //cached variables 
     NavMeshAgent agent;
     SchoolManager school;
+    PandaBehaviour behaviorTree;
 
 
     //properties
@@ -18,10 +19,12 @@ public class AI : MonoBehaviour
     Bathroom currentBathroom;
     bool onDesk;
     Spot currentSpot;
-    Vector3 destination;
+    //Vector3 destination;
     float minToiletTime = 4f;
     float maxToiletTime = 10f;
     bool wentToBathroom = false;
+    bool clearToGo = false;
+    float clearenceChance = 0.1f;
 
     //temp properties
     float remainingDistance;
@@ -30,17 +33,17 @@ public class AI : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         school = FindObjectOfType<SchoolManager>();
-        
     }
 
     
     void Update()
     {
-        agent.SetDestination(destination);
+        //agent.SetDestination(destination);
         //SetDestination(distination);
+        behaviorTree = GetComponent<PandaBehaviour>();
         SetIdlePose();
         remainingDistance = agent.remainingDistance;
-        var remaining = (destination - this.transform.position);
+        var remaining = (agent.destination - this.transform.position);
         Debug.DrawRay(this.transform.position, remaining, Color.red);
 
     }
@@ -59,7 +62,7 @@ public class AI : MonoBehaviour
     public void SetBusyTo(bool status)
     {
         busy = status;
-
+        behaviorTree.enabled = !status;
     }
 
     public void SetOriginalPosition(Vector3 position)
@@ -75,6 +78,24 @@ public class AI : MonoBehaviour
     public void SetCurrentClassroom(Classroom classroom)
     {
         currentClass = classroom;
+    }
+
+    bool checkClearence()
+    {
+        //Debug.Log("checked Clearence!");
+        if (Random.Range(0f, 1f) < clearenceChance)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void ResetPupil()
+    {
+        clearToGo = checkClearence();
     }
     /*
     ===============================================
@@ -107,8 +128,12 @@ public class AI : MonoBehaviour
     [Task]
     public void BackToDesk()
     {
-        destination = originalPosition;
-        Task.current.Succeed();
+        GuideTo(originalPosition);
+        
+        if (behaviorTree.enabled)
+        {
+            Task.current.Succeed();
+        }
     }
 
     private void LookAtBoard()
@@ -131,7 +156,7 @@ public class AI : MonoBehaviour
     public void GuideTo(Vector3 destination)
     {
         
-        this.destination = new Vector3 (destination.x, 0f , destination.z);
+        agent.SetDestination( new Vector3 (destination.x, 0f , destination.z));
     }
 
     /*
@@ -190,11 +215,6 @@ public class AI : MonoBehaviour
     [Task]
     private void GoToBathroom()
     {
-        if (!ClearToGo())
-        {
-            Task.current.Fail();
-            return;
-        }
         wentToBathroom = true;
         ExitClass(currentClass);
         Bathroom nearestBathroom = school.GetNearestBathroom(this);
@@ -212,7 +232,7 @@ public class AI : MonoBehaviour
     {
         if (Task.isInspected)
         {
-            Task.current.debugInfo = string.Format("dest = {0}", agent.destination);
+            Task.current.debugInfo = string.Format("t = {0:0.00}", Time.time);
         }
 
         if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
@@ -225,7 +245,7 @@ public class AI : MonoBehaviour
     {
         if (Task.isInspected)
         {
-            Task.current.debugInfo = string.Format("dest = {0}", agent.destination);
+            Task.current.debugInfo = string.Format("t = {0:0.00}", Time.time);
         }
 
         if (agent.remainingDistance <= 1 && !agent.pathPending)
@@ -255,18 +275,12 @@ public class AI : MonoBehaviour
         currentBathroom.ReleaseToilet(currentSpot);
         Task.current.Succeed();
     }
-
+    [Task]
     bool ClearToGo()
     {
-        if (Random.Range(0f, 1f) <.1f )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return clearToGo;
     }
+
     [Task]
     bool WentToBathroom()
     {
@@ -284,7 +298,9 @@ public class AI : MonoBehaviour
     void ResetClassRoom()
     {
         currentClass = mainClassroom;
+        EnterClass(currentClass);
         Task.current.Succeed();
+        clearToGo = false;
     }
 
 

@@ -39,7 +39,7 @@ public class Bathroom : MonoBehaviour
     {
         if (availableToilets.Count <= 0) { return null; }
         Spot randomToilet = availableToilets[Random.Range(0, availableToilets.Count)];
-        Debug.Log("assigning Toilet: " + randomToilet.name + " to: " + agent.gameObject.name);
+        //Debug.Log("assigning Toilet: " + randomToilet.name + " to: " + agent.gameObject.name);
         randomToilet.FillSpot(agent);
         availableToilets.Remove(randomToilet);
         return randomToilet;
