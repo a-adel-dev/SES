@@ -114,7 +114,7 @@ public class Classroom : MonoBehaviour
             counter++;
         }
         spawned = true;
-        ShuffleClassroomPupils();        
+        ShuffleClassroomPupils();
     }
 
     private void ShuffleClassroomPupils()
@@ -124,7 +124,7 @@ public class Classroom : MonoBehaviour
         AI temp;
         while (--listLength > 0)
         {
-            random = UnityEngine.Random.Range(0, listLength);
+            random = Random.Range(0, listLength);
             temp = pupilsInClass[random];
             pupilsInClass[random] = pupilsInClass[listLength];
             pupilsInClass[listLength] = temp;
@@ -146,21 +146,7 @@ public class Classroom : MonoBehaviour
         return spots;
     }
 
-    bool CompareProximity(Spot randomDesk, List<Spot> desks)
-        //group activity submethod
-    {
-        bool tooClose = false;
-        foreach (Spot desk in desks)
-        {
-            if (Vector3.Distance(randomDesk.transform.position,
-                                    desk.transform.position) < minDistanceGroupActivity)
-            {
-                tooClose = true;
-            }
-        }
-        return tooClose;
-
-    }
+    
 
     /*==================================
      * Collecting subsaces
@@ -483,7 +469,21 @@ public class Classroom : MonoBehaviour
         return selectedDesks;
     }
 
-    
 
+    bool CompareProximity(Spot randomDesk, List<Spot> desks)
+    //group activity submethod
+    {
+        bool tooClose = false;
+        foreach (Spot desk in desks)
+        {
+            if (Vector3.Distance(randomDesk.transform.position,
+                                    desk.transform.position) < minDistanceGroupActivity)
+            {
+                tooClose = true;
+            }
+        }
+        return tooClose;
+
+    }
 
 }
