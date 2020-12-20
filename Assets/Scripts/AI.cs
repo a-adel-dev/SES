@@ -24,7 +24,10 @@ public class AI : MonoBehaviour
     float maxToiletTime = 10f;
     bool wentToBathroom = false;
     bool clearToGo = false;
+    bool wentToLocker = false;
     float clearenceChance = 0.1f;
+    float clearenceChanceMultiplier = 3f;
+    bool increasedClearence = false;
 
     //temp properties
     float remainingDistance;
@@ -91,6 +94,23 @@ public class AI : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void RestrictPupil()
+    {
+        clearToGo = false;
+    }
+
+    public void IncreaseClearenceChance()
+    {
+        clearenceChance *= clearenceChanceMultiplier;
+        increasedClearence = true;
+    }
+
+    public void ResetClearenceChance()
+    {
+        if (!increasedClearence) { return; }
+        clearenceChance /= clearenceChanceMultiplier;
     }
 
     public void ResetPupil()
@@ -193,8 +213,6 @@ public class AI : MonoBehaviour
      * Continuous Methods
      * ================================
      */
-
-
     private void SetIdlePose()
     {
         if (Vector3.Distance(transform.position, originalPosition) < .1f)
@@ -291,6 +309,8 @@ public class AI : MonoBehaviour
     void ClearStatus()
     {
         wentToBathroom = false;
+        wentToLocker = false;
+        clearToGo = false;
         Task.current.Succeed();
     }
 
@@ -299,8 +319,38 @@ public class AI : MonoBehaviour
     {
         currentClass = mainClassroom;
         EnterClass(currentClass);
+        Task.current.Succeed(); 
+    }
+
+    [Task]
+    void GoToLocker()
+    {   
+        currentSpot = currentClass.GetLocker();
+        if (currentSpot == null)
+        {
+            Task.current.Fail();
+            return;
+        }
+        else
+        {
+            wentToLocker = true;
+            GuideTo(currentSpot.transform.position);
+            Task.current.Succeed();
+        }
+    }
+
+    [Task]
+    void ReleaseLocker()
+    {
+        currentClass.ReturnLocker(currentSpot);
+        currentSpot = null;
         Task.current.Succeed();
-        clearToGo = false;
+    }
+
+    [Task]
+    bool WentToLocker()
+    {
+        return wentToLocker;
     }
 
 

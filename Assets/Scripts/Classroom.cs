@@ -8,6 +8,7 @@ public class Classroom : MonoBehaviour
     //classroom objects
     public GameObject board;
     List<Spot> lockers = new List<Spot>();
+    List<Spot> availableLockers = new List<Spot>();
     List<Spot> boardSpots = new List<Spot>();
     List<Spot> desks = new List<Spot>();
     List<AI> classroomPupils = new List<AI>();
@@ -57,7 +58,13 @@ public class Classroom : MonoBehaviour
         schoolManager = FindObjectOfType<SchoolManager>();
         periodTime = schoolManager.GetPeriodTime();
         timeStep = schoolManager.GetTimeStep();
-        sessionActivityMinTime = schoolManager.GetSessionActivityMinTime();   
+        sessionActivityMinTime = schoolManager.GetSessionActivityMinTime();
+
+    }
+
+    private void ConfigureLockers()
+    {
+        throw new System.NotImplementedException();
     }
 
     private void Start()
@@ -149,7 +156,7 @@ public class Classroom : MonoBehaviour
     
 
     /*==================================
-     * Collecting subsaces
+     * Collecting subspaces
      * =================================
      */
     private void OnTriggerEnter(Collider other)
@@ -162,6 +169,7 @@ public class Classroom : MonoBehaviour
         else if (other.CompareTag("Locker"))
         {
             lockers.Add(other.GetComponent<Spot>());
+            availableLockers.Add(other.GetComponent<Spot>());
         }
         else if (other.CompareTag("BoardSpot"))
         {
@@ -178,6 +186,33 @@ public class Classroom : MonoBehaviour
      * =================================
      */
 
+    public Spot GetLocker()
+    {
+        if (availableLockers.Count <= 0)
+        {
+            return null;
+        }
+        else
+        {
+            Spot randomLocker;
+            int randomIndex = Random.Range(0, availableLockers.Count);
+            randomLocker = availableLockers[randomIndex];
+            availableLockers.Remove(randomLocker);
+            return randomLocker;
+        }
+    }
+
+    public void ReturnLocker(Spot locker)
+    {
+        if (!availableLockers.Contains(locker) && lockers.Contains(locker))
+        {
+            availableLockers.Add(locker);
+        }
+        else
+        {
+            Debug.LogError("locker is not in class!");
+        }
+    }
 
     public bool IsInsideClass(AI pupil)
     {
@@ -209,10 +244,10 @@ public class Classroom : MonoBehaviour
     {
         if (customStructureTimes)
         {
-            classStructureTimes.Add(3);
-            classStructureTimes.Add(10);
-            classStructureTimes.Add(7);
-            classStructureTimes.Add(20);
+            classStructureTimes.Add(2);
+            classStructureTimes.Add(8);
+            classStructureTimes.Add(6);
+            classStructureTimes.Add(24);
         }
         else
         {
@@ -302,6 +337,11 @@ public class Classroom : MonoBehaviour
     public void StartClass()
     {
         StructureAClass();
+        foreach (AI pupil in classroomPupils)
+        {
+            pupil.RestrictPupil();
+            pupil.ResetClearenceChance();
+        }
         //Debug.Log("class structured!");
     }
 
@@ -320,6 +360,11 @@ public class Classroom : MonoBehaviour
             pupil.ResetPupil();
         }
         classTime = 0;
+        foreach (AI pupil in classroomPupils)
+        {
+            pupil.ResetPupil();
+            pupil.IncreaseClearenceChance();
+        }
     }
     
     /*====================================
@@ -346,7 +391,16 @@ public class Classroom : MonoBehaviour
                 spot.ClearSpot();
                 pupilsInClass[i].BackToDesk();
             }
-        }    
+        }
+        EndActivity();
+    }
+
+    private void EndActivity()
+    {
+        foreach (AI pupil in pupilsInClass)
+        {
+            pupil.ResetPupil();
+        }
     }
 
     IEnumerator GroupActivity()
@@ -419,6 +473,7 @@ public class Classroom : MonoBehaviour
                 pupil.BackToDesk();
             }
         }
+        EndActivity();
     }
 
     List<Spot> PickSotsForGroupActivity(int numTries)
@@ -483,7 +538,6 @@ public class Classroom : MonoBehaviour
             }
         }
         return tooClose;
-
     }
 
 }

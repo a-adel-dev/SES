@@ -1,4 +1,13 @@
 tree("Root")
+	sequence
+		random(.6, .4)
+			tree("VisitLocker")
+			tree("VisitBathroom")
+		ClearStatus
+		WaitRandom(5.0, 10.0)
+
+
+tree("VisitBathroom")
 		Fallback
 			while not IsBusy
 				Fallback
@@ -16,13 +25,24 @@ tree("Root")
 								BackToDesk
 								ConfirmReach
 								ResetClassRoom
-					sequence
-						WaitRandom(10.0, 15.0)
-			sequence
-				BackToDesk
-				ConfirmReach
-				ResetClassRoom
-				ClearStatus
-				Wait(5.0)
+								ClearStatus
+						while not WentToBathroom
+							sequence
+								BackToDesk
+								ConfirmReach
+								ResetClassRoom
+								ClearStatus
 		
 
+tree("VisitLocker")
+	while ClearToGo
+		sequence
+			GoToLocker
+			ConfirmReach
+			WaitRandom(4.0, 8.0)
+			ReleaseLocker
+			BackToDesk
+			ConfirmReach
+			ClearStatus
+			Wait(5.0)
+		
