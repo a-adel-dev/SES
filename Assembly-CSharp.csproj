@@ -103,6 +103,7 @@
     <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Player.BT.txt" />
     <None Include="Assets\PandaBehaviour\Core\PandaBehaviour.xml" />
     <None Include="Assets\PandaBehaviour\ChangeLog.txt" />
+    <None Include="Assets\Scripts\Behaviors\TestBehavior.BT.txt" />
     <None Include="Assets\Scripts\Behaviors\bathroom.BT.txt" />
     <None Include="Assets\Behaviors\Main.BT.txt" />
     <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Sniper.BT.txt" />

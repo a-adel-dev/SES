@@ -1,6 +1,6 @@
 tree("Root")
 	sequence
-		sequence
+		mute
 			random(.6, .4)
 				tree("VisitLocker")
 				tree("VisitBathroom")
@@ -12,32 +12,25 @@ tree("Root")
 tree("VisitBathroom")
 	while ClearToGo
 		sequence
+			mute 
+				sequence			
+					SetDoingBehavior(true)
+					ExitClass
+					GetBathroom
+					GoToBathroom
+					ConfirmBathroomReach
+					GetToilet
+			while GotSpot
+				sequence
+					GoToToilet
+					ConfirmReach
+					WaitRandom(5.0, 10.0)
 			sequence
-				SetDoingBehavior(true)
-				ExitClass
-				GetBathroom
-				GoToBathroom
-				ConfirmBathroomReach
-				GetToilet
-			sequence
-				while GotSpot
-					sequence
-						GoToToilet
-						ConfirmReach
-						WaitRandom(5.0, 10.0)
-						ExitBathroom
-						BackToDesk
-						ConfirmReach
-						ReassignOriginalClassroom
-						SetDoingBehavior(false)
-			sequence
-				while not GotSpot
-					sequence
-						ExitBathroom
-						BackToDesk
-						ConfirmReach
-						ReassignOriginalClassroom
-						SetDoingBehavior(false)
+				ExitBathroom
+				BackToDesk
+				ConfirmReach
+				ReassignOriginalClassroom
+				SetDoingBehavior(false)
 						
 	
 
