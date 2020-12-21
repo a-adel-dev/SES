@@ -17,6 +17,7 @@ TagManager:
   - Teachersroom
   - Lab
   - BathroomTarget
+  - POI
   layers:
   - Default
   - TransparentFX
