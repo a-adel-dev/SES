@@ -244,10 +244,11 @@ public class Classroom : MonoBehaviour
     {
         if (customStructureTimes)
         {
-            classStructureTimes.Add(2);
+            classStructureTimes.Add(1);
             classStructureTimes.Add(8);
             classStructureTimes.Add(6);
-            classStructureTimes.Add(24);
+            classStructureTimes.Add(6);
+            classStructureTimes.Add(19);
         }
         else
         {

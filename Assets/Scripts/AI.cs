@@ -22,12 +22,14 @@ public class AI : MonoBehaviour
     //Vector3 destination;
     float minToiletTime = 4f;
     float maxToiletTime = 10f;
-    bool wentToBathroom = false;
+
     bool clearToGo = false;
     bool wentToLocker = false;
     float clearenceChance = 0.1f;
     float clearenceChanceMultiplier = 3f;
     bool increasedClearence = false;
+    Bathroom nearestBathroom;
+    bool doingBehavior = false;
 
     //temp properties
     float remainingDistance;
@@ -60,6 +62,11 @@ public class AI : MonoBehaviour
     public bool IsBusy()
     {
         return busy;
+    }
+    [Task]
+    bool GotSpot()
+    {
+        return (currentSpot != null);
     }
 
     public void SetBusyTo(bool status)
@@ -115,7 +122,10 @@ public class AI : MonoBehaviour
 
     public void ResetPupil()
     {
-        clearToGo = checkClearence();
+        if (!doingBehavior)
+        {
+            clearToGo = checkClearence();
+        }
     }
     /*
     ===============================================
@@ -145,16 +155,7 @@ public class AI : MonoBehaviour
      *            Directions Controls
      * ======================================
     */
-    [Task]
-    public void BackToDesk()
-    {
-        GuideTo(originalPosition);
-        
-        if (behaviorTree.enabled)
-        {
-            Task.current.Succeed();
-        }
-    }
+    
 
     private void LookAtBoard()
     {
@@ -196,11 +197,6 @@ public class AI : MonoBehaviour
         return releasedSpot;
     }
 
-    public void ExitClass(Classroom classroom)
-    {
-        classroom.RemoveFromClass(this);
-        ClearCurrentClass();
-    }
 
     public void EnterClass(Classroom classroom)
     {
@@ -231,16 +227,47 @@ public class AI : MonoBehaviour
      * ==================================
      */
     [Task]
-    private void GoToBathroom()
+    void SetDoingBehavior(bool status)
     {
-        wentToBathroom = true;
-        ExitClass(currentClass);
-        Bathroom nearestBathroom = school.GetNearestBathroom(this);
+        doingBehavior = status;
+        Task.current.Succeed();
+    }
+    [Task]
+    public void BackToDesk()
+    {
+        GuideTo(originalPosition);
+        if (behaviorTree.enabled)
+        {
+            Task.current.Succeed();
+        }
+    }
+
+
+    [Task]
+    void ExitClass()
+    {
+
+        currentClass.RemoveFromClass(this);
+        ClearCurrentClass();
+        Task.current.Succeed();
+    }
+
+    [Task]
+    void GetBathroom()
+    {
+        nearestBathroom = school.GetNearestBathroom(this);
         if (nearestBathroom == null)
         {
             Task.current.Fail();
             return;
         }
+        Task.current.Succeed();
+    }
+
+    [Task]
+    private void GoToBathroom()
+    {
+
         GuideTo(nearestBathroom.transform.position);
         Task.current.Succeed();
     }
@@ -271,19 +298,24 @@ public class AI : MonoBehaviour
             Task.current.Succeed();
         }
     }
+    
+    [Task]
+    void GetToilet()
+    {
+        if (currentBathroom == null) { return; }
+        currentSpot = currentBathroom.GetAToilet(this);
+        if (currentSpot == null)
+        {
+            Task.current.Fail();
+            return;
+        }
+        Task.current.Succeed();
+    }
 
     [Task]
     void GoToToilet()
     {
-        if (currentBathroom == null) { return; }
-        Spot toilet = currentBathroom.GetAToilet(this);
-        if (toilet == null) 
-        { 
-            Task.current.Fail();
-            return;
-        }
-        currentSpot = toilet;
-        GuideTo(toilet.transform.position);
+        GuideTo(currentSpot.transform.position);
         Task.current.Succeed();
     }
 
@@ -291,31 +323,29 @@ public class AI : MonoBehaviour
     void ExitBathroom()
     {
         currentBathroom.ReleaseToilet(currentSpot);
+        currentBathroom = null;
         Task.current.Succeed();
     }
+
     [Task]
     bool ClearToGo()
     {
         return clearToGo;
     }
 
-    [Task]
-    bool WentToBathroom()
-    {
-        return wentToBathroom;
-    }
+
 
     [Task]
-    void ClearStatus()
+    void ClearVisitStatus()
     {
-        wentToBathroom = false;
         wentToLocker = false;
         clearToGo = false;
+        checkClearence();
         Task.current.Succeed();
     }
 
     [Task]
-    void ResetClassRoom()
+    void ReassignOriginalClassroom()
     {
         currentClass = mainClassroom;
         EnterClass(currentClass);
@@ -324,7 +354,7 @@ public class AI : MonoBehaviour
 
     [Task]
     void GoToLocker()
-    {   
+    {
         currentSpot = currentClass.GetLocker();
         if (currentSpot == null)
         {

@@ -1,4 +1,12 @@
 tree("Root")
+	tree("VisitBathroom")
+
+
+
+
+
+
+tree("OriginalRoot")
 	sequence
 		random(.6, .4)
 			tree("VisitLocker")
@@ -14,18 +22,21 @@ tree("VisitBathroom")
 					sequence
 						while ClearToGo
 							sequence
+								ExitClass
+								GetBathroom
 								GoToBathroom
 						while WentToBathroom
 							sequence
 								ConfirmBathroomReach
+								GetToilet
 								GoToToilet
 								ConfirmReach
 								WaitRandom(5.0, 10.0)
 								ExitBathroom
 								BackToDesk
 								ConfirmReach
-								ResetClassRoom
-								ClearStatus
+								ReassignOriginalClassroom
+								ClearVisitStatus
 						while not WentToBathroom
 							sequence
 								BackToDesk

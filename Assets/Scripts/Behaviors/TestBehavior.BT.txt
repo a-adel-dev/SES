@@ -1,0 +1,54 @@
+tree("Root")
+	sequence
+		sequence
+			random(.6, .4)
+				tree("VisitLocker")
+				tree("VisitBathroom")
+		sequence
+			ClearVisitStatus
+			WaitRandom(5.0, 10.0)
+
+
+tree("VisitBathroom")
+	while ClearToGo
+		sequence
+			sequence
+				SetDoingBehavior(true)
+				ExitClass
+				GetBathroom
+				GoToBathroom
+				ConfirmBathroomReach
+				GetToilet
+			sequence
+				while GotSpot
+					sequence
+						GoToToilet
+						ConfirmReach
+						WaitRandom(5.0, 10.0)
+						ExitBathroom
+						BackToDesk
+						ConfirmReach
+						ReassignOriginalClassroom
+						SetDoingBehavior(false)
+			sequence
+				while not GotSpot
+					sequence
+						ExitBathroom
+						BackToDesk
+						ConfirmReach
+						ReassignOriginalClassroom
+						SetDoingBehavior(false)
+						
+	
+
+tree("VisitLocker")
+	while ClearToGo
+		sequence
+			SetDoingBehavior(true)
+			GoToLocker
+			ConfirmReach
+			WaitRandom(4.0, 8.0)
+			ReleaseLocker
+			BackToDesk
+			ConfirmReach
+			SetDoingBehavior(false)
