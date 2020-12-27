@@ -23,7 +23,7 @@ public class SchoolManager : MonoBehaviour
 
     //class global properties
     public bool classInSession { get; private set; }
-    [SerializeField]  int schoolTime = 0; // exposed for debugging
+    int schoolTime = 0; // exposed for debugging
     bool schoolDay = false;
 
     //Class internal Properties

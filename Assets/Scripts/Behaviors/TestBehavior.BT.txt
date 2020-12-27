@@ -10,29 +10,44 @@ tree("Root")
 
 
 tree("VisitBathroom")
-	while ClearToGo
-		sequence
-			mute 
-				sequence			
-					SetDoingBehavior(true)
-					ExitClass
-					GetBathroom
-					GoToBathroom
-					ConfirmBathroomReach
-					GetToilet
-			while GotSpot
-				sequence
-					GoToToilet
-					ConfirmReach
-					WaitRandom(5.0, 10.0)
+		while ClearToGo
 			sequence
-				ExitBathroom
-				BackToDesk
-				ConfirmReach
-				ReassignOriginalClassroom
-				SetDoingBehavior(false)
+				mute 
+					sequence			
+						SetDoingBehavior(true)
+						ExitClass
+						GetBathroom
+						GoToBathroom
+						ConfirmBathroomReach
+						GetToilet
+				while GotSpot
+					sequence
+						GoToToilet
+						ConfirmReach
+						WaitRandom(5.0, 10.0)
+				sequence
+					ExitBathroom
+					BackToDesk
+					parallel
+						repeat 3000
+							mute
+								while NearPOI //need to change this to CanSeePOI
+									random
+										sequence
+											BackToDesk
+											TurnOffPOI
+										sequence
+											GuideToPOI
+											ConfirmReach
+											WaitRandom(3.0, 5.0)
+											BackToDesk
+											TurnOffPOI
+						sequence
+							BackToDesk
+							ConfirmDeskReach
+							ReassignOriginalClassroom
+							SetDoingBehavior(false)
 						
-	
 
 tree("VisitLocker")
 	while ClearToGo

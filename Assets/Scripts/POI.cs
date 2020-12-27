@@ -17,7 +17,7 @@ public class POI : MonoBehaviour
     void Update()
     {
         timeStep = schoolManager.GetTimeStep();
-        StartCoroutine(StopPupils());
+        //StartCoroutine(StopPupils());
     }
 
     IEnumerator StopPupils()
@@ -40,6 +40,8 @@ public class POI : MonoBehaviour
         if (other.CompareTag("Pupil"))
         {
             pupilsNearPOI.Add(other.GetComponent<AI>());
+            other.GetComponent<AI>().SetNearPOI(true);
+            other.GetComponent<AI>().AssignSpot(GetComponent<Spot>());
         }
     }
 
@@ -48,6 +50,7 @@ public class POI : MonoBehaviour
         if (other.CompareTag("Pupil"))
         {
             pupilsNearPOI.Remove(other.GetComponent<AI>());
+            other.GetComponent<AI>().SetNearPOI(false);
         }
     }
 }

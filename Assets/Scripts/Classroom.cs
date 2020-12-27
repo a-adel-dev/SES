@@ -6,6 +6,7 @@ using UnityEngine;
 public class Classroom : MonoBehaviour
 {
     //classroom objects
+    [HideInInspector]
     public GameObject board;
     List<Spot> lockers = new List<Spot>();
     List<Spot> availableLockers = new List<Spot>();
@@ -13,7 +14,6 @@ public class Classroom : MonoBehaviour
     List<Spot> desks = new List<Spot>();
     List<AI> classroomPupils = new List<AI>();
     List<AI> pupilsInClass = new List<AI>();
-    Vector3 boardDirection;
 
     //classroom variables
     List<int> classStructureTimes = new List<int>();
@@ -25,6 +25,8 @@ public class Classroom : MonoBehaviour
     [SerializeField] float minDistanceGroupActivity = 3f;
     [SerializeField] float deskGroupActivityCompensationX = 0f;
     [SerializeField] float deskGroupActivityCompensationZ = 0f;
+    bool studentsInFile = false; //determines if students will move in a file
+    bool classEmpty = false; //indicates if the class is empty
 
     //school variables
     int periodTime;
@@ -51,7 +53,7 @@ public class Classroom : MonoBehaviour
     //temp variables
     public bool move = false;
     public GameObject indicator;
-    public bool customStructureTimes;
+    public bool DebuggingClassTimes;
 
     private void Awake()
     {
@@ -60,11 +62,6 @@ public class Classroom : MonoBehaviour
         timeStep = schoolManager.GetTimeStep();
         sessionActivityMinTime = schoolManager.GetSessionActivityMinTime();
 
-    }
-
-    private void ConfigureLockers()
-    {
-        throw new System.NotImplementedException();
     }
 
     private void Start()
@@ -164,7 +161,6 @@ public class Classroom : MonoBehaviour
         if (other.CompareTag("Board"))
         {
             board = other.gameObject;
-            boardDirection = (board.transform.position - transform.position );
         }
         else if (other.CompareTag("Locker"))
         {
@@ -185,6 +181,15 @@ public class Classroom : MonoBehaviour
      * Class IO
      * =================================
      */
+    public void SetInQueueTo(bool status)
+    {
+        studentsInFile = status;
+    }
+
+    public void SetClassEmptyTo(bool status)
+    {
+        classEmpty = status;
+    }
 
     public Spot GetLocker()
     {
@@ -242,7 +247,7 @@ public class Classroom : MonoBehaviour
 
     private List<int> StructureAClass()
     {
-        if (customStructureTimes)
+        if (DebuggingClassTimes)
         {
             classStructureTimes.Add(1);
             classStructureTimes.Add(8);
@@ -284,7 +289,7 @@ public class Classroom : MonoBehaviour
 
     public void RunClass()
     {
-        if (!classInSession || classStructureTimes == null)
+        if (!classInSession || classStructureTimes == null || classEmpty)
             return;
         if (sectionTime < classStructureTimes[activeSection])
         {
@@ -294,7 +299,7 @@ public class Classroom : MonoBehaviour
         else if (sectionTime >= classStructureTimes[activeSection])
         {
             sectionTime -= classStructureTimes[activeSection];
-            activeSection += 1;
+            activeSection ++;
             
             SetActivityStatus();
         }
@@ -302,6 +307,7 @@ public class Classroom : MonoBehaviour
 
     private void SetActivityStatus()
     {
+        if (classEmpty) { return; }
         if (classStructureTimes[activeSection] < sessionActivityMinTime)
         {
             activity = false;
@@ -324,7 +330,7 @@ public class Classroom : MonoBehaviour
 
     private void PickActivity()
     {
-        
+        if (classEmpty) { return; }
         if (Random.Range(0f, 1) < .5f)
         {
             StartCoroutine(BoardActivity());
@@ -337,6 +343,7 @@ public class Classroom : MonoBehaviour
 
     public void StartClass()
     {
+        if (classEmpty) { return; }
         StructureAClass();
         foreach (AI pupil in classroomPupils)
         {
@@ -348,6 +355,7 @@ public class Classroom : MonoBehaviour
 
     public void EndClass()
     {
+        if (classEmpty) { return; }
         if (activeSection > classStructureTimes.Count - 1)
         {
             classInSession = false;
@@ -524,7 +532,6 @@ public class Classroom : MonoBehaviour
         }
         return selectedDesks;
     }
-
 
     bool CompareProximity(Spot randomDesk, List<Spot> desks)
     //group activity submethod

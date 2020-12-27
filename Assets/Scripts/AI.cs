@@ -4,7 +4,6 @@ using Panda;
 
 public class AI : MonoBehaviour
 {
-    
     //cached variables 
     NavMeshAgent agent;
     SchoolManager school;
@@ -20,19 +19,18 @@ public class AI : MonoBehaviour
     bool onDesk;
     Spot currentSpot;
     //Vector3 destination;
-    float minToiletTime = 4f;
-    float maxToiletTime = 10f;
-
     bool clearToGo = false;
     bool wentToLocker = false;
+    [SerializeField]
     float clearenceChance = 0.1f;
+    [SerializeField]
     float clearenceChanceMultiplier = 3f;
     bool increasedClearence = false;
     Bathroom nearestBathroom;
     bool doingBehavior = false;
+    bool nearPOI = false;
 
     //temp properties
-    float remainingDistance;
     
     void Start()
     {
@@ -47,7 +45,6 @@ public class AI : MonoBehaviour
         //SetDestination(distination);
         behaviorTree = GetComponent<PandaBehaviour>();
         SetIdlePose();
-        remainingDistance = agent.remainingDistance;
         var remaining = (agent.destination - this.transform.position);
         Debug.DrawRay(this.transform.position, remaining, Color.red);
 
@@ -155,8 +152,6 @@ public class AI : MonoBehaviour
      *            Directions Controls
      * ======================================
     */
-    
-
     private void LookAtBoard()
     {
         if(onDesk && currentClass != null)
@@ -203,6 +198,11 @@ public class AI : MonoBehaviour
         classroom.AddToPupilsInClass(this);
         SetCurrentClass(classroom);
         //pupil.SetBusyTo(true);
+    }
+
+    public void SetNearPOI(bool status)
+    {
+        nearPOI = status;
     }
 
     /*=================================
@@ -383,5 +383,55 @@ public class AI : MonoBehaviour
         return wentToLocker;
     }
 
+    [Task]
+    bool NearPOI()
+    {
+        return nearPOI;
+    }
 
+
+    [Task]
+    bool GoToPOI()
+    {
+        int randomIndex = Random.Range(0, 100);
+        if (randomIndex < 20)
+        {
+            //pick a POI
+            //assign it to currentspot
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
+    }
+
+    [Task]
+    void TurnOffPOI()
+    {
+        nearPOI = false;
+        Task.current.Succeed();
+    }
+
+    [Task]
+    void GuideToPOI()
+    {
+        GuideTo(currentSpot.transform.position);
+        Task.current.Succeed();
+    }
+
+    [Task]
+    void ConfirmDeskReach()
+    {
+        if (Task.isInspected)
+        {
+            Task.current.debugInfo = string.Format("t = {0:0.00}", Time.time);
+        }
+
+        if (Vector3.Distance(transform.position, originalPosition) <= agent.stoppingDistance && !agent.pathPending)
+        {
+            Task.current.Succeed();
+        }
+    }
 }
