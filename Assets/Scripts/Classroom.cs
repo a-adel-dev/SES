@@ -38,12 +38,10 @@ public class Classroom : MonoBehaviour
     //internal class code management
     bool spawned = false;
     float timer = 0f;
-    int activeSection = 0;
+    int activeSectionIndex = 0;
     bool boardActivity = false;
     bool groupActivity = false;
     
-
-
     //exposed variables
     [SerializeField] GameObject pupilPrefab;
     [SerializeField] GameObject teacherPrefab;
@@ -61,7 +59,6 @@ public class Classroom : MonoBehaviour
         periodTime = schoolManager.GetPeriodTime();
         timeStep = schoolManager.GetTimeStep();
         sessionActivityMinTime = schoolManager.GetSessionActivityMinTime();
-
     }
 
     private void Start()
@@ -108,6 +105,7 @@ public class Classroom : MonoBehaviour
                         deskPosition,
                         Quaternion.identity) as GameObject;
             AI pupilAI = pupil.GetComponent<AI>();
+            pupilAI.SetStudentStatusTo(AIStatus.inClass);
             pupil.transform.parent = transform;
             pupilAI.SetOriginalPosition(new Vector3(deskPosition.x, 0, deskPosition.z));
             pupilAI.SetMainClassroom(this);
@@ -291,24 +289,26 @@ public class Classroom : MonoBehaviour
     {
         if (!classInSession || classStructureTimes == null || classEmpty)
             return;
-        if (sectionTime < classStructureTimes[activeSection])
+        if (sectionTime < classStructureTimes[activeSectionIndex])
         {
             //Debug.Log("class section no. " + (activeSection + 1).ToString());
             //there is a logic bug here as activities can not set to be on during the first section
         }
-        else if (sectionTime >= classStructureTimes[activeSection])
+        else if (sectionTime >= classStructureTimes[activeSectionIndex])
         {
-            sectionTime -= classStructureTimes[activeSection];
-            activeSection ++;
-            
-            SetActivityStatus();
+            sectionTime -= classStructureTimes[activeSectionIndex];
+            if (activeSectionIndex < classStructureTimes.Count - 1)
+            {
+                activeSectionIndex++;
+                SetActivityStatus();
+            }
         }
     }
 
     private void SetActivityStatus()
     {
         if (classEmpty) { return; }
-        if (classStructureTimes[activeSection] < sessionActivityMinTime)
+        if (classStructureTimes[activeSectionIndex] < sessionActivityMinTime)
         {
             activity = false;
             foreach (AI pupil in pupilsInClass)
@@ -356,12 +356,11 @@ public class Classroom : MonoBehaviour
     public void EndClass()
     {
         if (classEmpty) { return; }
-        if (activeSection > classStructureTimes.Count - 1)
-        {
-            classInSession = false;
-            activeSection = 0;
-            Debug.Log("class is over!");
-        }
+
+        classInSession = false;
+        activeSectionIndex = 0;
+        Debug.Log("class is over!");
+
         ResetClassStructure();
         foreach (AI pupil in classroomPupils)
         {
@@ -393,7 +392,7 @@ public class Classroom : MonoBehaviour
                 boardSpots[i].FillSpot(pupilsInClass[i]);
                 pupilsInClass[i].GuideTo(boardSpots[i].transform.position);
             }
-            yield return new WaitForSecondsRealtime((classStructureTimes[activeSection] - 2) * timeStep);
+            yield return new WaitForSecondsRealtime((classStructureTimes[activeSectionIndex] - 2) * timeStep);
             for (int i = 0; i < randomIndex; i++)
             {
                 var spot = pupilsInClass[i].ReleaseSpot();
@@ -475,7 +474,7 @@ public class Classroom : MonoBehaviour
 
 
 
-            yield return new WaitForSecondsRealtime((classStructureTimes[activeSection] - 2) * timeStep);
+            yield return new WaitForSecondsRealtime((classStructureTimes[activeSectionIndex] - 2) * timeStep);
             foreach (AI pupil in pupilsInClass)
             {
                 pupil.setStoppingDistance(0.3f);
@@ -546,6 +545,37 @@ public class Classroom : MonoBehaviour
             }
         }
         return tooClose;
+    }
+
+
+    public void SendClassToLab(Lab lab)
+    {
+        //foreach of the students 
+        //set students status to inLab
+        //assign all students to a lab
+        //if inqueue
+        //send an ordered list to the lab
+        //move students in queue to lab
+        ////move first student to the lab
+        ////set next studetnt to follow first student 
+        //// when eachone arrives
+        ////Enterlab
+        //// have the lab assign him a position
+        ////enterLab
+        //else
+        //move them randomly to the lab
+        ////shuffle students
+        ////guide class students to the lab
+        ////when eachone arrives
+        ////Enter lab
+        ////have the lab assign him a position
+        ////enterLab
+        //set classEmpty to true
+    }
+
+    public void RecieveStudents()
+    {
+        //setclassEmpty to false
     }
 
 }

@@ -15,7 +15,11 @@ public class SchoolManager : MonoBehaviour
     [SerializeField] int sessionActivityMinTime = 8;
 
     //space lists
-    List<Classroom>     classrooms = new List<Classroom>();
+    List<Classroom>     classrooms = new List<Classroom>(); // all school classrooms
+    List<Classroom>     inPlaceClassrooms = new List<Classroom>(); //classrooms with classes in place i.e. not in a lab
+    Classroom           physicsLabClass;
+    Classroom           bilogyLabClass;
+    Classroom           artsLabClass;
     List<Bathroom>      bathrooms = new List<Bathroom>();
     List<Corridor>      corridors = new List<Corridor>();
     List<Teachersroom>  teachersrooms = new List<Teachersroom>();
@@ -31,11 +35,13 @@ public class SchoolManager : MonoBehaviour
     float timer = 0f;
     int currentPeriodIndex = 0;
     //NavMeshPath path;
+    //pickedClass :class to be moved to physics lab
     
 
     private void Awake()
     {
         AllocateSubSpaces();
+        inPlaceClassrooms = new List<Classroom>(classrooms);
         ScheduleClasses();
         //path = new NavMeshPath();
     }
@@ -59,7 +65,7 @@ public class SchoolManager : MonoBehaviour
     {
         schoolDay = true;
         classInSession = true;
-        foreach (Classroom classroom in classrooms)
+        foreach (Classroom classroom in inPlaceClassrooms)
         {
             classroom.StartClass();
         }
@@ -80,7 +86,7 @@ public class SchoolManager : MonoBehaviour
             {
                 classInSession = false;
                 currentPeriodIndex++;
-                foreach (Classroom classroom in classrooms)
+                foreach (Classroom classroom in inPlaceClassrooms)
                 {
                     classroom.EndClass();
                 }
@@ -93,7 +99,7 @@ public class SchoolManager : MonoBehaviour
             {
                 classInSession = true;
                 currentPeriodIndex++;
-                foreach (Classroom classroom in classrooms)
+                foreach (Classroom classroom in inPlaceClassrooms)
                 {
                     classroom.StartClass();
                 }
@@ -250,6 +256,39 @@ public class SchoolManager : MonoBehaviour
         }
         return lengthSoFar;
     }
+    /*=============================================
+     * Classroom Management
+     * ============================================
+     */
+
+    void SendClassToLab()
+    {
+        //for each of the available labs pick a class
+        //record the selceted class
+        //assign students to the lab
+        //get positions from the lab and give them to the class
+        //have the class send the students to the lab positions
+        //release class control from class
+
+    }
+
+    void ReturnClassControl()
+    {
+        //send students back to their originalPosition
+        //return control to class
+        //Endlab
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     /*===============================================
      * Debugging

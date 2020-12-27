@@ -2,6 +2,9 @@
 using UnityEngine.AI;
 using Panda;
 
+
+
+public enum AIStatus { inClass , inLab }
 public class AI : MonoBehaviour
 {
     //cached variables 
@@ -15,6 +18,8 @@ public class AI : MonoBehaviour
     Vector3 originalPosition;
     Classroom currentClass;
     Classroom mainClassroom;
+    Lab currentLab;
+    Vector3 labPosition;
     Bathroom currentBathroom;
     bool onDesk;
     Spot currentSpot;
@@ -29,6 +34,7 @@ public class AI : MonoBehaviour
     Bathroom nearestBathroom;
     bool doingBehavior = false;
     bool nearPOI = false;
+    AIStatus status;
 
     //temp properties
     
@@ -55,6 +61,21 @@ public class AI : MonoBehaviour
      * Properties Getters, setters
      * ============================================
      */
+    public void SetStudentStatusTo(AIStatus _status)
+    {
+        status = _status;
+    }
+
+    public AIStatus GetStudentStatus()
+    {
+        return status;
+    }
+
+    public void AssignLabPosition(Vector3 position)
+    {
+        labPosition = position;
+    }
+
     [Task]
     public bool IsBusy()
     {
@@ -142,9 +163,19 @@ public class AI : MonoBehaviour
         currentClass = classroom;
     }
 
+    public void SetCurrentLab( Lab lab)
+    {
+        currentLab = lab;
+    }
+
     public void ClearCurrentClass()
     {
         currentClass = null;
+    }
+
+    public void ClearCurrentLab(Lab lab)
+    {
+        currentLab = null;
     }
 
     /*
@@ -200,6 +231,12 @@ public class AI : MonoBehaviour
         //pupil.SetBusyTo(true);
     }
 
+    public void EnterLab(Lab lab)
+    {
+        lab.AddToPupilsInLab(this);
+        SetCurrentLab(lab);
+    }
+
     public void SetNearPOI(bool status)
     {
         nearPOI = status;
@@ -235,10 +272,29 @@ public class AI : MonoBehaviour
     [Task]
     public void BackToDesk()
     {
-        GuideTo(originalPosition);
-        if (behaviorTree.enabled)
+        if (status == AIStatus.inClass)
         {
-            Task.current.Succeed();
+            GuideTo(originalPosition);
+            if (behaviorTree.enabled)
+            {
+                Task.current.Succeed();
+            }
+        }
+        else if (status == AIStatus.inLab)
+        {
+            if (labPosition == null)
+            {
+                GuideTo(currentLab.transform.position);
+                ConfirmReach();
+                currentLab.Enterlab(this);
+                currentLab.AssignLabPosition(this);
+
+            }
+            GuideTo(labPosition);
+            if (behaviorTree.enabled)
+            {
+                Task.current.Succeed();
+            }
         }
     }
 
