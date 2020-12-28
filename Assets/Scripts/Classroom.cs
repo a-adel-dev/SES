@@ -287,7 +287,7 @@ public class Classroom : MonoBehaviour
 
     public void RunClass()
     {
-        if (!classInSession || classStructureTimes == null || classEmpty)
+        if (!classInSession || classStructureTimes.Count <= 0 || classEmpty)
             return;
         if (sectionTime < classStructureTimes[activeSectionIndex])
         {
@@ -551,26 +551,38 @@ public class Classroom : MonoBehaviour
     public void SendClassToLab(Lab lab)
     {
         //foreach of the students 
-        //set students status to inLab
-        //assign all students to a lab
+        foreach (AI pupil in classroomPupils)
+        {
+            //assign all students to a lab
+            pupil.SetCurrentLab(lab);
+            //set students status to inLab
+            pupil.SetStudentStatusTo(AIStatus.inLab);
+        }
         //if inqueue
-        //send an ordered list to the lab
         //move students in queue to lab
         ////move first student to the lab
         ////set next studetnt to follow first student 
         //// when eachone arrives
-        ////Enterlab
         //// have the lab assign him a position
         ////enterLab
         //else
         //move them randomly to the lab
-        ////shuffle students
+        foreach (AI pupil in pupilsInClass.ToArray())
+        {
+            pupil.SetBusyTo(true);
+            pupil.EnterLab(lab);
+            lab.AssignLabPosition(pupil);
+            pupil.GoToLab();
+            pupilsInClass.Remove(pupil);
+        }
         ////guide class students to the lab
         ////when eachone arrives
-        ////Enter lab
         ////have the lab assign him a position
         ////enterLab
         //set classEmpty to true
+        classEmpty = true;
+        //TODO: check the status of out of class pupils
+
     }
 
     public void RecieveStudents()

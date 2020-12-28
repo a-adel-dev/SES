@@ -19,7 +19,7 @@ public class AI : MonoBehaviour
     Classroom currentClass;
     Classroom mainClassroom;
     Lab currentLab;
-    Vector3 labPosition;
+    Vector3 labPosition = Vector3.zero;
     Bathroom currentBathroom;
     bool onDesk;
     Spot currentSpot;
@@ -108,7 +108,7 @@ public class AI : MonoBehaviour
         currentClass = classroom;
     }
 
-    bool checkClearence()
+    public bool CheckClearence()
     {
         //Debug.Log("checked Clearence!");
         if (Random.Range(0f, 1f) < clearenceChance)
@@ -142,7 +142,7 @@ public class AI : MonoBehaviour
     {
         if (!doingBehavior)
         {
-            clearToGo = checkClearence();
+            clearToGo = CheckClearence();
         }
     }
     /*
@@ -173,9 +173,10 @@ public class AI : MonoBehaviour
         currentClass = null;
     }
 
-    public void ClearCurrentLab(Lab lab)
+    public void ClearCurrentLab()
     {
         currentLab = null;
+        labPosition = new Vector3();
     }
 
     /*
@@ -204,6 +205,11 @@ public class AI : MonoBehaviour
     {
         
         agent.SetDestination( new Vector3 (destination.x, 0f , destination.z));
+    }
+
+    public void GoToLab()
+    {
+        GuideTo(labPosition);
     }
 
     /*
@@ -282,7 +288,7 @@ public class AI : MonoBehaviour
         }
         else if (status == AIStatus.inLab)
         {
-            if (labPosition == null)
+            if (labPosition == Vector3.zero)
             {
                 GuideTo(currentLab.transform.position);
                 ConfirmReach();
@@ -389,14 +395,12 @@ public class AI : MonoBehaviour
         return clearToGo;
     }
 
-
-
     [Task]
     void ClearVisitStatus()
     {
         wentToLocker = false;
         clearToGo = false;
-        checkClearence();
+        CheckClearence();
         Task.current.Succeed();
     }
 
@@ -411,26 +415,53 @@ public class AI : MonoBehaviour
     [Task]
     void GoToLocker()
     {
-        currentSpot = currentClass.GetLocker();
-        if (currentSpot == null)
+        if (status == AIStatus.inClass)
         {
-            Task.current.Fail();
-            return;
+            currentSpot = currentClass.GetLocker();
+            if (currentSpot == null)
+            {
+                Task.current.Fail();
+                return;
+            }
+            else
+            {
+                wentToLocker = true;
+                GuideTo(currentSpot.transform.position);
+                Task.current.Succeed();
+            }
         }
         else
         {
-            wentToLocker = true;
-            GuideTo(currentSpot.transform.position);
-            Task.current.Succeed();
+            currentSpot = currentLab.GetLocker();
+            if (currentSpot == null)
+            {
+                Task.current.Fail();
+                return;
+            }
+            else
+            {
+                wentToLocker = true;
+                GuideTo(currentSpot.transform.position);
+                Task.current.Succeed();
+            }
         }
     }
 
     [Task]
     void ReleaseLocker()
     {
-        currentClass.ReturnLocker(currentSpot);
-        currentSpot = null;
-        Task.current.Succeed();
+        if (status == AIStatus.inClass)
+        {
+            currentClass.ReturnLocker(currentSpot);
+            currentSpot = null;
+            Task.current.Succeed();
+        }
+        else
+        {
+            currentLab.ReturnLocker(currentSpot);
+            currentSpot = null;
+            Task.current.Succeed();
+        }
     }
 
     [Task]

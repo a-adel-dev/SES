@@ -1,8 +1,20 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+
+[System.Serializable]
+public struct ClassLabPair
+{
+    public Classroom classroom;
+    public Lab lab;
+
+    public ClassLabPair(Classroom _classroom, Lab _lab)
+    {
+        classroom = _classroom;
+        lab = _lab;
+    }
+}
 
 public class SchoolManager : MonoBehaviour
 {
@@ -17,15 +29,14 @@ public class SchoolManager : MonoBehaviour
     //space lists
     List<Classroom>     classrooms = new List<Classroom>(); // all school classrooms
     List<Classroom>     inPlaceClassrooms = new List<Classroom>(); //classrooms with classes in place i.e. not in a lab
-    Classroom           physicsLabClass;
-    Classroom           bilogyLabClass;
-    Classroom           artsLabClass;
+    List<ClassLabPair>  classlabPairList = new List<ClassLabPair>();
     List<Bathroom>      bathrooms = new List<Bathroom>();
     List<Corridor>      corridors = new List<Corridor>();
     List<Teachersroom>  teachersrooms = new List<Teachersroom>();
     List<Lab>           labs = new List<Lab>();
 
     //class global properties
+    [HideInInspector]
     public bool classInSession { get; private set; }
     int schoolTime = 0; // exposed for debugging
     bool schoolDay = false;
@@ -73,8 +84,7 @@ public class SchoolManager : MonoBehaviour
 
     private void OssilateClassSessions()
     {
-        if (!schoolDay)
-            return;
+        if (schoolDay == false) { return; }
         if (currentPeriodIndex == classTimes.Count)
         {
             EndSchoolDay();
@@ -90,7 +100,10 @@ public class SchoolManager : MonoBehaviour
                 {
                     classroom.EndClass();
                 }
-
+                if (classlabPairList != null)
+                {
+                    SendClassesBackFromLabs();
+                }
             }
         }
         else if (currentPeriodIndex % 2 != 0)
@@ -99,6 +112,7 @@ public class SchoolManager : MonoBehaviour
             {
                 classInSession = true;
                 currentPeriodIndex++;
+                SendClassesToLabs();
                 foreach (Classroom classroom in inPlaceClassrooms)
                 {
                     classroom.StartClass();
@@ -261,34 +275,47 @@ public class SchoolManager : MonoBehaviour
      * ============================================
      */
 
-    void SendClassToLab()
+    void SendClassesToLabs()
     {
-        //for each of the available labs pick a class
-        //record the selceted class
-        //assign students to the lab
-        //get positions from the lab and give them to the class
-        //have the class send the students to the lab positions
-        //release class control from class
-
+        foreach (Lab lab in labs)
+        {
+            SendRandomClassToLab(lab);
+            
+        }
     }
 
-    void ReturnClassControl()
+    void SendRandomClassToLab(Lab lab)
     {
-        //send students back to their originalPosition
-        //return control to class
-        //Endlab
+        if (lab.IsLabEmpty())
+        {
+
+            int randomIndex = Random.Range(0, inPlaceClassrooms.Count);
+            Classroom selectedClass = inPlaceClassrooms[randomIndex];
+            inPlaceClassrooms.Remove(selectedClass);
+            //record the selceted class
+            classlabPairList.Add(new ClassLabPair(selectedClass, lab));
+            //have the class send the students to the lab
+            classrooms[randomIndex].SendClassToLab(lab);
+            Debug.Log($"Sending {classrooms[randomIndex].name } to {lab.name}");
+            lab.StartLab();
+        }
     }
 
+    void SendClassesBackFromLabs()
+    {
+        foreach (ClassLabPair classLabPair in classlabPairList)
+        {
+            ReturnClassFromLab(classLabPair);
+            classlabPairList.Remove(classLabPair);
+        }
+    }
 
-
-
-
-
-
-
-
-
-
+    void ReturnClassFromLab(ClassLabPair classLabPair)
+    {
+        classLabPair.lab.EndLab(classLabPair.classroom);
+        inPlaceClassrooms.Add(classLabPair.classroom);
+        classLabPair.classroom.RecieveStudents();
+    }
 
     /*===============================================
      * Debugging

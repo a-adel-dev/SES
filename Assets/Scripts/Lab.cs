@@ -38,7 +38,6 @@ public class Lab : MonoBehaviour
     {
         classesInsession = schoolManager.classInSession;
         //RunLabTimer();
-        RunLab();
     }
 
     /*==================================
@@ -67,9 +66,14 @@ public class Lab : MonoBehaviour
         }
     }
 
-    public void SetClassEmptyTo(bool status)
+    public void SetlabEmptyTo(bool status)
     {
         labEmpty = status;
+    }
+
+    public bool IsLabEmpty()
+    {
+        return labEmpty;
     }
 
     public Spot GetLocker()
@@ -118,7 +122,8 @@ public class Lab : MonoBehaviour
 
     public void Enterlab(AI pupil)
     {
-        pupilsInLab.Add(pupil);
+        labPupils.Add(pupil);
+        //TODO: make a function to determine wheather the pupils are in the lab 
     }
 
     public void AssignLabPosition(AI pupil)
@@ -142,18 +147,59 @@ public class Lab : MonoBehaviour
     public void RunLab()
     {
         //TODO: implement RunLab
+        //update clearto go status
+
     }
 
     public void StartLab()
     {
         //TODO: implement StartLab
+        SetlabEmptyTo(false);
+        foreach (AI pupil in labPupils)
+        {
+            pupil.SetBusyTo(false);
+        }
+        /*
+        while (labEmpty == false)
+        {
+            UpdateClearToGo();
+        }
+        */
     }
 
-    public void EndLab()
+    public void EndLab(Classroom classroom)
     {
         //TODO: implement EndLab
         //clear desk spots
-        //clear students labspots
+        
+        foreach (Spot desk in desks)
+        {
+            desk.ClearSpot();
+        }
+        foreach (AI pupil in labPupils)
+        {
+            //clear students labspots
+            pupil.ClearCurrentLab();
+            pupil.SetStudentStatusTo(AIStatus.inClass);
+            pupil.SetCurrentClass(classroom);
+        }
+        foreach (AI pupil in pupilsInLab)
+        {
+            pupil.BackToDesk();
+            //add queue condition
+        }
+    }
+
+    IEnumerator UpdateClearToGo()
+    {
+        if (pupilsInLab.Count > 0)
+        {
+            foreach (AI pupil in pupilsInLab)
+            {
+                pupil.CheckClearence();
+            }
+        }
+        yield return new WaitForSeconds(10f * timeStep);
     }
 
 }
