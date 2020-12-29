@@ -557,6 +557,8 @@ public class Classroom : MonoBehaviour
             pupil.SetCurrentLab(lab);
             //set students status to inLab
             pupil.SetStudentStatusTo(AIStatus.inLab);
+            pupil.AssignLab(lab);
+            lab.AssignLabPosition(pupil);
         }
         //if inqueue
         //move students in queue to lab
@@ -567,14 +569,13 @@ public class Classroom : MonoBehaviour
         ////enterLab
         //else
         //move them randomly to the lab
-        foreach (AI pupil in pupilsInClass.ToArray())
+        foreach (AI pupil in pupilsInClass)
         {
             pupil.SetBusyTo(true);
-            pupil.EnterLab(lab);
-            lab.AssignLabPosition(pupil);
             pupil.GoToLab();
-            pupilsInClass.Remove(pupil);
+            pupil.Enterlab(lab);
         }
+        pupilsInClass = new List<AI>();
         ////guide class students to the lab
         ////when eachone arrives
         ////have the lab assign him a position
@@ -588,6 +589,7 @@ public class Classroom : MonoBehaviour
     public void RecieveStudents()
     {
         //setclassEmpty to false
+        classEmpty = false;
     }
 
 }

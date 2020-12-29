@@ -36,20 +36,24 @@ public class AI : MonoBehaviour
     bool nearPOI = false;
     AIStatus status;
 
+    [SerializeField] Material originalMaterial;
+    [SerializeField] Material busyMaterial;
+
     //temp properties
-    
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         school = FindObjectOfType<SchoolManager>();
+        gameObject.GetComponent<Renderer>().material = originalMaterial;
+        behaviorTree = GetComponent<PandaBehaviour>();
     }
 
     
     void Update()
     {
         //agent.SetDestination(destination);
-        //SetDestination(distination);
-        behaviorTree = GetComponent<PandaBehaviour>();
+        //SetDestination(distination); 
         SetIdlePose();
         var remaining = (agent.destination - this.transform.position);
         Debug.DrawRay(this.transform.position, remaining, Color.red);
@@ -91,6 +95,15 @@ public class AI : MonoBehaviour
     {
         busy = status;
         behaviorTree.enabled = !status;
+        if (status)
+        {
+            gameObject.GetComponent<Renderer>().material = busyMaterial;
+        }
+        else
+        {
+            gameObject.GetComponent<Renderer>().material = originalMaterial;
+        }
+        
     }
 
     public void SetOriginalPosition(Vector3 position)
@@ -237,10 +250,15 @@ public class AI : MonoBehaviour
         //pupil.SetBusyTo(true);
     }
 
-    public void EnterLab(Lab lab)
+    public void AssignLab(Lab lab)
+    {
+        lab.AddToLabPupils(this);
+        SetCurrentLab(lab);
+    }
+
+    public void Enterlab(Lab lab)
     {
         lab.AddToPupilsInLab(this);
-        SetCurrentLab(lab);
     }
 
     public void SetNearPOI(bool status)
@@ -288,15 +306,8 @@ public class AI : MonoBehaviour
         }
         else if (status == AIStatus.inLab)
         {
-            if (labPosition == Vector3.zero)
-            {
-                GuideTo(currentLab.transform.position);
-                ConfirmReach();
-                currentLab.Enterlab(this);
-                currentLab.AssignLabPosition(this);
-
-            }
             GuideTo(labPosition);
+            Enterlab(currentLab);
             if (behaviorTree.enabled)
             {
                 Task.current.Succeed();

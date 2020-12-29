@@ -294,6 +294,7 @@ public class SchoolManager : MonoBehaviour
             inPlaceClassrooms.Remove(selectedClass);
             //record the selceted class
             classlabPairList.Add(new ClassLabPair(selectedClass, lab));
+            lab.SetCurrentOriginalClass(selectedClass);
             //have the class send the students to the lab
             classrooms[randomIndex].SendClassToLab(lab);
             Debug.Log($"Sending {classrooms[randomIndex].name } to {lab.name}");
@@ -303,7 +304,7 @@ public class SchoolManager : MonoBehaviour
 
     void SendClassesBackFromLabs()
     {
-        foreach (ClassLabPair classLabPair in classlabPairList)
+        foreach (ClassLabPair classLabPair in classlabPairList.ToArray())
         {
             ReturnClassFromLab(classLabPair);
             classlabPairList.Remove(classLabPair);

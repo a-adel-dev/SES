@@ -42,6 +42,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6321500150e13dc46970d816e2b25601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clearenceChance: 0.1
+  clearenceChanceMultiplier: 3
+  originalMaterial: {fileID: 2100000, guid: 75a214232266b8a4c9e6de3cec7db70d, type: 2}
+  busyMaterial: {fileID: 2100000, guid: e0355a26428b05a4a89fbb21bdbe56f0, type: 2}
 --- !u!195 &2114567258
 NavMeshAgent:
   m_ObjectHideFlags: 0

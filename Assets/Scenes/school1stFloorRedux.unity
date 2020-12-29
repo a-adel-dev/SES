@@ -46826,7 +46826,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1720289067, guid: 77f9b554edf95ad4099709a9190dedbd, type: 3}
       propertyPath: simTimeScale
-      value: 0.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2263315054086096876, guid: 77f9b554edf95ad4099709a9190dedbd,
         type: 3}

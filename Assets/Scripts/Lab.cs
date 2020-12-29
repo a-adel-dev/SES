@@ -13,10 +13,11 @@ public class Lab : MonoBehaviour
     List<Spot> desks = new List<Spot>();
     List<AI> labPupils = new List<AI>();
     List<AI> pupilsInLab = new List<AI>();
+    Classroom currentOriginalClass;
 
     //lab variables
     int labTime = 0;
-    bool classesInsession = false;
+    bool classesInSession = false;
     bool labEmpty = true;
 
     //school variables
@@ -36,7 +37,7 @@ public class Lab : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        classesInsession = schoolManager.classInSession;
+        classesInSession = schoolManager.classInSession;
         //RunLabTimer();
     }
 
@@ -112,6 +113,14 @@ public class Lab : MonoBehaviour
         }
     }
 
+
+    public void AddToLabPupils(AI pupil)
+    {
+        if ( !labPupils.Contains(pupil))
+        {
+            labPupils.Add(pupil);
+        }
+    }
     public void RemoveFromLab(AI agent)
     {
         if (pupilsInLab.Contains(agent))
@@ -120,23 +129,33 @@ public class Lab : MonoBehaviour
         }
     }
 
-    public void Enterlab(AI pupil)
-    {
-        labPupils.Add(pupil);
-        //TODO: make a function to determine wheather the pupils are in the lab 
-    }
 
     public void AssignLabPosition(AI pupil)
     {
         //assign each student to a lab position
-        foreach (Spot desk in desks)
+        Spot selectedDesk = null;
+        for (int i = 0; i < desks.Count; i++)
         {
-            if(desk.ISpotAvailable())
+            if (desks[i].ISpotAvailable())
             {
-                pupil.AssignLabPosition(desk.transform.position);
-                desk.FillSpot(pupil);
+                selectedDesk = desks[i];
+                selectedDesk.FillSpot(pupil);
+                break;
             }
         }
+
+        if (selectedDesk == null)
+        {
+            Debug.LogError($"Could not find a desk for pupil {pupil.name} in the {this.gameObject.name}");
+        }
+        else
+        {
+            pupil.AssignLabPosition(selectedDesk.transform.position);
+        }
+
+        //search for a free desk
+        //assign desk to pupil
+        //return
     }
 
     /*====================================
@@ -155,11 +174,12 @@ public class Lab : MonoBehaviour
     {
         //TODO: implement StartLab
         SetlabEmptyTo(false);
+        /*
         foreach (AI pupil in labPupils)
         {
             pupil.SetBusyTo(false);
         }
-        /*
+        
         while (labEmpty == false)
         {
             UpdateClearToGo();
@@ -169,9 +189,8 @@ public class Lab : MonoBehaviour
 
     public void EndLab(Classroom classroom)
     {
-        //TODO: implement EndLab
+ 
         //clear desk spots
-        
         foreach (Spot desk in desks)
         {
             desk.ClearSpot();
@@ -179,15 +198,23 @@ public class Lab : MonoBehaviour
         foreach (AI pupil in labPupils)
         {
             //clear students labspots
+
             pupil.ClearCurrentLab();
             pupil.SetStudentStatusTo(AIStatus.inClass);
             pupil.SetCurrentClass(classroom);
+            
         }
-        foreach (AI pupil in pupilsInLab)
+        labPupils = new List<AI>();
+        foreach (AI pupil in pupilsInLab.ToArray())
         {
+            pupil.SetBusyTo(true);
             pupil.BackToDesk();
+            pupil.EnterClass(currentOriginalClass);
+            
             //add queue condition
         }
+        pupilsInLab = new List<AI>();
+        currentOriginalClass = null;
     }
 
     IEnumerator UpdateClearToGo()
@@ -200,6 +227,11 @@ public class Lab : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(10f * timeStep);
+    }
+
+    public void SetCurrentOriginalClass(Classroom classroom)
+    {
+        currentOriginalClass = classroom;
     }
 
 }
