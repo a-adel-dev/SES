@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1678982495574685156
 Transform:
@@ -80,7 +80,7 @@ GameObject:
   m_TagString: Desk
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &9109846826733738896
 Transform:
@@ -191,7 +191,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 027d5fc3defa58a489f6a2b5640fcc15,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 027d5fc3defa58a489f6a2b5640fcc15, type: 3}

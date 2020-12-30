@@ -359,7 +359,7 @@ public class Classroom : MonoBehaviour
 
         classInSession = false;
         activeSectionIndex = 0;
-        Debug.Log("class is over!");
+        //Debug.Log("class is over!");
 
         ResetClassStructure();
         foreach (AI pupil in classroomPupils)
@@ -381,7 +381,7 @@ public class Classroom : MonoBehaviour
      */
     IEnumerator BoardActivity()
     {
-        Debug.Log("board");
+        //Debug.Log("board");
         if (pupilsInClass.Count != 0)
         {
             boardSpots = ShuffleSpots(boardSpots);
@@ -413,7 +413,7 @@ public class Classroom : MonoBehaviour
 
     IEnumerator GroupActivity()
     {
-        Debug.Log("Group");
+        //Debug.Log("Group");
         if (pupilsInClass.Count != 0)
         {
             List<Spot> selectedDesks = PickSotsForGroupActivity(1000);

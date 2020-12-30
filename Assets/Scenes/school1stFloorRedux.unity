@@ -113,7 +113,7 @@ NavMeshSettings:
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
-    minRegionArea: 2
+    minRegionArea: 10
     manualCellSize: 0
     cellSize: 0.016666668
     manualTileSize: 0
@@ -2181,7 +2181,7 @@ PrefabInstance:
     - target: {fileID: 3784705064329411916, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_Name
-      value: Class
+      value: Class04
       objectReference: {fileID: 0}
     - target: {fileID: 3784705064329411917, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
@@ -4516,7 +4516,7 @@ PrefabInstance:
     - target: {fileID: 3784705064329411916, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_Name
-      value: Class
+      value: Class12
       objectReference: {fileID: 0}
     - target: {fileID: 3784705064329411917, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
@@ -12895,7 +12895,7 @@ GameObject:
   - component: {fileID: 634479682}
   - component: {fileID: 634479681}
   m_Layer: 0
-  m_Name: lab
+  m_Name: Arts class
   m_TagString: Classroom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16296,7 +16296,7 @@ PrefabInstance:
     - target: {fileID: 3784705064329411916, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_Name
-      value: Class
+      value: Class13
       objectReference: {fileID: 0}
     - target: {fileID: 3784705064329411917, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
@@ -23235,7 +23235,7 @@ PrefabInstance:
     - target: {fileID: 3784705064329411916, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_Name
-      value: Class
+      value: Class03
       objectReference: {fileID: 0}
     - target: {fileID: 3784705064329411917, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
@@ -24046,7 +24046,7 @@ PrefabInstance:
     - target: {fileID: 3784705064329411916, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_Name
-      value: Class
+      value: Class07
       objectReference: {fileID: 0}
     - target: {fileID: 3784705064329411917, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
@@ -24571,7 +24571,7 @@ GameObject:
   - component: {fileID: 1125913206}
   - component: {fileID: 1125913205}
   m_Layer: 0
-  m_Name: lab
+  m_Name: biololegy Lab
   m_TagString: Classroom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27214,7 +27214,7 @@ PrefabInstance:
     - target: {fileID: 3784705064329411916, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_Name
-      value: Class
+      value: Class01
       objectReference: {fileID: 0}
     - target: {fileID: 3784705064329411917, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
@@ -28158,7 +28158,7 @@ PrefabInstance:
     - target: {fileID: 3784705064329411916, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_Name
-      value: Class
+      value: Class02
       objectReference: {fileID: 0}
     - target: {fileID: 3784705064329411917, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
@@ -28354,7 +28354,7 @@ PrefabInstance:
     - target: {fileID: 3784705064329411916, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_Name
-      value: Class
+      value: Class11
       objectReference: {fileID: 0}
     - target: {fileID: 3784705064329411917, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
@@ -32279,7 +32279,7 @@ PrefabInstance:
     - target: {fileID: 3784705064329411916, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_Name
-      value: Class
+      value: Class10
       objectReference: {fileID: 0}
     - target: {fileID: 3784705064329411917, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
@@ -35929,7 +35929,7 @@ PrefabInstance:
     - target: {fileID: 3784705064329411916, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_Name
-      value: Class
+      value: Class08
       objectReference: {fileID: 0}
     - target: {fileID: 3784705064329411917, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
@@ -37185,7 +37185,7 @@ PrefabInstance:
     - target: {fileID: 3784705064329411916, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_Name
-      value: Class
+      value: Class14
       objectReference: {fileID: 0}
     - target: {fileID: 3784705064329411917, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
@@ -40155,7 +40155,7 @@ PrefabInstance:
     - target: {fileID: 3784705064329411916, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_Name
-      value: Class
+      value: Class09
       objectReference: {fileID: 0}
     - target: {fileID: 3784705064329411917, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
@@ -45551,7 +45551,7 @@ PrefabInstance:
     - target: {fileID: 3784705064329411916, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_Name
-      value: Class
+      value: class05
       objectReference: {fileID: 0}
     - target: {fileID: 3784705064329411917, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
@@ -46278,7 +46278,7 @@ PrefabInstance:
     - target: {fileID: 3784705064329411916, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_Name
-      value: Class
+      value: Class06
       objectReference: {fileID: 0}
     - target: {fileID: 3784705064329411917, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
@@ -46826,7 +46826,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1720289067, guid: 77f9b554edf95ad4099709a9190dedbd, type: 3}
       propertyPath: simTimeScale
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2263315054086096876, guid: 77f9b554edf95ad4099709a9190dedbd,
         type: 3}
@@ -47280,7 +47280,7 @@ GameObject:
   - component: {fileID: 8018865677087313293}
   - component: {fileID: 8018865677087313292}
   m_Layer: 0
-  m_Name: lab
+  m_Name: Physics Lab
   m_TagString: Classroom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

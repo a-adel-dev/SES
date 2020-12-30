@@ -19,6 +19,7 @@ public class Lab : MonoBehaviour
     int labTime = 0;
     bool classesInSession = false;
     bool labEmpty = true;
+    bool started = false; // a bool to enable the function to update cleartogo status
 
     //school variables
     int periodTime;
@@ -38,7 +39,7 @@ public class Lab : MonoBehaviour
     void Update()
     {
         classesInSession = schoolManager.classInSession;
-        //RunLabTimer();
+        RunLab();
     }
 
     /*==================================
@@ -166,14 +167,17 @@ public class Lab : MonoBehaviour
     public void RunLab()
     {
         //TODO: implement RunLab
+        UpdateClearToGo();
         //update clearto go status
-
     }
 
     public void StartLab()
     {
         //TODO: implement StartLab
         SetlabEmptyTo(false);
+        StartCoroutine(ManageBusyStatus());
+        InvokeRepeating("UpdateStarted", 10.0f * timeStep, 10f * timeStep);
+
         /*
         foreach (AI pupil in labPupils)
         {
@@ -187,9 +191,17 @@ public class Lab : MonoBehaviour
         */
     }
 
+    IEnumerator ManageBusyStatus()
+    {
+        yield return new WaitForSeconds(10f * timeStep);
+        foreach (AI pupil in labPupils)
+        {
+            pupil.SetBusyTo(false);
+        }
+    }
+
     public void EndLab(Classroom classroom)
     {
- 
         //clear desk spots
         foreach (Spot desk in desks)
         {
@@ -215,19 +227,30 @@ public class Lab : MonoBehaviour
         }
         pupilsInLab = new List<AI>();
         currentOriginalClass = null;
+        SetlabEmptyTo(true);
     }
 
-    IEnumerator UpdateClearToGo()
+    void UpdateClearToGo()
     {
-        if (pupilsInLab.Count > 0)
+        if (started == false && pupilsInLab.Count > 0 )
         {
+            
+            Debug.Log($"updating clearto go status");
+            started = true;
             foreach (AI pupil in pupilsInLab)
             {
-                pupil.CheckClearence();
+                pupil.ResetPupil();
             }
+            started = true;
         }
-        yield return new WaitForSeconds(10f * timeStep);
     }
+
+    void UpdateStarted()
+    {
+        started = false;
+    }
+
+
 
     public void SetCurrentOriginalClass(Classroom classroom)
     {

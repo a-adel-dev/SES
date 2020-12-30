@@ -277,10 +277,10 @@ public class SchoolManager : MonoBehaviour
 
     void SendClassesToLabs()
     {
+        Debug.Log($"sending classes to labs");
         foreach (Lab lab in labs)
         {
             SendRandomClassToLab(lab);
-            
         }
     }
 
@@ -288,17 +288,16 @@ public class SchoolManager : MonoBehaviour
     {
         if (lab.IsLabEmpty())
         {
-
             int randomIndex = Random.Range(0, inPlaceClassrooms.Count);
             Classroom selectedClass = inPlaceClassrooms[randomIndex];
-            inPlaceClassrooms.Remove(selectedClass);
             //record the selceted class
             classlabPairList.Add(new ClassLabPair(selectedClass, lab));
             lab.SetCurrentOriginalClass(selectedClass);
             //have the class send the students to the lab
-            classrooms[randomIndex].SendClassToLab(lab);
-            Debug.Log($"Sending {classrooms[randomIndex].name } to {lab.name}");
+            selectedClass.SendClassToLab(lab);
+            inPlaceClassrooms.Remove(selectedClass);
             lab.StartLab();
+            Debug.Log($"Sending {selectedClass} to {lab.name}");
         }
     }
 

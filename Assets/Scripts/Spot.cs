@@ -18,7 +18,14 @@ public class Spot : MonoBehaviour
     public AI ClearSpot()
     {
         available = true;
-        return _agent;
+        if (_agent != null)
+        {
+            return _agent;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     //check if the spot was available

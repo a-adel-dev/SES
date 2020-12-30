@@ -319,7 +319,6 @@ public class AI : MonoBehaviour
     [Task]
     void ExitClass()
     {
-
         currentClass.RemoveFromClass(this);
         ClearCurrentClass();
         Task.current.Succeed();
