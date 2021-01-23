@@ -213,11 +213,21 @@ public class AI : MonoBehaviour
     {
         agent.stoppingDistance = dist;
     }
-
+    /// <summary>
+    /// Directs agent to a point, ignoring its hight information
+    /// </summary>
+    /// <param name="destination">The position of the target location</param>
     public void GuideTo(Vector3 destination)
     {
-        
         agent.SetDestination( new Vector3 (destination.x, 0f , destination.z));
+    }
+    /// <summary>
+    /// Directs agent to a point
+    /// </summary>
+    /// <param name="destination">The position of the target location</param>
+    public void MoveTo(Vector3 destination)
+    { 
+        agent.SetDestination(destination);
     }
 
     public void GoToLab()

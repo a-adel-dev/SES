@@ -31,7 +31,7 @@ public class Lab : MonoBehaviour
     {
         schoolManager = FindObjectOfType<SchoolManager>();
         periodTime = schoolManager.GetPeriodTime();
-        timeStep = schoolManager.GetTimeStep();
+        timeStep = schoolManager.simTimeScale;
 
     }
 

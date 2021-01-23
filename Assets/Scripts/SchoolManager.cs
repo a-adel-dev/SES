@@ -3,28 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[System.Serializable]
-public struct ClassLabPair
-{
-    public Classroom classroom;
-    public Lab lab;
-
-    public ClassLabPair(Classroom _classroom, Lab _lab)
-    {
-        classroom = _classroom;
-        lab = _lab;
-    }
-}
-
 public class SchoolManager : MonoBehaviour
 {
     //Sim Parameters
-    [Range(0.1f, 60.0f)] 
-    [SerializeField] float simTimeScale = .2f;
+    /// <summary>
+    /// Scale of the simulation, at 1 every second of realtime is a minute in the sim
+    /// for a realtime simulation set to 60
+    /// </summary>    
+    [Range(0.2f, 60f)]
+    public float simTimeScale= 4f;
     [SerializeField] int numPeriods = 4;
     [SerializeField] int periodLength = 40;
     [Range(5, 30)]
     [SerializeField] int sessionActivityMinTime = 8;
+    /// <summary>
+    /// The waiting time between the exit of classes at the end of school day
+    /// </summary>
+    [Tooltip("The waiting time between the exit of classes at the end of school day")]
+    [SerializeField] int cooldownClassExit = 0;
 
     //space lists
     List<Classroom>     classrooms = new List<Classroom>(); // all school classrooms
@@ -34,6 +30,7 @@ public class SchoolManager : MonoBehaviour
     List<Corridor>      corridors = new List<Corridor>();
     List<Teachersroom>  teachersrooms = new List<Teachersroom>();
     List<Lab>           labs = new List<Lab>();
+    List<EgressPoint>   staircases = new List<EgressPoint>();
 
     //class global properties
     [HideInInspector]
@@ -85,7 +82,7 @@ public class SchoolManager : MonoBehaviour
     private void OssilateClassSessions()
     {
         if (schoolDay == false) { return; }
-        if (currentPeriodIndex == classTimes.Count)
+        if (currentPeriodIndex == classTimes.Count-1)
         {
             EndSchoolDay();
             classTimes = new List<int>();
@@ -126,7 +123,12 @@ public class SchoolManager : MonoBehaviour
     {
         schoolDay = false;
         classInSession = false;
-        Time.timeScale = 0;
+        foreach (EgressPoint stairs in staircases)
+        {
+            stairs.RecallClasses(cooldownClassExit);
+        }
+
+        //Time.timeScale = 0;
     }
 
     private void RunSchoolTimer()
@@ -195,6 +197,12 @@ public class SchoolManager : MonoBehaviour
         {
             labs.Add(lab);
         }
+
+        var stairsArray = FindObjectsOfType<EgressPoint>();
+        foreach (var stairs in stairsArray)
+        {
+            staircases.Add(stairs);
+        }
     }
     
     /*==========================================
@@ -204,11 +212,6 @@ public class SchoolManager : MonoBehaviour
     public int GetPeriodTime()
     {
         return periodLength;
-    }
-
-    public float GetTimeStep()
-    {
-        return simTimeScale;
     }
 
     public int GetSessionActivityMinTime()
@@ -278,6 +281,7 @@ public class SchoolManager : MonoBehaviour
     void SendClassesToLabs()
     {
         Debug.Log($"sending classes to labs");
+        if (schoolDay == false) { return; }
         foreach (Lab lab in labs)
         {
             SendRandomClassToLab(lab);

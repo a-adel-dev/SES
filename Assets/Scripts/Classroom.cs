@@ -43,7 +43,15 @@ public class Classroom : MonoBehaviour
     bool groupActivity = false;
     
     //exposed variables
+    /// <summary>
+    /// Prefab for pupil agent
+    /// </summary>
+    [Tooltip("Prefab for pupil agent")]
     [SerializeField] GameObject pupilPrefab;
+    /// <summary>
+    /// Prefab for teacher agent
+    /// </summary>
+    [Tooltip("Prefab for teacher agent")]
     [SerializeField] GameObject teacherPrefab;
     
 
@@ -57,7 +65,7 @@ public class Classroom : MonoBehaviour
     {
         schoolManager = FindObjectOfType<SchoolManager>();
         periodTime = schoolManager.GetPeriodTime();
-        timeStep = schoolManager.GetTimeStep();
+        timeStep = schoolManager.simTimeScale;
         sessionActivityMinTime = schoolManager.GetSessionActivityMinTime();
     }
 
@@ -416,7 +424,7 @@ public class Classroom : MonoBehaviour
         //Debug.Log("Group");
         if (pupilsInClass.Count != 0)
         {
-            List<Spot> selectedDesks = PickSotsForGroupActivity(1000);
+            List<Spot> selectedDesks = PickSpotsForGroupActivity(1000);
             if (!(selectedDesks == null))
             {
                 List<AI> pupilsAvailableforActivity = new List<AI>(pupilsInClass);
@@ -484,7 +492,7 @@ public class Classroom : MonoBehaviour
         EndActivity();
     }
 
-    List<Spot> PickSotsForGroupActivity(int numTries)
+    List<Spot> PickSpotsForGroupActivity(int numTries)
     {
         List<Spot> selectedDesks = new List<Spot>();
         for (int i = 0; i < numTries; i++)
@@ -592,4 +600,13 @@ public class Classroom : MonoBehaviour
         classEmpty = false;
     }
 
+    public void SendClassOutOfFloor(Vector3 exit)
+    {
+        Debug.Log($"{this.name} is exiting the building");
+        foreach (AI pupil in classroomPupils)
+        {
+            pupil.SetBusyTo(true);
+            pupil.MoveTo(exit);
+        }
+    }
 }
