@@ -24,12 +24,20 @@ public class EgressPoint : MonoBehaviour
     /// <param name="waitingTime">The time between the exit of each class</param>
     public void RecallClasses(int waitingTime)
     {
-        StartCoroutine(MoveClasses(waitingTime));
+        Debug.Log($"{this.name} recalling classes");
+        if (waitingTime == 0)
+        {
+            MoveAllClasses();
+        }
+        else
+        {
+            StartCoroutine(MoveClasses(waitingTime));
+        }
     }
 
 
     /// <summary>
-    /// Prompt a class to send its pupils to this exit point
+    /// Prompt classes to send their pupils to this exit point with cooldown timer
     /// </summary>
     /// <param name="classroom">target classroom</param>
     /// <param name="waitingTime">cooldown time</param>
@@ -39,6 +47,16 @@ public class EgressPoint : MonoBehaviour
         {
             classroom.SendClassOutOfFloor(this.transform.position);
             yield return new WaitForSeconds(waitingTime * schoolmanager.simTimeScale);
+        }
+    }
+    /// <summary>
+    /// Prompt classes to send their pupils to this exit point all at once
+    /// </summary>
+    public void MoveAllClasses()
+    {
+        foreach (Classroom classroom in associatedClassrooms)
+        {
+            classroom.SendClassOutOfFloor(this.transform.position);
         }
     }
 }

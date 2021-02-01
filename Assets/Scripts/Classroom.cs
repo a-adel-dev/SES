@@ -69,11 +69,6 @@ public class Classroom : MonoBehaviour
         sessionActivityMinTime = schoolManager.GetSessionActivityMinTime();
     }
 
-    private void Start()
-    {
-
-    }
-
     private void Update()
     {
         classInSession = schoolManager.classInSession;
@@ -554,7 +549,6 @@ public class Classroom : MonoBehaviour
         }
         return tooClose;
     }
-
 
     public void SendClassToLab(Lab lab)
     {

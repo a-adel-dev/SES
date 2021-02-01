@@ -783,7 +783,7 @@ Transform:
   - {fileID: 2730673301095584300}
   - {fileID: 289861773}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &31786910 stripped
 Transform:
@@ -9120,7 +9120,7 @@ Transform:
   m_Children:
   - {fileID: 1267888635689626110}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &432433034
 PrefabInstance:
@@ -9299,7 +9299,7 @@ Transform:
   m_Children:
   - {fileID: 1240273480}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &438149538 stripped
 Transform:
@@ -47732,7 +47732,7 @@ PrefabInstance:
     - target: {fileID: 1754256576211981239, guid: 92dbf2c0d80de6148ad551717a86693f,
         type: 3}
       propertyPath: simTimeScale
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1754256576211981239, guid: 92dbf2c0d80de6148ad551717a86693f,
         type: 3}
@@ -47742,7 +47742,7 @@ PrefabInstance:
     - target: {fileID: 1754256576211981239, guid: 92dbf2c0d80de6148ad551717a86693f,
         type: 3}
       propertyPath: cooldownClassExit
-      value: 30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1999615809749839688, guid: 92dbf2c0d80de6148ad551717a86693f,
         type: 3}
