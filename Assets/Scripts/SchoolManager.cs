@@ -35,6 +35,8 @@ public class SchoolManager : MonoBehaviour
     //class global properties
     [HideInInspector]
     public bool classInSession { get; private set; }
+    List<TeacherAI> orphandTeachers = new List<TeacherAI>();
+    int teacherRoomIndex = 0; //An index to keep trak of which teacher room will be used to assign an orphand teacher to
     int schoolTime = 0; // exposed for debugging
     bool schoolDay = false;
 
@@ -42,8 +44,6 @@ public class SchoolManager : MonoBehaviour
     List<int> classTimes = new List<int>();
     float timer = 0f;
     int currentPeriodIndex = 0;
-    //NavMeshPath path;
-    //pickedClass :class to be moved to physics lab
     
 
     private void Awake()
@@ -63,6 +63,7 @@ public class SchoolManager : MonoBehaviour
     {
         RunSchoolTimer();
         OssilateClassSessions();
+        AllocateOrpahanedTeachers();
     }
 
     /*==========================================
@@ -204,7 +205,23 @@ public class SchoolManager : MonoBehaviour
             staircases.Add(stairs);
         }
     }
-    
+
+    void AllocateOrpahanedTeachers()
+    {
+        if(orphandTeachers.Count <= 0) { return; }
+        foreach (TeacherAI teacher in orphandTeachers.ToArray())
+        {
+            if (teacherRoomIndex == teachersrooms.Count)
+            {
+                teacherRoomIndex = 0;
+            }
+            teachersrooms[teacherRoomIndex].AddToRoomTeachers(teacher);
+            //Debug.Log($"Assigning {teacher.gameObject.name} to {teachersrooms[teacherRoomIndex].gameObject.name}"); //
+            orphandTeachers.Remove(teacher);
+            teacherRoomIndex++;
+        }
+    }
+
     /*==========================================
      * School properties getters, setters
      * =========================================
@@ -273,6 +290,12 @@ public class SchoolManager : MonoBehaviour
         }
         return lengthSoFar;
     }
+
+    public void AddOrphandTeacher(TeacherAI teacher)
+    {
+        orphandTeachers.Add(teacher);
+    }
+
     /*=============================================
      * Classroom Management
      * ============================================

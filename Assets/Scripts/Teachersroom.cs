@@ -6,6 +6,15 @@ public class Teachersroom : MonoBehaviour
 {
     bool classesInsession = false;
     SchoolManager schoolManager;
+    /// <summary>
+    /// Teachers belonging to this room
+    /// </summary>
+    List<TeacherAI> roomTeachers = new List<TeacherAI>();
+    /// <summary>
+    /// Teachers currently in room
+    /// </summary>
+    List<TeacherAI> TeachersInRoom = new List<TeacherAI>();
+
 
     // Start is called before the first frame update
     void Start()
@@ -17,5 +26,14 @@ public class Teachersroom : MonoBehaviour
     void Update()
     {
         classesInsession = schoolManager.classInSession;
+    }
+
+
+    public void AddToRoomTeachers(TeacherAI teacher)
+    {
+        //if (!roomTeachers.Contains(teacher))
+        {
+            roomTeachers.Add(teacher);
+        }
     }
 }

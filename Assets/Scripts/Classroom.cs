@@ -14,6 +14,8 @@ public class Classroom : MonoBehaviour
     List<Spot> desks = new List<Spot>();
     List<AI> classroomPupils = new List<AI>();
     List<AI> pupilsInClass = new List<AI>();
+    [SerializeField] Transform teacherSpawnMarker;
+
 
     //classroom variables
     List<int> classStructureTimes = new List<int>();
@@ -27,6 +29,10 @@ public class Classroom : MonoBehaviour
     [SerializeField] float deskGroupActivityCompensationZ = 0f;
     bool studentsInFile = false; //determines if students will move in a file
     bool classEmpty = false; //indicates if the class is empty
+    /// <summary>
+    /// A flag to indicate if teacher is already spawned
+    /// </summary>
+    bool spawnedTeacher = false;
 
     //school variables
     int periodTime;
@@ -72,7 +78,7 @@ public class Classroom : MonoBehaviour
     private void Update()
     {
         classInSession = schoolManager.classInSession;
-        SpawnPupils();
+        SpawnAgents();
         RunClassroomTimer();
         RunClass();
     }
@@ -96,7 +102,13 @@ public class Classroom : MonoBehaviour
         } 
     }
 
-    private void SpawnPupils()
+    private void SpawnAgents()
+    {
+        SpawnStudents();
+        SpawnTeacher();
+    }
+
+    private void SpawnStudents()
     {
         int counter = 0; // to record student names
         if (spawned)
@@ -120,6 +132,17 @@ public class Classroom : MonoBehaviour
         }
         spawned = true;
         ShuffleClassroomPupils();
+    }
+
+    /// <summary>
+    /// Spawns teachers at the start of the schoolday
+    /// </summary>
+    void SpawnTeacher()
+    {
+        if (spawnedTeacher) { return; }
+        GameObject teacher = Instantiate(teacherPrefab, teacherSpawnMarker.position, Quaternion.identity);
+        schoolManager.AddOrphandTeacher(teacher.GetComponent<TeacherAI>());
+        spawnedTeacher = true;
     }
 
     private void ShuffleClassroomPupils()

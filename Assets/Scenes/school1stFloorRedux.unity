@@ -941,6 +941,75 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1470770635}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &46233852
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 437136551}
+    m_Modifications:
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 17.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -21.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6038756631478423509, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_Name
+      value: Teacher room (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2868e6c91a5eacb418a7947daca7da81, type: 3}
 --- !u!4 &48098140 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1678982495574685156, guid: 0d7227cd1a64bda48ad436b31b6497b1,
@@ -1559,6 +1628,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1891646739}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &66086442 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+    type: 3}
+  m_PrefabInstance: {fileID: 46233852}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &69460725
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2164,7 +2239,8 @@ PrefabInstance:
         type: 3}
       propertyPath: teacherPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 919132149155446097, guid: 7cac16bb559ec27438a92b4e6fe96291,
+        type: 3}
     - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: indicator
@@ -2190,6 +2266,11 @@ PrefabInstance:
       propertyPath: nearestStairs
       value: 
       objectReference: {fileID: 1729923522}
+    - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+        type: 3}
+      propertyPath: teacherSpawnMarker
+      value: 
+      objectReference: {fileID: 1359658733}
     - target: {fileID: 3717130888090133382, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_IsTrigger
@@ -3491,6 +3572,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2027566834}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &169333407 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3350706369253470165, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+    type: 3}
+  m_PrefabInstance: {fileID: 1500109579}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &169493988
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4504,7 +4591,8 @@ PrefabInstance:
         type: 3}
       propertyPath: teacherPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 919132149155446097, guid: 7cac16bb559ec27438a92b4e6fe96291,
+        type: 3}
     - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: indicator
@@ -4530,6 +4618,11 @@ PrefabInstance:
       propertyPath: nearestStairs
       value: 
       objectReference: {fileID: 1854395441}
+    - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+        type: 3}
+      propertyPath: teacherSpawnMarker
+      value: 
+      objectReference: {fileID: 892249702}
     - target: {fileID: 3717130888090133382, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_IsTrigger
@@ -4832,6 +4925,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 112293120}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &222761826 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3350706369253470165, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+    type: 3}
+  m_PrefabInstance: {fileID: 2095950724}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &223347794
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4994,7 +5093,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 227882261}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.94, y: 0, z: -30.68}
+  m_LocalPosition: {x: 4.94, y: 0, z: -30.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 481055995}
@@ -5004,6 +5103,12 @@ Transform:
   m_Father: {fileID: 2075865051}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &231597617 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3350706369253470165, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+    type: 3}
+  m_PrefabInstance: {fileID: 1859067839}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &234416217 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1678982495574685156, guid: 0d7227cd1a64bda48ad436b31b6497b1,
@@ -5952,6 +6057,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 203255003755251825, guid: dce230e84c6438c4ea841ee0ea8531b8,
     type: 3}
   m_PrefabInstance: {fileID: 675291552}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &262403642 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+    type: 3}
+  m_PrefabInstance: {fileID: 639673274}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &273209502 stripped
 Transform:
@@ -9298,6 +9409,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1240273480}
+  - {fileID: 262403642}
+  - {fileID: 66086442}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11354,7 +11467,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534864431}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.06, y: 0, z: -30.68}
+  m_LocalPosition: {x: 10.94, y: 0, z: -30.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 84276211}
@@ -13277,6 +13390,85 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1959459382}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &639673274
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 437136551}
+    m_Modifications:
+    - target: {fileID: 5054096880724676003, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 5.302523
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054096880724676003, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.14662862
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -15.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -21.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6038756631478423509, guid: 2868e6c91a5eacb418a7947daca7da81,
+        type: 3}
+      propertyPath: m_Name
+      value: Teacher room (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2868e6c91a5eacb418a7947daca7da81, type: 3}
 --- !u!4 &642508897 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1678982495574685156, guid: 0d7227cd1a64bda48ad436b31b6497b1,
@@ -15143,7 +15335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713631431}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.27, y: 0, z: -30.68}
+  m_LocalPosition: {x: -13.38, y: 0, z: -30.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1246254104}
@@ -16261,6 +16453,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce230e84c6438c4ea841ee0ea8531b8, type: 3}
+--- !u!4 &744764816 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3350706369253470165, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+    type: 3}
+  m_PrefabInstance: {fileID: 1262109009}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &746070341
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16507,7 +16705,8 @@ PrefabInstance:
         type: 3}
       propertyPath: teacherPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 919132149155446097, guid: 7cac16bb559ec27438a92b4e6fe96291,
+        type: 3}
     - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: indicator
@@ -16533,6 +16732,11 @@ PrefabInstance:
       propertyPath: nearestStairs
       value: 
       objectReference: {fileID: 1854395441}
+    - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+        type: 3}
+      propertyPath: teacherSpawnMarker
+      value: 
+      objectReference: {fileID: 1787207613}
     - target: {fileID: 3717130888090133382, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_IsTrigger
@@ -17046,6 +17250,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5090804648156894746, guid: 75d3c4ee6b0edf346b4f658afbc719ad,
     type: 3}
   m_PrefabInstance: {fileID: 1374305651}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &768818715 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3350706369253470165, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+    type: 3}
+  m_PrefabInstance: {fileID: 1102837933}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &768852116
 PrefabInstance:
@@ -19644,6 +19854,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d7227cd1a64bda48ad436b31b6497b1, type: 3}
+--- !u!4 &892249702 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3350706369253470165, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+    type: 3}
+  m_PrefabInstance: {fileID: 210741899}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &893231393
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19945,6 +20161,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75d3c4ee6b0edf346b4f658afbc719ad, type: 3}
+--- !u!4 &910018974 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3350706369253470165, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+    type: 3}
+  m_PrefabInstance: {fileID: 3784705064693847472}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &910267890
 GameObject:
   m_ObjectHideFlags: 0
@@ -23463,7 +23685,8 @@ PrefabInstance:
         type: 3}
       propertyPath: teacherPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 919132149155446097, guid: 7cac16bb559ec27438a92b4e6fe96291,
+        type: 3}
     - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: indicator
@@ -23489,6 +23712,11 @@ PrefabInstance:
       propertyPath: nearestStairs
       value: 
       objectReference: {fileID: 1729923522}
+    - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+        type: 3}
+      propertyPath: teacherSpawnMarker
+      value: 
+      objectReference: {fileID: 1686858207}
     - target: {fileID: 3717130888090133382, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_IsTrigger
@@ -24291,7 +24519,8 @@ PrefabInstance:
         type: 3}
       propertyPath: teacherPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 919132149155446097, guid: 7cac16bb559ec27438a92b4e6fe96291,
+        type: 3}
     - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: indicator
@@ -24317,6 +24546,11 @@ PrefabInstance:
       propertyPath: nearestStairs
       value: 
       objectReference: {fileID: 1572107136}
+    - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+        type: 3}
+      propertyPath: teacherSpawnMarker
+      value: 
+      objectReference: {fileID: 768818715}
     - target: {fileID: 3717130888090133382, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_IsTrigger
@@ -25998,7 +26232,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1168132257}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.37, y: 0, z: -30.68}
+  m_LocalPosition: {x: -19.33, y: 0, z: -30.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 928620106}
@@ -26185,6 +26419,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5090804648156894746, guid: 75d3c4ee6b0edf346b4f658afbc719ad,
     type: 3}
   m_PrefabInstance: {fileID: 362656734}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1195069231 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3350706369253470165, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+    type: 3}
+  m_PrefabInstance: {fileID: 1292276292}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1198094699 stripped
 Transform:
@@ -26492,6 +26732,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75d3c4ee6b0edf346b4f658afbc719ad, type: 3}
+--- !u!4 &1212967872 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3350706369253470165, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+    type: 3}
+  m_PrefabInstance: {fileID: 1670240375}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1213588003 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1678982495574685156, guid: 0d7227cd1a64bda48ad436b31b6497b1,
@@ -27582,7 +27828,8 @@ PrefabInstance:
         type: 3}
       propertyPath: teacherPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 919132149155446097, guid: 7cac16bb559ec27438a92b4e6fe96291,
+        type: 3}
     - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: indicator
@@ -27608,6 +27855,11 @@ PrefabInstance:
       propertyPath: nearestStairs
       value: 
       objectReference: {fileID: 2084398229}
+    - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+        type: 3}
+      propertyPath: teacherSpawnMarker
+      value: 
+      objectReference: {fileID: 744764816}
     - target: {fileID: 3717130888090133382, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_IsTrigger
@@ -28531,7 +28783,8 @@ PrefabInstance:
         type: 3}
       propertyPath: teacherPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 919132149155446097, guid: 7cac16bb559ec27438a92b4e6fe96291,
+        type: 3}
     - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: indicator
@@ -28557,6 +28810,11 @@ PrefabInstance:
       propertyPath: nearestStairs
       value: 
       objectReference: {fileID: 2084398229}
+    - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+        type: 3}
+      propertyPath: teacherSpawnMarker
+      value: 
+      objectReference: {fileID: 1195069231}
     - target: {fileID: 3717130888090133382, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_IsTrigger
@@ -28732,7 +28990,8 @@ PrefabInstance:
         type: 3}
       propertyPath: teacherPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 919132149155446097, guid: 7cac16bb559ec27438a92b4e6fe96291,
+        type: 3}
     - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: indicator
@@ -28758,6 +29017,11 @@ PrefabInstance:
       propertyPath: nearestStairs
       value: 
       objectReference: {fileID: 1572107136}
+    - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+        type: 3}
+      propertyPath: teacherSpawnMarker
+      value: 
+      objectReference: {fileID: 1574280121}
     - target: {fileID: 3717130888090133382, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_IsTrigger
@@ -29989,6 +30253,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 69460725}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1359658733 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3350706369253470165, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+    type: 3}
+  m_PrefabInstance: {fileID: 97812662}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1365284701
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30568,6 +30838,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1678982495574685156, guid: 0d7227cd1a64bda48ad436b31b6497b1,
     type: 3}
   m_PrefabInstance: {fileID: 1822282421}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1395066111 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3350706369253470165, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+    type: 3}
+  m_PrefabInstance: {fileID: 2124944381}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1395571128
 PrefabInstance:
@@ -32753,7 +33029,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1495089324}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.050001, y: 0, z: -30.68}
+  m_LocalPosition: {x: 16.86, y: 0, z: -30.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1629314418}
@@ -32785,7 +33061,8 @@ PrefabInstance:
         type: 3}
       propertyPath: teacherPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 919132149155446097, guid: 7cac16bb559ec27438a92b4e6fe96291,
+        type: 3}
     - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: indicator
@@ -32811,6 +33088,11 @@ PrefabInstance:
       propertyPath: nearestStairs
       value: 
       objectReference: {fileID: 1572107136}
+    - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+        type: 3}
+      propertyPath: teacherSpawnMarker
+      value: 
+      objectReference: {fileID: 169333407}
     - target: {fileID: 3717130888090133382, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_IsTrigger
@@ -34232,6 +34514,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1572572370}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1574280121 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3350706369253470165, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+    type: 3}
+  m_PrefabInstance: {fileID: 1301492086}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1575198765
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36557,7 +36845,8 @@ PrefabInstance:
         type: 3}
       propertyPath: teacherPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 919132149155446097, guid: 7cac16bb559ec27438a92b4e6fe96291,
+        type: 3}
     - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: indicator
@@ -36583,6 +36872,11 @@ PrefabInstance:
       propertyPath: nearestStairs
       value: 
       objectReference: {fileID: 1854395441}
+    - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+        type: 3}
+      propertyPath: teacherSpawnMarker
+      value: 
+      objectReference: {fileID: 1212967872}
     - target: {fileID: 3717130888090133382, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_IsTrigger
@@ -36902,6 +37196,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1678982495574685156, guid: 0d7227cd1a64bda48ad436b31b6497b1,
     type: 3}
   m_PrefabInstance: {fileID: 1722915481}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1686858207 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3350706369253470165, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+    type: 3}
+  m_PrefabInstance: {fileID: 1083671665}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1689958464 stripped
 Transform:
@@ -37263,6 +37563,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1678982495574685156, guid: 0d7227cd1a64bda48ad436b31b6497b1,
     type: 3}
   m_PrefabInstance: {fileID: 1816911053}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1710668436 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3350706369253470165, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+    type: 3}
+  m_PrefabInstance: {fileID: 1725009195}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1713839190
 PrefabInstance:
@@ -37818,7 +38124,8 @@ PrefabInstance:
         type: 3}
       propertyPath: teacherPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 919132149155446097, guid: 7cac16bb559ec27438a92b4e6fe96291,
+        type: 3}
     - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: indicator
@@ -37844,6 +38151,11 @@ PrefabInstance:
       propertyPath: nearestStairs
       value: 
       objectReference: {fileID: 1854395441}
+    - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+        type: 3}
+      propertyPath: teacherSpawnMarker
+      value: 
+      objectReference: {fileID: 1710668436}
     - target: {fileID: 3717130888090133382, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_IsTrigger
@@ -39418,6 +39730,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1874013409}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1787207613 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3350706369253470165, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+    type: 3}
+  m_PrefabInstance: {fileID: 753837698}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1794806176 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5090804648156894746, guid: 75d3c4ee6b0edf346b4f658afbc719ad,
@@ -40935,7 +41253,8 @@ PrefabInstance:
         type: 3}
       propertyPath: teacherPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 919132149155446097, guid: 7cac16bb559ec27438a92b4e6fe96291,
+        type: 3}
     - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: indicator
@@ -40961,6 +41280,11 @@ PrefabInstance:
       propertyPath: nearestStairs
       value: 
       objectReference: {fileID: 1572107136}
+    - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+        type: 3}
+      propertyPath: teacherSpawnMarker
+      value: 
+      objectReference: {fileID: 231597617}
     - target: {fileID: 3717130888090133382, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_IsTrigger
@@ -41481,7 +41805,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1878882165}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25.15, y: 0, z: -30.68}
+  m_LocalPosition: {x: -25.27, y: 0, z: -30.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1094411331}
@@ -42525,7 +42849,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1939652948}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.13, y: 0, z: -30.68}
+  m_LocalPosition: {x: -7.28, y: 0, z: -30.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1160083900}
@@ -46191,7 +46515,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2092111569}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.16, y: 0, z: -30.68}
+  m_LocalPosition: {x: -1.1, y: 0, z: -30.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 325629558}
@@ -46372,7 +46696,8 @@ PrefabInstance:
         type: 3}
       propertyPath: teacherPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 919132149155446097, guid: 7cac16bb559ec27438a92b4e6fe96291,
+        type: 3}
     - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: indicator
@@ -46398,6 +46723,11 @@ PrefabInstance:
       propertyPath: nearestStairs
       value: 
       objectReference: {fileID: 1729923522}
+    - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+        type: 3}
+      propertyPath: teacherSpawnMarker
+      value: 
+      objectReference: {fileID: 222761826}
     - target: {fileID: 3717130888090133382, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_IsTrigger
@@ -47104,7 +47434,8 @@ PrefabInstance:
         type: 3}
       propertyPath: teacherPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 919132149155446097, guid: 7cac16bb559ec27438a92b4e6fe96291,
+        type: 3}
     - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: indicator
@@ -47130,6 +47461,11 @@ PrefabInstance:
       propertyPath: nearestStairs
       value: 
       objectReference: {fileID: 1729923522}
+    - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+        type: 3}
+      propertyPath: teacherSpawnMarker
+      value: 
+      objectReference: {fileID: 1395066111}
     - target: {fileID: 3717130888090133382, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_IsTrigger
@@ -48298,7 +48634,8 @@ PrefabInstance:
         type: 3}
       propertyPath: teacherPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 919132149155446097, guid: 7cac16bb559ec27438a92b4e6fe96291,
+        type: 3}
     - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: indicator
@@ -48324,6 +48661,11 @@ PrefabInstance:
       propertyPath: nearestStairs
       value: 
       objectReference: {fileID: 2084398229}
+    - target: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+        type: 3}
+      propertyPath: teacherSpawnMarker
+      value: 
+      objectReference: {fileID: 910018974}
     - target: {fileID: 3717130888090133382, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_IsTrigger
