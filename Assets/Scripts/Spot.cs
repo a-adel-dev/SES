@@ -6,6 +6,7 @@ public class Spot : MonoBehaviour
 {
     private bool available = true;
     private AI _agent;
+    private TeacherAI _teacher;
 
     // add an agent to a spot and make it occupied
     public void FillSpot(AI agent)
@@ -14,18 +15,16 @@ public class Spot : MonoBehaviour
         _agent = agent;
     }
 
+    public void FillSpot(TeacherAI teacher)
+    {
+        available = false;
+        _teacher = teacher;
+    }
+
     //make the spot available and return the agent that was occupying the spot
-    public AI ClearSpot()
+    public void ClearSpot()
     {
         available = true;
-        if (_agent != null)
-        {
-            return _agent;
-        }
-        else
-        {
-            return null;
-        }
     }
 
     //check if the spot was available

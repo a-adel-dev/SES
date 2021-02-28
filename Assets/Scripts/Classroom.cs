@@ -140,9 +140,11 @@ public class Classroom : MonoBehaviour
     void SpawnTeacher()
     {
         if (spawnedTeacher) { return; }
-        GameObject teacher = Instantiate(teacherPrefab, teacherSpawnMarker.position, Quaternion.identity);
-        schoolManager.AddOrphandTeacher(teacher.GetComponent<TeacherAI>());
         spawnedTeacher = true;
+        GameObject teacher = Instantiate(teacherPrefab, teacherSpawnMarker.position, Quaternion.identity);
+        TeacherAI teacherAgent = teacher.GetComponent<TeacherAI>();
+        schoolManager.AddOrphandTeacher(teacherAgent);
+        teacherAgent.SetInClassroomto(true);
     }
 
     private void ShuffleClassroomPupils()

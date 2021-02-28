@@ -66,7 +66,8 @@ MonoBehaviour:
   deskGroupActivityCompensationX: 0
   deskGroupActivityCompensationZ: 0
   pupilPrefab: {fileID: 0}
-  teacherPrefab: {fileID: 0}
+  teacherPrefab: {fileID: 708053679854848142, guid: 651694a02e9825b4bb16a8cd66595ad4,
+    type: 3}
   move: 0
   indicator: {fileID: 0}
   DebuggingClassTimes: 0

@@ -63,7 +63,7 @@ public class SchoolManager : MonoBehaviour
     {
         RunSchoolTimer();
         OssilateClassSessions();
-        AllocateOrpahanedTeachers();
+        
     }
 
     /*==========================================
@@ -92,6 +92,7 @@ public class SchoolManager : MonoBehaviour
         {
             if (schoolTime > classTimes[currentPeriodIndex])
             {
+                AllocateOrpahanedTeachers();
                 classInSession = false;
                 currentPeriodIndex++;
                 foreach (Classroom classroom in inPlaceClassrooms)
@@ -216,6 +217,7 @@ public class SchoolManager : MonoBehaviour
                 teacherRoomIndex = 0;
             }
             teachersrooms[teacherRoomIndex].AddToRoomTeachers(teacher);
+            teachersrooms[teacherRoomIndex].AddToClassroomTeachers(teacher);
             //Debug.Log($"Assigning {teacher.gameObject.name} to {teachersrooms[teacherRoomIndex].gameObject.name}"); //
             orphandTeachers.Remove(teacher);
             teacherRoomIndex++;
