@@ -39,6 +39,7 @@ public class Classroom : MonoBehaviour
     SchoolManager schoolManager;
     float timeStep;
     int sessionActivityMinTime;
+    TeacherPool teacherspool;
 
 
     //internal class code management
@@ -70,6 +71,7 @@ public class Classroom : MonoBehaviour
     private void Awake()
     {
         schoolManager = FindObjectOfType<SchoolManager>();
+        teacherspool = FindObjectOfType<TeacherPool>();
         periodTime = schoolManager.GetPeriodTime();
         timeStep = schoolManager.simTimeScale;
         sessionActivityMinTime = schoolManager.GetSessionActivityMinTime();
@@ -143,8 +145,10 @@ public class Classroom : MonoBehaviour
         spawnedTeacher = true;
         GameObject teacher = Instantiate(teacherPrefab, teacherSpawnMarker.position, Quaternion.identity);
         TeacherAI teacherAgent = teacher.GetComponent<TeacherAI>();
+        teacherspool.AddToTeachersPool(teacherAgent);
         schoolManager.AddOrphandTeacher(teacherAgent);
         teacherAgent.SetInClassroomto(true);
+        teacherAgent.AssignClassRoom(this);
     }
 
     private void ShuffleClassroomPupils()

@@ -92,9 +92,11 @@
     <Compile Include="Assets\Scripts\EgressPoint.cs" />
     <Compile Include="Assets\Scripts\Lab.cs" />
     <Compile Include="Assets\Scripts\POI.cs" />
+    <Compile Include="Assets\Scripts\School\TeacherPool.cs" />
     <Compile Include="Assets\Scripts\SchoolManager.cs" />
     <Compile Include="Assets\Scripts\Spot.cs" />
     <Compile Include="Assets\Scripts\TeacherAI.cs" />
+    <Compile Include="Assets\Scripts\TeacherNavigation.cs" />
     <Compile Include="Assets\Scripts\Teachersroom\TeacherSpawner.cs" />
     <Compile Include="Assets\Scripts\Teachersroom\Teachersroom.cs" />
     <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\TagDialogue.BT.txt" />

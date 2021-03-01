@@ -6,10 +6,13 @@ public class TeacherSpawner : MonoBehaviour
 {
     [SerializeField] List<Spot> desks;
     [SerializeField] GameObject teacherPrefab;
-    
+    TeacherPool teacherspool;
+
     // Start is called before the first frame update
     void Start()
     {
+        
+        teacherspool = FindObjectOfType<TeacherPool>();
         SpawnTeachers();
     }
 
@@ -28,6 +31,7 @@ public class TeacherSpawner : MonoBehaviour
             GameObject teacher = Instantiate(teacherPrefab, desks[i].transform.position, Quaternion.identity);
             TeacherAI teacherAgent= teacher.GetComponent<TeacherAI>();
             teacherAgent.SetInClassroomto(false);
+            teacherspool.AddToTeachersPool(teacherAgent);
             teacherAgent.AssignTeachersRoom(gameObject.GetComponent<Teachersroom>());
         }
         

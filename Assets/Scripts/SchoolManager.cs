@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum ClassroomState { inSession, onBreak, dayIsOver}
+
+
+
 public class SchoolManager : MonoBehaviour
 {
     //Sim Parameters
@@ -31,6 +35,7 @@ public class SchoolManager : MonoBehaviour
     List<Teachersroom>  teachersrooms = new List<Teachersroom>();
     List<Lab>           labs = new List<Lab>();
     List<EgressPoint>   staircases = new List<EgressPoint>();
+    
 
     //class global properties
     [HideInInspector]
@@ -44,25 +49,31 @@ public class SchoolManager : MonoBehaviour
     List<int> classTimes = new List<int>();
     float timer = 0f;
     int currentPeriodIndex = 0;
-    
+    TeacherPool teacherPoolController;
+    List<TeacherAI> teacherspool;
+    ClassroomState currentState = ClassroomState.inSession;
+    ClassroomState previousState = ClassroomState.onBreak;
+
 
     private void Awake()
     {
         AllocateSubSpaces();
         inPlaceClassrooms = new List<Classroom>(classrooms);
         ScheduleClasses();
+        teacherPoolController = gameObject.GetComponent(typeof(TeacherPool)) as TeacherPool;  
         //path = new NavMeshPath();
     }
 
     private void Start()
     {
         StartSchoolDay();
+        Invoke("AllocateOrpahanedTeachers", 5.0f);
     }
 
     private void Update()
     {
         RunSchoolTimer();
-        OssilateClassSessions();
+        OscillateClassSessions();
         
     }
 
@@ -80,28 +91,37 @@ public class SchoolManager : MonoBehaviour
         }
     }
 
-    private void OssilateClassSessions()
+
+    private void OscillateClassSessions()
     {
-        if (schoolDay == false) { return; }
-        if (currentPeriodIndex == classTimes.Count-1)
+        if (currentState == ClassroomState.dayIsOver) { return; }
+        if (currentPeriodIndex == classTimes.Count - 1)
         {
             EndSchoolDay();
             classTimes = new List<int>();
+            currentState = ClassroomState.dayIsOver;
         }
         if (currentPeriodIndex % 2 == 0)
         {
             if (schoolTime > classTimes[currentPeriodIndex])
             {
-                AllocateOrpahanedTeachers();
-                classInSession = false;
-                currentPeriodIndex++;
-                foreach (Classroom classroom in inPlaceClassrooms)
+                previousState = currentState;
+                currentState = ClassroomState.onBreak;
+                if (currentState != previousState )
                 {
-                    classroom.EndClass();
-                }
-                if (classlabPairList != null)
-                {
-                    SendClassesBackFromLabs();
+                    currentPeriodIndex++;
+                    
+                    classInSession = false;
+                    ReplaceClassTeachers(); 
+                    Debug.Log("increasing current Period Index");
+                    foreach (Classroom classroom in inPlaceClassrooms)
+                    {
+                        classroom.EndClass();
+                    }
+                    if (classlabPairList != null)
+                    {
+                        SendClassesBackFromLabs();
+                    }
                 }
             }
         }
@@ -109,12 +129,17 @@ public class SchoolManager : MonoBehaviour
         {
             if (schoolTime > classTimes[currentPeriodIndex])
             {
-                classInSession = true;
-                currentPeriodIndex++;
-                SendClassesToLabs();
-                foreach (Classroom classroom in inPlaceClassrooms)
+                previousState = currentState;
+                currentState = ClassroomState.inSession;
+                if (currentState != previousState)
                 {
-                    classroom.StartClass();
+                    classInSession = true;
+                    currentPeriodIndex++;
+                    SendClassesToLabs();
+                    foreach (Classroom classroom in inPlaceClassrooms)
+                    {
+                        classroom.StartClass();
+                    }
                 }
             }
         }
@@ -209,7 +234,12 @@ public class SchoolManager : MonoBehaviour
 
     void AllocateOrpahanedTeachers()
     {
-        if(orphandTeachers.Count <= 0) { return; }
+        
+        if(orphandTeachers.Count <= 0) 
+        {
+            return;
+        }
+        
         foreach (TeacherAI teacher in orphandTeachers.ToArray())
         {
             if (teacherRoomIndex == teachersrooms.Count)
@@ -218,7 +248,8 @@ public class SchoolManager : MonoBehaviour
             }
             teachersrooms[teacherRoomIndex].AddToRoomTeachers(teacher);
             teachersrooms[teacherRoomIndex].AddToClassroomTeachers(teacher);
-            //Debug.Log($"Assigning {teacher.gameObject.name} to {teachersrooms[teacherRoomIndex].gameObject.name}"); //
+            teacher.AssignTeachersRoom(teachersrooms[teacherRoomIndex]);
+            Debug.Log($"Assigning {teacher.gameObject.name} to {teachersrooms[teacherRoomIndex].gameObject.name}"); //
             orphandTeachers.Remove(teacher);
             teacherRoomIndex++;
         }
@@ -228,6 +259,17 @@ public class SchoolManager : MonoBehaviour
      * School properties getters, setters
      * =========================================
      */
+
+    public int GetNumClasses()
+    {
+        return classrooms.Count;
+    }
+
+    public int GetNumlabs()
+    {
+        return labs.Count;
+    }
+
     public int GetPeriodTime()
     {
         return periodLength;
@@ -344,6 +386,36 @@ public class SchoolManager : MonoBehaviour
         classLabPair.lab.EndLab(classLabPair.classroom);
         inPlaceClassrooms.Add(classLabPair.classroom);
         classLabPair.classroom.RecieveStudents();
+    }
+
+    void ReplaceClassTeachers()
+    {
+        //Debug.Log("calling replace teachers");
+        teacherPoolController.ShuffleTeachers();
+        teacherspool = teacherPoolController.GetSchoolTeachers();
+        foreach (TeacherAI teacher in teacherspool)
+        {
+            teacher.SetInClassroomto(false);
+            teacher.ClearClassRoom();
+        }
+
+        for (int i = 0; i < classrooms.Count; i++)
+        {
+            teacherspool[i].AssignClassRoom(classrooms[i]);
+            teacherspool[i].SetInClassroomto(true);
+        }
+
+        foreach (TeacherAI teacher in teacherspool)
+        {
+            if (teacher.IsInClassroom())
+            {
+                teacher.GetComponent<TeacherNavigation>().GoToClassRoom();
+            }
+            else
+            {
+                teacher.GetComponent<TeacherNavigation>().GoToTeachersRoom();
+            }
+        }
     }
 
     /*===============================================

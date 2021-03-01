@@ -11,12 +11,12 @@ public class TeacherAI : MonoBehaviour
     /// <summary>
     /// The classroom currently assigned to teacher
     /// </summary>
-    Classroom currentClass;
+    public Classroom currentClass { get; private set; }
     /// <summary>
     /// The teacher's original room
     /// </summary>
-    Teachersroom mainTeacherRoom;
-    
+    public Teachersroom mainTeacherRoom { get; private set; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +43,11 @@ public class TeacherAI : MonoBehaviour
     public void AssignClassRoom(Classroom classroom)
     {
         currentClass = classroom;
+    }
+
+    public void ClearClassRoom()
+    {
+        currentClass = null;
     }
     /// <summary>
     /// Sets the teacher to be in a classroom or out based on the status parameter
