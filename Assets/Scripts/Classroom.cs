@@ -15,6 +15,7 @@ public class Classroom : MonoBehaviour
     List<AI> classroomPupils = new List<AI>();
     List<AI> pupilsInClass = new List<AI>();
     [SerializeField] Transform teacherSpawnMarker;
+    BoxCollider teachersSpace;
 
 
     //classroom variables
@@ -205,12 +206,22 @@ public class Classroom : MonoBehaviour
         {
             desks.Add(other.GetComponent<Spot>());
         }
+        else if (other.CompareTag("TeachersArea"))
+        {
+            teachersSpace = other.GetComponent<BoxCollider>();
+        }
     }
 
     /*==================================
      * Class IO
      * =================================
      */
+
+    public BoxCollider GetTeacherSpace()
+    {
+        return teachersSpace;
+    }
+
     public void SetInQueueTo(bool status)
     {
         studentsInFile = status;
@@ -270,6 +281,10 @@ public class Classroom : MonoBehaviour
         }
     }
 
+    public Transform GetTeacherSpawnerPos()
+    {
+        return teacherSpawnMarker;
+    }
     /*====================================
      * Classroom Main Methods
      * ===================================

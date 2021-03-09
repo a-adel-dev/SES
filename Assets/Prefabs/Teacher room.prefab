@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 5054096880724676003}
   - component: {fileID: 3178547743717243584}
   - component: {fileID: 5090771605271733470}
+  - component: {fileID: 1011626511302294818}
   m_Layer: 0
   m_Name: Teacher room
   m_TagString: Teachersroom
@@ -257,8 +258,20 @@ MonoBehaviour:
   - {fileID: 1205550645409901641}
   - {fileID: 3336024943691901176}
   - {fileID: 2678472854292855830}
-  teacherPrefab: {fileID: 919132149155446097, guid: 7cac16bb559ec27438a92b4e6fe96291,
+  teacherPrefab: {fileID: 708053679854848142, guid: 651694a02e9825b4bb16a8cd66595ad4,
     type: 3}
+--- !u!114 &1011626511302294818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6038756631478423509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da2d0b911dd53aa44856c431c2028ccd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7690194369818530701
 GameObject:
   m_ObjectHideFlags: 0

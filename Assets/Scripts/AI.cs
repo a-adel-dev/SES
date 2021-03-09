@@ -56,7 +56,7 @@ public class AI : MonoBehaviour
         //SetDestination(distination); 
         SetIdlePose();
         var remaining = (agent.destination - this.transform.position);
-        Debug.DrawRay(this.transform.position, remaining, Color.red);
+        //Debug.DrawRay(this.transform.position, remaining, Color.red);
 
     }
 

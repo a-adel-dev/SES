@@ -948,12 +948,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 437136551}
     m_Modifications:
-    - target: {fileID: 5090771605271733470, guid: 2868e6c91a5eacb418a7947daca7da81,
-        type: 3}
-      propertyPath: teacherPrefab
-      value: 
-      objectReference: {fileID: 708053679854848142, guid: 651694a02e9825b4bb16a8cd66595ad4,
-        type: 3}
     - target: {fileID: 5708007398092535966, guid: 2868e6c91a5eacb418a7947daca7da81,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -23400,6 +23394,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1911423951}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1046541610 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6038756631478423509, guid: 2868e6c91a5eacb418a7947daca7da81,
+    type: 3}
+  m_PrefabInstance: {fileID: 5581622618498769266}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1046541614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1046541610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da2d0b911dd53aa44856c431c2028ccd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1046713109 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1678982495574685156, guid: 0d7227cd1a64bda48ad436b31b6497b1,
@@ -27062,6 +27074,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d7227cd1a64bda48ad436b31b6497b1, type: 3}
+--- !u!1 &1206078296 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6038756631478423509, guid: 2868e6c91a5eacb418a7947daca7da81,
+    type: 3}
+  m_PrefabInstance: {fileID: 639673274}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1206078300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206078296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da2d0b911dd53aa44856c431c2028ccd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1207520810 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1678982495574685156, guid: 0d7227cd1a64bda48ad436b31b6497b1,
@@ -48604,7 +48634,7 @@ PrefabInstance:
     - target: {fileID: 1754256576211981239, guid: 92dbf2c0d80de6148ad551717a86693f,
         type: 3}
       propertyPath: simTimeScale
-      value: 0.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1754256576211981239, guid: 92dbf2c0d80de6148ad551717a86693f,
         type: 3}

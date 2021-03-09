@@ -33,6 +33,7 @@ public class TeacherSpawner : MonoBehaviour
             teacherAgent.SetInClassroomto(false);
             teacherspool.AddToTeachersPool(teacherAgent);
             teacherAgent.AssignTeachersRoom(gameObject.GetComponent<Teachersroom>());
+            teacherAgent.AssignTeacherDesk(desks[i]);
         }
         
     }
@@ -49,5 +50,10 @@ public class TeacherSpawner : MonoBehaviour
             desks[random] = desks[listLength];
             desks[listLength] = temp;
         }
+    }
+
+    public List<Spot> GetDesks()
+    {
+        return desks;
     }
 }

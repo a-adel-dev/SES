@@ -40,23 +40,9 @@ public class Teachersroom : MonoBehaviour
     }
 
     
-
     public void AddToClassroomTeachers(TeacherAI teacher)
     {
         teachersInClassroom.Add(teacher);
-    }
-
-    private void ReplaceTeachers()
-    {
-        List<TeacherAI> selectedTeachers = new List<TeacherAI>();
-        int numTeachersInClasses = teachersInClassroom.Count;
-        ShuffleRoomTeachers();
-        TeacherAI[] CurrentRoomTeachers = roomTeachers.ToArray();
-        for (int i = 0; i < numTeachersInClasses; i++)
-        {
-            selectedTeachers.Add(CurrentRoomTeachers[i]);
-            roomTeachers.RemoveAt(0);
-        }
     }
 
     private void ShuffleRoomTeachers()

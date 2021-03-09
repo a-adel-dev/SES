@@ -20,6 +20,7 @@ public class SchoolManager : MonoBehaviour
     [SerializeField] int periodLength = 40;
     [Range(5, 30)]
     [SerializeField] int sessionActivityMinTime = 8;
+    [SerializeField] float timeMultiplier = 1f;
     /// <summary>
     /// The waiting time between the exit of classes at the end of school day
     /// </summary>
@@ -72,6 +73,7 @@ public class SchoolManager : MonoBehaviour
 
     private void Update()
     {
+        Time.timeScale = timeMultiplier;
         RunSchoolTimer();
         OscillateClassSessions();
         
@@ -113,7 +115,7 @@ public class SchoolManager : MonoBehaviour
                     
                     classInSession = false;
                     ReplaceClassTeachers(); 
-                    Debug.Log("increasing current Period Index");
+                    //Debug.Log("increasing current Period Index");
                     foreach (Classroom classroom in inPlaceClassrooms)
                     {
                         classroom.EndClass();

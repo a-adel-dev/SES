@@ -7,19 +7,25 @@ public class TeacherNavigation : MonoBehaviour
 {
     NavMeshAgent agent;
     TeacherAI Ai;
-    
+    bool wandering = false;
+    SchoolManager schoolManager;
+    float timeStep;
+
     // Start is called before the first frame update
     void Start()
     {
+        schoolManager = FindObjectOfType<SchoolManager>();
+        timeStep = schoolManager.simTimeScale;
         agent = GetComponent<NavMeshAgent>();
         Ai = GetComponent<TeacherAI>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         var remaining = (agent.destination - this.transform.position);
-        Debug.DrawRay(this.transform.position, remaining, Color.red);
+        Debug.DrawRay(this.transform.position, remaining, Color.blue);
     }
 
     /// <summary>
@@ -33,11 +39,40 @@ public class TeacherNavigation : MonoBehaviour
 
     public void GoToClassRoom()
     {
-        GuideTo(Ai.currentClass.transform.position);
+        SetWandering(false);
+        GuideTo(Ai.currentClass.GetTeacherSpawnerPos().position);
+        SetWandering(true);
     }
 
     public void GoToTeachersRoom()
     {
-        GuideTo(Ai.mainTeacherRoom.gameObject.transform.position);
+        Debug.Log($"teacher is going to teachersRoom");
+        Spot desk = Ai.mainTeacherRoom.GetComponent<DesksBucket>().GetAvailableDesk();
+        GuideTo(desk.transform.position);
+        desk.FillSpot(GetComponent<TeacherAI>());
+    }
+
+
+    public void SetWandering(bool status)
+    {
+        wandering = status;
+    }
+
+    public IEnumerator Wander()
+    {
+        
+
+        while (wandering)
+        {
+            BoxCollider area = Ai.currentClass.GetTeacherSpace();
+            Vector3 bounds_min = area.bounds.min;
+            Vector3 bounds_max = area.bounds.max;
+            float waypoint_x = Random.Range(bounds_min[0], bounds_max[0]);
+            float waypoint_z = Random.Range(bounds_min[2], bounds_max[2]);
+            Vector3 waypoint= new Vector3(waypoint_x, 0f, waypoint_z );
+            Debug.Log($"moving");
+            GuideTo(waypoint);
+            yield return new WaitForSeconds(Random.Range(5f, 20f ) * timeStep);
+        }
     }
 }

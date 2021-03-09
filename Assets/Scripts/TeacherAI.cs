@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum MovementStyle {  classroom, restricted}
 public class TeacherAI : MonoBehaviour
 {
     /// <summary>
@@ -16,17 +18,26 @@ public class TeacherAI : MonoBehaviour
     /// The teacher's original room
     /// </summary>
     public Teachersroom mainTeacherRoom { get; private set; }
+    public Spot currentTeacherDesk;
+    private TeacherNavigation teacherNav;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        teacherNav = GetComponent<TeacherNavigation>();
+        if (IsInClassroom())
+        {
+            StartWander(MovementStyle.restricted);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (!IsInClassroom())
+        {
+            StopWandering();
+        }
     }
     /// <summary>
     /// Assigns a teachers room to the teacher
@@ -56,6 +67,7 @@ public class TeacherAI : MonoBehaviour
     public void SetInClassroomto(bool status)
     {
         inClassroom = status;
+        ClearTeacherDesk();
     }
     /// <summary>
     /// returns true if teacher is currently in class
@@ -64,4 +76,37 @@ public class TeacherAI : MonoBehaviour
     {
         return inClassroom;
     }
+
+    public void AssignTeacherDesk(Spot desk)
+    {
+        currentTeacherDesk = desk;
+    }
+
+    public void ClearTeacherDesk()
+    {
+        currentTeacherDesk = null;
+    }
+    /// <summary>
+    /// moves the teacher about in a classroom
+    /// </summary>
+    /// <param name="style">classroom if the teacher is free to move in the class, restricted if the teacher is bound to his area</param>
+    private void StartWander(MovementStyle style)
+    {
+        teacherNav.SetWandering(true);
+        if (style == MovementStyle.restricted)
+        {
+            StartCoroutine(teacherNav.Wander());
+        }
+        else if (style == MovementStyle.classroom)
+        {
+            StartCoroutine(teacherNav.Wander());
+        }
+    }
+
+    private void StopWandering()
+    {
+        teacherNav.SetWandering(false);
+    }
+
+    
 }
