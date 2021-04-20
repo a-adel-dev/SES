@@ -91,7 +91,9 @@
     <Compile Include="Assets\Scripts\Corridor.cs" />
     <Compile Include="Assets\Scripts\EgressPoint.cs" />
     <Compile Include="Assets\Scripts\Lab.cs" />
+    <Compile Include="Assets\Scripts\Labs\LabTeacherSpawner.cs" />
     <Compile Include="Assets\Scripts\POI.cs" />
+    <Compile Include="Assets\Scripts\School\LabTeachersPool.cs" />
     <Compile Include="Assets\Scripts\School\TeacherPool.cs" />
     <Compile Include="Assets\Scripts\SchoolManager.cs" />
     <Compile Include="Assets\Scripts\Spot.cs" />

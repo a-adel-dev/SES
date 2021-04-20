@@ -5,13 +5,7 @@ using UnityEngine;
 public class TeacherPool : MonoBehaviour
 {
     List<TeacherAI> teachersPool = new List<TeacherAI>();
-    SchoolManager schoolManager;
-
-    private void Start()
-    {
-        schoolManager = gameObject.GetComponent(typeof(SchoolManager)) as SchoolManager;
-    }
-
+    List<TeacherAI> labTeachersPool = new List<TeacherAI>();
 
     public List<TeacherAI> GetSchoolTeachers()
     {
@@ -19,16 +13,24 @@ public class TeacherPool : MonoBehaviour
     }
 
     /// <summary>
-    /// Adds or removes a teacher from teacherspool
+    /// Adds or removes a teacher from teachers pool
     /// </summary>
-    /// <param name="teacher">teacher to be added or removed</param>
-    /// <param name="mode">"add" to add a teacher, "remove" to remove a teacher</param>
+    /// <param name="teacher">teacher to be added</param>
     public void AddToTeachersPool(TeacherAI teacher)
     {
         teachersPool.Add(teacher);
     }
 
-    public void ShuffleTeachers()
+    /// <summary>
+    /// Adds or removes a teacher from lab teachers pool
+    /// </summary>
+    /// <param name="teacher">teacher to be added</param>
+    public void AddToLabTeachersPool(TeacherAI teacher)
+    {
+        labTeachersPool.Add(teacher);
+    }
+
+    public void ShuffleSchoolTeachers()
     {
         int listLength = teachersPool.Count;
         int random;
@@ -41,12 +43,4 @@ public class TeacherPool : MonoBehaviour
             teachersPool[listLength] = temp;
         }
     }
-
-    /// set all teachers to be not in class
-    /// pick teachers equal to number of classes + number of labs
-    /// set them to be inclass
-    /// send them to their classes
-    ///
-
-
 }

@@ -64,7 +64,15 @@ public class TeacherNavigation : MonoBehaviour
 
         while (wandering)
         {
-            BoxCollider area = Ai.currentClass.GetTeacherSpace();
+            BoxCollider area = null;
+            if (Ai.currentClass != null)
+            {
+                area = Ai.currentClass.GetTeacherSpace();
+            }
+            else if (Ai.ownLab != null)
+            {
+                area = Ai.ownLab.GetTeacherSpace();
+            }
             Vector3 bounds_min = area.bounds.min;
             Vector3 bounds_max = area.bounds.max;
             float waypoint_x = Random.Range(bounds_min[0], bounds_max[0]);

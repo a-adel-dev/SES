@@ -393,7 +393,7 @@ public class SchoolManager : MonoBehaviour
     void ReplaceClassTeachers()
     {
         //Debug.Log("calling replace teachers");
-        teacherPoolController.ShuffleTeachers();
+        teacherPoolController.ShuffleSchoolTeachers();
         teacherspool = teacherPoolController.GetSchoolTeachers();
         foreach (TeacherAI teacher in teacherspool)
         {

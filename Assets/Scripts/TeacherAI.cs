@@ -17,9 +17,10 @@ public class TeacherAI : MonoBehaviour
     /// <summary>
     /// The teacher's original room
     /// </summary>
+    public Lab ownLab { get; private set; }
     public Teachersroom mainTeacherRoom { get; private set; }
     public Spot currentTeacherDesk;
-    private TeacherNavigation teacherNav;
+    TeacherNavigation teacherNav;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +47,11 @@ public class TeacherAI : MonoBehaviour
     public void AssignTeachersRoom(Teachersroom room)
     {
         mainTeacherRoom = room;
+    }
+
+    public void AssignLab(Lab lab)
+    {
+        ownLab = lab;
     }
     /// <summary>
     /// Assign a classroom to the teacher

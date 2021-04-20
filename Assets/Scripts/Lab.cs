@@ -14,6 +14,7 @@ public class Lab : MonoBehaviour
     List<AI> labPupils = new List<AI>();
     List<AI> pupilsInLab = new List<AI>();
     Classroom currentOriginalClass;
+    BoxCollider teachersSpace;
 
     //lab variables
     int labTime = 0;
@@ -65,6 +66,10 @@ public class Lab : MonoBehaviour
         else if (other.CompareTag("Desk"))
         {
             desks.Add(other.GetComponent<Spot>());
+        }
+        else if (other.CompareTag("TeachersArea"))
+        {
+            teachersSpace = other.GetComponent<BoxCollider>();
         }
     }
 
@@ -255,6 +260,11 @@ public class Lab : MonoBehaviour
     public void SetCurrentOriginalClass(Classroom classroom)
     {
         currentOriginalClass = classroom;
+    }
+
+    public BoxCollider GetTeacherSpace()
+    {
+        return teachersSpace;
     }
 
 }
