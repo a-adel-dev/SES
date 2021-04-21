@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1915250873815991226}
   - component: {fileID: 1915250873815991225}
   - component: {fileID: 6368480211921176346}
+  - component: {fileID: 5470988542513258005}
   m_Layer: 0
   m_Name: Corridor
   m_TagString: Corridor
@@ -72,5 +73,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0924845abeae520439280882b30571c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5470988542513258005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915250873815991223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

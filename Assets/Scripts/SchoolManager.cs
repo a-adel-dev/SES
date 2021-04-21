@@ -251,7 +251,7 @@ public class SchoolManager : MonoBehaviour
             teachersrooms[teacherRoomIndex].AddToRoomTeachers(teacher);
             teachersrooms[teacherRoomIndex].AddToClassroomTeachers(teacher);
             teacher.AssignTeachersRoom(teachersrooms[teacherRoomIndex]);
-            Debug.Log($"Assigning {teacher.gameObject.name} to {teachersrooms[teacherRoomIndex].gameObject.name}"); //
+            //Debug.Log($"Assigning {teacher.gameObject.name} to {teachersrooms[teacherRoomIndex].gameObject.name}"); //
             orphandTeachers.Remove(teacher);
             teacherRoomIndex++;
         }

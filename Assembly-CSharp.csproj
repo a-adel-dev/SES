@@ -90,6 +90,11 @@
     <Compile Include="Assets\Scripts\Classroom.cs" />
     <Compile Include="Assets\Scripts\Corridor.cs" />
     <Compile Include="Assets\Scripts\EgressPoint.cs" />
+    <Compile Include="Assets\Scripts\Health\Droplet.cs" />
+    <Compile Include="Assets\Scripts\Health\GeneralHealthParamaters.cs" />
+    <Compile Include="Assets\Scripts\Health\Health.cs" />
+    <Compile Include="Assets\Scripts\Health\SpaceHealth.cs" />
+    <Compile Include="Assets\Scripts\Health\SpaceHealthVisualization.cs" />
     <Compile Include="Assets\Scripts\Lab.cs" />
     <Compile Include="Assets\Scripts\Labs\LabTeacherSpawner.cs" />
     <Compile Include="Assets\Scripts\POI.cs" />

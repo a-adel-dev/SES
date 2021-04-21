@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 6870786197774672087}
   - component: {fileID: 3553884003612468737}
   - component: {fileID: -1655908857123734982}
+  - component: {fileID: 8457426912948384654}
   m_Layer: 0
   m_Name: Lab
   m_TagString: Lab
@@ -162,3 +163,15 @@ MonoBehaviour:
   desks: []
   teacherPrefab: {fileID: 708053679854848142, guid: 651694a02e9825b4bb16a8cd66595ad4,
     type: 3}
+--- !u!114 &8457426912948384654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7265495422432722968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

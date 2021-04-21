@@ -78,7 +78,6 @@ public class TeacherNavigation : MonoBehaviour
             float waypoint_x = Random.Range(bounds_min[0], bounds_max[0]);
             float waypoint_z = Random.Range(bounds_min[2], bounds_max[2]);
             Vector3 waypoint= new Vector3(waypoint_x, 0f, waypoint_z );
-            Debug.Log($"moving");
             GuideTo(waypoint);
             yield return new WaitForSeconds(Random.Range(5f, 20f ) * timeStep);
         }

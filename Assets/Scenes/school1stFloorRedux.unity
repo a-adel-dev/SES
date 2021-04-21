@@ -6599,6 +6599,7 @@ GameObject:
   - component: {fileID: 289861776}
   - component: {fileID: 289861775}
   - component: {fileID: 289861774}
+  - component: {fileID: 289861777}
   m_Layer: 0
   m_Name: Bathroom (2)
   m_TagString: Bathroom
@@ -6679,6 +6680,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &289861777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289861772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outdoor: 0
+  Concentration: 0
+  airExchangeRate: 0
 --- !u!4 &290132930 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1678982495574685156, guid: 0d7227cd1a64bda48ad436b31b6497b1,
@@ -13684,6 +13700,7 @@ GameObject:
   - component: {fileID: 634479682}
   - component: {fileID: 634479681}
   - component: {fileID: 634479684}
+  - component: {fileID: 634479685}
   m_Layer: 0
   m_Name: Arts class
   m_TagString: Classroom
@@ -13767,6 +13784,21 @@ MonoBehaviour:
   spawnPositions:
   - {fileID: 156922512}
   - {fileID: 1913196811}
+--- !u!114 &634479685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634479679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outdoor: 0
+  Concentration: 0
+  airExchangeRate: 0
 --- !u!1001 &635190399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20177,6 +20209,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 824e6b8d74807a143b54299565ccf3a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &882700133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882700131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f08921f869e454fa22da261e604169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  criticalRadius: 2.6
+  viralInfectivity: 0.1
+  normalBreathingFlowRate: 0.5
+  talkingBreathingFlowRate: 0.75
+  LoudtalkingBreathingFlowRate: 1
+  avarageNaturalDropletConentration: 0.1
+  avarageTalkingDropletConcentration: 0.3
+  avarageShoutingDropletConcentration: 0.9
+  viralLoad: 1e+12
+  initialAirExchangeRate: 3
 --- !u!1001 &889354675
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22277,7 +22331,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 974650363}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.14, y: 1.5, z: -1.4}
+  m_LocalPosition: {x: -1.14, y: 0, z: -1.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1125913204}
@@ -22310,8 +22364,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 7.49975, y: 1, z: 5.7608547}
-  m_Center: {x: 0.96096706, y: 0, z: 1.9596729}
+  m_Size: {x: 7.49975, y: 3, z: 5.7608547}
+  m_Center: {x: 0.96096706, y: 1.5, z: 1.9596729}
 --- !u!1001 &975525344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23672,7 +23726,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1049390593}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.1400013, y: 1.5, z: -3.05}
+  m_LocalPosition: {x: -1.1400013, y: 0, z: -3.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 634479680}
@@ -23705,8 +23759,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 7.49975, y: 1, z: 5.7950325}
-  m_Center: {x: 0.96096706, y: 0, z: 3.592887}
+  m_Size: {x: 7.49975, y: 3, z: 5.7950325}
+  m_Center: {x: 0.96096706, y: 1.5, z: 3.592887}
 --- !u!1001 &1050237068
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25921,6 +25975,7 @@ GameObject:
   - component: {fileID: 1125913206}
   - component: {fileID: 1125913205}
   - component: {fileID: 1125913208}
+  - component: {fileID: 1125913209}
   m_Layer: 0
   m_Name: biololegy Lab
   m_TagString: Classroom
@@ -26004,6 +26059,21 @@ MonoBehaviour:
   spawnPositions:
   - {fileID: 918186537}
   - {fileID: 1059388013}
+--- !u!114 &1125913209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125913203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outdoor: 0
+  Concentration: 0
+  airExchangeRate: 0
 --- !u!4 &1126421134 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5090804648156894746, guid: 75d3c4ee6b0edf346b4f658afbc719ad,
@@ -29006,6 +29076,7 @@ GameObject:
   - component: {fileID: 1273688067}
   - component: {fileID: 1273688066}
   - component: {fileID: 1273688068}
+  - component: {fileID: 1273688069}
   m_Layer: 0
   m_Name: Bathroom (1)
   m_TagString: Bathroom
@@ -29054,6 +29125,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56213522ce292034782e73b3bcdd0455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1273688069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273688065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outdoor: 0
+  Concentration: 0
+  airExchangeRate: 0
 --- !u!1001 &1273900239
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41574,7 +41660,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1838939660}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.1400013, y: 1.5, z: -3.3}
+  m_LocalPosition: {x: -1.1400013, y: 0, z: -3.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8018865677087313291}
@@ -41607,8 +41693,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 7.49975, y: 1, z: 8.730995}
-  m_Center: {x: 0.96096706, y: 0, z: 3.4447432}
+  m_Size: {x: 7.49975, y: 3, z: 8.730995}
+  m_Center: {x: 0.96096706, y: 1.5, z: 3.4447432}
 --- !u!4 &1839737042 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1678982495574685156, guid: 0d7227cd1a64bda48ad436b31b6497b1,
@@ -48661,6 +48747,67 @@ Transform:
   m_Father: {fileID: 713631432}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2134258527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2134258528}
+  - component: {fileID: 2134258530}
+  - component: {fileID: 2134258529}
+  m_Layer: 0
+  m_Name: RoomVolume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2134258528
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134258527}
+  m_LocalRotation: {x: -0, y: 0.37214386, z: -0, w: 0.92817503}
+  m_LocalPosition: {x: -0.31996536, y: 0, z: -0.46149445}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 262403642}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 43.696003, z: 0}
+--- !u!65 &2134258529
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134258527}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.4467661, y: 3, z: 3.0501623}
+  m_Center: {x: -2.2208538, y: 1.5, z: -1.0250803}
+--- !u!54 &2134258530
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134258527}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!4 &2135573386 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1678982495574685156, guid: 0d7227cd1a64bda48ad436b31b6497b1,
@@ -49843,6 +49990,7 @@ GameObject:
   - component: {fileID: 8018865677087313293}
   - component: {fileID: 8018865677087313292}
   - component: {fileID: 8018865677087313294}
+  - component: {fileID: 8018865677087313295}
   m_Layer: 0
   m_Name: Physics Lab
   m_TagString: Classroom
@@ -49913,6 +50061,21 @@ MonoBehaviour:
   spawnPositions:
   - {fileID: 784523051}
   - {fileID: 1382173143}
+--- !u!114 &8018865677087313295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8018865677087313290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outdoor: 0
+  Concentration: 0
+  airExchangeRate: 0
 --- !u!1001 &8764347847686957153
 PrefabInstance:
   m_ObjectHideFlags: 0
