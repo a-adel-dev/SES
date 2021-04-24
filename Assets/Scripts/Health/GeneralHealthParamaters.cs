@@ -32,6 +32,8 @@ public class GeneralHealthParamaters : MonoBehaviour
 
     public float initialAirExchangeRate = 3f;
 
+   
+
     private void Start()
     {
         foreach (SpaceHealth space in FindObjectsOfType<SpaceHealth>())

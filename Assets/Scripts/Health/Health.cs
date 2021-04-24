@@ -19,6 +19,8 @@ public class Health : MonoBehaviour
     float timeStep;
     float timer = 0f;
     SpaceHealth currentSpace;
+    float infectionQuanta = 0;
+    float shortRangeInfectionQuanta = 0;
 
     GeneralHealthParamaters healthParamaters;
 
@@ -48,6 +50,8 @@ public class Health : MonoBehaviour
     {
         if (!infected)
         {
+            infectionQuanta = breathingFlowRate  * (currentSpace.GetComponent<SpaceHealth>().concentration +
+                shortRangeInfectionQuanta) * healthParamaters.viralInfectivity * maskFactor;
             return 0f;
         }
 
@@ -112,5 +116,10 @@ public class Health : MonoBehaviour
     public void SetCurrentSpace(SpaceHealth space)
     {
         currentSpace = space;
+    }
+
+    public bool IsInfected()
+    {
+        return infected;
     }
 }

@@ -6692,8 +6692,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spaceVolume: 0
   outdoor: 0
-  Concentration: 0
+  concentration: 0
+  currentConcentration: 0
   airExchangeRate: 0
 --- !u!4 &290132930 stripped
 Transform:
@@ -13796,8 +13798,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spaceVolume: 0
   outdoor: 0
-  Concentration: 0
+  concentration: 0
+  currentConcentration: 0
   airExchangeRate: 0
 --- !u!1001 &635190399
 PrefabInstance:
@@ -26071,8 +26075,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spaceVolume: 0
   outdoor: 0
-  Concentration: 0
+  concentration: 0
+  currentConcentration: 0
   airExchangeRate: 0
 --- !u!4 &1126421134 stripped
 Transform:
@@ -29137,8 +29143,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spaceVolume: 0
   outdoor: 0
-  Concentration: 0
+  concentration: 0
+  currentConcentration: 0
   airExchangeRate: 0
 --- !u!1001 &1273900239
 PrefabInstance:
@@ -49472,6 +49480,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Corridor (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5470988542513258005, guid: 71825e215fed29246bff270d9e56cb0d,
+        type: 3}
+      propertyPath: outdoor
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71825e215fed29246bff270d9e56cb0d, type: 3}
 --- !u!1001 &1981513772028110962
@@ -50073,8 +50086,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spaceVolume: 0
   outdoor: 0
-  Concentration: 0
+  concentration: 0
+  currentConcentration: 0
   airExchangeRate: 0
 --- !u!1001 &8764347847686957153
 PrefabInstance:

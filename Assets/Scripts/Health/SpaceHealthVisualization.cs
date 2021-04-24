@@ -18,7 +18,7 @@ public class SpaceHealthVisualization : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        planeRenderer.material.SetColor("_Color", new Color(1, 0, 0, (Mathf.Min(space.Concentration * .01f,0.6f))));
-        Debug.Log(space.Concentration * .01f);
+        planeRenderer.material.SetColor("_Color", new Color(1, 0, 0, (Mathf.Min(space.concentration * .001f,0.6f))));
+        //Debug.Log(space.Concentration * .001f);
     }
 }

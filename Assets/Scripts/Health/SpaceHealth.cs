@@ -4,16 +4,35 @@ using UnityEngine;
 
 public class SpaceHealth : MonoBehaviour
 {
+    [SerializeField]
+    [Tooltip("The volume of Space in m^3")]
     float spaceVolume;
+    [Tooltip("Is space outdoor?")]
     public bool outdoor = false;
-    public float Concentration;
+    [Tooltip("Viral Concentration in space quanta/m^3")]
+    public float concentration;
+    [Tooltip("Concentration when infected individuals leave space")]
+    public float currentConcentration;
+    [Tooltip("Air Exchange rate /hour")]
     public float airExchangeRate = 3f;
+    [Tooltip("Air Exchange rate /minute")]
     float EffectiveAirExchangeRate;
+    /// <summary>
+    /// List of agents in the current space
+    /// </summary>
     List<Health> agentsInSpace = new List<Health>();
+
+
     float timer = 0f;
     SchoolManager schoolManager;
     float timeStep;
     float spaceTime = 0f;
+
+    /// <summary>
+    /// wheather there is infected individuals in space
+    /// </summary>
+    bool infectorsPresent = false;
+    
 
 
 
@@ -42,6 +61,9 @@ public class SpaceHealth : MonoBehaviour
     void Update()
     {
         RunTime();
+        infectorsPresent = IsInfectorsPresent();
+        
+        Debug.Log($"concentration: {concentration}, current concentration: {currentConcentration}");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -74,10 +96,54 @@ public class SpaceHealth : MonoBehaviour
         {
             timer -= timeStep;
             spaceTime += 1f;
-            foreach (Health agent  in agentsInSpace)
+            SendMessage("TimeStep");
+            
+        }
+    }
+
+    private void IncreaseSpaceInfectionConcentration()
+    {
+        if (outdoor)
+        { return; }
+
+        foreach (Health agent in agentsInSpace)
+        {
+            concentration += agent.Breathe() / (EffectiveAirExchangeRate * spaceVolume);
+        }
+    }
+
+    private bool IsInfectorsPresent()
+    {
+        foreach (Health agent in agentsInSpace)
+        {
+            if (agent.IsInfected())
             {
-                Concentration +=  agent.Breathe()/(EffectiveAirExchangeRate * spaceVolume);
+                return true;
             }
         }
+        
+        return false;
+    }
+
+    private void DissipateConcentration()
+    {
+        if(outdoor)
+        { return; }
+        if (infectorsPresent)
+        {
+            currentConcentration = concentration;
+            return;
+        }
+        else
+        {
+            concentration = Mathf.Max(0f, concentration -( currentConcentration * EffectiveAirExchangeRate));
+        }
+    }
+
+    void TimeStep()
+    {
+        Debug.Log($"TimeStep");
+        IncreaseSpaceInfectionConcentration();
+        DissipateConcentration();
     }
 }
