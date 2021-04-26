@@ -77,7 +77,7 @@ public class CameraController : MonoBehaviour
                 dragStartPosition = ray.GetPoint(entry);
             }
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(1))
         {
             Plane plane = new Plane(Vector3.up, Vector3.zero);
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);

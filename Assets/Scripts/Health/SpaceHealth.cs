@@ -63,7 +63,7 @@ public class SpaceHealth : MonoBehaviour
         RunTime();
         infectorsPresent = IsInfectorsPresent();
         
-        Debug.Log($"concentration: {concentration}, current concentration: {currentConcentration}");
+        //Debug.Log($"concentration: {concentration}, current concentration: {currentConcentration}");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -142,7 +142,7 @@ public class SpaceHealth : MonoBehaviour
 
     void TimeStep()
     {
-        Debug.Log($"TimeStep");
+        //Debug.Log($"TimeStep");
         IncreaseSpaceInfectionConcentration();
         DissipateConcentration();
     }

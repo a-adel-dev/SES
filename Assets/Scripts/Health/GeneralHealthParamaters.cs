@@ -13,13 +13,14 @@ public class GeneralHealthParamaters : MonoBehaviour
 
 
     [Header("Breathing flow")]
-    [Tooltip("breathing flow rate assumed for mouth breathing Q_b (m3/h)")]
+    [Tooltip("Breathing flow rate assumed for mouth breathing Q_b (m3/h)")]
     public float normalBreathingFlowRate  = 0.5f;
-    [Tooltip("breathing flow rate assumed for talking Q_b (m3/h)")]
+    [Tooltip("Breathing flow rate assumed for talking Q_b (m3/h)")]
     public float talkingBreathingFlowRate  = 0.75f;
-    [Tooltip("breathing flow rate assumed for shouting (m3/h)")]
+    [Tooltip("Breathing flow rate assumed for shouting (m3/h)")]
     public float LoudtalkingBreathingFlowRate  = 1.0f;
 
+    [Header("Breathing droplet concentration")]
     [Tooltip("Breathing droplet concentration (cm-3)")]
     public float avarageNaturalDropletConentration = 0.1f;
     [Tooltip("Talking droplet concentration (cm-3)")]
@@ -27,9 +28,19 @@ public class GeneralHealthParamaters : MonoBehaviour
     [Tooltip("Shouting droplet concentration (cm-3)")]
     public float avarageShoutingDropletConcentration = 0.9f;
 
-    [Tooltip("concentration of virions in the droplets (copies/liquid volume)")]
+    [Header("Virion parameters")]
+    [Tooltip("Concentration of virions in the droplets (copies/liquid volume)")]
     public float viralLoad = 10E11f;
 
+
+    [Header("Short range infection parameters")]
+    [Tooltip("The jet entrainment coefficient which is typically fall in the range for the turbulent jet 0.1 - 0.15 (α)")]
+    public float jetEntrainmentCoefficient = 0.1f;
+    [Tooltip("Mouth area (cm^2")]
+    public float mouthArea = 2f;
+
+
+    [Header("Space parameters")]
     public float initialAirExchangeRate = 3f;
 
    

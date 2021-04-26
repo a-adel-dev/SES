@@ -19,6 +19,7 @@ TagManager:
   - BathroomTarget
   - POI
   - TeachersArea
+  - Teacher
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Agents
   - 
   - 
   - 

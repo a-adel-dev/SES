@@ -22,6 +22,8 @@ public class Health : MonoBehaviour
     float infectionQuanta = 0;
     float shortRangeInfectionQuanta = 0;
 
+    ShortRangeInfector shortRangeInfector;
+
     GeneralHealthParamaters healthParamaters;
 
     void Start()
@@ -33,6 +35,7 @@ public class Health : MonoBehaviour
         timeStep = schoolManager.simTimeScale;
         SetBreathingRate();
         SetNumberDensity();
+        shortRangeInfector = transform.GetChild(0).GetComponent<ShortRangeInfector>();
     }
 
     // Update is called once per frame
@@ -42,7 +45,7 @@ public class Health : MonoBehaviour
         if (timer >= timeStep)
         {
             timer -= timeStep;
-            Debug.Log(Breathe().ToString());
+            //Debug.Log(Breathe().ToString());
         }
     }
 
@@ -121,5 +124,26 @@ public class Health : MonoBehaviour
     public bool IsInfected()
     {
         return infected;
+    }
+
+    public void SetShortRangeInfectionQuanta(float quanta)
+    {
+        shortRangeInfectionQuanta = quanta;
+    }
+
+    public void ResetShortRangeInfectionQuanta()
+    {
+        shortRangeInfectionQuanta = 0;
+    }
+
+    public void InfectAgent()
+    {
+        infected = true;
+        shortRangeInfector.gameObject.SetActive(true);
+    }
+
+    public float GetInfectionQuanta()
+    {
+        return infectionQuanta;
     }
 }
