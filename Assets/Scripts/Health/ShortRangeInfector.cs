@@ -66,7 +66,7 @@ public class ShortRangeInfector : MonoBehaviour
     {
         foreach (Health individual in peopleInRange)
         {
-            float distance = Vector3.Distance(individual.transform.position, infector.transform.position)/100f;
+            float distance = Vector3.Distance(individual.transform.position, infector.transform.position)*100f;
 
             individual.SetShortRangeInfectionQuanta(infector.Breathe() * sqrtMouthArea / ( jetEntrainmentCoefficient * distance));
         }
