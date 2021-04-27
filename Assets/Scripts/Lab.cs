@@ -171,14 +171,14 @@ public class Lab : MonoBehaviour
 
     public void RunLab()
     {
-        //TODO: implement RunLab
+
         UpdateClearToGo();
         //update clearto go status
     }
 
     public void StartLab()
     {
-        //TODO: implement StartLab
+
         SetlabEmptyTo(false);
         StartCoroutine(ManageBusyStatus());
         InvokeRepeating("UpdateStarted", 10.0f * timeStep, 10f * timeStep);
@@ -240,7 +240,7 @@ public class Lab : MonoBehaviour
         if (started == false && pupilsInLab.Count > 0 )
         {
             
-            Debug.Log($"updating clearto go status");
+            //Debug.Log($"updating clearto go status");
             started = true;
             foreach (AI pupil in pupilsInLab)
             {

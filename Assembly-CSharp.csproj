@@ -108,8 +108,8 @@
     <Compile Include="Assets\Scripts\Teachersroom\DesksBucket.cs" />
     <Compile Include="Assets\Scripts\Teachersroom\TeacherSpawner.cs" />
     <Compile Include="Assets\Scripts\Teachersroom\Teachersroom.cs" />
-    <Compile Include="Assets\Scripts\UI\Information.cs" />
     <Compile Include="Assets\Scripts\UI\ScreenSelector.cs" />
+    <Compile Include="Assets\Scripts\UI\SelectorUIInfo.cs" />
     <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\TagDialogue.BT.txt" />
     <None Include="Assets\Behaviors\LockerActivity.BT.txt" />
     <None Include="Assets\Behaviors\BathroomActivity.BT.txt" />

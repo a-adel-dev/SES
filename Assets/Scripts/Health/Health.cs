@@ -15,7 +15,6 @@ public class Health : MonoBehaviour
     float breathingFlowRate;
     float numberDensity;
     float dropletVolume;
-    Droplet droplet;
     SchoolManager schoolManager;
     float timeStep;
     float timer = 0f;

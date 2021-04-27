@@ -9,7 +9,8 @@ public class GeneralHealthParamaters : MonoBehaviour
     [Tooltip("The critical radius after which larger radius are not counted in the sim Cᵣ(μm)")] 
     public float criticalRadius = 2.6f;
     [Tooltip("the concentration of suspended pathogen to the infection rate Cᵢ(infection quanta)")]
-    public float viralInfectivity = .1f;
+    public float viralInfectivity = 0.1f;
+    
 
 
     [Header("Breathing flow")]
@@ -48,6 +49,10 @@ public class GeneralHealthParamaters : MonoBehaviour
     public float n95MaskValue = 0.05f;
     public float surgicalMaskValue = 0.15f;
     public float clothMaskValue = 0.8f;
+
+    [Header("Visualization Parameters")]
+    [Tooltip("how fast a space is considerred to be totally contaminated")]
+    public float spaceInfectionThreshold = .001f;
 
 
 

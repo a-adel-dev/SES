@@ -46,7 +46,7 @@ public class TeacherNavigation : MonoBehaviour
 
     public void GoToTeachersRoom()
     {
-        Debug.Log($"teacher is going to teachersRoom");
+        //Debug.Log($"teacher is going to teachersRoom");
         Spot desk = Ai.mainTeacherRoom.GetComponent<DesksBucket>().GetAvailableDesk();
         GuideTo(desk.transform.position);
         desk.FillSpot(GetComponent<TeacherAI>());
