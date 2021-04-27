@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum ActivityType { Breathing, Talking, LoudTalking}
+public enum MaskFactor { none, cloth, surgical , N95}
 
 public class Health : MonoBehaviour
 {
@@ -102,11 +103,6 @@ public class Health : MonoBehaviour
         }
     }
 
-    public void SetMaskFactor(float factor)
-    {
-        maskFactor = factor;
-    }
-
     /*
     private void OnTriggerEnter(Collider other)
     {
@@ -145,5 +141,37 @@ public class Health : MonoBehaviour
     public float GetInfectionQuanta()
     {
         return infectionQuanta;
+    }
+
+    public void SetMaskFactor(MaskFactor _maskFactor)
+    {
+        switch (_maskFactor)
+        {
+            case MaskFactor.none:
+                maskFactor = 1f;
+                break;
+            case MaskFactor.cloth:
+                maskFactor = healthParamaters.clothMaskValue;
+                break;
+            case MaskFactor.surgical:
+                maskFactor = healthParamaters.surgicalMaskValue;
+                break;
+            case MaskFactor.N95:
+                maskFactor = healthParamaters.n95MaskValue;
+                break;
+            default:
+                maskFactor = 1f;
+                break;
+        }
+    }
+
+    public void SetMaskFactor(float factor)
+    {
+        maskFactor = factor;
+    }
+    
+    public float GetMaskFactor()
+    {
+        return maskFactor;
     }
 }

@@ -13,6 +13,7 @@ public class ScreenSelector : MonoBehaviour
     Vector3 agentPanelOriginalPosition;
     Vector3 agentPanelTargetPosition;
     Animator animator;
+    GeneralHealthParamaters healthParamaters;
     [SerializeField]
     float panelMovementSpeed = 30f;
 
@@ -28,6 +29,9 @@ public class ScreenSelector : MonoBehaviour
     [SerializeField] Text infectionQuanta;
     [SerializeField] Button infect;
     [SerializeField] Dropdown maskOptions;
+    [SerializeField] Text maskFactor;
+    [SerializeField] Slider maskFactorSilder;
+    [SerializeField] Text maskFactorValue;
 
     Health agentHealth;
 
@@ -35,7 +39,8 @@ public class ScreenSelector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        info = GetComponent<Information>();
+
+        healthParamaters = FindObjectOfType<GeneralHealthParamaters>();
         animator = agentSelectionPanel.GetComponent<Animator>();
         agentPanelOriginalPosition = agentSelectionPanel.transform.position;
         agentPanelTargetPosition = new Vector3(
@@ -48,6 +53,7 @@ public class ScreenSelector : MonoBehaviour
     private void Update()
     {
         UpdateInformation();
+        
     }
 
     private void UpdateInformation()
@@ -56,7 +62,9 @@ public class ScreenSelector : MonoBehaviour
         agentName.text = agent.name;
         infected.text = agentHealth.IsInfected().ToString();
         infectionQuanta.text = string.Format("{0:N3}",agentHealth.GetInfectionQuanta());
-
+        maskFactor.text = string.Format("{0:N2}", maskFactorSilder.value);
+        maskFactorValue.text = agentHealth.GetMaskFactor().ToString();
+        
     }
 
     // Update is called once per frame
@@ -71,8 +79,6 @@ public class ScreenSelector : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Agents")))
             {
                 MovePanelUp();
-                
-
                 Transform selection = hit.transform;
                 agent = selection.gameObject;
                 agentHealth = agent.GetComponent<Health>();
@@ -83,7 +89,9 @@ public class ScreenSelector : MonoBehaviour
                 }
                 agent.GetComponent<Renderer>().material = agentHighlightMaterial;
                 previousAgent = agent;
+                UpdateMaskDropdown();
             }
+            
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -95,6 +103,7 @@ public class ScreenSelector : MonoBehaviour
     void MovePanelUp()
     {
         animator.Play("PlayerPanelUp");
+        
 
     }
 
@@ -106,5 +115,79 @@ public class ScreenSelector : MonoBehaviour
     public void InfectSelectedAgent()
     {
         agentHealth.InfectAgent();
+    }
+
+    public void SetMaskForSelected ()
+    {
+        switch (maskOptions.value)
+        {
+            case 0:
+                agentHealth.SetMaskFactor(MaskFactor.none);
+                break;
+            case 1:
+                agentHealth.SetMaskFactor(MaskFactor.cloth);
+                break;
+             case 2:
+                agentHealth.SetMaskFactor(MaskFactor.surgical);
+                break;
+            case 3:
+                agentHealth.SetMaskFactor(MaskFactor.N95);
+                break;
+            case 4:
+                ShowMaskSlider(true);
+                break;
+        }
+    }
+
+    public void SetCustomMaskForSelected()
+    {
+        agentHealth.SetMaskFactor(maskFactorSilder.value);
+    }
+
+    public void SliderValueChangeCheck()
+    {
+        maskFactor.text = (maskFactorSilder.value).ToString();
+    }
+
+    private void UpdateMaskDropdown()
+    {
+        if (agent == null) { return; }
+        float surgical = healthParamaters.surgicalMaskValue;
+        float n95 = healthParamaters.n95MaskValue;
+        float cloth = healthParamaters.clothMaskValue;
+            
+        if (agentHealth.GetMaskFactor() == 1f)
+        {
+            maskOptions.value = 0;
+            ShowMaskSlider(false);
+
+        }
+        else if (agentHealth.GetMaskFactor() == cloth)
+        {
+            maskOptions.value = 1;
+            ShowMaskSlider(false);
+        }
+        else if (agentHealth.GetMaskFactor() == surgical)
+        {
+            maskOptions.value = 2;
+            ShowMaskSlider(false);
+        }
+        else if (agentHealth.GetMaskFactor() == n95)
+        {
+            maskOptions.value = 3;
+            ShowMaskSlider(false);
+        }
+        else
+        {
+            maskOptions.value = 4;
+            ShowMaskSlider(true);
+            maskFactorSilder.value = agentHealth.GetMaskFactor();
+        }
+    }
+    
+    void ShowMaskSlider(bool value)
+    {
+        maskFactor.gameObject.SetActive(value);
+        maskFactorSilder.gameObject.SetActive(value);
     }
 }

@@ -43,7 +43,14 @@ public class GeneralHealthParamaters : MonoBehaviour
     [Header("Space parameters")]
     public float initialAirExchangeRate = 3f;
 
-   
+
+    [Header("Mask Parameters")]
+    public float n95MaskValue = 0.05f;
+    public float surgicalMaskValue = 0.15f;
+    public float clothMaskValue = 0.8f;
+
+
+
 
     private void Start()
     {
