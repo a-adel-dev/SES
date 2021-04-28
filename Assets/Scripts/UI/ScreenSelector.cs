@@ -49,6 +49,7 @@ public class ScreenSelector : MonoBehaviour
                 agent = selection.gameObject;
                 info.SetAgent(agent);
                 info.UpdateMaskDropdown();
+                info.UpdateActivityDropdown();
                 
 
                 originalMaterial = agent.GetComponent<Renderer>().material;

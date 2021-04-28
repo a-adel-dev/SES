@@ -145,5 +145,20 @@ public class SpaceHealth : MonoBehaviour
         //Debug.Log($"TimeStep");
         IncreaseSpaceInfectionConcentration();
         DissipateConcentration();
+        AttemptInfection();
+    }
+
+    void AttemptInfection()
+    {
+        if (Mathf.Abs(concentration) <= Mathf.Epsilon) { return; }
+        foreach (Health agent in agentsInSpace )
+        {
+            float threshold = Random.Range(0f, 100f);
+            Debug.Log($"{threshold} against {agent.GetInfectionQuanta()}");
+            if (!agent.IsInfected() && agent.GetInfectionQuanta() > threshold)
+            {
+                agent.InfectAgent();
+            }
+        }
     }
 }

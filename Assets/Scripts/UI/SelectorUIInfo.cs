@@ -19,6 +19,7 @@ public class SelectorUIInfo : MonoBehaviour
     [SerializeField] Slider maskFactorSlider;
     [SerializeField] Text maskFactorValue;
     [SerializeField] GameObject maskLabels;
+    [SerializeField] Dropdown activityOptions;
 
     void Start()
     {
@@ -123,5 +124,37 @@ public class SelectorUIInfo : MonoBehaviour
     {
         agent = _agent;
         agentHealth = _agent.GetComponent<Health>();
+    }
+
+    public void UpdateActivityDropdown()
+    {
+        switch (agentHealth.activity)
+        {
+            case ActivityType.Breathing:
+                activityOptions.value = 0;
+                break;
+            case ActivityType.Talking:
+                activityOptions.value = 1;
+                break;
+            case ActivityType.LoudTalking:
+                activityOptions.value = 2;
+                break;
+        }
+    }
+
+    public void UISetActivityLevel()
+    {
+        switch (activityOptions.value)
+        {
+            case 0:
+                agentHealth.SetActivityType(ActivityType.Breathing);
+                break;
+            case 1:
+                agentHealth.SetActivityType(ActivityType.Talking);
+                break;
+            case 2:
+                agentHealth.SetActivityType(ActivityType.LoudTalking);
+                break;
+        }
     }
 }

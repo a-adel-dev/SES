@@ -15,22 +15,22 @@ public class Health : MonoBehaviour
     float breathingFlowRate;
     float numberDensity;
     float dropletVolume;
-    SchoolManager schoolManager;
     float timeStep;
     float timer = 0f;
     SpaceHealth currentSpace;
-    float infectionQuanta = 0;
-    float shortRangeInfectionQuanta = 0;
+    float infectionQuanta = 0f;
+    float infectiuosQuanta = 0f;
+    float shortRangeInfectionQuanta = 0f;
 
     ShortRangeInfector shortRangeInfector;
-
+    SchoolManager schoolManager;
     GeneralHealthParamaters healthParamaters;
 
     void Start()
     {
         healthParamaters = FindObjectOfType<GeneralHealthParamaters>();
-        float criticalRadiusInmL = healthParamaters.criticalRadius / 1000;
-        dropletVolume = Mathf.PI * Mathf.Pow(criticalRadiusInmL, 3f);
+        float criticalRadiusInM = healthParamaters.criticalRadius * 1E-6f;
+        dropletVolume = Mathf.PI * Mathf.Pow(criticalRadiusInM, 3f);
         schoolManager = FindObjectOfType<SchoolManager>();
         timeStep = schoolManager.simTimeScale;
         SetBreathingRate();
@@ -47,6 +47,7 @@ public class Health : MonoBehaviour
             timer -= timeStep;
             //Debug.Log(Breathe().ToString());
         }
+        
     }
 
     public float Breathe()
@@ -57,9 +58,8 @@ public class Health : MonoBehaviour
                 shortRangeInfectionQuanta) * healthParamaters.viralInfectivity * maskFactor;
             return 0f;
         }
-
-        return breathingFlowRate * maskFactor * numberDensity * dropletVolume * healthParamaters.viralLoad;
-        
+        infectiuosQuanta = (breathingFlowRate * maskFactor * numberDensity * dropletVolume * healthParamaters.viralLoad) * 3.48E+14f / 60f;
+        return  infectiuosQuanta ;
     }
 
     public void SetActivityType (ActivityType type)
@@ -73,15 +73,15 @@ public class Health : MonoBehaviour
     {
         if (activity == ActivityType.Breathing)
         {
-            numberDensity = healthParamaters.avarageNaturalDropletConentration;
+            numberDensity = healthParamaters.avarageNaturalDropletConentration * 1E-6f;
         }
         else if (activity == ActivityType.Talking)
         {
-            numberDensity = healthParamaters.avarageTalkingDropletConcentration;
+            numberDensity = healthParamaters.avarageTalkingDropletConcentration * 1E-6f;
         }
         else if (activity == ActivityType.LoudTalking)
         {
-            numberDensity = healthParamaters.avarageShoutingDropletConcentration;
+            numberDensity = healthParamaters.avarageShoutingDropletConcentration * 1E-6f;
         }
     }
 
@@ -173,4 +173,7 @@ public class Health : MonoBehaviour
     {
         return maskFactor;
     }
+
+
+    
 }

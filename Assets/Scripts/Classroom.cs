@@ -130,7 +130,7 @@ public class Classroom : MonoBehaviour
             pupilAI.SetCurrentClass(this);
             classroomPupils.Add(pupilAI);
             pupilsInClass.Add(pupilAI);
-            pupil.name = "pupil " + counter.ToString();
+            pupil.name = $"{pupilAI.currentClass.gameObject.name}_pupil {counter}";
             counter++;
         }
         spawned = true;

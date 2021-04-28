@@ -16,7 +16,7 @@ public class AI : MonoBehaviour
     //properties
     private bool busy = false;
     Vector3 originalPosition;
-    Classroom currentClass;
+    public Classroom currentClass { get; private set; }
     Classroom mainClassroom;
     Lab currentLab;
     Vector3 labPosition = Vector3.zero;
@@ -74,7 +74,7 @@ public class AI : MonoBehaviour
     {
         return status;
     }
-
+    
     public void AssignLabPosition(Vector3 position)
     {
         labPosition = position;

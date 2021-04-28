@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -21,6 +21,7 @@ public class SchoolManager : MonoBehaviour
     [Range(5, 30)]
     [SerializeField] int sessionActivityMinTime = 8;
     [SerializeField] float timeMultiplier = 1f;
+    float TimeScale;
     /// <summary>
     /// The waiting time between the exit of classes at the end of school day
     /// </summary>
@@ -43,7 +44,9 @@ public class SchoolManager : MonoBehaviour
     public bool classInSession { get; private set; }
     List<TeacherAI> orphandTeachers = new List<TeacherAI>();
     int teacherRoomIndex = 0; //An index to keep trak of which teacher room will be used to assign an orphand teacher to
-    int schoolTime = 0; // exposed for debugging
+    public int schoolTime = 0;
+    public DateTime dateTime { get; private set; }
+    
     bool schoolDay = false;
 
     //Class internal Properties
@@ -61,19 +64,21 @@ public class SchoolManager : MonoBehaviour
         AllocateSubSpaces();
         inPlaceClassrooms = new List<Classroom>(classrooms);
         ScheduleClasses();
-        teacherPoolController = gameObject.GetComponent(typeof(TeacherPool)) as TeacherPool;  
+        teacherPoolController = gameObject.GetComponent(typeof(TeacherPool)) as TeacherPool;
         //path = new NavMeshPath();
+        dateTime = new DateTime(2020, 1, 1, 8, 00, 00);
     }
 
     private void Start()
     {
-        StartSchoolDay();
+        
         Invoke("AllocateOrpahanedTeachers", 5.0f);
+        PauseSim();
     }
 
     private void Update()
     {
-        Time.timeScale = timeMultiplier;
+        //Time.timeScale = timeMultiplier;
         RunSchoolTimer();
         OscillateClassSessions();
         
@@ -167,6 +172,7 @@ public class SchoolManager : MonoBehaviour
         {
             timer -= simTimeScale;
             schoolTime++;
+            dateTime += new TimeSpan(0, 1, 0);
         }
         //Debug.Log(classTime);
     }
@@ -361,7 +367,7 @@ public class SchoolManager : MonoBehaviour
     {
         if (lab.IsLabEmpty())
         {
-            int randomIndex = Random.Range(0, inPlaceClassrooms.Count);
+            int randomIndex = UnityEngine.Random.Range(0, inPlaceClassrooms.Count);
             Classroom selectedClass = inPlaceClassrooms[randomIndex];
             //record the selceted class
             classlabPairList.Add(new ClassLabPair(selectedClass, lab));
@@ -421,10 +427,32 @@ public class SchoolManager : MonoBehaviour
     }
 
     /*===============================================
-     * Debugging
+     * General
      * ==============================================
      */
 
+    public void PauseSim()
+    {
+        Time.timeScale = 0f;
+    }
+
+    public void StartSim()
+    {
+        Time.timeScale = 1f;
+        StartSchoolDay();
+    }
+
+
+    public void ResumeSim()
+    {
+        Time.timeScale = 1f;
+    }
+
+    /*===============================================
+     * Debugging
+     * ==============================================
+     */
+    /*
     void OnGUI()
     {
         GUIStyle style = new GUIStyle();
@@ -436,6 +464,7 @@ public class SchoolManager : MonoBehaviour
             GUI.Label(new Rect(200, 0, 0, 0), "Classes in Session" ,  style);
         }
     }
+    */
 
 
 
