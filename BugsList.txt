@@ -1,5 +1,6 @@
 -Student activity material is not responding properly
 -At the end of the day, students in activity do not exit school
+-constrict short range infection only to people in the room
 
 
 

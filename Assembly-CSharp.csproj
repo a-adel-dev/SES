@@ -93,6 +93,7 @@
     <Compile Include="Assets\Scripts\Health\Droplet.cs" />
     <Compile Include="Assets\Scripts\Health\GeneralHealthParamaters.cs" />
     <Compile Include="Assets\Scripts\Health\Health.cs" />
+    <Compile Include="Assets\Scripts\Health\HealthStats.cs" />
     <Compile Include="Assets\Scripts\Health\ShortRangeInfector.cs" />
     <Compile Include="Assets\Scripts\Health\SpaceHealth.cs" />
     <Compile Include="Assets\Scripts\Health\SpaceHealthVisualization.cs" />
@@ -109,9 +110,11 @@
     <Compile Include="Assets\Scripts\Teachersroom\DesksBucket.cs" />
     <Compile Include="Assets\Scripts\Teachersroom\TeacherSpawner.cs" />
     <Compile Include="Assets\Scripts\Teachersroom\Teachersroom.cs" />
+    <Compile Include="Assets\Scripts\UI\AgentPanelUI.cs" />
+    <Compile Include="Assets\Scripts\UI\HealthStatsPanelUI.cs" />
     <Compile Include="Assets\Scripts\UI\MainControlUI.cs" />
     <Compile Include="Assets\Scripts\UI\ScreenSelector.cs" />
-    <Compile Include="Assets\Scripts\UI\SelectorUIInfo.cs" />
+    <Compile Include="Assets\Scripts\UI\SpacePanelUI.cs" />
     <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\TagDialogue.BT.txt" />
     <None Include="Assets\Behaviors\LockerActivity.BT.txt" />
     <None Include="Assets\Behaviors\BathroomActivity.BT.txt" />

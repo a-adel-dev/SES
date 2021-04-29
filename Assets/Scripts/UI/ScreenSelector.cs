@@ -8,43 +8,24 @@ public class ScreenSelector : MonoBehaviour
 {
     GameObject agent;
     GameObject previousAgent;
-    Material originalMaterial;
-    Vector3 agentPanelOriginalPosition;
-    Vector3 agentPanelTargetPosition;
-    Animator animator;
-
-    [SerializeField]float panelMovementSpeed = 30f;
-
-    SelectorUIInfo info;
-
-    [SerializeField] RectTransform agentSelectionPanel;
-    [SerializeField] Material agentHighlightMaterial;
-    [SerializeField] Material spaceHighlightMaterial;
-
+    AgentPanelUI info;
 
     void Start()
     {
-        info = GetComponent<SelectorUIInfo>();
-        animator = agentSelectionPanel.GetComponent<Animator>();
-        agentPanelOriginalPosition = agentSelectionPanel.transform.position;
-        agentPanelTargetPosition = new Vector3(
-            agentPanelOriginalPosition[0],
-            66.5f,
-            agentPanelOriginalPosition[2]);
+        info = GetComponent<AgentPanelUI>();
     }
 
     void FixedUpdate()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            //Debug.Log($"down");
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Agents")))
             {
                 
-                MovePanelUp();
+                ActivateAgentPanel();
                 Transform selection = hit.transform;
                 agent = selection.gameObject;
                 info.SetAgent(agent);
@@ -62,18 +43,26 @@ public class ScreenSelector : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            MovePanelDown();
-            agent = null;
+            if (agent != null)
+            {
+                DeactivateAgentPanel();
+            } 
         }
     }
-    void MovePanelUp()
+    public void ActivateAgentPanel()
     {
-        animator.Play("PlayerPanelUp");
+        if (GetComponent<SpacePanelUI>().spacePanelUp)
+        {
+            GetComponent<SpacePanelUI>().MovePanelDown();
+        }
+        GetComponent<AgentPanelUI>().MovePanelUp();
     }
 
-    void MovePanelDown()
+    public void DeactivateAgentPanel()
     {
-        animator.Play("PlayerPanelDown");
+        GetComponent<AgentPanelUI>().MovePanelDown();
+        agent.transform.GetChild(1).gameObject.SetActive(false);
+        agent = null;
     }
 
     public GameObject GetAgent()

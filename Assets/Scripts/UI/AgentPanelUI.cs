@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SelectorUIInfo : MonoBehaviour
+public class AgentPanelUI : MonoBehaviour
 {
     GeneralHealthParamaters healthParamaters;
     Health agentHealth;
     GameObject agent;
+    public bool agentPanelUp = false;
 
+    
+
+    [SerializeField] GameObject agentPanel;
     [Header("Fields")]
     [SerializeField] Text agentName;
     [SerializeField] Text infected;
@@ -23,9 +27,12 @@ public class SelectorUIInfo : MonoBehaviour
     [SerializeField] Button restrictMovementButton;
     [SerializeField] Button freeMovementButton;
 
+    Animator animator;
+
     void Start()
     {
         healthParamaters = FindObjectOfType<GeneralHealthParamaters>();
+        animator = agentPanel.GetComponent<Animator>();
     }
 
     void Update()
@@ -37,7 +44,9 @@ public class SelectorUIInfo : MonoBehaviour
     {
         if (agent == null) { return; }
         agentName.text = agent.name;
-        infected.text = agentHealth.IsInfected().ToString();
+        infected.text = agentHealth.IsInfected() ? "Yes" : "No";
+        infectionQuanta.text = agentHealth.IsInfected() ? "infected" : string.Format("{0:N3}", agentHealth.GetInfectionQuanta());
+        /*
         if (agentHealth.IsInfected())
         {
             infectionQuanta.text = "infected";
@@ -46,6 +55,7 @@ public class SelectorUIInfo : MonoBehaviour
         {
             infectionQuanta.text = string.Format("{0:N3}", agentHealth.GetInfectionQuanta());
         }
+        */
         maskFactor.text = string.Format("{0:P2}", agentHealth.GetMaskFactor());
         maskFactorValue.text = string.Format("{0:P2}", agentHealth.GetMaskFactor());
     }
@@ -169,6 +179,7 @@ public class SelectorUIInfo : MonoBehaviour
 
     public void UISetActivityLevel()
     {
+        if (agent == null) { return; }
         switch (activityOptions.value)
         {
             case 0:
@@ -195,5 +206,17 @@ public class SelectorUIInfo : MonoBehaviour
         agent.GetComponent<TeacherAI>().FreeClassMovement();
         restrictMovementButton.gameObject.SetActive(true);
         freeMovementButton.gameObject.SetActive(false);
+    }
+
+    public void MovePanelUp()
+    {
+        animator.Play("PlayerPanelUp");
+        agentPanelUp = true;
+    }
+
+    public void MovePanelDown()
+    {
+        animator.Play("PlayerPanelDown");
+        agentPanelUp = false;
     }
 }

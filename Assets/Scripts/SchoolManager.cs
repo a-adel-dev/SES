@@ -59,6 +59,7 @@ public class SchoolManager : MonoBehaviour
     List<TeacherAI> teacherspool;
     ClassroomState currentState = ClassroomState.inSession;
     ClassroomState previousState = ClassroomState.onBreak;
+    HealthStats healthStats;
 
 
     private void Awake()
@@ -73,7 +74,7 @@ public class SchoolManager : MonoBehaviour
 
     private void Start()
     {
-        
+        healthStats = FindObjectOfType<HealthStats>();
         Invoke("AllocateOrpahanedTeachers", 5.0f);
         PauseSim();
     }
@@ -98,6 +99,7 @@ public class SchoolManager : MonoBehaviour
         {
             classroom.StartClass();
         }
+        healthStats.CollectAgents();
     }
 
 
@@ -175,8 +177,9 @@ public class SchoolManager : MonoBehaviour
             timer -= simTimeScale;
             schoolTime++;
             dateTime += new TimeSpan(0, 1, 0);
+            SendMessage("TimeStep");
         }
-        //Debug.Log(classTime);
+
     }
 
     private void ScheduleClasses()
@@ -466,6 +469,8 @@ public class SchoolManager : MonoBehaviour
             }
         }
     }
+
+
 
     /*===============================================
      * Debugging

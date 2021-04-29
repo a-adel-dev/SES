@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class SpaceHealth : MonoBehaviour
 {
-    [SerializeField]
     [Tooltip("The volume of Space in m^3")]
-    float spaceVolume;
+    public float spaceVolume;
     [Tooltip("Is space outdoor?")]
     public bool outdoor = false;
     [Tooltip("Viral Concentration in space quanta/m^3")]
@@ -160,5 +159,10 @@ public class SpaceHealth : MonoBehaviour
                 agent.InfectAgent();
             }
         }
+    }
+
+    public int GetNumAgents()
+    {
+        return agentsInSpace.Count;
     }
 }

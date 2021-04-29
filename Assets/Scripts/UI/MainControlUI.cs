@@ -15,6 +15,11 @@ public class MainControlUI : MonoBehaviour
     [SerializeField] Button pauseSim;
     [SerializeField] Button resumeSim;
     [SerializeField] Button endSim;
+    [SerializeField] Button spaceControlButton;
+    [SerializeField] Button mainControlsButton;
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -69,5 +74,20 @@ public class MainControlUI : MonoBehaviour
         schoolManager.ResumeSim();
         pauseSim.gameObject.SetActive(true);
         resumeSim.gameObject.SetActive(false);
+    }
+
+    public void ShowSpacePanel()
+    {
+        
+        if (GetComponent<AgentPanelUI>().agentPanelUp)
+        {
+            GetComponent<ScreenSelector>().DeactivateAgentPanel();
+        }
+        GetComponent<SpacePanelUI>().MovePanelUp();
+    }
+
+    public void HideSpacePanel()
+    {
+        GetComponent<SpacePanelUI>().MovePanelDown();
     }
 }
