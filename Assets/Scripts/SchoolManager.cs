@@ -21,6 +21,8 @@ public class SchoolManager : MonoBehaviour
     [Range(5, 30)]
     [SerializeField] int sessionActivityMinTime = 8;
     [SerializeField] float timeMultiplier = 1f;
+    [SerializeField] float childWalkingSpeed = 0.6f;
+    [SerializeField] float adultWalkingSpeed = 1.5f;
     float TimeScale;
     /// <summary>
     /// The waiting time between the exit of classes at the end of school day
@@ -440,12 +442,29 @@ public class SchoolManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         StartSchoolDay();
+        SetWalkingSpeed();
     }
 
 
     public void ResumeSim()
     {
         Time.timeScale = 1f;
+    }
+
+    private void SetWalkingSpeed()
+    {
+        var agents = FindObjectsOfType<Health>();
+        foreach (Health agent in agents)
+        {
+            if (agent.GetComponent<AI>())
+            {
+                agent.GetComponent<NavMeshAgent>().speed = childWalkingSpeed * (60f / simTimeScale);
+            }
+            else
+            {
+                agent.GetComponent<NavMeshAgent>().speed = adultWalkingSpeed* (60f / simTimeScale);
+            }
+        }
     }
 
     /*===============================================

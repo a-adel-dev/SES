@@ -11,6 +11,7 @@ public class TeacherNavigation : MonoBehaviour
     SchoolManager schoolManager;
     float timeStep;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,14 +61,12 @@ public class TeacherNavigation : MonoBehaviour
 
     public IEnumerator Wander()
     {
-        
-
         while (wandering)
         {
             BoxCollider area = null;
             if (Ai.currentClass != null)
             {
-                area = Ai.currentClass.GetTeacherSpace();
+               area = Ai.currentClass.GetTeacherSpace();
             }
             else if (Ai.ownLab != null)
             {
@@ -82,4 +81,10 @@ public class TeacherNavigation : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(5f, 20f ) * timeStep);
         }
     }
+
+    public void StopWandering()
+    {
+        StopCoroutine(Wander());
+    }
+
 }

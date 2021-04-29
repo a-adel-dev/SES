@@ -41,9 +41,9 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.19999999
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 900
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 900
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTeacherDesk: {fileID: 0}
+  movementStyle: 0
 --- !u!1001 &365612646795654623
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -260,3 +261,92 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd032c2a85a98da43b22fc34f9d17e56, type: 3}
+--- !u!1001 &7975995319932910454
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 186991462713938484}
+    m_Modifications:
+    - target: {fileID: 7840234600930068794, guid: 32a747e67a7aeaa419699319521f71f7,
+        type: 3}
+      propertyPath: m_Name
+      value: Selection Indicator
+      objectReference: {fileID: 0}
+    - target: {fileID: 7840234600930068794, guid: 32a747e67a7aeaa419699319521f71f7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9102565798316156271, guid: 32a747e67a7aeaa419699319521f71f7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.016392
+      objectReference: {fileID: 0}
+    - target: {fileID: 9102565798316156271, guid: 32a747e67a7aeaa419699319521f71f7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.014
+      objectReference: {fileID: 0}
+    - target: {fileID: 9102565798316156271, guid: 32a747e67a7aeaa419699319521f71f7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9102565798316156271, guid: 32a747e67a7aeaa419699319521f71f7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 9102565798316156271, guid: 32a747e67a7aeaa419699319521f71f7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9102565798316156271, guid: 32a747e67a7aeaa419699319521f71f7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9102565798316156271, guid: 32a747e67a7aeaa419699319521f71f7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 9102565798316156271, guid: 32a747e67a7aeaa419699319521f71f7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9102565798316156271, guid: 32a747e67a7aeaa419699319521f71f7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 9102565798316156271, guid: 32a747e67a7aeaa419699319521f71f7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9102565798316156271, guid: 32a747e67a7aeaa419699319521f71f7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9102565798316156271, guid: 32a747e67a7aeaa419699319521f71f7,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.32835
+      objectReference: {fileID: 0}
+    - target: {fileID: 9102565798316156271, guid: 32a747e67a7aeaa419699319521f71f7,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.32835
+      objectReference: {fileID: 0}
+    - target: {fileID: 9102565798316156271, guid: 32a747e67a7aeaa419699319521f71f7,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6567
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 32a747e67a7aeaa419699319521f71f7, type: 3}

@@ -20,6 +20,8 @@ public class SelectorUIInfo : MonoBehaviour
     [SerializeField] Text maskFactorValue;
     [SerializeField] GameObject maskLabels;
     [SerializeField] Dropdown activityOptions;
+    [SerializeField] Button restrictMovementButton;
+    [SerializeField] Button freeMovementButton;
 
     void Start()
     {
@@ -36,7 +38,7 @@ public class SelectorUIInfo : MonoBehaviour
         if (agent == null) { return; }
         agentName.text = agent.name;
         infected.text = agentHealth.IsInfected().ToString();
-        if(agentHealth.IsInfected())
+        if (agentHealth.IsInfected())
         {
             infectionQuanta.text = "infected";
         }
@@ -46,6 +48,29 @@ public class SelectorUIInfo : MonoBehaviour
         }
         maskFactor.text = string.Format("{0:P2}", agentHealth.GetMaskFactor());
         maskFactorValue.text = string.Format("{0:P2}", agentHealth.GetMaskFactor());
+    }
+
+    public void UIConfigureTeacherMovement()
+    {
+        if (agent.GetComponent<TeacherAI>() && agent.GetComponent<TeacherAI>().IsInClassroom())
+        {
+            if (agent.GetComponent<TeacherAI>().movementStyle == MovementStyle.restricted)
+            {
+                freeMovementButton.gameObject.SetActive(true);
+                restrictMovementButton.gameObject.SetActive(false);
+
+            }
+            else if (agent.GetComponent<TeacherAI>().movementStyle == MovementStyle.classroom)
+            {
+                restrictMovementButton.gameObject.SetActive(true);
+                freeMovementButton.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            restrictMovementButton.gameObject.SetActive(false);
+            freeMovementButton.gameObject.SetActive(false);
+        }
     }
 
     public void InfectSelectedAgent()
@@ -156,5 +181,19 @@ public class SelectorUIInfo : MonoBehaviour
                 agentHealth.SetActivityType(ActivityType.LoudTalking);
                 break;
         }
+    }
+
+    public void UIRestrictMovement()
+    {
+        agent.GetComponent<TeacherAI>().RestrictClassMovement();
+        freeMovementButton.gameObject.SetActive(true);
+        restrictMovementButton.gameObject.SetActive(false);
+    }
+
+    public void UIFreeMovement()
+    {
+        agent.GetComponent<TeacherAI>().FreeClassMovement();
+        restrictMovementButton.gameObject.SetActive(true);
+        freeMovementButton.gameObject.SetActive(false);
     }
 }

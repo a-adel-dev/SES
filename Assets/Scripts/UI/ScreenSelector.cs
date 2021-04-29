@@ -50,22 +50,19 @@ public class ScreenSelector : MonoBehaviour
                 info.SetAgent(agent);
                 info.UpdateMaskDropdown();
                 info.UpdateActivityDropdown();
-                
+                info.UIConfigureTeacherMovement();
 
-                originalMaterial = agent.GetComponent<Renderer>().material;
-                if (previousAgent != null)
+                agent.transform.GetChild(1).gameObject.SetActive(true);
+                if (previousAgent != null && ReferenceEquals(agent,previousAgent) == false)
                 {
-                    previousAgent.GetComponent<Renderer>().material = originalMaterial;
+                    previousAgent.transform.GetChild(1).gameObject.SetActive(false);
                 }
-                agent.GetComponent<Renderer>().material = agentHighlightMaterial;
-                previousAgent = agent;
+                previousAgent = agent; 
             }
-
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             MovePanelDown();
-            //agent.GetComponent<Renderer>().material = originalMaterial;
             agent = null;
         }
     }

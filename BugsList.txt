@@ -1,0 +1,7 @@
+-Student activity material is not responding properly
+-At the end of the day, students in activity do not exit school
+
+
+
+TODO:
+Mange teachers at end of day.

@@ -21,14 +21,18 @@ public class TeacherAI : MonoBehaviour
     public Teachersroom mainTeacherRoom { get; private set; }
     public Spot currentTeacherDesk;
     TeacherNavigation teacherNav;
+    Health health;
+    public MovementStyle movementStyle = MovementStyle.classroom;
 
     // Start is called before the first frame update
     void Start()
     {
         teacherNav = GetComponent<TeacherNavigation>();
+        health = GetComponent<Health>();
         if (IsInClassroom())
         {
             StartWander(MovementStyle.restricted);
+            health.SetActivityType(ActivityType.LoudTalking);
         }
     }
 
@@ -38,6 +42,7 @@ public class TeacherAI : MonoBehaviour
         if (!IsInClassroom())
         {
             StopWandering();
+            health.SetActivityType(ActivityType.Talking);
         }
     }
     /// <summary>
@@ -102,10 +107,12 @@ public class TeacherAI : MonoBehaviour
         if (style == MovementStyle.restricted)
         {
             StartCoroutine(teacherNav.Wander());
+            movementStyle = MovementStyle.restricted;
         }
         else if (style == MovementStyle.classroom)
         {
             StartCoroutine(teacherNav.Wander());
+            movementStyle = MovementStyle.classroom;
         }
     }
 
@@ -114,5 +121,16 @@ public class TeacherAI : MonoBehaviour
         teacherNav.SetWandering(false);
     }
 
-    
+    public void RestrictClassMovement()
+    {
+        teacherNav.StopWandering();
+        StartWander(MovementStyle.restricted);
+    }
+
+    public void FreeClassMovement()
+    {
+        teacherNav.StopWandering();
+        StartWander(MovementStyle.classroom);
+    }
+
 }

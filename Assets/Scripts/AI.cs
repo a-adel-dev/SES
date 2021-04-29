@@ -35,6 +35,7 @@ public class AI : MonoBehaviour
     bool doingBehavior = false;
     bool nearPOI = false;
     AIStatus status;
+    Health health;
 
     [SerializeField] Material originalMaterial;
     [SerializeField] Material busyMaterial;
@@ -47,6 +48,7 @@ public class AI : MonoBehaviour
         school = FindObjectOfType<SchoolManager>();
         gameObject.GetComponent<Renderer>().material = originalMaterial;
         behaviorTree = GetComponent<PandaBehaviour>();
+        health = GetComponent<Health>();
     }
 
     
@@ -55,7 +57,7 @@ public class AI : MonoBehaviour
         //agent.SetDestination(destination);
         //SetDestination(distination); 
         SetIdlePose();
-        var remaining = (agent.destination - this.transform.position);
+        //var remaining = (agent.destination - this.transform.position);
         //Debug.DrawRay(this.transform.position, remaining, Color.red);
 
     }
@@ -98,10 +100,12 @@ public class AI : MonoBehaviour
         if (status)
         {
             gameObject.GetComponent<Renderer>().material = busyMaterial;
+            health.SetActivityType(ActivityType.Talking);
         }
         else
         {
             gameObject.GetComponent<Renderer>().material = originalMaterial;
+            health.SetActivityType(ActivityType.Breathing);
         }
         
     }
