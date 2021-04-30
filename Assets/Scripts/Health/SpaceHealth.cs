@@ -88,6 +88,11 @@ public class SpaceHealth : MonoBehaviour
         EffectiveAirExchangeRate = airExchangeRate / 60f;
     }
 
+    public float GetAirExhangeRate()
+    {
+        return airExchangeRate;
+    }
+
     private void RunTime()
     {
         timer += Time.deltaTime;

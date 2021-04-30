@@ -175,3 +175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spaceVolume: 0
+  outdoor: 0
+  concentration: 0
+  currentConcentration: 0
+  airExchangeRate: 2.16
