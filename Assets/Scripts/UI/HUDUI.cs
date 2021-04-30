@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainControlUI : MonoBehaviour
+public class HUDUI : MonoBehaviour
 {
     SchoolManager schoolManager;
 

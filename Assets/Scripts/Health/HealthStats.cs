@@ -6,18 +6,8 @@ public class HealthStats : MonoBehaviour
 {
     Health[] totalAgents;
     List<Health> totalInfected = new List<Health>();
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public List<Health> teachers = new List<Health>();
+    public List<Health> students = new List<Health>();
 
     public void CollectAgents()
     {
@@ -39,10 +29,35 @@ public class HealthStats : MonoBehaviour
     {
         foreach (Health agent in totalAgents)
         {
-            if (agent.IsInfected())
+            if (agent.IsInfected() && !totalInfected.Contains(agent))
             {
                 totalInfected.Add(agent);
             }
         }
+    }
+
+    public void PopulateAgentLists()
+    {
+        foreach (Health agent in totalAgents)
+        {
+            if (agent.GetComponent<TeacherAI>())
+            {
+                teachers.Add(agent);
+            }
+            else
+            {
+                students.Add(agent);
+            }
+        }
+    }
+
+    public List<Health> GetStudents()
+    {
+        return students;
+    }
+
+    public List<Health> GetTeachers()
+    {
+        return teachers;
     }
 }

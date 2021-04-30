@@ -34,6 +34,7 @@ public class Classroom : MonoBehaviour
     /// A flag to indicate if teacher is already spawned
     /// </summary>
     bool spawnedTeacher = false;
+    bool activitiesEnabled;
 
     //school variables
     int periodTime;
@@ -73,13 +74,15 @@ public class Classroom : MonoBehaviour
     {
         schoolManager = FindObjectOfType<SchoolManager>();
         teacherspool = FindObjectOfType<TeacherPool>();
-        periodTime = schoolManager.GetPeriodTime();
+        periodTime = schoolManager.GetPeriodLength();
         timeStep = schoolManager.simTimeScale;
         sessionActivityMinTime = schoolManager.GetSessionActivityMinTime();
+        
     }
 
     private void Update()
     {
+        activitiesEnabled = schoolManager.IsActivitiesEnabled();
         classInSession = schoolManager.classInSession;
         SpawnAgents();
         RunClassroomTimer();
@@ -354,7 +357,7 @@ public class Classroom : MonoBehaviour
 
     private void SetActivityStatus()
     {
-        if (classEmpty) { return; }
+        if (classEmpty || !activitiesEnabled) { return; }
         if (classStructureTimes[activeSectionIndex] < sessionActivityMinTime)
         {
             activity = false;

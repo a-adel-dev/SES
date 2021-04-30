@@ -55,15 +55,104 @@ public class GeneralHealthParamaters : MonoBehaviour
     public float spaceInfectionThreshold = .001f;
 
 
+    [Header("Health Settings")]
+    public int numStudentInfected = 0;
+    public int numTeachersInfected = 0;
+    public MaskFactor studentsMasks = MaskFactor.none;
+    public MaskFactor teachersMasks = MaskFactor.none;
+    public List<float> globalAirControl = new List<float>();
+    public int airControlSettings = 3;
+
+    HealthStats healthstats;
+    SpaceHealth[] spaces;
+
+
 
 
     private void Start()
     {
+        healthstats = FindObjectOfType<HealthStats>();
         foreach (SpaceHealth space in FindObjectsOfType<SpaceHealth>())
         {
             space.SetAirExhangeRate(initialAirExchangeRate);
         }
+        PopulateAirControlList();
+        spaces = FindObjectsOfType<SpaceHealth>();
+
+        //InfectdSelectedStudents();
+        //InfectSelectedTeachers();
     }
 
+    private void PopulateAirControlList()
+    {
+        globalAirControl.Add(0.12f);
+        globalAirControl.Add(0.23f);
+        globalAirControl.Add(0.85f);
+        globalAirControl.Add(0.90f);
+        globalAirControl.Add(2.16f);
+        globalAirControl.Add(7.92f);
+    }
 
+    public void SetAirExchangeRateForSpaces()
+    {
+        foreach (SpaceHealth space in spaces)
+        {
+            space.airExchangeRate = globalAirControl[airControlSettings];
+        }
+    }
+
+    public void InfectdSelectedStudents()
+    {
+        Debug.Log($"infecting {numStudentInfected} students");
+        var studentsToInfect = GetRandomItemsFromList(healthstats.GetStudents(), numStudentInfected);
+        foreach (Health student in studentsToInfect)
+        {
+            student.InfectAgent();
+        }
+    }
+
+    public void InfectSelectedTeachers()
+    {
+        Debug.Log($"infecting {numTeachersInfected} teachers");
+        var teachersToInfect = GetRandomItemsFromList(healthstats.GetTeachers(), numTeachersInfected);
+        foreach (Health teacher in teachersToInfect)
+        {
+            teacher.InfectAgent();
+        }
+    }
+
+    public void SetMaskForAgents()
+    {
+        foreach (Health student in healthstats.GetStudents())
+        {
+            student.SetMaskFactor(studentsMasks);
+        }
+
+        foreach (Health teacher in healthstats.GetTeachers())
+        {
+            teacher.SetMaskFactor(teachersMasks);
+        }
+    }
+
+    public void SetAirExchangeRate()
+    {
+
+    }
+    public static List<T> GetRandomItemsFromList<T>(List<T> list, int number)
+    {
+        // this is the list we're going to remove picked items from
+        List<T> tmpList = new List<T>(list);
+        // this is the list we're going to move items to
+        List<T> newList = new List<T>();
+
+        // make sure tmpList isn't already empty
+        while (newList.Count < number && tmpList.Count > 0)
+        {
+            int index = Random.Range(0, tmpList.Count);
+            newList.Add(tmpList[index]);
+            tmpList.RemoveAt(index);
+        }
+
+        return newList;
+    }
 }

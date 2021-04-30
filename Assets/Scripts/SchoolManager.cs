@@ -16,19 +16,23 @@ public class SchoolManager : MonoBehaviour
     /// </summary>    
     [Range(0.2f, 60f)]
     public float simTimeScale= 4f;
+    int simLength = 14;
     [SerializeField] int numPeriods = 4;
     [SerializeField] int periodLength = 40;
+    [SerializeField] bool activitiesEnabled = true;
     [Range(5, 30)]
     [SerializeField] int sessionActivityMinTime = 8;
     [SerializeField] float timeMultiplier = 1f;
     [SerializeField] float childWalkingSpeed = 0.6f;
     [SerializeField] float adultWalkingSpeed = 1.5f;
     float TimeScale;
+    public bool halfCapacity = false;
+    public bool classroomHalfCapacity = false;
     /// <summary>
     /// The waiting time between the exit of classes at the end of school day
     /// </summary>
     [Tooltip("The waiting time between the exit of classes at the end of school day")]
-    [SerializeField] int cooldownClassExit = 0;
+    public int cooldownClassExit = 0;
 
     //space lists
     List<Classroom>     classrooms = new List<Classroom>(); // all school classrooms
@@ -41,11 +45,13 @@ public class SchoolManager : MonoBehaviour
     List<EgressPoint>   staircases = new List<EgressPoint>();
     
 
-    //class global properties
+    //classroom global properties
     [HideInInspector]
     public bool classInSession { get; private set; }
     List<TeacherAI> orphandTeachers = new List<TeacherAI>();
     int teacherRoomIndex = 0; //An index to keep trak of which teacher room will be used to assign an orphand teacher to
+
+
     public int schoolTime = 0;
     public DateTime dateTime { get; private set; }
     
@@ -60,6 +66,7 @@ public class SchoolManager : MonoBehaviour
     ClassroomState currentState = ClassroomState.inSession;
     ClassroomState previousState = ClassroomState.onBreak;
     HealthStats healthStats;
+    GeneralHealthParamaters healthParameters;
 
 
     private void Awake()
@@ -76,7 +83,9 @@ public class SchoolManager : MonoBehaviour
     {
         healthStats = FindObjectOfType<HealthStats>();
         Invoke("AllocateOrpahanedTeachers", 5.0f);
+        healthParameters = FindObjectOfType<GeneralHealthParamaters>();
         PauseSim();
+
     }
 
     private void Update()
@@ -100,6 +109,7 @@ public class SchoolManager : MonoBehaviour
             classroom.StartClass();
         }
         healthStats.CollectAgents();
+        healthStats.PopulateAgentLists();
     }
 
 
@@ -272,6 +282,25 @@ public class SchoolManager : MonoBehaviour
      * School properties getters, setters
      * =========================================
      */
+    public int GetSimLength()
+    {
+        return simLength;
+    }
+
+    public void SetSimLength(int time)
+    {
+        simLength = time;
+    }
+
+    public int GetNumPeriods()
+    {
+        return numPeriods;
+    }
+
+    public void SetNumPeriods(int num)
+    {
+        numPeriods = num;
+    }
 
     public int GetNumClasses()
     {
@@ -283,14 +312,29 @@ public class SchoolManager : MonoBehaviour
         return labs.Count;
     }
 
-    public int GetPeriodTime()
+    public int GetPeriodLength()
     {
         return periodLength;
+    }
+
+    public void SetPeriodLength(int length)
+    {
+        periodLength = length;
     }
 
     public int GetSessionActivityMinTime()
     {
         return sessionActivityMinTime;
+    }
+
+    public void EnableActivities(bool state)
+    {
+        activitiesEnabled = state;
+    }
+
+    public bool IsActivitiesEnabled()
+    {
+        return activitiesEnabled;
     }
 
     public Bathroom GetNearestBathroom(AI pupil)
@@ -446,8 +490,16 @@ public class SchoolManager : MonoBehaviour
         Time.timeScale = 1f;
         StartSchoolDay();
         SetWalkingSpeed();
+        SetHealthParameters();
     }
 
+    public void SetHealthParameters()
+    {
+        healthParameters.InfectdSelectedStudents();
+        healthParameters.InfectSelectedTeachers();
+        healthParameters.SetMaskForAgents();
+        healthParameters.SetAirExchangeRateForSpaces();
+    }
 
     public void ResumeSim()
     {

@@ -111,8 +111,11 @@
     <Compile Include="Assets\Scripts\Teachersroom\TeacherSpawner.cs" />
     <Compile Include="Assets\Scripts\Teachersroom\Teachersroom.cs" />
     <Compile Include="Assets\Scripts\UI\AgentPanelUI.cs" />
+    <Compile Include="Assets\Scripts\UI\ErrorPanelUI.cs" />
+    <Compile Include="Assets\Scripts\UI\HUDUI.cs" />
     <Compile Include="Assets\Scripts\UI\HealthStatsPanelUI.cs" />
-    <Compile Include="Assets\Scripts\UI\MainControlUI.cs" />
+    <Compile Include="Assets\Scripts\UI\MainControlPanel.cs" />
+    <Compile Include="Assets\Scripts\UI\MainControlsPanelUI.cs" />
     <Compile Include="Assets\Scripts\UI\ScreenSelector.cs" />
     <Compile Include="Assets\Scripts\UI\SpacePanelUI.cs" />
     <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\TagDialogue.BT.txt" />
