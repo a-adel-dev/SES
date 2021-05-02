@@ -72,7 +72,7 @@ public class SchoolManager : MonoBehaviour
     private void Start()
     {
         healthStats = FindObjectOfType<HealthStats>();
-        Invoke("AllocateOrpahanedTeachers", 5.0f);
+        Invoke(nameof(AllocateOrpahanedTeachers), 5.0f);
         healthParameters = FindObjectOfType<GeneralHealthParamaters>();
         PauseSim();
 
@@ -97,7 +97,6 @@ public class SchoolManager : MonoBehaviour
         SetClassesInSessionStatus(true);
         foreach (Classroom classroom in inPlaceClassrooms)
         {
-            classroom.SpawnAgents();
             classroom.StartClass();
         }
         healthStats.CollectAgents();

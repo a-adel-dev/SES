@@ -78,7 +78,6 @@ public class HUDUI : MonoBehaviour
 
     public void ShowSpacePanel()
     {
-        
         if (GetComponent<AgentPanelUI>().agentPanelUp)
         {
             GetComponent<ScreenSelector>().DeactivateAgentPanel();

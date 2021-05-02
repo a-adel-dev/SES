@@ -18,6 +18,8 @@ GameObject:
   - component: {fileID: 8398961197487076484}
   - component: {fileID: 6040512749700294728}
   - component: {fileID: -6178941398178253664}
+  - component: {fileID: 8360931038185183004}
+  - component: {fileID: 7582324239823246139}
   - component: {fileID: -391104600408909507}
   m_Layer: 0
   m_Name: Class
@@ -123,10 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b58f48ebd43a4248bdab07207c33010, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistanceGroupActivity: 3
-  numSpotsForGroupActivity: 4
-  deskGroupActivityCompensationX: 0
-  deskGroupActivityCompensationZ: -0.5
 --- !u!114 &8398961197487076484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,6 +171,34 @@ MonoBehaviour:
   concentration: 0
   currentConcentration: 0
   airExchangeRate: 2.16
+--- !u!114 &8360931038185183004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3784705064329411916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee99d65346e178e478d79638725b043c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numSpotsForGroupActivity: 4
+  deskGroupActivityCompensationX: 0
+  deskGroupActivityCompensationZ: -0.5
+  minDistanceGroupActivity: 3
+--- !u!114 &7582324239823246139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3784705064329411916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35bd587c45632af47a9949c3528e30be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-391104600408909507
 MonoBehaviour:
   m_ObjectHideFlags: 0

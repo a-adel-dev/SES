@@ -11,14 +11,21 @@ public class Classroom : MonoBehaviour
     bool classEmpty = false;
     bool spawned = false;
 
-    private void Start()
+    private void Awake()
     {
         classScheduler = GetComponent<ClassroomPeriodSchedular>();
         activityPlanner = GetComponent<ActivityPlanner>();
         studentsBucket = GetComponent<ClassroomStudentsBucket>();
         classroomSubSpaces = GetComponent<ClassroomsObjectsBucket>();
         spawner = GetComponent<classRoomSpawner>();
+        
     }
+
+    private void Start()
+    {
+        SpawnAgents();
+    }
+
 
     public void SpawnAgents()
     {

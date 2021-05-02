@@ -15,12 +15,16 @@ public class ClassroomPeriodSchedular : MonoBehaviour
     public int sectionTime { get; private set; } = 0;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         schoolManager = FindObjectOfType<SchoolManager>();
         classroom = GetComponent<Classroom>();
-        periodTime = schoolManager.GetPeriodLength();
         activityPlanner = GetComponent<ActivityPlanner>();
+    }
+
+    private void Start()
+    {
+        periodTime = schoolManager.GetPeriodLength();
     }
 
     // Update is called once per frame

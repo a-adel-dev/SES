@@ -88,10 +88,12 @@
     <Compile Include="Assets\Scripts\CameraInteraction.cs" />
     <Compile Include="Assets\Scripts\ClassLabPair.cs" />
     <Compile Include="Assets\Scripts\Classroom\ActivityPlanner.cs" />
+    <Compile Include="Assets\Scripts\Classroom\BoardActivity.cs" />
     <Compile Include="Assets\Scripts\Classroom\Classroom.cs" />
     <Compile Include="Assets\Scripts\Classroom\ClassroomPeriodSchedular.cs" />
     <Compile Include="Assets\Scripts\Classroom\ClassroomStudentsBucket.cs" />
     <Compile Include="Assets\Scripts\Classroom\ClassroomsObjectsBucket.cs" />
+    <Compile Include="Assets\Scripts\Classroom\GroupActivity.cs" />
     <Compile Include="Assets\Scripts\Classroom\classRoomSpawner.cs" />
     <Compile Include="Assets\Scripts\Corridor.cs" />
     <Compile Include="Assets\Scripts\EgressPoint.cs" />

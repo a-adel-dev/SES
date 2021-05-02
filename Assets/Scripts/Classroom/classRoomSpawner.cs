@@ -13,7 +13,7 @@ public class classRoomSpawner : MonoBehaviour
     TeacherPool teacherspool;
     SchoolManager schoolManager;
 
-    void Start()
+    void Awake()
     {
         schoolManager = FindObjectOfType<SchoolManager>();
         classroomSubSpaces = GetComponent<ClassroomsObjectsBucket>();
