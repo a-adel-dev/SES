@@ -9,29 +9,19 @@ public enum ClassroomState { inSession, onBreak, dayIsOver}
 
 public class SchoolManager : MonoBehaviour
 {
-    //Sim Parameters
-    /// <summary>
-    /// Scale of the simulation, at 1 every second of realtime is a minute in the sim
-    /// for a realtime simulation set to 60
-    /// </summary>    
-    [Range(0.2f, 60f)]
-    public float simTimeScale= 4f;
+    public float timeStep= 4f;
     int simLength = 14;
     [SerializeField] int numPeriods = 4;
     [SerializeField] int periodLength = 40;
     [SerializeField] bool activitiesEnabled = true;
     [Range(5, 30)]
     [SerializeField] int sessionActivityMinTime = 8;
-    [SerializeField] float timeMultiplier = 1f;
     [SerializeField] float childWalkingSpeed = 0.6f;
     [SerializeField] float adultWalkingSpeed = 1.5f;
     float TimeScale;
     public bool halfCapacity = false;
     public bool classroomHalfCapacity = false;
-    /// <summary>
-    /// The waiting time between the exit of classes at the end of school day
-    /// </summary>
-    [Tooltip("The waiting time between the exit of classes at the end of school day")]
+
     public int cooldownClassExit = 0;
 
     //space lists
@@ -102,10 +92,12 @@ public class SchoolManager : MonoBehaviour
      */
     private void StartSchoolDay()
     {
+        SetSessionActivityMinTime(sessionActivityMinTime);
         schoolDay = true;
-        classInSession = true;
+        SetClassesInSessionStatus(true);
         foreach (Classroom classroom in inPlaceClassrooms)
         {
+            classroom.SpawnAgents();
             classroom.StartClass();
         }
         healthStats.CollectAgents();
@@ -131,8 +123,7 @@ public class SchoolManager : MonoBehaviour
                 if (currentState != previousState )
                 {
                     currentPeriodIndex++;
-                    
-                    classInSession = false;
+                    SetClassesInSessionStatus(false);
                     ReplaceClassTeachers(); 
                     //Debug.Log("increasing current Period Index");
                     foreach (Classroom classroom in inPlaceClassrooms)
@@ -154,7 +145,7 @@ public class SchoolManager : MonoBehaviour
                 currentState = ClassroomState.inSession;
                 if (currentState != previousState)
                 {
-                    classInSession = true;
+                    SetClassesInSessionStatus(true);
                     currentPeriodIndex++;
                     SendClassesToLabs();
                     foreach (Classroom classroom in inPlaceClassrooms)
@@ -170,7 +161,7 @@ public class SchoolManager : MonoBehaviour
     private void EndSchoolDay()
     {
         schoolDay = false;
-        classInSession = false;
+        SetClassesInSessionStatus(false);
         foreach (EgressPoint stairs in staircases)
         {
             stairs.RecallClasses(cooldownClassExit);
@@ -182,9 +173,9 @@ public class SchoolManager : MonoBehaviour
     private void RunSchoolTimer()
     {
         timer += Time.deltaTime;
-        if (timer >= simTimeScale)
+        if (timer >= timeStep)
         {
-            timer -= simTimeScale;
+            timer -= timeStep;
             schoolTime++;
             dateTime += new TimeSpan(0, 1, 0);
             SendMessage("TimeStep");
@@ -322,14 +313,24 @@ public class SchoolManager : MonoBehaviour
         periodLength = length;
     }
 
-    public int GetSessionActivityMinTime()
+    public void SetSessionActivityMinTime(int time)
     {
-        return sessionActivityMinTime;
+        foreach (Classroom classroom in classrooms)
+        {
+            classroom.SetActivityMinTime(time);
+        }
     }
 
     public void EnableActivities(bool state)
     {
         activitiesEnabled = state;
+        if (state)
+        {
+            foreach (Classroom classroom in classrooms)
+            {
+                classroom.EnableActivities();
+            }
+        }
     }
 
     public bool IsActivitiesEnabled()
@@ -513,11 +514,11 @@ public class SchoolManager : MonoBehaviour
         {
             if (agent.GetComponent<AI>())
             {
-                agent.GetComponent<NavMeshAgent>().speed = childWalkingSpeed * (60f / simTimeScale);
+                agent.GetComponent<NavMeshAgent>().speed = childWalkingSpeed * (60f / timeStep);
             }
             else
             {
-                agent.GetComponent<NavMeshAgent>().speed = adultWalkingSpeed* (60f / simTimeScale);
+                agent.GetComponent<NavMeshAgent>().speed = adultWalkingSpeed* (60f / timeStep);
             }
         }
     }
@@ -542,7 +543,18 @@ public class SchoolManager : MonoBehaviour
     }
     */
 
-
+    void SetClassesInSessionStatus(bool status)
+    {
+        foreach (Classroom classroom in classrooms)
+        {
+            classroom.SetClassInSessionStatus(status);
+        }
+        foreach (Lab lab in labs)
+        {
+            lab.SetClassInSessionStatus(status);
+        }
+        classInSession = status;
+    }
 
 
 

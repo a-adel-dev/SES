@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DesksBucket : MonoBehaviour
+public class TeachersRoomDesksBucket : MonoBehaviour
 {
     List<Spot> desks;
     

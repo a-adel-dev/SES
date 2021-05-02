@@ -16,7 +16,7 @@ public class TeacherNavigation : MonoBehaviour
     void Start()
     {
         schoolManager = FindObjectOfType<SchoolManager>();
-        timeStep = schoolManager.simTimeScale;
+        timeStep = schoolManager.timeStep;
         agent = GetComponent<NavMeshAgent>();
         Ai = GetComponent<TeacherAI>();
         
@@ -48,7 +48,7 @@ public class TeacherNavigation : MonoBehaviour
     public void GoToTeachersRoom()
     {
         //Debug.Log($"teacher is going to teachersRoom");
-        Spot desk = Ai.mainTeacherRoom.GetComponent<DesksBucket>().GetAvailableDesk();
+        Spot desk = Ai.mainTeacherRoom.GetComponent<TeachersRoomDesksBucket>().GetAvailableDesk();
         GuideTo(desk.transform.position);
         desk.FillSpot(GetComponent<TeacherAI>());
     }

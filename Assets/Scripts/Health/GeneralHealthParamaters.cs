@@ -107,6 +107,7 @@ public class GeneralHealthParamaters : MonoBehaviour
         var studentsToInfect = GetRandomItemsFromList(healthstats.GetStudents(), numStudentInfected);
         foreach (Health student in studentsToInfect)
         {
+            Debug.Log($"infecting {student.gameObject.name}");
             student.InfectAgent();
         }
     }
@@ -118,6 +119,7 @@ public class GeneralHealthParamaters : MonoBehaviour
         foreach (Health teacher in teachersToInfect)
         {
             teacher.InfectAgent();
+            Debug.Log($"infecting {teacher.gameObject.name}");
         }
     }
 

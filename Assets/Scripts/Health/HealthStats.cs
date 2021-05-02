@@ -6,6 +6,7 @@ public class HealthStats : MonoBehaviour
 {
     Health[] totalAgents;
     List<Health> totalInfected = new List<Health>();
+    public int numInfected = 0;
     public List<Health> teachers = new List<Health>();
     public List<Health> students = new List<Health>();
 
@@ -22,9 +23,12 @@ public class HealthStats : MonoBehaviour
 
     public int GetNumInfected()
     {
-        return totalInfected.Count;
+        return numInfected;
     }
-
+    private void Update()
+    {
+        numInfected = Health.numInfected;
+    }
     void TimeStep()
     {
         foreach (Health agent in totalAgents)
@@ -33,7 +37,7 @@ public class HealthStats : MonoBehaviour
             {
                 totalInfected.Add(agent);
             }
-        }
+        }   
     }
 
     public void PopulateAgentLists()

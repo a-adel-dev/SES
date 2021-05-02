@@ -16,7 +16,7 @@ public class POI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeStep = schoolManager.simTimeScale;
+        timeStep = schoolManager.timeStep;
         //StartCoroutine(StopPupils());
     }
 

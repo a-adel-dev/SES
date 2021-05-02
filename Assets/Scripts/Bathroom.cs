@@ -4,26 +4,8 @@ using UnityEngine;
 
 public class Bathroom : MonoBehaviour
 {
-    bool classesInsession = false;
-    SchoolManager schoolManager;
     List<Spot> toilets = new List<Spot>();
     List<Spot> availableToilets = new List<Spot>();
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        schoolManager = FindObjectOfType<SchoolManager>();
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        classesInsession = schoolManager.classInSession;
-        
-    }
-
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -50,4 +32,6 @@ public class Bathroom : MonoBehaviour
         toilet.ClearSpot();
         availableToilets.Add(toilet);
     }
+
+
 }

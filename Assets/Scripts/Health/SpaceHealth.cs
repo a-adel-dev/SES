@@ -21,26 +21,21 @@ public class SpaceHealth : MonoBehaviour
     /// </summary>
     List<Health> agentsInSpace = new List<Health>();
 
-
-    float timer = 0f;
     SchoolManager schoolManager;
     float timeStep;
-    float spaceTime = 0f;
+
 
     /// <summary>
     /// wheather there is infected individuals in space
     /// </summary>
     bool infectorsPresent = false;
     
-
-
-
     // Start is called before the first frame update
     void Start()
     {
         ComputeSpaceVolume();
         schoolManager = FindObjectOfType<SchoolManager>();
-        timeStep = schoolManager.simTimeScale;
+        timeStep = schoolManager.timeStep;
     }
 
     private void ComputeSpaceVolume()
@@ -59,7 +54,6 @@ public class SpaceHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RunTime();
         infectorsPresent = IsInfectorsPresent();
         
         //Debug.Log($"concentration: {concentration}, current concentration: {currentConcentration}");
@@ -91,18 +85,6 @@ public class SpaceHealth : MonoBehaviour
     public float GetAirExhangeRate()
     {
         return airExchangeRate;
-    }
-
-    private void RunTime()
-    {
-        timer += Time.deltaTime;
-        if (timer >= timeStep)
-        {
-            timer -= timeStep;
-            spaceTime += 1f;
-            SendMessage("TimeStep");
-            
-        }
     }
 
     private void IncreaseSpaceInfectionConcentration()
@@ -144,7 +126,7 @@ public class SpaceHealth : MonoBehaviour
         }
     }
 
-    void TimeStep()
+    public void TimeStep()
     {
         //Debug.Log($"TimeStep");
         IncreaseSpaceInfectionConcentration();
@@ -158,7 +140,7 @@ public class SpaceHealth : MonoBehaviour
         foreach (Health agent in agentsInSpace )
         {
             float threshold = Random.Range(0f, 100f);
-            Debug.Log($"{threshold} against {agent.GetInfectionQuanta()}");
+            //Debug.Log($"{threshold} against {agent.GetInfectionQuanta()}");
             if (!agent.IsInfected() && agent.GetInfectionQuanta() > threshold)
             {
                 agent.InfectAgent();

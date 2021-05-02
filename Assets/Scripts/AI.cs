@@ -205,7 +205,7 @@ public class AI : MonoBehaviour
     {
         if(onDesk && currentClass != null)
         {
-            Vector3 boardDirection = currentClass.board.gameObject.transform.position;
+            Vector3 boardDirection = currentClass.GetClassBoard().transform.position;
             agent.updateRotation = false;
             //should involve a slerp
             transform.LookAt(new Vector3 (boardDirection.x, 0, boardDirection.z));

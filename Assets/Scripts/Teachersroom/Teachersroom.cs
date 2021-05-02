@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Teachersroom : MonoBehaviour
 {
-    bool classesInsession = false;
-    SchoolManager schoolManager;
+
     /// <summary>
     /// Teachers belonging to this teachers room
     /// </summary>
@@ -17,18 +16,6 @@ public class Teachersroom : MonoBehaviour
 
     List<TeacherAI> teachersInClassroom = new List<TeacherAI>();
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        schoolManager = FindObjectOfType<SchoolManager>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        classesInsession = schoolManager.classInSession;
-    }
 
 
     public void AddToRoomTeachers(TeacherAI teacher)

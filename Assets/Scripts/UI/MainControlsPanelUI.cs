@@ -38,7 +38,7 @@ public class MainControlsPanelUI : MonoBehaviour
 
     public void DefaultSettings()
     {
-        timeScaleSlider.value = schoolManager.simTimeScale;
+        timeScaleSlider.value = schoolManager.timeStep;
         numDaysInput.text = schoolManager.GetSimLength().ToString();
         numPeriodsInput.text = schoolManager.GetNumPeriods().ToString();
         periodLengthSlider.value = schoolManager.GetPeriodLength();
@@ -62,7 +62,7 @@ public class MainControlsPanelUI : MonoBehaviour
         noErrors = true;
         while (noErrors)
         {
-            schoolManager.simTimeScale = timeScaleSlider.value;
+            schoolManager.timeStep = timeScaleSlider.value;
             if (numDaysInput.text == "0" || numDaysInput.text == "" ||  numPeriodsInput.text == "0" || numPeriodsInput.text == "" 
                 || numInfectedStudentsInput.text == "" || numInfectedTeachersInput.text == "" || egressCoolDownInput.text == "")
             {

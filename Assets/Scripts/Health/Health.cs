@@ -9,6 +9,8 @@ public enum MaskFactor { none, cloth, surgical , N95}
 public class Health : MonoBehaviour
 {
 
+    public static int numInfected = 0;
+
     public bool infected  = false;
     public ActivityType activity { get; private set; } = ActivityType.Breathing;
     float maskFactor = 1f;
@@ -32,7 +34,7 @@ public class Health : MonoBehaviour
         float criticalRadiusInM = healthParamaters.criticalRadius * 1E-6f;
         dropletVolume = Mathf.PI * Mathf.Pow(criticalRadiusInM, 3f);
         schoolManager = FindObjectOfType<SchoolManager>();
-        timeStep = schoolManager.simTimeScale;
+        timeStep = schoolManager.timeStep;
         SetBreathingRate();
         SetNumberDensity();
         shortRangeInfector = transform.GetChild(0).GetComponent<ShortRangeInfector>();
@@ -135,6 +137,7 @@ public class Health : MonoBehaviour
     {
         infected = true;
         shortRangeInfector.gameObject.SetActive(true);
+        numInfected++;
     }
 
     public float GetInfectionQuanta()

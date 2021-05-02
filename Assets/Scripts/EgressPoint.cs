@@ -46,7 +46,7 @@ public class EgressPoint : MonoBehaviour
         foreach (Classroom classroom in associatedClassrooms)
         {
             classroom.SendClassOutOfFloor(this.transform.position);
-            yield return new WaitForSeconds(waitingTime * schoolmanager.simTimeScale);
+            yield return new WaitForSeconds(waitingTime * schoolmanager.timeStep);
         }
     }
     /// <summary>

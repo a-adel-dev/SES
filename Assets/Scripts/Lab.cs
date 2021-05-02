@@ -17,13 +17,11 @@ public class Lab : MonoBehaviour
     BoxCollider teachersSpace;
 
     //lab variables
-    int labTime = 0;
-    bool classesInSession = false;
+    bool classInSession = false;
     bool labEmpty = true;
     bool started = false; // a bool to enable the function to update cleartogo status
 
     //school variables
-    int periodTime;
     SchoolManager schoolManager;
     float timeStep;
 
@@ -31,17 +29,9 @@ public class Lab : MonoBehaviour
     void Start()
     {
         schoolManager = FindObjectOfType<SchoolManager>();
-        periodTime = schoolManager.GetPeriodLength();
-        timeStep = schoolManager.simTimeScale;
-
+        timeStep = schoolManager.timeStep;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        classesInSession = schoolManager.classInSession;
-        RunLab();
-    }
 
     /*==================================
      * Collecting subspaces
@@ -267,4 +257,8 @@ public class Lab : MonoBehaviour
         return teachersSpace;
     }
 
+    public void SetClassInSessionStatus(bool status)
+    {
+        classInSession = status;
+    }
 }
