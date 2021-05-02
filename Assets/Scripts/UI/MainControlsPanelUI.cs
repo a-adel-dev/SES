@@ -29,22 +29,12 @@ public class MainControlsPanelUI : MonoBehaviour
     [SerializeField] RectTransform ErrorPanel;
     bool noErrors = true;
 
-    
-
-    
-
-
-
-
-
     // Start is called before the first frame update
     void Start()
     {
         schoolManager = FindObjectOfType<SchoolManager>();
-        healthSettings = FindObjectOfType<GeneralHealthParamaters>();
-        
+        healthSettings = FindObjectOfType<GeneralHealthParamaters>();  
     }
-
 
     public void DefaultSettings()
     {

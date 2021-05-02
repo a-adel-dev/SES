@@ -1,6 +1,8 @@
 -Student activity material is not responding properly ** Fixed: changed the way to indicate selections
 -At the end of the day, students in activity do not exit school
 -constrict short range infection only to people in the room
+-do not acticvate start simulation button unless settings are applied.
+-Allow movement during pause. 
 
 
 
