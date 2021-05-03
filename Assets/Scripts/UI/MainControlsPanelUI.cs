@@ -38,7 +38,7 @@ public class MainControlsPanelUI : MonoBehaviour
 
     public void DefaultSettings()
     {
-        timeScaleSlider.value = schoolManager.timeStep;
+        timeScaleSlider.value = schoolManager.sim.timeStep;
         numDaysInput.text = schoolManager.sim.simLength.ToString();
         numPeriodsInput.text = schoolManager.sim.numPeriods.ToString();
         periodLengthSlider.value = schoolManager.sim.periodLength;
@@ -47,12 +47,12 @@ public class MainControlsPanelUI : MonoBehaviour
         numInfectedStudentsInput.text = healthSettings.numStudentInfected.ToString();
         numInfectedTeachersInput.text = healthSettings.numTeachersInfected.ToString();
 
-        egressCoolDownInput.text = schoolManager.cooldownClassExit.ToString();
+        egressCoolDownInput.text = schoolManager.sim.cooldownClassExit.ToString();
         GetHealthMasks(0, healthSettings.studentsMasks);
         GetHealthMasks(1, healthSettings.teachersMasks);
 
-        schoolHalfToggle.isOn = schoolManager.halfCapacity;
-        classHalfToggle.isOn = schoolManager.classroomHalfCapacity;
+        schoolHalfToggle.isOn = schoolManager.sim.halfCapacity;
+        classHalfToggle.isOn = schoolManager.sim.classroomHalfCapacity;
         airControlDropDown.value = healthSettings.airControlSettings;
 
 
@@ -62,7 +62,7 @@ public class MainControlsPanelUI : MonoBehaviour
         noErrors = true;
         while (noErrors)
         {
-            schoolManager.timeStep = timeScaleSlider.value;
+            schoolManager.sim.timeStep = timeScaleSlider.value;
             if (numDaysInput.text == "0" || string.IsNullOrWhiteSpace(numDaysInput.text) ||  numPeriodsInput.text == "0" || string.IsNullOrWhiteSpace(numPeriodsInput.text)
                 || string.IsNullOrWhiteSpace(numInfectedStudentsInput.text) || string.IsNullOrWhiteSpace(numInfectedTeachersInput.text) || string.IsNullOrWhiteSpace(egressCoolDownInput.text))
             {
@@ -77,19 +77,17 @@ public class MainControlsPanelUI : MonoBehaviour
                 schoolManager.sim.EnableActivities(activitiesToggle.isOn);
 
                 healthSettings.numStudentInfected = int.Parse(numInfectedStudentsInput.text);
-                //healthSettings.InfectdSelectedStudents();
                 healthSettings.numTeachersInfected = int.Parse(numInfectedTeachersInput.text);
-                //healthSettings.InfectSelectedTeachers();
 
-                schoolManager.cooldownClassExit = int.Parse(egressCoolDownInput.text);
+                schoolManager.sim.cooldownClassExit = int.Parse(egressCoolDownInput.text);
 
                 SetHealthMasks(0, studentsMasksDropDown.value);
                 SetHealthMasks(1, teachersMasksDropDown.value);
 
                 healthSettings.airControlSettings = airControlDropDown.value;
 
-                schoolManager.halfCapacity = schoolHalfToggle.isOn;
-                schoolManager.classroomHalfCapacity = classHalfToggle.isOn;
+                schoolManager.sim.halfCapacity = schoolHalfToggle.isOn;
+                schoolManager.sim.classroomHalfCapacity = classHalfToggle.isOn;
 
                 mainControlPanel.DisableWindow();
                 noErrors = false;

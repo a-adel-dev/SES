@@ -23,7 +23,7 @@ public class ShortRangeInfector : MonoBehaviour
         jetEntrainmentCoefficient = healthParameters.jetEntrainmentCoefficient;
         mouthArea = healthParameters.mouthArea;
         schoolManager = FindObjectOfType<SchoolManager>();
-        timeStep = schoolManager.timeStep;
+        timeStep = schoolManager.sim.timeStep;
         GameObject infectorParent = transform.parent.gameObject;
         infector = infectorParent.GetComponent<Health>();
         sqrtMouthArea = Mathf.Sqrt(mouthArea);

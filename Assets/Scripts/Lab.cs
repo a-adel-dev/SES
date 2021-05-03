@@ -29,7 +29,7 @@ public class Lab : MonoBehaviour
     void Start()
     {
         schoolManager = FindObjectOfType<SchoolManager>();
-        timeStep = schoolManager.timeStep;
+        timeStep = schoolManager.sim.timeStep;
     }
 
 

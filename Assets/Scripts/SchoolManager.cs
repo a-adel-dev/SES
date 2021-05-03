@@ -1,36 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class SchoolManager : MonoBehaviour
 {
-    public float timeStep= 4f;
-    [SerializeField] int sessionActivityMinTime = 8;
-    [SerializeField] float childWalkingSpeed = 0.6f;
-    [SerializeField] float adultWalkingSpeed = 1.5f;
-    public bool halfCapacity = false;
-    public bool classroomHalfCapacity = false;
-    public int cooldownClassExit = 0;
-
     List<Classroom>     inPlaceClassrooms = new List<Classroom>(); //classrooms with classes in place i.e. not in a lab
     List<ClassLabPair>  classlabPairList = new List<ClassLabPair>();
+    List<TeacherAI> teacherspool;
 
     public SchoolSubSpacesBucket subspaces;
     public TeacherPool teacherPoolController;
     public SimulationProperties sim;
-
-    //classroom global properties
-    [HideInInspector]
+    public SchoolDaySchedular schedular;
     public bool classInSession { get; private set; }
     public int schoolTime = 0;
-    public DateTime dateTime { get; private set; }
+    public DateTime schoolDateTime { get; private set; }
     bool schoolDay = false;
 
-    //Class internal Properties
-    List<int> classTimes = new List<int>();
     int currentPeriodIndex = 0;
-    List<TeacherAI> teacherspool;
     ClassroomState currentState = ClassroomState.inSession;
     ClassroomState previousState = ClassroomState.onBreak;
     HealthStats healthStats;
@@ -38,16 +25,17 @@ public class SchoolManager : MonoBehaviour
 
     private void Awake()
     {
+        sim = GetComponent<SimulationProperties>();
         subspaces = GetComponent<SchoolSubSpacesBucket>();
         teacherPoolController = GetComponent<TeacherPool>();
-        sim = GetComponent<SimulationProperties>();
         inPlaceClassrooms = new List<Classroom>(subspaces.classrooms);
-        ScheduleClasses();
+        schedular = GetComponent<SchoolDaySchedular>();
     }
 
     private void Start()
     {
-        dateTime = new DateTime(2020, 1, 1, 8, 00, 00);
+        schedular.ScheduleClasses();
+        schoolDateTime = new DateTime(2020, 1, 1, 8, 00, 00);
         healthStats = FindObjectOfType<HealthStats>();
         Invoke(nameof(teacherPoolController.AllocateOrpahanedTeachers), 5.0f);
         healthParameters = FindObjectOfType<GeneralHealthParamaters>();
@@ -59,35 +47,31 @@ public class SchoolManager : MonoBehaviour
         OscillateClassSessions();  
     }
 
-    /*==========================================
-     * School Main Methods
-     * =========================================
-     */
     private void StartSchoolDay()
     {
-        SetSessionActivityMinTime(sessionActivityMinTime);
+        sim.SetSessionActivityMinTime(sim.sessionActivityMinTime);
         schoolDay = true;
         SetClassesInSessionStatus(true);
-        foreach (Classroom classroom in inPlaceClassrooms)
-        {
-            classroom.StartClass();
-        }
+        StartClasses();
         healthStats.CollectAgents();
         healthStats.PopulateAgentLists();
     }
 
-    private void OscillateClassSessions()
+    public void OscillateClassSessions()
     {
-        if (currentState == ClassroomState.dayIsOver) { return; }
-        if (currentPeriodIndex == classTimes.Count - 1)
+        //day is over
+        if (currentState == ClassroomState.dayIsOver) { return; } 
+        //end school day
+        if (currentPeriodIndex == schedular.classTimes.Count - 1)
         {
             EndSchoolDay();
-            classTimes = new List<int>();
+            schedular.classTimes = new List<int>();
             currentState = ClassroomState.dayIsOver;
         }
+        //end period
         if (currentPeriodIndex % 2 == 0)
         {
-            if (schoolTime > classTimes[currentPeriodIndex])
+            if (schoolTime > schedular.classTimes[currentPeriodIndex])
             {
                 previousState = currentState;
                 currentState = ClassroomState.onBreak;
@@ -95,12 +79,9 @@ public class SchoolManager : MonoBehaviour
                 {
                     currentPeriodIndex++;
                     SetClassesInSessionStatus(false);
-                    ReplaceClassTeachers(); 
+                    ReplaceClassTeachers();
                     //Debug.Log("increasing current Period Index");
-                    foreach (Classroom classroom in inPlaceClassrooms)
-                    {
-                        classroom.EndClass();
-                    }
+                    EndClasses();
                     if (classlabPairList != null)
                     {
                         SendClassesBackFromLabs();
@@ -108,9 +89,10 @@ public class SchoolManager : MonoBehaviour
                 }
             }
         }
+        //start period
         else if (currentPeriodIndex % 2 != 0)
         {
-            if (schoolTime > classTimes[currentPeriodIndex])
+            if (schoolTime > schedular.classTimes[currentPeriodIndex])
             {
                 previousState = currentState;
                 currentState = ClassroomState.inSession;
@@ -119,10 +101,7 @@ public class SchoolManager : MonoBehaviour
                     SetClassesInSessionStatus(true);
                     currentPeriodIndex++;
                     SendClassesToLabs();
-                    foreach (Classroom classroom in inPlaceClassrooms)
-                    {
-                        classroom.StartClass();
-                    }
+                    StartClasses();
                 }
             }
         }
@@ -135,55 +114,44 @@ public class SchoolManager : MonoBehaviour
         SetClassesInSessionStatus(false);
         foreach (EgressPoint stairs in subspaces.staircases)
         {
-            stairs.RecallClasses(cooldownClassExit);
+            stairs.RecallClasses(sim.cooldownClassExit);
         }
+    }
 
-        //Time.timeScale = 0;
+    private void StartClasses()
+    {
+        foreach (Classroom classroom in inPlaceClassrooms)
+        {
+            classroom.StartClass();
+        }
+    }
+
+    private void EndClasses()
+    {
+        foreach (Classroom classroom in inPlaceClassrooms)
+        {
+            classroom.EndClass();
+        }
+    }
+
+    void SetClassesInSessionStatus(bool status)
+    {
+        foreach (Classroom classroom in subspaces.classrooms)
+        {
+            classroom.SetClassInSessionStatus(status);
+        }
+        foreach (Lab lab in subspaces.labs)
+        {
+            lab.SetClassInSessionStatus(status);
+        }
+        classInSession = status;
     }
 
     void TimeStep()
     {
         schoolTime++;
-        dateTime += new TimeSpan(0, 1, 0);
+        schoolDateTime += new TimeSpan(0, 1, 0);
     }
-
-    private void ScheduleClasses()
-    {
-        for (int i = 0; i < sim.numPeriods * 2; i++)
-        {
-            if (i == 0)
-            {
-                classTimes.Add(40);
-                continue;
-            }
-            else if (i % 2 != 0)
-            {
-                classTimes.Add(classTimes[i - 1] + (60 - sim.periodLength));
-            }
-            else if (i % 2 == 0)
-            {
-                classTimes.Add(classTimes[i - 1] + sim.periodLength);
-            }
-        }
-
-    }
-
-    /*==========================================
-     * School properties getters, setters
-     * =========================================
-     */
-    public void SetSessionActivityMinTime(int time)
-    {
-        foreach (Classroom classroom in subspaces.classrooms)
-        {
-            classroom.activityPlanner.SetActivityMinTime(time);
-        }
-    }
-
-    /*=============================================
-     * Classroom Management
-     * ============================================
-     */
 
     void SendClassesToLabs()
     {
@@ -258,13 +226,10 @@ public class SchoolManager : MonoBehaviour
         }
     }
 
-    /*===============================================
-     * General
-     * ==============================================
-     */
 
     public void PauseSim()
     {
+        Debug.Log($"pausing Sim");
         Time.timeScale = 0f;
     }
 
@@ -272,7 +237,7 @@ public class SchoolManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         StartSchoolDay();
-        SetWalkingSpeed();
+        sim.SetWalkingSpeed();
         SetHealthParameters();
     }
 
@@ -288,24 +253,6 @@ public class SchoolManager : MonoBehaviour
     {
         Time.timeScale = 1f;
     }
-
-    private void SetWalkingSpeed()
-    {
-        var agents = FindObjectsOfType<Health>();
-        foreach (Health agent in agents)
-        {
-            if (agent.GetComponent<AI>())
-            {
-                agent.GetComponent<NavMeshAgent>().speed = childWalkingSpeed * (60f / timeStep);
-            }
-            else
-            {
-                agent.GetComponent<NavMeshAgent>().speed = adultWalkingSpeed* (60f / timeStep);
-            }
-        }
-    }
-
-
 
     /*===============================================
      * Debugging
@@ -324,20 +271,4 @@ public class SchoolManager : MonoBehaviour
         }
     }
     */
-
-    void SetClassesInSessionStatus(bool status)
-    {
-        foreach (Classroom classroom in subspaces.classrooms)
-        {
-            classroom.SetClassInSessionStatus(status);
-        }
-        foreach (Lab lab in subspaces.labs)
-        {
-            lab.SetClassInSessionStatus(status);
-        }
-        classInSession = status;
-    }
-
-
-
 }

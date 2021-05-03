@@ -49,10 +49,10 @@ public class HUDUI : MonoBehaviour
         //year - month - day - hour - minute - seconds
         //DateTime dt = new DateTime(0, 0, 0, 0, schoolManager.schoolTime, 0);
         
-        classTime.text = String.Format("Time{0:hh:mm}", schoolManager.dateTime);
+        classTime.text = String.Format("Time{0:hh:mm}", schoolManager.schoolDateTime);
 
         //date
-        classDate.text = String.Format("Day{0:dd}", schoolManager.dateTime);
+        classDate.text = String.Format("Day{0:dd}", schoolManager.schoolDateTime);
 
     }
 

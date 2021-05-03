@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public enum ActivityType { Breathing, Talking, LoudTalking}
-public enum MaskFactor { none, cloth, surgical , N95}
 
 public class Health : MonoBehaviour
 {
@@ -34,7 +29,7 @@ public class Health : MonoBehaviour
         float criticalRadiusInM = healthParamaters.criticalRadius * 1E-6f;
         dropletVolume = Mathf.PI * Mathf.Pow(criticalRadiusInM, 3f);
         schoolManager = FindObjectOfType<SchoolManager>();
-        timeStep = schoolManager.timeStep;
+        timeStep = schoolManager.sim.timeStep;
         SetBreathingRate();
         SetNumberDensity();
         shortRangeInfector = transform.GetChild(0).GetComponent<ShortRangeInfector>();
@@ -175,8 +170,5 @@ public class Health : MonoBehaviour
     public float GetMaskFactor()
     {
         return maskFactor;
-    }
-
-
-    
+    } 
 }

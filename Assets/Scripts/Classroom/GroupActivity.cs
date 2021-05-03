@@ -27,7 +27,7 @@ public class GroupActivity : MonoBehaviour
 
     private void Start()
     {
-        timeStep = schoolManager.timeStep;
+        timeStep = schoolManager.sim.timeStep;
     }
 
     public IEnumerator StartGroupActivity()

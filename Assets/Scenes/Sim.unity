@@ -32341,6 +32341,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7366ac4c4386abf47a887fab14b9a00b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeStep: 4
+  childWalkingSpeed: 0.6
+  adultWalkingSpeed: 1.5
+  sessionActivityMinTime: 8
+  halfCapacity: 0
+  classroomHalfCapacity: 0
+  cooldownClassExit: 0
 --- !u!114 &882700136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32371,6 +32378,19 @@ MonoBehaviour:
   teachersrooms: []
   labs: []
   staircases: []
+--- !u!114 &882700139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882700131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 361103eb6f904af4b9cfab28c464831a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  classTimes: 
 --- !u!1 &883762765
 GameObject:
   m_ObjectHideFlags: 0

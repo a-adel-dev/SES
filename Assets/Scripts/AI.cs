@@ -2,16 +2,12 @@
 using UnityEngine.AI;
 using Panda;
 
-
-
-public enum AIStatus { inClass , inLab }
 public class AI : MonoBehaviour
 {
     //cached variables 
     NavMeshAgent agent;
     SchoolManager school;
     PandaBehaviour behaviorTree;
-
 
     //properties
     private bool busy = false;
@@ -40,7 +36,6 @@ public class AI : MonoBehaviour
     [SerializeField] Material originalMaterial;
     [SerializeField] Material busyMaterial;
 
-    //temp properties
 
     void Start()
     {

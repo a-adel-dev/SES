@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-    SchoolManager schoolManager;
+    SimulationProperties sim;
     float timeStep;
     float timer = 0f;
     // Start is called before the first frame update
     void Awake()
     {
-        schoolManager = FindObjectOfType<SchoolManager>();
-        timeStep = schoolManager.timeStep;
+        sim = FindObjectOfType<SimulationProperties>();
+        timeStep = sim.timeStep;
     }
 
     // Update is called once per frame

@@ -111,6 +111,7 @@
     <Compile Include="Assets\Scripts\POI.cs" />
     <Compile Include="Assets\Scripts\SceneManager\SceneHandling.cs" />
     <Compile Include="Assets\Scripts\School\LabTeachersPool.cs" />
+    <Compile Include="Assets\Scripts\School\SchoolDaySchedular.cs" />
     <Compile Include="Assets\Scripts\School\SchoolSubSpacesBucket.cs" />
     <Compile Include="Assets\Scripts\School\SimulationProperties.cs" />
     <Compile Include="Assets\Scripts\School\TeacherPool.cs" />

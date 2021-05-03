@@ -16,7 +16,7 @@ public class TeacherNavigation : MonoBehaviour
     void Start()
     {
         schoolManager = FindObjectOfType<SchoolManager>();
-        timeStep = schoolManager.timeStep;
+        timeStep = schoolManager.sim.timeStep;
         agent = GetComponent<NavMeshAgent>();
         Ai = GetComponent<TeacherAI>();
         

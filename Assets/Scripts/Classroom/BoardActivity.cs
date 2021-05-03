@@ -24,7 +24,7 @@ public class BoardActivity : MonoBehaviour
 
     private void Start()
     {
-        timeStep = schoolManager.timeStep;
+        timeStep = schoolManager.sim.timeStep;
     }
 
     public IEnumerator StartBoardActivity()

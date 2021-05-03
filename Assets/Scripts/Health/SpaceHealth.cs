@@ -35,7 +35,7 @@ public class SpaceHealth : MonoBehaviour
     {
         ComputeSpaceVolume();
         schoolManager = FindObjectOfType<SchoolManager>();
-        timeStep = schoolManager.timeStep;
+        timeStep = schoolManager.sim.timeStep;
     }
 
     private void ComputeSpaceVolume()
