@@ -24,7 +24,7 @@ public class ClassroomPeriodSchedular : MonoBehaviour
 
     private void Start()
     {
-        periodTime = schoolManager.GetPeriodLength();
+        periodTime = schoolManager.sim.periodLength;
     }
 
     // Update is called once per frame

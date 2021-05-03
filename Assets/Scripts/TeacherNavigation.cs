@@ -41,7 +41,7 @@ public class TeacherNavigation : MonoBehaviour
     public void GoToClassRoom()
     {
         SetWandering(false);
-        GuideTo(Ai.currentClass.GetTeacherSpawnerPos().position);
+        GuideTo(Ai.currentClass.spawner.GetTeacherSpawnerPos().position);
         SetWandering(true);
     }
 
@@ -66,7 +66,7 @@ public class TeacherNavigation : MonoBehaviour
             BoxCollider area = null;
             if (Ai.currentClass != null)
             {
-               area = Ai.currentClass.GetTeacherSpace();
+               area = Ai.currentClass.classroomSubSpaces.GetTeacherSpace();
             }
             else if (Ai.ownLab != null)
             {

@@ -3,87 +3,60 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum ClassroomState { inSession, onBreak, dayIsOver}
-
-
-
 public class SchoolManager : MonoBehaviour
 {
     public float timeStep= 4f;
-    int simLength = 14;
-    [SerializeField] int numPeriods = 4;
-    [SerializeField] int periodLength = 40;
-    [SerializeField] bool activitiesEnabled = true;
-    [Range(5, 30)]
     [SerializeField] int sessionActivityMinTime = 8;
     [SerializeField] float childWalkingSpeed = 0.6f;
     [SerializeField] float adultWalkingSpeed = 1.5f;
-    float TimeScale;
     public bool halfCapacity = false;
     public bool classroomHalfCapacity = false;
-
     public int cooldownClassExit = 0;
 
-    //space lists
-    List<Classroom>     classrooms = new List<Classroom>(); // all school classrooms
     List<Classroom>     inPlaceClassrooms = new List<Classroom>(); //classrooms with classes in place i.e. not in a lab
     List<ClassLabPair>  classlabPairList = new List<ClassLabPair>();
-    List<Bathroom>      bathrooms = new List<Bathroom>();
-    List<Corridor>      corridors = new List<Corridor>();
-    List<Teachersroom>  teachersrooms = new List<Teachersroom>();
-    List<Lab>           labs = new List<Lab>();
-    List<EgressPoint>   staircases = new List<EgressPoint>();
-    
+
+    public SchoolSubSpacesBucket subspaces;
+    public TeacherPool teacherPoolController;
+    public SimulationProperties sim;
 
     //classroom global properties
     [HideInInspector]
     public bool classInSession { get; private set; }
-    List<TeacherAI> orphandTeachers = new List<TeacherAI>();
-    int teacherRoomIndex = 0; //An index to keep trak of which teacher room will be used to assign an orphand teacher to
-
-
     public int schoolTime = 0;
     public DateTime dateTime { get; private set; }
-    
     bool schoolDay = false;
 
     //Class internal Properties
     List<int> classTimes = new List<int>();
-    float timer = 0f;
     int currentPeriodIndex = 0;
-    TeacherPool teacherPoolController;
     List<TeacherAI> teacherspool;
     ClassroomState currentState = ClassroomState.inSession;
     ClassroomState previousState = ClassroomState.onBreak;
     HealthStats healthStats;
     GeneralHealthParamaters healthParameters;
 
-
     private void Awake()
     {
-        AllocateSubSpaces();
-        inPlaceClassrooms = new List<Classroom>(classrooms);
+        subspaces = GetComponent<SchoolSubSpacesBucket>();
+        teacherPoolController = GetComponent<TeacherPool>();
+        sim = GetComponent<SimulationProperties>();
+        inPlaceClassrooms = new List<Classroom>(subspaces.classrooms);
         ScheduleClasses();
-        teacherPoolController = gameObject.GetComponent(typeof(TeacherPool)) as TeacherPool;
-        //path = new NavMeshPath();
-        dateTime = new DateTime(2020, 1, 1, 8, 00, 00);
     }
 
     private void Start()
     {
+        dateTime = new DateTime(2020, 1, 1, 8, 00, 00);
         healthStats = FindObjectOfType<HealthStats>();
-        Invoke(nameof(AllocateOrpahanedTeachers), 5.0f);
+        Invoke(nameof(teacherPoolController.AllocateOrpahanedTeachers), 5.0f);
         healthParameters = FindObjectOfType<GeneralHealthParamaters>();
         PauseSim();
-
     }
 
     private void Update()
     {
-        //Time.timeScale = timeMultiplier;
-        RunSchoolTimer();
-        OscillateClassSessions();
-        
+        OscillateClassSessions();  
     }
 
     /*==========================================
@@ -102,7 +75,6 @@ public class SchoolManager : MonoBehaviour
         healthStats.CollectAgents();
         healthStats.PopulateAgentLists();
     }
-
 
     private void OscillateClassSessions()
     {
@@ -161,7 +133,7 @@ public class SchoolManager : MonoBehaviour
     {
         schoolDay = false;
         SetClassesInSessionStatus(false);
-        foreach (EgressPoint stairs in staircases)
+        foreach (EgressPoint stairs in subspaces.staircases)
         {
             stairs.RecallClasses(cooldownClassExit);
         }
@@ -169,22 +141,15 @@ public class SchoolManager : MonoBehaviour
         //Time.timeScale = 0;
     }
 
-    private void RunSchoolTimer()
+    void TimeStep()
     {
-        timer += Time.deltaTime;
-        if (timer >= timeStep)
-        {
-            timer -= timeStep;
-            schoolTime++;
-            dateTime += new TimeSpan(0, 1, 0);
-            SendMessage("TimeStep");
-        }
-
+        schoolTime++;
+        dateTime += new TimeSpan(0, 1, 0);
     }
 
     private void ScheduleClasses()
     {
-        for (int i = 0; i < numPeriods * 2; i++)
+        for (int i = 0; i < sim.numPeriods * 2; i++)
         {
             if (i == 0)
             {
@@ -193,208 +158,26 @@ public class SchoolManager : MonoBehaviour
             }
             else if (i % 2 != 0)
             {
-                classTimes.Add(classTimes[i - 1] + (60 - periodLength));
+                classTimes.Add(classTimes[i - 1] + (60 - sim.periodLength));
             }
             else if (i % 2 == 0)
             {
-                classTimes.Add(classTimes[i - 1] + periodLength);
+                classTimes.Add(classTimes[i - 1] + sim.periodLength);
             }
         }
 
-    }
-    /*==========================================
-     * Collection of subspaces
-     * =========================================
-     */
-    private void AllocateSubSpaces()
-    {
-        var classroomsArray = FindObjectsOfType<Classroom>();
-        foreach (var classroom in classroomsArray)
-        {
-            classrooms.Add(classroom);
-        }
-
-        var bathroomArray = FindObjectsOfType<Bathroom>();
-        foreach (var bathroom in bathroomArray)
-        {
-            bathrooms.Add(bathroom);
-        }
-
-        var corridorArray = FindObjectsOfType<Corridor>();
-        foreach (var corridor in corridorArray)
-        {
-            corridors.Add(corridor);
-        }
-
-        var teacherroomsArray = FindObjectsOfType<Teachersroom>();
-        foreach (var teacherRoom in teacherroomsArray)
-        {
-            teachersrooms.Add(teacherRoom);
-        }
-
-        var labsArray = FindObjectsOfType<Lab>();
-        foreach (var lab in labsArray)
-        {
-            labs.Add(lab);
-        }
-
-        var stairsArray = FindObjectsOfType<EgressPoint>();
-        foreach (var stairs in stairsArray)
-        {
-            staircases.Add(stairs);
-        }
-    }
-
-    void AllocateOrpahanedTeachers()
-    {
-        
-        if(orphandTeachers.Count <= 0) 
-        {
-            return;
-        }
-        
-        foreach (TeacherAI teacher in orphandTeachers.ToArray())
-        {
-            if (teacherRoomIndex == teachersrooms.Count)
-            {
-                teacherRoomIndex = 0;
-            }
-            teachersrooms[teacherRoomIndex].AddToRoomTeachers(teacher);
-            teachersrooms[teacherRoomIndex].AddToClassroomTeachers(teacher);
-            teacher.AssignTeachersRoom(teachersrooms[teacherRoomIndex]);
-            //Debug.Log($"Assigning {teacher.gameObject.name} to {teachersrooms[teacherRoomIndex].gameObject.name}"); //
-            orphandTeachers.Remove(teacher);
-            teacherRoomIndex++;
-        }
     }
 
     /*==========================================
      * School properties getters, setters
      * =========================================
      */
-    public int GetSimLength()
-    {
-        return simLength;
-    }
-
-    public void SetSimLength(int time)
-    {
-        simLength = time;
-    }
-
-    public int GetNumPeriods()
-    {
-        return numPeriods;
-    }
-
-    public void SetNumPeriods(int num)
-    {
-        numPeriods = num;
-    }
-
-    public int GetNumClasses()
-    {
-        return classrooms.Count;
-    }
-
-    public int GetNumlabs()
-    {
-        return labs.Count;
-    }
-
-    public int GetPeriodLength()
-    {
-        return periodLength;
-    }
-
-    public void SetPeriodLength(int length)
-    {
-        periodLength = length;
-    }
-
     public void SetSessionActivityMinTime(int time)
     {
-        foreach (Classroom classroom in classrooms)
+        foreach (Classroom classroom in subspaces.classrooms)
         {
-            classroom.SetActivityMinTime(time);
+            classroom.activityPlanner.SetActivityMinTime(time);
         }
-    }
-
-    public void EnableActivities(bool state)
-    {
-        activitiesEnabled = state;
-        if (state)
-        {
-            foreach (Classroom classroom in classrooms)
-            {
-                classroom.EnableActivities();
-            }
-        }
-    }
-
-    public bool IsActivitiesEnabled()
-    {
-        return activitiesEnabled;
-    }
-
-    public Bathroom GetNearestBathroom(AI pupil)
-    {
-        Bathroom nearestBathroom = null;
-        float distance = Mathf.Infinity;
-        Vector3 pupilPos = pupil.transform.position;
-        //NavMeshPath path = new NavMeshPath();
-        foreach (Bathroom bathroom in bathrooms)
-        {
-            if (Vector3.Distance(bathroom.transform.position, pupil.transform.position) < distance)
-            {
-                distance = Vector3.Distance(bathroom.transform.position, pupilPos);
-                nearestBathroom = bathroom;
-            }
-            /*
-            //Debug.Log(NavMesh.CalculatePath(pupilPos, bathroom.transform.position, NavMesh.AllAreas, path));
-            Vector3 bathroomPos = bathroom.transform.position;
-            NavMesh.CalculatePath(pupilPos, bathroomPos, NavMesh.AllAreas, path);
-            
-            while (!(path.status == NavMeshPathStatus.PathComplete))
-            {
-                NavMeshHit hit;
-                NavMesh.SamplePosition(bathroomPos, out hit, 1, NavMesh.AllAreas);
-                bathroomPos = hit.position;
-                NavMesh.CalculatePath(pupilPos, bathroomPos, NavMesh.AllAreas, path);
-            }
-            
-            if (PathLength(path) < distance)
-            {
-                nearestBathroom = bathroom;
-                distance = PathLength(path);
-                Debug.Log(distance);
-            }
-            */
-        }
-        return nearestBathroom;
-    }
-
-    float PathLength(NavMeshPath path)
-    {
-        if (path.corners.Length < 2)
-            return 0;
-
-        Vector3 previousCorner = path.corners[0];
-        float lengthSoFar = 0.0F;
-        int i = 1;
-        while (i < path.corners.Length)
-        {
-            Vector3 currentCorner = path.corners[i];
-            lengthSoFar += Vector3.Distance(previousCorner, currentCorner);
-            previousCorner = currentCorner;
-            i++;
-        }
-        return lengthSoFar;
-    }
-
-    public void AddOrphandTeacher(TeacherAI teacher)
-    {
-        orphandTeachers.Add(teacher);
     }
 
     /*=============================================
@@ -406,7 +189,7 @@ public class SchoolManager : MonoBehaviour
     {
         Debug.Log($"sending classes to labs");
         if (schoolDay == false) { return; }
-        foreach (Lab lab in labs)
+        foreach (Lab lab in subspaces.labs)
         {
             SendRandomClassToLab(lab);
         }
@@ -456,9 +239,9 @@ public class SchoolManager : MonoBehaviour
             teacher.ClearClassRoom();
         }
 
-        for (int i = 0; i < classrooms.Count; i++)
+        for (int i = 0; i < subspaces.classrooms.Length; i++)
         {
-            teacherspool[i].AssignClassRoom(classrooms[i]);
+            teacherspool[i].AssignClassRoom(subspaces.classrooms[i]);
             teacherspool[i].SetInClassroomto(true);
         }
 
@@ -544,11 +327,11 @@ public class SchoolManager : MonoBehaviour
 
     void SetClassesInSessionStatus(bool status)
     {
-        foreach (Classroom classroom in classrooms)
+        foreach (Classroom classroom in subspaces.classrooms)
         {
             classroom.SetClassInSessionStatus(status);
         }
-        foreach (Lab lab in labs)
+        foreach (Lab lab in subspaces.labs)
         {
             lab.SetClassInSessionStatus(status);
         }

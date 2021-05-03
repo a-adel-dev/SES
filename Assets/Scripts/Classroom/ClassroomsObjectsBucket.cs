@@ -11,11 +11,11 @@ public class ClassroomsObjectsBucket : MonoBehaviour
     [SerializeField]    GameObject board;
     List<Spot> availableLockers;
 
-
     private void Start()
     {
         availableLockers = new List<Spot>(lockers);
     }
+
     public List<Spot> GetClassroomDesks()
     {
         return desks;

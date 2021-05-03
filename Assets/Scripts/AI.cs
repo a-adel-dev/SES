@@ -205,7 +205,7 @@ public class AI : MonoBehaviour
     {
         if(onDesk && currentClass != null)
         {
-            Vector3 boardDirection = currentClass.GetClassBoard().transform.position;
+            Vector3 boardDirection = currentClass.classroomSubSpaces.GetClassBoard().transform.position;
             agent.updateRotation = false;
             //should involve a slerp
             transform.LookAt(new Vector3 (boardDirection.x, 0, boardDirection.z));
@@ -259,7 +259,7 @@ public class AI : MonoBehaviour
 
     public void EnterClass(Classroom classroom)
     {
-        classroom.AddToPupilsInClass(this);
+        classroom.studentsBucket.AddToPupilsInClass(this);
         SetCurrentClass(classroom);
         //pupil.SetBusyTo(true);
     }
@@ -333,7 +333,7 @@ public class AI : MonoBehaviour
     [Task]
     void ExitClass()
     {
-        currentClass.RemoveFromClass(this);
+        currentClass.studentsBucket.RemoveFromClass(this);
         ClearCurrentClass();
         Task.current.Succeed();
     }
@@ -341,7 +341,7 @@ public class AI : MonoBehaviour
     [Task]
     void GetBathroom()
     {
-        nearestBathroom = school.GetNearestBathroom(this);
+        nearestBathroom = school.subspaces.GetNearestBathroom(this);
         if (nearestBathroom == null)
         {
             Task.current.Fail();
@@ -441,7 +441,7 @@ public class AI : MonoBehaviour
     {
         if (status == AIStatus.inClass)
         {
-            currentSpot = currentClass.GetLocker();
+            currentSpot = currentClass.classroomSubSpaces.GetLocker();
             if (currentSpot == null)
             {
                 Task.current.Fail();
@@ -476,7 +476,7 @@ public class AI : MonoBehaviour
     {
         if (status == AIStatus.inClass)
         {
-            currentClass.ReturnLocker(currentSpot);
+            currentClass.classroomSubSpaces.ReturnLocker(currentSpot);
             currentSpot = null;
             Task.current.Succeed();
         }

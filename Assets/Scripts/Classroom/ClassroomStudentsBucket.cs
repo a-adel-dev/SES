@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-
 public class ClassroomStudentsBucket : MonoBehaviour
 {
     List<AI> classroomPupils = new List<AI>();

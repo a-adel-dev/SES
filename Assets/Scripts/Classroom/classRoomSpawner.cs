@@ -55,7 +55,7 @@ public class classRoomSpawner : MonoBehaviour
         GameObject teacher = Instantiate(teacherPrefab, teacherSpawnMarker.position, Quaternion.identity);
         TeacherAI teacherAgent = teacher.GetComponent<TeacherAI>();
         teacherspool.AddToTeachersPool(teacherAgent);
-        schoolManager.AddOrphandTeacher(teacherAgent);
+        schoolManager.teacherPoolController.AddOrphandTeacher(teacherAgent);
         teacherAgent.SetInClassroomto(true);
         teacherAgent.AssignClassRoom(GetComponent<Classroom>());
     }

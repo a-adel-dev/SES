@@ -91,12 +91,14 @@
     <Compile Include="Assets\Scripts\Classroom\BoardActivity.cs" />
     <Compile Include="Assets\Scripts\Classroom\Classroom.cs" />
     <Compile Include="Assets\Scripts\Classroom\ClassroomPeriodSchedular.cs" />
+    <Compile Include="Assets\Scripts\Classroom\ClassroomPupilController.cs" />
     <Compile Include="Assets\Scripts\Classroom\ClassroomStudentsBucket.cs" />
     <Compile Include="Assets\Scripts\Classroom\ClassroomsObjectsBucket.cs" />
     <Compile Include="Assets\Scripts\Classroom\GroupActivity.cs" />
     <Compile Include="Assets\Scripts\Classroom\classRoomSpawner.cs" />
     <Compile Include="Assets\Scripts\Corridor.cs" />
     <Compile Include="Assets\Scripts\EgressPoint.cs" />
+    <Compile Include="Assets\Scripts\Enums.cs" />
     <Compile Include="Assets\Scripts\Health\Droplet.cs" />
     <Compile Include="Assets\Scripts\Health\GeneralHealthParamaters.cs" />
     <Compile Include="Assets\Scripts\Health\Health.cs" />
@@ -109,6 +111,8 @@
     <Compile Include="Assets\Scripts\POI.cs" />
     <Compile Include="Assets\Scripts\SceneManager\SceneHandling.cs" />
     <Compile Include="Assets\Scripts\School\LabTeachersPool.cs" />
+    <Compile Include="Assets\Scripts\School\SchoolSubSpacesBucket.cs" />
+    <Compile Include="Assets\Scripts\School\SimulationProperties.cs" />
     <Compile Include="Assets\Scripts\School\TeacherPool.cs" />
     <Compile Include="Assets\Scripts\SchoolManager.cs" />
     <Compile Include="Assets\Scripts\Spot.cs" />

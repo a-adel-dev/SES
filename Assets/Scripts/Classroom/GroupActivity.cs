@@ -41,9 +41,6 @@ public class GroupActivity : MonoBehaviour
                 List<AI> pupilsAvailableforActivity = new List<AI>(studentsBucket.GetPupilsInClass());
                 foreach (Spot desk in selectedDesks)
                 {
-                    //Debug.Log(desk.name);
-                    //Instantiate(indicator, desk.transform.position, Quaternion.identity);
-
                     List<AI> closestStudents = new List<AI>();
                     int searchIndex = 1;
                     while (closestStudents.Count < studentsBucket.GetPupilsInClass().Count / numSpotsForGroupActivity)
@@ -129,7 +126,6 @@ public class GroupActivity : MonoBehaviour
                     }
                 }
             }
-
             if (selectedDesks.Count >= numSpotsForGroupActivity)
             {
                 break;
@@ -138,7 +134,6 @@ public class GroupActivity : MonoBehaviour
             {
                 selectedDesks.Clear();
             }
-
         }
         if (selectedDesks == null)
         {

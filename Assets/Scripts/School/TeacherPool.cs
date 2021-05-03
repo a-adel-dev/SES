@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class TeacherPool : MonoBehaviour
 {
+    SchoolManager schoolManager;
     List<TeacherAI> teachersPool = new List<TeacherAI>();
     List<TeacherAI> labTeachersPool = new List<TeacherAI>();
+    List<TeacherAI> orphandTeachers = new List<TeacherAI>();
+    int teacherRoomIndex = 0; //An index to keep trak of which teacher room will be used to assign an orphand teacher to
+
+    private void Awake()
+    {
+        schoolManager = GetComponent<SchoolManager>();
+    }
 
     public List<TeacherAI> GetSchoolTeachers()
     {
         return teachersPool;
     }
 
-    /// <summary>
-    /// Adds or removes a teacher from teachers pool
-    /// </summary>
-    /// <param name="teacher">teacher to be added</param>
     public void AddToTeachersPool(TeacherAI teacher)
     {
         teachersPool.Add(teacher);
     }
 
-    /// <summary>
-    /// Adds or removes a teacher from lab teachers pool
-    /// </summary>
-    /// <param name="teacher">teacher to be added</param>
     public void AddToLabTeachersPool(TeacherAI teacher)
     {
         labTeachersPool.Add(teacher);
@@ -42,5 +42,33 @@ public class TeacherPool : MonoBehaviour
             teachersPool[random] = teachersPool[listLength];
             teachersPool[listLength] = temp;
         }
+    }
+
+    
+    public void AllocateOrpahanedTeachers()
+    {
+
+        if (orphandTeachers.Count <= 0)
+        {
+            return;
+        }
+
+        foreach (TeacherAI teacher in orphandTeachers.ToArray())
+        {
+            if (teacherRoomIndex == schoolManager.subspaces.teachersrooms.Length)
+            {
+                teacherRoomIndex = 0;
+            }
+            schoolManager.subspaces.teachersrooms[teacherRoomIndex].AddToRoomTeachers(teacher);
+            schoolManager.subspaces.teachersrooms[teacherRoomIndex].AddToClassroomTeachers(teacher);
+            teacher.AssignTeachersRoom(schoolManager.subspaces.teachersrooms[teacherRoomIndex]);
+            orphandTeachers.Remove(teacher);
+            teacherRoomIndex++;
+        }
+    }
+
+    public void AddOrphandTeacher(TeacherAI teacher)
+    {
+        orphandTeachers.Add(teacher);
     }
 }

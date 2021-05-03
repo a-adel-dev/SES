@@ -2,11 +2,12 @@
 
 public class Classroom : MonoBehaviour
 {
-    ClassroomPeriodSchedular classScheduler;
-    ActivityPlanner activityPlanner;
-    ClassroomStudentsBucket studentsBucket;
-    ClassroomsObjectsBucket classroomSubSpaces;
-    classRoomSpawner spawner;
+    public ClassroomPeriodSchedular classScheduler;
+    public ActivityPlanner activityPlanner;
+    public ClassroomStudentsBucket studentsBucket;
+    public ClassroomsObjectsBucket classroomSubSpaces;
+    public classRoomSpawner spawner;
+    public ClassroomPupilController pupilController;
     bool classInSession = false;
     bool classEmpty = false;
     bool spawned = false;
@@ -17,15 +18,14 @@ public class Classroom : MonoBehaviour
         activityPlanner = GetComponent<ActivityPlanner>();
         studentsBucket = GetComponent<ClassroomStudentsBucket>();
         classroomSubSpaces = GetComponent<ClassroomsObjectsBucket>();
-        spawner = GetComponent<classRoomSpawner>();
-        
+        pupilController = GetComponent<ClassroomPupilController>();
+        spawner = GetComponent<classRoomSpawner>(); 
     }
 
     private void Start()
     {
         SpawnAgents();
     }
-
 
     public void SpawnAgents()
     {
@@ -34,44 +34,16 @@ public class Classroom : MonoBehaviour
         spawned = true;
     }
 
-    public void SetActivityMinTime(int time)
+    public void EndClass()
     {
-        activityPlanner.SetActivityMinTime(time);
-    }
+        if (classEmpty) { return; }
 
-    public GameObject GetClassBoard()
-    {
-        return classroomSubSpaces.GetClassBoard();
-    }
+        classInSession = false;
+        //Debug.Log("class is over!");
 
-    public void AddToPupilsInClass(AI pupil)
-    {
-        studentsBucket.AddToPupilsInClass(pupil);
-    }
+        classScheduler.ResetClassStructure();
+        pupilController.FreePupilsBehavior();
 
-    public void RemoveFromClass(AI pupil)
-    {
-        studentsBucket.RemoveFromClass(pupil);
-    }
-
-    public Spot GetLocker()
-    {
-        return classroomSubSpaces.GetLocker();
-    }
-
-    public void ReturnLocker(Spot locker)
-    {
-        classroomSubSpaces.ReturnLocker(locker);
-    }
-
-    public BoxCollider GetTeacherSpace()
-    {
-        return classroomSubSpaces.GetTeacherSpace();
-    }
-
-    public Transform GetTeacherSpawnerPos()
-    {
-        return spawner.GetTeacherSpawnerPos();
     }
 
     public bool IsClassEmpty()
@@ -83,35 +55,8 @@ public class Classroom : MonoBehaviour
     {
         if (classEmpty || !classInSession) { return; } //check if class is Empty to stop doing anything
         classScheduler.StructureAClass(); // structure a new class
-        foreach (AI pupil in studentsBucket.GetClassroomStudents())
-        {
-            pupil.RestrictPupil();
-            pupil.ResetClearenceChance();
-        }
-    }
-
-    public void EndClass()
-    {
-        if (classEmpty) { return; }
-
-        classInSession = false;
-        //Debug.Log("class is over!");
-
-        classScheduler.ResetClassStructure();
-        foreach (AI pupil in studentsBucket.GetPupilsInClass())
-        {
-            pupil.SetBusyTo(false);
-        }
-        foreach (AI pupil in studentsBucket.GetClassroomStudents())
-        {
-            pupil.ResetPupil();
-            pupil.IncreaseClearenceChance();
-        }
-    }
-    
-    public void EnableActivities()
-    {
-        activityPlanner.EnableActivities();
+        pupilController.ResetPupilBehavior();
+        
     }
 
     public void SendClassToLab(Lab lab)
@@ -142,14 +87,9 @@ public class Classroom : MonoBehaviour
         classEmpty = false;
     }
 
-    public void SendClassOutOfFloor(Vector3 exit)
+    public void EgressClass(Vector3 exit)
     {
-        //Debug.Log($"{this.name} is exiting the building");
-        foreach (AI pupil in studentsBucket.GetClassroomStudents())
-        {
-            pupil.SetBusyTo(true);
-            pupil.MoveTo(exit);
-        }
+        pupilController.EgressClass(exit);
     }
 
     public void SetClassInSessionStatus(bool status)

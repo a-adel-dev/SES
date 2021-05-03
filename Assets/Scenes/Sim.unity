@@ -32329,6 +32329,48 @@ MonoBehaviour:
   numInfected: 0
   teachers: []
   students: []
+--- !u!114 &882700135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882700131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7366ac4c4386abf47a887fab14b9a00b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &882700136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882700131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b64ba0d9c384f674ebc6e6e2429255cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &882700137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882700131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d42e1a1be87d8b49abad1cea8e37531, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  classrooms: []
+  bathrooms: []
+  corridors: []
+  teachersrooms: []
+  labs: []
+  staircases: []
 --- !u!1 &883762765
 GameObject:
   m_ObjectHideFlags: 0

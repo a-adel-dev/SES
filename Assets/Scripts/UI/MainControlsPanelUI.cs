@@ -39,10 +39,10 @@ public class MainControlsPanelUI : MonoBehaviour
     public void DefaultSettings()
     {
         timeScaleSlider.value = schoolManager.timeStep;
-        numDaysInput.text = schoolManager.GetSimLength().ToString();
-        numPeriodsInput.text = schoolManager.GetNumPeriods().ToString();
-        periodLengthSlider.value = schoolManager.GetPeriodLength();
-        activitiesToggle.isOn = schoolManager.IsActivitiesEnabled();
+        numDaysInput.text = schoolManager.sim.simLength.ToString();
+        numPeriodsInput.text = schoolManager.sim.numPeriods.ToString();
+        periodLengthSlider.value = schoolManager.sim.periodLength;
+        activitiesToggle.isOn = schoolManager.sim.activitiesEnabled;
 
         numInfectedStudentsInput.text = healthSettings.numStudentInfected.ToString();
         numInfectedTeachersInput.text = healthSettings.numTeachersInfected.ToString();
@@ -63,18 +63,18 @@ public class MainControlsPanelUI : MonoBehaviour
         while (noErrors)
         {
             schoolManager.timeStep = timeScaleSlider.value;
-            if (numDaysInput.text == "0" || numDaysInput.text == "" ||  numPeriodsInput.text == "0" || numPeriodsInput.text == "" 
-                || numInfectedStudentsInput.text == "" || numInfectedTeachersInput.text == "" || egressCoolDownInput.text == "")
+            if (numDaysInput.text == "0" || string.IsNullOrWhiteSpace(numDaysInput.text) ||  numPeriodsInput.text == "0" || string.IsNullOrWhiteSpace(numPeriodsInput.text)
+                || string.IsNullOrWhiteSpace(numInfectedStudentsInput.text) || string.IsNullOrWhiteSpace(numInfectedTeachersInput.text) || string.IsNullOrWhiteSpace(egressCoolDownInput.text))
             {
                 ErrorPanel.gameObject.SetActive(true);
                 noErrors = false;
             }
             else
             {
-                schoolManager.SetSimLength(int.Parse(numDaysInput.text));
-                schoolManager.SetNumPeriods(int.Parse(numPeriodsInput.text));
-                schoolManager.SetPeriodLength((int)periodLengthSlider.value);
-                schoolManager.EnableActivities(activitiesToggle.isOn);
+                schoolManager.sim.SetSimLength(int.Parse(numDaysInput.text));
+                schoolManager.sim.SetNumPeriods(int.Parse(numPeriodsInput.text));
+                schoolManager.sim.SetPeriodLength((int)periodLengthSlider.value);
+                schoolManager.sim.EnableActivities(activitiesToggle.isOn);
 
                 healthSettings.numStudentInfected = int.Parse(numInfectedStudentsInput.text);
                 //healthSettings.InfectdSelectedStudents();

@@ -17,9 +17,10 @@ GameObject:
   - component: {fileID: 9187457044516034095}
   - component: {fileID: 8398961197487076484}
   - component: {fileID: 6040512749700294728}
-  - component: {fileID: -6178941398178253664}
+  - component: {fileID: 1826447425796764022}
   - component: {fileID: 8360931038185183004}
   - component: {fileID: 7582324239823246139}
+  - component: {fileID: -6178941398178253664}
   - component: {fileID: -391104600408909507}
   m_Layer: 0
   m_Name: Class
@@ -86,6 +87,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d43bfe90b3d05e646b120439d14b20d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  classScheduler: {fileID: 0}
+  activityPlanner: {fileID: 0}
+  studentsBucket: {fileID: 0}
+  classroomSubSpaces: {fileID: 0}
+  spawner: {fileID: 0}
+  pupilController: {fileID: 0}
 --- !u!114 &9176765684676031151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,7 +161,7 @@ MonoBehaviour:
   boardSpots: []
   teachersSpace: {fileID: 0}
   board: {fileID: 0}
---- !u!114 &-6178941398178253664
+--- !u!114 &1826447425796764022
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -163,14 +170,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3784705064329411916}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
+  m_Script: {fileID: 11500000, guid: a997fb01664f7ae4bac617b4fa48d200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spaceVolume: 0
-  outdoor: 0
-  concentration: 0
-  currentConcentration: 0
-  airExchangeRate: 2.16
 --- !u!114 &8360931038185183004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,6 +201,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35bd587c45632af47a9949c3528e30be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-6178941398178253664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3784705064329411916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spaceVolume: 0
+  outdoor: 0
+  concentration: 0
+  currentConcentration: 0
+  airExchangeRate: 2.16
 --- !u!114 &-391104600408909507
 MonoBehaviour:
   m_ObjectHideFlags: 0

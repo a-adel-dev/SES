@@ -25,7 +25,6 @@ public class ActivityPlanner : MonoBehaviour
         if (!activitiesEnabled) { return; }
         if (classSchedular.GetClassStructureTimes()[classSchedular.activeSectionIndex] < sessionActivityMinTime)
         {
-            //activity = false;
             foreach (AI pupil in studentsBucket.GetPupilsInClass())
             {
                 pupil.SetBusyTo(false);
@@ -33,7 +32,6 @@ public class ActivityPlanner : MonoBehaviour
         }
         else
         {
-            //activity = true;
             foreach (AI pupil in studentsBucket.GetPupilsInClass())
             {
                 pupil.SetBusyTo(true);
