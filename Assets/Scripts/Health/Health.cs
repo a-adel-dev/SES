@@ -1,60 +1,52 @@
 ﻿using UnityEngine;
+using System;
 
 
 public class Health : MonoBehaviour
 {
+    
 
-    public static int numInfected = 0;
-
-    public bool infected  = false;
+    public HealthCondition healthCondition  = HealthCondition.healthy;
     public ActivityType activity { get; private set; } = ActivityType.Breathing;
     float maskFactor = 1f;
     float breathingFlowRate;
     float numberDensity;
     float dropletVolume;
-    float timeStep;
-    float timer = 0f;
     SpaceHealth currentSpace;
     float infectionQuanta = 0f;
     float infectiuosQuanta = 0f;
     float shortRangeInfectionQuanta = 0f;
+    DateTime contagiousTime;
+    bool updatedHealthStats = false;
+    
 
     ShortRangeInfector shortRangeInfector;
-    SchoolManager schoolManager;
     GeneralHealthParamaters healthParamaters;
+    SchoolManager schoolManager;
 
     void Start()
     {
+        schoolManager = FindObjectOfType<SchoolManager>();
         healthParamaters = FindObjectOfType<GeneralHealthParamaters>();
         float criticalRadiusInM = healthParamaters.criticalRadius * 1E-6f;
         dropletVolume = Mathf.PI * Mathf.Pow(criticalRadiusInM, 3f);
-        schoolManager = FindObjectOfType<SchoolManager>();
-        timeStep = schoolManager.sim.timeStep;
         SetBreathingRate();
         SetNumberDensity();
         shortRangeInfector = transform.GetChild(0).GetComponent<ShortRangeInfector>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        timer += Time.deltaTime;
-        if (timer >= timeStep)
-        {
-            timer -= timeStep;
-            //Debug.Log(Breathe().ToString());
-        }
-        
-    }
+
 
     public float Breathe()
     {
-        if (!infected)
+        //if healthy, breathe in , don't return infectionquanta
+        if (healthCondition == HealthCondition.healthy || healthCondition == HealthCondition.infected)
         {
             infectionQuanta = breathingFlowRate  * (currentSpace.GetComponent<SpaceHealth>().concentration +
                 shortRangeInfectionQuanta) * healthParamaters.viralInfectivity * maskFactor;
             return 0f;
         }
+        
         infectiuosQuanta = (breathingFlowRate * maskFactor * numberDensity * dropletVolume * healthParamaters.viralLoad) * 3.48E+14f / 60f;
         return  infectiuosQuanta ;
     }
@@ -115,7 +107,7 @@ public class Health : MonoBehaviour
 
     public bool IsInfected()
     {
-        return infected;
+        return healthCondition == HealthCondition.infected;
     }
 
     public void SetShortRangeInfectionQuanta(float quanta)
@@ -130,9 +122,19 @@ public class Health : MonoBehaviour
 
     public void InfectAgent()
     {
-        infected = true;
+        Debug.Log($"adding to contagious");
+        healthCondition = HealthCondition.contagious;
         shortRangeInfector.gameObject.SetActive(true);
-        numInfected++;
+        GeneralHealthParamaters.numContagious++;
+    }
+
+    public void ExposeAgent()
+    {
+        Debug.Log($"adding to infected");
+        healthCondition = HealthCondition.infected;
+        GeneralHealthParamaters.numInfected++;
+        contagiousTime = new DateTime();
+        contagiousTime = schoolManager.schoolDate + healthParamaters.timeBeforeContagious;
     }
 
     public float GetInfectionQuanta()
@@ -171,4 +173,16 @@ public class Health : MonoBehaviour
     {
         return maskFactor;
     } 
+
+    void TimeStep()
+    {
+        if (healthCondition == HealthCondition.infected && updatedHealthStats == false && schoolManager.schoolDate >= contagiousTime )
+        {
+            healthCondition = HealthCondition.contagious;
+            Debug.Log(String.Format("{0:hh mm ss} contagious time, {1:hh mm ss} schooldate", contagiousTime, schoolManager.schoolDate));
+            GeneralHealthParamaters.numContagious++;
+            GeneralHealthParamaters.numInfected--;
+            updatedHealthStats = true;
+        }
+    }
 }

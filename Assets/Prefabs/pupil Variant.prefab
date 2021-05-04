@@ -42,7 +42,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b06ac4637451ec48b51123a6f86dd5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infected: 0
+  healthCondition: 0
 --- !u!114 &2114567254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,6 +103,18 @@ MonoBehaviour:
     breakPointStatuses: 
     collapsedLines: 
     btScript: 
+--- !u!114 &5653082675176810054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6679094881373598523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b64ba0d9c384f674ebc6e6e2429255cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2315893126524298578
 PrefabInstance:
   m_ObjectHideFlags: 0

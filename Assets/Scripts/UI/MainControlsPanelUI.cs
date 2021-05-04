@@ -44,8 +44,8 @@ public class MainControlsPanelUI : MonoBehaviour
         periodLengthSlider.value = schoolManager.sim.periodLength;
         activitiesToggle.isOn = schoolManager.sim.activitiesEnabled;
 
-        numInfectedStudentsInput.text = healthSettings.numStudentInfected.ToString();
-        numInfectedTeachersInput.text = healthSettings.numTeachersInfected.ToString();
+        numInfectedStudentsInput.text = healthSettings.numStudentsContagious.ToString();
+        numInfectedTeachersInput.text = healthSettings.numTeachersContagious.ToString();
 
         egressCoolDownInput.text = schoolManager.sim.cooldownClassExit.ToString();
         GetHealthMasks(0, healthSettings.studentsMasks);
@@ -76,8 +76,8 @@ public class MainControlsPanelUI : MonoBehaviour
                 schoolManager.sim.SetPeriodLength((int)periodLengthSlider.value);
                 schoolManager.sim.EnableActivities(activitiesToggle.isOn);
 
-                healthSettings.numStudentInfected = int.Parse(numInfectedStudentsInput.text);
-                healthSettings.numTeachersInfected = int.Parse(numInfectedTeachersInput.text);
+                healthSettings.numStudentsContagious = int.Parse(numInfectedStudentsInput.text);
+                healthSettings.numTeachersContagious = int.Parse(numInfectedTeachersInput.text);
 
                 schoolManager.sim.cooldownClassExit = int.Parse(egressCoolDownInput.text);
 

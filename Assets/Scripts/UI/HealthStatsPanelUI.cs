@@ -8,9 +8,12 @@ public class HealthStatsPanelUI : MonoBehaviour
 {
     [SerializeField] Text numAgentsText;
     [SerializeField] Text numInfectedText;
+    [SerializeField] Text numContagiousText;
     [SerializeField] Text percentInfectedText;
+    [SerializeField] Text percentContagiousText;
     int numAgents;
     int numInfected;
+    int numContagious;
 
     HealthStats healthStats;
     
@@ -30,11 +33,15 @@ public class HealthStatsPanelUI : MonoBehaviour
     private void UpdateInfo()
     {
         numAgents = healthStats.GetNumAgents();
-        numInfected = healthStats.GetNumInfected();
+        numInfected = GeneralHealthParamaters.numInfected;
+        numContagious = GeneralHealthParamaters.numContagious;
         numAgentsText.text = numAgents.ToString();
+        numContagiousText.text = numContagious.ToString();
         numInfectedText.text = numInfected.ToString();
         float percentageInfected = (float)numInfected / numAgents;
+        float percentageContagious = (float)numContagious / numAgents;
         percentInfectedText.text = String.Format("{0:P2}", percentageInfected);
+        percentContagiousText.text = String.Format("{0:P2}", percentageContagious);
 
     }
 }

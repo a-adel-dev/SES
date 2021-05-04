@@ -23,3 +23,10 @@ public enum AIStatus {
     inClass,
     inLab 
 }
+
+public enum HealthCondition
+{
+    healthy,
+    infected,
+    contagious
+}

@@ -139,11 +139,12 @@ public class SpaceHealth : MonoBehaviour
         if (Mathf.Abs(concentration) <= Mathf.Epsilon) { return; }
         foreach (Health agent in agentsInSpace )
         {
-            float threshold = Random.Range(0f, 100f);
+            float threshold = Random.Range(0f, 10f);//should be (0,100)
             //Debug.Log($"{threshold} against {agent.GetInfectionQuanta()}");
-            if (!agent.IsInfected() && agent.GetInfectionQuanta() > threshold)
+            if (agent.healthCondition == HealthCondition.healthy && agent.GetInfectionQuanta() > threshold)
             {
-                agent.InfectAgent();
+                agent.ExposeAgent();
+                Debug.Log($"{agent.gameObject.name} was exposed");
             }
         }
     }

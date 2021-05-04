@@ -41,6 +41,7 @@ public class ClassroomPeriodSchedular : MonoBehaviour
 
     public List<int> StructureAClass()
     {
+        //Debug.Log($"structuring class");
         int classSections = Random.Range(2, 8); // generate random class sections
         List<int> randomPartitions = new List<int>(); //a list to hold the partition numbers
 

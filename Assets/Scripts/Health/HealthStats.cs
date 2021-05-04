@@ -5,7 +5,8 @@ using UnityEngine;
 public class HealthStats : MonoBehaviour
 {
     Health[] totalAgents;
-    List<Health> totalInfected = new List<Health>();
+    List<Health> totalContagious = new List<Health>();
+    public int numContagious = 0;
     public int numInfected = 0;
     public List<Health> teachers = new List<Health>();
     public List<Health> students = new List<Health>();
@@ -21,21 +22,22 @@ public class HealthStats : MonoBehaviour
         return totalAgents.Length;
     }
 
-    public int GetNumInfected()
+    public int GetNumContagious()
     {
-        return numInfected;
+        return numContagious;
     }
     private void Update()
     {
-        numInfected = Health.numInfected;
+        numContagious = GeneralHealthParamaters.numContagious;
+        numInfected = GeneralHealthParamaters.numInfected;
     }
     void TimeStep()
     {
         foreach (Health agent in totalAgents)
         {
-            if (agent.IsInfected() && !totalInfected.Contains(agent))
+            if (agent.IsInfected() && !totalContagious.Contains(agent))
             {
-                totalInfected.Add(agent);
+                totalContagious.Add(agent);
             }
         }   
     }

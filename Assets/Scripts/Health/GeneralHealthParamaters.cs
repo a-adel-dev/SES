@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 public class GeneralHealthParamaters : MonoBehaviour
 {
+    public static int numContagious = 0;
+    public static int numInfected = 0;
+
     [Header("General")]
     [Tooltip("The critical radius after which larger radius are not counted in the sim Cᵣ(μm)")] 
     public float criticalRadius = 2.6f;
@@ -54,10 +58,16 @@ public class GeneralHealthParamaters : MonoBehaviour
     [Tooltip("how fast a space is considerred to be totally contaminated")]
     public float spaceInfectionThreshold = .001f;
 
+    [Header("infection Parameters")]
+    [Tooltip("Time before infected turns to contagious, in hours, minutes, seconds")]
+    //originally (66,0,0)
+    public TimeSpan timeBeforeContagious = new TimeSpan(0, 10, 0);
 
     [Header("Health Settings")]
     public int numStudentInfected = 0;
+    public int numStudentsContagious = 0;
     public int numTeachersInfected = 0;
+    public int numTeachersContagious = 0;
     public MaskFactor studentsMasks = MaskFactor.none;
     public MaskFactor teachersMasks = MaskFactor.none;
     public List<float> globalAirControl = new List<float>();
@@ -78,9 +88,6 @@ public class GeneralHealthParamaters : MonoBehaviour
         }
         PopulateAirControlList();
         spaces = FindObjectsOfType<SpaceHealth>();
-
-        //InfectdSelectedStudents();
-        //InfectSelectedTeachers();
     }
 
     private void PopulateAirControlList()
@@ -103,8 +110,8 @@ public class GeneralHealthParamaters : MonoBehaviour
 
     public void InfectdSelectedStudents()
     {
-        Debug.Log($"infecting {numStudentInfected} students");
-        var studentsToInfect = GetRandomItemsFromList(healthstats.GetStudents(), numStudentInfected);
+        //Debug.Log($"infecting {numStudentsContagious} students");
+        var studentsToInfect = GetRandomItemsFromList(healthstats.GetStudents(), numStudentsContagious);
         foreach (Health student in studentsToInfect)
         {
             //Debug.Log($"infecting {student.gameObject.name}");
@@ -114,12 +121,12 @@ public class GeneralHealthParamaters : MonoBehaviour
 
     public void InfectSelectedTeachers()
     {
-        Debug.Log($"infecting {numTeachersInfected} teachers");
-        var teachersToInfect = GetRandomItemsFromList(healthstats.GetTeachers(), numTeachersInfected);
+        //Debug.Log($"infecting {numTeachersContagious} teachers");
+        var teachersToInfect = GetRandomItemsFromList(healthstats.GetTeachers(), numTeachersContagious);
         foreach (Health teacher in teachersToInfect)
         {
             teacher.InfectAgent();
-            Debug.Log($"infecting {teacher.gameObject.name}");
+            //Debug.Log($"infecting {teacher.gameObject.name}");
         }
     }
 
@@ -136,10 +143,6 @@ public class GeneralHealthParamaters : MonoBehaviour
         }
     }
 
-    public void SetAirExchangeRate()
-    {
-
-    }
     public static List<T> GetRandomItemsFromList<T>(List<T> list, int number)
     {
         // this is the list we're going to remove picked items from
@@ -150,7 +153,7 @@ public class GeneralHealthParamaters : MonoBehaviour
         // make sure tmpList isn't already empty
         while (newList.Count < number && tmpList.Count > 0)
         {
-            int index = Random.Range(0, tmpList.Count);
+            int index = UnityEngine.Random.Range(0, tmpList.Count);
             newList.Add(tmpList[index]);
             tmpList.RemoveAt(index);
         }

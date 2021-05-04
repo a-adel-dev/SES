@@ -53,6 +53,7 @@ public class Classroom : MonoBehaviour
 
     public void StartClass()
     {
+        //Debug.Log($"starting class");
         if (classEmpty || !classInSession) { return; } //check if class is Empty to stop doing anything
         classScheduler.StructureAClass(); // structure a new class
         pupilController.ResetPupilBehavior();

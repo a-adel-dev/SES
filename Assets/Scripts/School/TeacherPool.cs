@@ -15,6 +15,10 @@ public class TeacherPool : MonoBehaviour
         schoolManager = GetComponent<SchoolManager>();
     }
 
+    private void Start()
+    {
+        Invoke(nameof(AllocateOrpahanedTeachers), 5.0f);
+    }
     public List<TeacherAI> GetSchoolTeachers()
     {
         return teachersPool;

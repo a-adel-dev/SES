@@ -14,7 +14,7 @@ public class SchoolManager : MonoBehaviour
     public SchoolDaySchedular schedular;
     public bool classInSession { get; private set; }
     public int schoolTime = 0;
-    public DateTime schoolDateTime { get; private set; }
+    public DateTime schoolDate { get; private set; }
     bool schoolDay = false;
 
     int currentPeriodIndex = 0;
@@ -22,23 +22,25 @@ public class SchoolManager : MonoBehaviour
     ClassroomState previousState = ClassroomState.onBreak;
     HealthStats healthStats;
     GeneralHealthParamaters healthParameters;
+    TimeSpan stepTime = new TimeSpan(0, 1, 0);
 
     private void Awake()
     {
         sim = GetComponent<SimulationProperties>();
         subspaces = GetComponent<SchoolSubSpacesBucket>();
         teacherPoolController = GetComponent<TeacherPool>();
-        inPlaceClassrooms = new List<Classroom>(subspaces.classrooms);
+        
         schedular = GetComponent<SchoolDaySchedular>();
     }
 
     private void Start()
     {
         schedular.ScheduleClasses();
-        schoolDateTime = new DateTime(2020, 1, 1, 8, 00, 00);
+        schoolDate = new DateTime(2020, 1, 1, 8, 00, 00);
         healthStats = FindObjectOfType<HealthStats>();
-        Invoke(nameof(teacherPoolController.AllocateOrpahanedTeachers), 5.0f);
+        
         healthParameters = FindObjectOfType<GeneralHealthParamaters>();
+        inPlaceClassrooms = new List<Classroom>(subspaces.classrooms);
         PauseSim();
     }
 
@@ -92,6 +94,7 @@ public class SchoolManager : MonoBehaviour
         //start period
         else if (currentPeriodIndex % 2 != 0)
         {
+            //Debug.Log($"starting all classes");
             if (schoolTime > schedular.classTimes[currentPeriodIndex])
             {
                 previousState = currentState;
@@ -120,6 +123,7 @@ public class SchoolManager : MonoBehaviour
 
     private void StartClasses()
     {
+        //Debug.Log($"starting classes");
         foreach (Classroom classroom in inPlaceClassrooms)
         {
             classroom.StartClass();
@@ -150,7 +154,7 @@ public class SchoolManager : MonoBehaviour
     void TimeStep()
     {
         schoolTime++;
-        schoolDateTime += new TimeSpan(0, 1, 0);
+        schoolDate += stepTime;
     }
 
     void SendClassesToLabs()
@@ -229,7 +233,7 @@ public class SchoolManager : MonoBehaviour
 
     public void PauseSim()
     {
-        Debug.Log($"pausing Sim");
+        //Debug.Log($"pausing Sim");
         Time.timeScale = 0f;
     }
 

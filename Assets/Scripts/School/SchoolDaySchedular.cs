@@ -6,7 +6,7 @@ public class SchoolDaySchedular : MonoBehaviour
     SimulationProperties sim;
     public List<int> classTimes = new List<int>();
 
-    void Start()
+    void Awake()
     {
         sim = GetComponent<SimulationProperties>();
     }
