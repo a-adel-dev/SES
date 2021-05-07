@@ -1,0 +1,22 @@
+﻿- spawner returns a list of teachers that needs to be assigned to their proper roles.
+- TeacherRoomDesksBucket needs for desks to be manually assigned. 
+- Somethng need to be responsible for spawning teachers
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(Component)GetComponent<ISpace>()).transform

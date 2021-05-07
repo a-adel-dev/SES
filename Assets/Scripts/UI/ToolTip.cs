@@ -4,63 +4,66 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ToolTip : MonoBehaviour
+namespace SES.UI
 {
-    [SerializeField]
-
-    private static ToolTip instance;
-    [SerializeField] TextMeshProUGUI displayText;
-    [SerializeField] RectTransform backgroundRectTransform;
-    public LayoutElement layoutElement;
-    public int characterWrapLimit;
-
-    //public RectTransform rectTransform;
-
-
-
-    private void Awake()
+    public class ToolTip : MonoBehaviour
     {
-        //rectTransform = GetComponent<RectTransform>();
-        instance = this;
-        HideToolTip();
-    }
+        [SerializeField]
 
-    private void Update()
-    {
-        int contentLength = displayText.text.Length;
+        private static ToolTip instance;
+        [SerializeField] TextMeshProUGUI displayText;
+        [SerializeField] RectTransform backgroundRectTransform;
+        public LayoutElement layoutElement;
+        public int characterWrapLimit;
 
-        layoutElement.enabled = (contentLength > characterWrapLimit) ? true : false;
-        Vector2 position = Input.mousePosition;
-        /*
-        float pivotX = position.x / Screen.width;
-        float pivotY = position.y / Screen.height;
-
-        rectTransform.pivot = new Vector2(pivotX, pivotY);
-        */
-        transform.position = position;
+        //public RectTransform rectTransform;
 
 
 
-    }
-    void ShowToolTip(string tooltipString)
-    {
-        gameObject.SetActive(true);
+        private void Awake()
+        {
+            //rectTransform = GetComponent<RectTransform>();
+            instance = this;
+            HideToolTip();
+        }
 
-        displayText.text = tooltipString;
-    }
+        private void Update()
+        {
+            int contentLength = displayText.text.Length;
 
-    void HideToolTip()
-    {
-        gameObject.SetActive(false);
-    }
+            layoutElement.enabled = (contentLength > characterWrapLimit) ? true : false;
+            Vector2 position = Input.mousePosition;
+            /*
+            float pivotX = position.x / Screen.width;
+            float pivotY = position.y / Screen.height;
 
-    public static void ShowTooltip_Static(string tooltipString) 
-    {
-        instance.ShowToolTip(tooltipString);
-    }
+            rectTransform.pivot = new Vector2(pivotX, pivotY);
+            */
+            transform.position = position;
 
-    public static void HideTooltip_Static() 
-    {
-        instance.HideToolTip();
+
+
+        }
+        void ShowToolTip(string tooltipString)
+        {
+            gameObject.SetActive(true);
+
+            displayText.text = tooltipString;
+        }
+
+        void HideToolTip()
+        {
+            gameObject.SetActive(false);
+        }
+
+        public static void ShowTooltip_Static(string tooltipString)
+        {
+            instance.ShowToolTip(tooltipString);
+        }
+
+        public static void HideTooltip_Static()
+        {
+            instance.HideToolTip();
+        }
     }
 }

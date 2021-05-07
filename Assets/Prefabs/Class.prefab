@@ -12,16 +12,14 @@ GameObject:
   - component: {fileID: 3717130888090133382}
   - component: {fileID: 1783310592}
   - component: {fileID: 3482367782166669936}
-  - component: {fileID: 9176765684676031151}
-  - component: {fileID: -5760933496032456496}
   - component: {fileID: 9187457044516034095}
-  - component: {fileID: 8398961197487076484}
-  - component: {fileID: 6040512749700294728}
   - component: {fileID: 1826447425796764022}
   - component: {fileID: 8360931038185183004}
   - component: {fileID: 7582324239823246139}
   - component: {fileID: -6178941398178253664}
   - component: {fileID: -391104600408909507}
+  - component: {fileID: 6883260464292743271}
+  - component: {fileID: 8736991644523482950}
   m_Layer: 0
   m_Name: Class
   m_TagString: Classroom
@@ -88,38 +86,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   classScheduler: {fileID: 0}
-  activityPlanner: {fileID: 0}
-  studentsBucket: {fileID: 0}
   classroomSubSpaces: {fileID: 0}
   spawner: {fileID: 0}
-  pupilController: {fileID: 0}
---- !u!114 &9176765684676031151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3784705064329411916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: feb6138008a85594b8eb5014c573f135, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pupilPrefab: {fileID: 0}
-  teacherPrefab: {fileID: 0}
-  teacherSpawnMarker: {fileID: 0}
---- !u!114 &-5760933496032456496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3784705064329411916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e5782643e719a745976041486307330, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  studentController: {fileID: 0}
+  planner: {fileID: 0}
+  teacherPrefab: {fileID: 708053679854848142, guid: 651694a02e9825b4bb16a8cd66595ad4,
+    type: 3}
+  teacherSpawnPoint:
+  - {fileID: 2296198034020729471}
 --- !u!114 &9187457044516034095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,35 +106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b58f48ebd43a4248bdab07207c33010, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8398961197487076484
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3784705064329411916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5f1db92e79bcdc48ae7eb0437e7cf43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6040512749700294728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3784705064329411916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d64eac7fdb0de6144a6e72b71a00117c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  desks: []
-  lockers: []
-  boardSpots: []
-  teachersSpace: {fileID: 0}
-  board: {fileID: 0}
 --- !u!114 &1826447425796764022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,10 +130,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee99d65346e178e478d79638725b043c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeStepVariable: {fileID: 11400000, guid: 57cc5cf788c47274f93d3b4ddcda6f43, type: 2}
   numSpotsForGroupActivity: 4
   deskGroupActivityCompensationX: 0
   deskGroupActivityCompensationZ: -0.5
   minDistanceGroupActivity: 3
+  activityInProgress: 0
 --- !u!114 &7582324239823246139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,6 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35bd587c45632af47a9949c3528e30be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeStepVariable: {fileID: 11400000, guid: 57cc5cf788c47274f93d3b4ddcda6f43, type: 2}
+  timeStep: 0
+  activityInProgress: 0
 --- !u!114 &-6178941398178253664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +180,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64ba0d9c384f674ebc6e6e2429255cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeStep: 0
+--- !u!114 &6883260464292743271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3784705064329411916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38609666ebc16954b899cfa173b37d46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  desks:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  lockers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  boardSpots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  teachersSpace: {fileID: 651212694340099072}
+  board: {fileID: 0}
+--- !u!114 &8736991644523482950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3784705064329411916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9c353571ffcbbd41bcf3ac040ed9ced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentPrefab: {fileID: 6679094881373598523, guid: 99b61440493d6b54c9e1d85d2dc9bf69,
+    type: 3}
 --- !u!1 &3876234189946989952
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,6 +253,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3350706369253470165}
+  - component: {fileID: 2296198034020729471}
   m_Layer: 0
   m_Name: TeacherSpawnPoint
   m_TagString: Untagged
@@ -260,6 +275,18 @@ Transform:
   m_Father: {fileID: 3784705064329411917}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2296198034020729471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3876234189946989952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0de4493fa125d847a32426efb665e98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6490279545308601080
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +313,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6490279545308601080}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: -2.78}
+  m_LocalPosition: {x: 0, y: 0, z: -2.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3784705064329411917}
@@ -303,8 +330,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.5946436, y: 1, z: 1.6732054}
-  m_Center: {x: 0.008413792, y: 0, z: -0.084151745}
+  m_Size: {x: 5.5946436, y: 3, z: 1.6732054}
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!54 &51928465196865056
 Rigidbody:
   m_ObjectHideFlags: 0

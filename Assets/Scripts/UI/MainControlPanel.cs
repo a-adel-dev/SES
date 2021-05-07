@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainControlPanel : MonoBehaviour
+namespace SES.UI
 {
-    Animator anim;
-    public void DisableWindow()
+    public class MainControlPanel : MonoBehaviour
     {
-        anim = GetComponent<Animator>();
-        anim.Play("DisableWindow");
+        Animator anim;
+        public void DisableWindow()
+        {
+            anim = GetComponent<Animator>();
+            anim.Play("DisableWindow");
+        }
     }
 }

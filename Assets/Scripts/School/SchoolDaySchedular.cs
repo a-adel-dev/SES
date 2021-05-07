@@ -1,34 +1,43 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class SchoolDaySchedular : MonoBehaviour
+namespace SES.School
 {
-    SimulationProperties sim;
-    public List<int> classTimes = new List<int>();
-
-    void Awake()
+    public class SchoolDaySchedular : MonoBehaviour
     {
-        sim = GetComponent<SimulationProperties>();
-    }
+        int periodLength = 40;
+        int numPeriods = 4;
 
-    public void ScheduleClasses()
-    {
-        for (int i = 0; i < sim.numPeriods * 2; i++)
+        public List<int> classTimes = new List<int>();
+
+        public void ScheduleClasses()
         {
-            if (i == 0)
+            for (int i = 0; i < numPeriods * 2; i++)
             {
-                classTimes.Add(40);
-                continue;
-            }
-            else if (i % 2 != 0)
-            {
-                classTimes.Add(classTimes[i - 1] + (60 - sim.periodLength));
-            }
-            else if (i % 2 == 0)
-            {
-                classTimes.Add(classTimes[i - 1] + sim.periodLength);
+                if (i == 0)
+                {
+                    classTimes.Add(periodLength);
+                    continue;
+                }
+                else if (i % 2 != 0)
+                {
+                    classTimes.Add(classTimes[i - 1] + (60 - periodLength));
+                }
+                else if (i % 2 == 0)
+                {
+                    classTimes.Add(classTimes[i - 1] + periodLength);
+                }
             }
         }
 
+        public void SetPeriodLength(int length)
+        {
+            periodLength = length;
+        }
+
+        public void SetNumPeriods(int num)
+        {
+            numPeriods = num;
+        }
     }
 }

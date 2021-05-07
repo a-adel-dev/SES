@@ -2,221 +2,216 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class AgentPanelUI : MonoBehaviour
+using SES.Health;
+using SES.AIControl;
+using SES.Core;
+/*
+namespace SES.UI
 {
-    GeneralHealthParamaters healthParamaters;
-    Health agentHealth;
-    GameObject agent;
-    public bool agentPanelUp = false;
-
-    
-
-    [SerializeField] GameObject agentPanel;
-    [Header("Fields")]
-    [SerializeField] Text agentName;
-    [SerializeField] Text infected;
-    [SerializeField] Text infectionQuanta;
-    [SerializeField] Text maskFactor;
-    [SerializeField] Button infect;
-    [SerializeField] Dropdown maskOptions;
-    [SerializeField] Slider maskFactorSlider;
-    [SerializeField] Text maskFactorValue;
-    [SerializeField] GameObject maskLabels;
-    [SerializeField] Dropdown activityOptions;
-    [SerializeField] Button restrictMovementButton;
-    [SerializeField] Button freeMovementButton;
-
-    Animator animator;
-
-    void Start()
+    public class AgentPanelUI : MonoBehaviour
     {
-        healthParamaters = FindObjectOfType<GeneralHealthParamaters>();
-        animator = agentPanel.GetComponent<Animator>();
-    }
+        GeneralHealthParamaters healthParamaters;
+        AgentHealth agentHealth;
+        GameObject agent;
+        public bool agentPanelUp = false;
 
-    void Update()
-    {
-        UpdateInformation();
-    }
+        [SerializeField] GameObject agentPanel;
+        [Header("Fields")]
+        [SerializeField] Text agentName;
+        [SerializeField] Text infected;
+        [SerializeField] Text infectionQuanta;
+        [SerializeField] Text maskFactor;
+        [SerializeField] Button infect;
+        [SerializeField] Dropdown maskOptions;
+        [SerializeField] Slider maskFactorSlider;
+        [SerializeField] Text maskFactorValue;
+        [SerializeField] GameObject maskLabels;
+        [SerializeField] Dropdown activityOptions;
+        [SerializeField] Button restrictMovementButton;
+        [SerializeField] Button freeMovementButton;
 
-    public void UpdateInformation()
-    {
-        if (agent == null) { return; }
-        agentName.text = agent.name;
-        infected.text = agentHealth.IsInfected() ? "Yes" : "No";
-        infectionQuanta.text = agentHealth.IsInfected() ? "infected" : string.Format("{0:N3}", agentHealth.GetInfectionQuanta());
-        /*
-        if (agentHealth.IsInfected())
+        Animator animator;
+
+        void Start()
         {
-            infectionQuanta.text = "infected";
+            healthParamaters = FindObjectOfType<GeneralHealthParamaters>();
+            animator = agentPanel.GetComponent<Animator>();
         }
-        else
-        {
-            infectionQuanta.text = string.Format("{0:N3}", agentHealth.GetInfectionQuanta());
-        }
-        */
-        maskFactor.text = string.Format("{0:P2}", agentHealth.GetMaskFactor());
-        maskFactorValue.text = string.Format("{0:P2}", agentHealth.GetMaskFactor());
-    }
 
-    public void UIConfigureTeacherMovement()
-    {
-        if (agent.GetComponent<TeacherAI>() && agent.GetComponent<TeacherAI>().IsInClassroom())
+        void Update()
         {
-            if (agent.GetComponent<TeacherAI>().movementStyle == MovementStyle.restricted)
+            UpdateInformation();
+        }
+
+        public void UpdateInformation()
+        {
+            if (agent == null) { return; }
+            agentName.text = agent.name;
+            infected.text = agentHealth.IsInfected() ? "Yes" : "No";
+            infectionQuanta.text = agentHealth.IsInfected() ? "infected" : string.Format("{0:N3}", agentHealth.GetInfectionQuanta());
+            maskFactor.text = string.Format("{0:P2}", agentHealth.GetMaskFactor());
+            maskFactorValue.text = string.Format("{0:P2}", agentHealth.GetMaskFactor());
+        }
+
+        public void UIConfigureTeacherMovement()
+        {
+            if (agent.GetComponent<TeacherAI>() && agent.GetComponent<TeacherAI>().IsInClassroom())
             {
-                freeMovementButton.gameObject.SetActive(true);
-                restrictMovementButton.gameObject.SetActive(false);
+                if (agent.GetComponent<TeacherAI>().movementStyle == TeacherMovementStyle.restricted)
+                {
+                    freeMovementButton.gameObject.SetActive(true);
+                    restrictMovementButton.gameObject.SetActive(false);
 
+                }
+                else if (agent.GetComponent<TeacherAI>().movementStyle == TeacherMovementStyle.classroom)
+                {
+                    restrictMovementButton.gameObject.SetActive(true);
+                    freeMovementButton.gameObject.SetActive(false);
+                }
             }
-            else if (agent.GetComponent<TeacherAI>().movementStyle == MovementStyle.classroom)
+            else
             {
-                restrictMovementButton.gameObject.SetActive(true);
+                restrictMovementButton.gameObject.SetActive(false);
                 freeMovementButton.gameObject.SetActive(false);
             }
         }
-        else
+
+        public void InfectSelectedAgent()
         {
-            restrictMovementButton.gameObject.SetActive(false);
-            freeMovementButton.gameObject.SetActive(false);
+            agentHealth.InfectAgent();
         }
-    }
 
-    public void InfectSelectedAgent()
-    {
-        agentHealth.InfectAgent();
-    }
-
-    public void SetMaskForSelected()
-    {
-        switch (maskOptions.value)
+        public void SetMaskForSelected()
         {
-            case 0:
-                agentHealth.SetMaskFactor(MaskFactor.none);
-                break;
-            case 1:
-                agentHealth.SetMaskFactor(MaskFactor.cloth);
-                break;
-            case 2:
-                agentHealth.SetMaskFactor(MaskFactor.surgical);
-                break;
-            case 3:
-                agentHealth.SetMaskFactor(MaskFactor.N95);
-                break;
-            case 4:
+            switch (maskOptions.value)
+            {
+                case 0:
+                    agentHealth.SetMaskFactor(MaskFactor.none);
+                    break;
+                case 1:
+                    agentHealth.SetMaskFactor(MaskFactor.cloth);
+                    break;
+                case 2:
+                    agentHealth.SetMaskFactor(MaskFactor.surgical);
+                    break;
+                case 3:
+                    agentHealth.SetMaskFactor(MaskFactor.N95);
+                    break;
+                case 4:
+                    ShowMaskSlider(true);
+                    maskFactorSlider.value = agentHealth.GetMaskFactor();
+                    break;
+            }
+        }
+
+        public void SetCustomMaskForSelected()
+        {
+            agentHealth.SetMaskFactor(maskFactorSlider.value);
+        }
+
+        public void UpdateMaskDropdown()
+        {
+            if (agent == null) { return; }
+
+            if (agentHealth.GetMaskFactor() == 1f)
+            {
+                maskOptions.value = 0;
+                ShowMaskSlider(false);
+            }
+            else if (agentHealth.GetMaskFactor() == healthParamaters.clothMaskValue)
+            {
+                maskOptions.value = 1;
+                ShowMaskSlider(false);
+            }
+            else if (agentHealth.GetMaskFactor() == healthParamaters.surgicalMaskValue)
+            {
+                maskOptions.value = 2;
+                ShowMaskSlider(false);
+            }
+            else if (agentHealth.GetMaskFactor() == healthParamaters.n95MaskValue)
+            {
+                maskOptions.value = 3;
+                ShowMaskSlider(false);
+            }
+            else
+            {
+                maskOptions.value = 4;
                 ShowMaskSlider(true);
                 maskFactorSlider.value = agentHealth.GetMaskFactor();
-                break;
+            }
         }
-    }
 
-    public void SetCustomMaskForSelected()
-    {
-        agentHealth.SetMaskFactor(maskFactorSlider.value);
-    }
-
-    public void UpdateMaskDropdown()
-    {
-        if (agent == null) { return; }
-
-        if (agentHealth.GetMaskFactor() == 1f)
+        void ShowMaskSlider(bool value)
         {
-            maskOptions.value = 0;
-            ShowMaskSlider(false);
+            maskFactorValue.gameObject.SetActive(value);
+            maskFactorSlider.gameObject.SetActive(value);
+            maskLabels.SetActive(value);
         }
-        else if (agentHealth.GetMaskFactor() == healthParamaters.clothMaskValue)
+
+        public void SetAgent(GameObject _agent)
         {
-            maskOptions.value = 1;
-            ShowMaskSlider(false);
+            agent = _agent;
+            agentHealth = _agent.GetComponent<AgentHealth>();
         }
-        else if (agentHealth.GetMaskFactor() == healthParamaters.surgicalMaskValue)
+
+        public void UpdateActivityDropdown()
         {
-            maskOptions.value = 2;
-            ShowMaskSlider(false);
+            switch (agentHealth.activity)
+            {
+                case ActivityType.Breathing:
+                    activityOptions.value = 0;
+                    break;
+                case ActivityType.Talking:
+                    activityOptions.value = 1;
+                    break;
+                case ActivityType.LoudTalking:
+                    activityOptions.value = 2;
+                    break;
+            }
         }
-        else if (agentHealth.GetMaskFactor() == healthParamaters.n95MaskValue)
+
+        public void UISetActivityLevel()
         {
-            maskOptions.value = 3;
-            ShowMaskSlider(false);
+            if (agent == null) { return; }
+            switch (activityOptions.value)
+            {
+                case 0:
+                    agentHealth.SetActivityType(ActivityType.Breathing);
+                    break;
+                case 1:
+                    agentHealth.SetActivityType(ActivityType.Talking);
+                    break;
+                case 2:
+                    agentHealth.SetActivityType(ActivityType.LoudTalking);
+                    break;
+            }
         }
-        else
+
+        public void UIRestrictMovement()
         {
-            maskOptions.value = 4;
-            ShowMaskSlider(true);
-            maskFactorSlider.value = agentHealth.GetMaskFactor();
+            agent.GetComponent<TeacherAI>().RestrictClassMovement();
+            freeMovementButton.gameObject.SetActive(true);
+            restrictMovementButton.gameObject.SetActive(false);
         }
-    }
 
-    void ShowMaskSlider(bool value)
-    {
-        maskFactorValue.gameObject.SetActive(value);
-        maskFactorSlider.gameObject.SetActive(value);
-        maskLabels.SetActive(value);
-    }
-
-    public void SetAgent( GameObject _agent)
-    {
-        agent = _agent;
-        agentHealth = _agent.GetComponent<Health>();
-    }
-
-    public void UpdateActivityDropdown()
-    {
-        switch (agentHealth.activity)
+        public void UIFreeMovement()
         {
-            case ActivityType.Breathing:
-                activityOptions.value = 0;
-                break;
-            case ActivityType.Talking:
-                activityOptions.value = 1;
-                break;
-            case ActivityType.LoudTalking:
-                activityOptions.value = 2;
-                break;
+            agent.GetComponent<TeacherAI>().FreeClassMovement();
+            restrictMovementButton.gameObject.SetActive(true);
+            freeMovementButton.gameObject.SetActive(false);
         }
-    }
 
-    public void UISetActivityLevel()
-    {
-        if (agent == null) { return; }
-        switch (activityOptions.value)
+        public void MovePanelUp()
         {
-            case 0:
-                agentHealth.SetActivityType(ActivityType.Breathing);
-                break;
-            case 1:
-                agentHealth.SetActivityType(ActivityType.Talking);
-                break;
-            case 2:
-                agentHealth.SetActivityType(ActivityType.LoudTalking);
-                break;
+            animator.Play("PlayerPanelUp");
+            agentPanelUp = true;
         }
-    }
 
-    public void UIRestrictMovement()
-    {
-        agent.GetComponent<TeacherAI>().RestrictClassMovement();
-        freeMovementButton.gameObject.SetActive(true);
-        restrictMovementButton.gameObject.SetActive(false);
-    }
-
-    public void UIFreeMovement()
-    {
-        agent.GetComponent<TeacherAI>().FreeClassMovement();
-        restrictMovementButton.gameObject.SetActive(true);
-        freeMovementButton.gameObject.SetActive(false);
-    }
-
-    public void MovePanelUp()
-    {
-        animator.Play("PlayerPanelUp");
-        agentPanelUp = true;
-    }
-
-    public void MovePanelDown()
-    {
-        animator.Play("PlayerPanelDown");
-        agentPanelUp = false;
+        public void MovePanelDown()
+        {
+            animator.Play("PlayerPanelDown");
+            agentPanelUp = false;
+        }
     }
 }
+*/

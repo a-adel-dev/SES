@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 661084380121469867}
   - component: {fileID: 5308914343910896582}
   - component: {fileID: 2859134090217578075}
+  - component: {fileID: 5250729060631852584}
   m_Layer: 0
   m_Name: Stairs
   m_TagString: Untagged
@@ -57,3 +58,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0dd54ba72b3d894fa4cbf2ccc510028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5250729060631852584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5045893397817307284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab8c30fc240c0a74f8bf686d34984e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeStep: {fileID: 0}

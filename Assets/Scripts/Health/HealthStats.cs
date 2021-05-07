@@ -1,69 +1,78 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SES.Core;
+using System.Linq;
 
-public class HealthStats : MonoBehaviour
+namespace SES.Health
 {
-    Health[] totalAgents;
-    List<Health> totalContagious = new List<Health>();
-    public int numContagious = 0;
-    public int numInfected = 0;
-    public List<Health> teachers = new List<Health>();
-    public List<Health> students = new List<Health>();
+    public class HealthStats : MonoBehaviour
+    {
+        public List<IAI> totalAgents;
+        List<IAI> totalContagious = new List<IAI>();
+        public int numContagious = 0;
+        public int numInfected = 0;
+        public List<ITeacherAI> teachers = new List<ITeacherAI>();
+        public List<IStudentAI> students = new List<IStudentAI>();
 
-    public void CollectAgents()
-    {
-        totalAgents = FindObjectsOfType<Health>();
-    }
-
-    public int GetNumAgents()
-    {
-        if(totalAgents == null) { return 0;}
-        return totalAgents.Length;
-    }
-
-    public int GetNumContagious()
-    {
-        return numContagious;
-    }
-    private void Update()
-    {
-        numContagious = GeneralHealthParamaters.numContagious;
-        numInfected = GeneralHealthParamaters.numInfected;
-    }
-    void TimeStep()
-    {
-        foreach (Health agent in totalAgents)
+        public void CollectAgents()
         {
-            if (agent.IsInfected() && !totalContagious.Contains(agent))
+            var agents = FindObjectsOfType<MonoBehaviour>().OfType<IAI>();
+            foreach (IAI agent in agents)
             {
-                totalContagious.Add(agent);
-            }
-        }   
-    }
-
-    public void PopulateAgentLists()
-    {
-        foreach (Health agent in totalAgents)
-        {
-            if (agent.GetComponent<TeacherAI>())
-            {
-                teachers.Add(agent);
-            }
-            else
-            {
-                students.Add(agent);
+                totalAgents.Add(agent);
             }
         }
-    }
 
-    public List<Health> GetStudents()
-    {
-        return students;
-    }
+        public int GetNumAgents()
+        {
+            if (totalAgents == null) { return 0; }
+            return totalAgents.Count;
+        }
 
-    public List<Health> GetTeachers()
-    {
-        return teachers;
+        public int GetNumContagious()
+        {
+            return numContagious;
+        }
+        private void Update()
+        {
+            numContagious = GeneralHealthParamaters.numContagious;
+            numInfected = GeneralHealthParamaters.numInfected;
+        }
+        void TimeStep()
+        {
+            //foreach (IAI agent in totalAgents)
+            //{
+            //    if (agent.IsInfected() && !totalContagious.Contains(agent))
+            //    {
+            //        totalContagious.Add(agent);
+            //    }
+            //}
+        }
+
+        public void PopulateAgentLists()
+        {
+            foreach (IAI agent in totalAgents)
+            {
+                if (agent.IsTeacher())
+                {
+                    teachers.Add(agent as ITeacherAI);
+                }
+                else
+                {
+                    students.Add(agent as IStudentAI);
+                }
+            }
+        }
+
+        public List<IStudentAI> GetStudents()
+        {
+            return students;
+        }
+
+        public List<ITeacherAI> GetTeachers()
+        {
+            return teachers;
+        }
     }
 }

@@ -2,152 +2,156 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using SES.Health;
 
-public class SpacePanelUI : MonoBehaviour
+namespace SES.UI
 {
-    GeneralHealthParamaters healthParamaters;
-    SpaceHealth space;
-    [SerializeField] GameObject spacePanel;
-    public bool spacePanelUp = false;
-    SpaceHealth[] spacesList;
-    [Header("Fields")]
-
-    [SerializeField] Dropdown classSelectorDropDown;
-    [SerializeField] Text spaceNameText;
-    [SerializeField] Text spaceVolumeText;
-    [SerializeField] Text isOutdoorText;
-    [SerializeField] Text concentrationText;
-    [SerializeField] Text numAgentsText;
-    [SerializeField] Dropdown airControlDropdown;
-    [SerializeField] Text ACHText;
-
-    Animator animator;
-    
-
-    // Start is called before the first frame update
-    void Start()
+    public class SpacePanelUI : MonoBehaviour
     {
-        PopulateClassSelectorDropDown();
-        animator = spacePanel.GetComponent<Animator>();
-        airControlDropdown.onValueChanged.AddListener(delegate { SetAirExchangeRate(airControlDropdown); });
-    }
+        GeneralHealthParamaters healthParamaters;
+        SpaceHealth space;
+        [SerializeField] GameObject spacePanel;
+        public bool spacePanelUp = false;
+        SpaceHealth[] spacesList;
+        [Header("Fields")]
 
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateInfo();
-    }
+        [SerializeField] Dropdown classSelectorDropDown;
+        [SerializeField] Text spaceNameText;
+        [SerializeField] Text spaceVolumeText;
+        [SerializeField] Text isOutdoorText;
+        [SerializeField] Text concentrationText;
+        [SerializeField] Text numAgentsText;
+        [SerializeField] Dropdown airControlDropdown;
+        [SerializeField] Text ACHText;
 
-    void PopulateClassSelectorDropDown()
-    {
-        classSelectorDropDown.options.Clear();
-        
-        spacesList = FindObjectsOfType<SpaceHealth>();
-        foreach (SpaceHealth space in spacesList)
+        Animator animator;
+
+
+        // Start is called before the first frame update
+        void Start()
         {
-            classSelectorDropDown.options.Add(new Dropdown.OptionData() { text = space.gameObject.name });
+            PopulateClassSelectorDropDown();
+            animator = spacePanel.GetComponent<Animator>();
+            airControlDropdown.onValueChanged.AddListener(delegate { SetAirExchangeRate(airControlDropdown); });
         }
 
-        DropdownItemSelected(classSelectorDropDown);
-        classSelectorDropDown.onValueChanged.AddListener(delegate { DropdownItemSelected(classSelectorDropDown); });
-    }
-
-    public void MovePanelUp()
-    {
-        animator.Play("PlayerPanelUp");
-        spacePanelUp = true;
-    }
-
-    public void MovePanelDown()
-    {
-        animator.Play("PlayerPanelDown");
-        spacePanelUp = false;
-    }
-
-    public void UpdateInfo()
-    {
-        if (space == null) { return; }
-        spaceNameText.text = space.gameObject.name;
-        spaceVolumeText.text = string.Format("{0:F2} m^3", space.spaceVolume);
-        isOutdoorText.text = space.outdoor ? "Yes" : "No";
-        concentrationText.text = string.Format("{0:F3} m^3", space.concentration);
-        numAgentsText.text = space.GetNumAgents().ToString();
-        UpdateACH();
-        ACHText.text = string.Format("{0:F2}", space.GetAirExhangeRate()); 
-    }
-
-    void DropdownItemSelected(Dropdown dropdown)
-    {
-        int index = dropdown.value;
-        space = spacesList[index];  
-    }
-
-    void UpdateACH()
-    {
-        switch (space.GetAirExhangeRate())
+        // Update is called once per frame
+        void Update()
         {
-            case 0.12f:
-                airControlDropdown.value = 0;
-                break;
-
-            case 0.23f:
-                airControlDropdown.value = 1;
-                break;
-
-            case 0.85f:
-                airControlDropdown.value = 2;
-                break;
-
-            case 0.90f:
-                airControlDropdown.value = 3;
-                break;
-
-            case 2.16f:
-                airControlDropdown.value = 4;
-                break;
-
-            case 7.92f:
-                airControlDropdown.value = 5;
-                break;
-
-            default:
-                airControlDropdown.value = 0;
-                break;
+            UpdateInfo();
         }
-    }
 
-    void SetAirExchangeRate(Dropdown dropdown)
-    {
-        int index = dropdown.value;
-        switch (index)
+        void PopulateClassSelectorDropDown()
         {
-            case 0:
-                space.SetAirExhangeRate(0.12f);
-                break;
+            classSelectorDropDown.options.Clear();
 
-            case 1:
-                space.SetAirExhangeRate(0.23f);
-                break;
+            spacesList = FindObjectsOfType<SpaceHealth>();
+            foreach (SpaceHealth space in spacesList)
+            {
+                classSelectorDropDown.options.Add(new Dropdown.OptionData() { text = space.gameObject.name });
+            }
 
-            case 2:
-                space.SetAirExhangeRate(0.85f);
-                break;
+            DropdownItemSelected(classSelectorDropDown);
+            classSelectorDropDown.onValueChanged.AddListener(delegate { DropdownItemSelected(classSelectorDropDown); });
+        }
 
-            case 3:
-                space.SetAirExhangeRate(0.90f);
-                break;
+        public void MovePanelUp()
+        {
+            animator.Play("PlayerPanelUp");
+            spacePanelUp = true;
+        }
 
-            case 4:
-                space.SetAirExhangeRate(2.16f);
-                break;
+        public void MovePanelDown()
+        {
+            animator.Play("PlayerPanelDown");
+            spacePanelUp = false;
+        }
 
-            case 5:
-                space.SetAirExhangeRate(7.92f);
-                break;
+        public void UpdateInfo()
+        {
+            if (space == null) { return; }
+            spaceNameText.text = space.gameObject.name;
+            spaceVolumeText.text = string.Format("{0:F2} m^3", space.spaceVolume);
+            isOutdoorText.text = space.outdoor ? "Yes" : "No";
+            concentrationText.text = string.Format("{0:F3} m^3", space.concentration);
+            numAgentsText.text = space.GetNumAgents().ToString();
+            UpdateACH();
+            ACHText.text = string.Format("{0:F2}", space.GetAirExhangeRate());
+        }
 
-            default:
-                space.SetAirExhangeRate(0.12f);
-                break;
+        void DropdownItemSelected(Dropdown dropdown)
+        {
+            int index = dropdown.value;
+            space = spacesList[index];
+        }
+
+        void UpdateACH()
+        {
+            switch (space.GetAirExhangeRate())
+            {
+                case 0.12f:
+                    airControlDropdown.value = 0;
+                    break;
+
+                case 0.23f:
+                    airControlDropdown.value = 1;
+                    break;
+
+                case 0.85f:
+                    airControlDropdown.value = 2;
+                    break;
+
+                case 0.90f:
+                    airControlDropdown.value = 3;
+                    break;
+
+                case 2.16f:
+                    airControlDropdown.value = 4;
+                    break;
+
+                case 7.92f:
+                    airControlDropdown.value = 5;
+                    break;
+
+                default:
+                    airControlDropdown.value = 0;
+                    break;
+            }
+        }
+
+        void SetAirExchangeRate(Dropdown dropdown)
+        {
+            int index = dropdown.value;
+            switch (index)
+            {
+                case 0:
+                    space.SetAirExhangeRate(0.12f);
+                    break;
+
+                case 1:
+                    space.SetAirExhangeRate(0.23f);
+                    break;
+
+                case 2:
+                    space.SetAirExhangeRate(0.85f);
+                    break;
+
+                case 3:
+                    space.SetAirExhangeRate(0.90f);
+                    break;
+
+                case 4:
+                    space.SetAirExhangeRate(2.16f);
+                    break;
+
+                case 5:
+                    space.SetAirExhangeRate(7.92f);
+                    break;
+
+                default:
+                    space.SetAirExhangeRate(0.12f);
+                    break;
+            }
         }
     }
 }

@@ -1,89 +1,92 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using SES.Core;
+using SES.Spaces;
+using SES.Spaces.Classroom;
 
-public class SchoolSubSpacesBucket : MonoBehaviour
+namespace SES.School
 {
-    public Classroom[] classrooms;
-    public Bathroom[] bathrooms;
-    public Corridor[] corridors;
-    public Teachersroom[] teachersrooms;
-    public Lab[] labs;
-    public EgressPoint[] staircases;
-
-    SchoolManager schoolManager;
-
-    // Use this for initialization
-    void Awake()
+    public class SchoolSubSpacesBucket : MonoBehaviour
     {
-        schoolManager = GetComponent<SchoolManager>();
-        AllocateSubSpaces();
-    }
+        public ClassroomSpace[] classrooms;
+        public Bathroom[] bathrooms;
+        public Corridor[] corridors;
+        public Teachersroom[] teachersrooms;
+        public Lab[] labs;
+        public EgressPoint[] staircases;
 
-    private void AllocateSubSpaces()
-    {
-        classrooms = FindObjectsOfType<Classroom>();
-        bathrooms = FindObjectsOfType<Bathroom>();
-        corridors = FindObjectsOfType<Corridor>();
-        teachersrooms = FindObjectsOfType<Teachersroom>();
-        labs = FindObjectsOfType<Lab>();
-        staircases = FindObjectsOfType<EgressPoint>();
-
-    }
-
-    public Bathroom GetNearestBathroom(AI pupil)
-    {
-        Bathroom nearestBathroom = null;
-        float distance = Mathf.Infinity;
-        Vector3 pupilPos = pupil.transform.position;
-        //NavMeshPath path = new NavMeshPath();
-        foreach (Bathroom bathroom in schoolManager.subspaces.bathrooms)
+        // Use this for initialization
+        void Start()
         {
-            if (Vector3.Distance(bathroom.transform.position, pupil.transform.position) < distance)
+            AllocateSubSpaces();
+        }
+
+        private void AllocateSubSpaces()
+        {
+            classrooms = FindObjectsOfType<ClassroomSpace>();
+            bathrooms = FindObjectsOfType<Bathroom>();
+            corridors = FindObjectsOfType<Corridor>();
+            teachersrooms = FindObjectsOfType<Teachersroom>();
+            labs = FindObjectsOfType<Lab>();
+            staircases = FindObjectsOfType<EgressPoint>();
+
+        }
+
+        public Bathroom GetNearestBathroom(IStudentAI pupil)
+        {
+            Bathroom nearestBathroom = null;
+            float distance = Mathf.Infinity;
+            Vector3 pupilPos = pupil.GetTransform().position;
+            //NavMeshPath path = new NavMeshPath();
+            foreach (Bathroom bathroom in bathrooms)
             {
-                distance = Vector3.Distance(bathroom.transform.position, pupilPos);
-                nearestBathroom = bathroom;
-            }
-            /*
-            //Debug.Log(NavMesh.CalculatePath(pupilPos, bathroom.transform.position, NavMesh.AllAreas, path));
-            Vector3 bathroomPos = bathroom.transform.position;
-            NavMesh.CalculatePath(pupilPos, bathroomPos, NavMesh.AllAreas, path);
-            
-            while (!(path.status == NavMeshPathStatus.PathComplete))
-            {
-                NavMeshHit hit;
-                NavMesh.SamplePosition(bathroomPos, out hit, 1, NavMesh.AllAreas);
-                bathroomPos = hit.position;
+                if (Vector3.Distance(bathroom.transform.position, pupil.GetTransform().position) < distance)
+                {
+                    distance = Vector3.Distance(bathroom.transform.position, pupilPos);
+                    nearestBathroom = bathroom;
+                }
+                /*
+                //Debug.Log(NavMesh.CalculatePath(pupilPos, bathroom.transform.position, NavMesh.AllAreas, path));
+                Vector3 bathroomPos = bathroom.transform.position;
                 NavMesh.CalculatePath(pupilPos, bathroomPos, NavMesh.AllAreas, path);
+
+                while (!(path.status == NavMeshPathStatus.PathComplete))
+                {
+                    NavMeshHit hit;
+                    NavMesh.SamplePosition(bathroomPos, out hit, 1, NavMesh.AllAreas);
+                    bathroomPos = hit.position;
+                    NavMesh.CalculatePath(pupilPos, bathroomPos, NavMesh.AllAreas, path);
+                }
+
+                if (PathLength(path) < distance)
+                {
+                    nearestBathroom = bathroom;
+                    distance = PathLength(path);
+                    Debug.Log(distance);
+                }
+                */
             }
-            
-            if (PathLength(path) < distance)
-            {
-                nearestBathroom = bathroom;
-                distance = PathLength(path);
-                Debug.Log(distance);
-            }
-            */
+            return nearestBathroom;
         }
-        return nearestBathroom;
-    }
 
-    float PathLength(NavMeshPath path)
-    {
-        if (path.corners.Length < 2)
-            return 0;
-
-        Vector3 previousCorner = path.corners[0];
-        float lengthSoFar = 0.0F;
-        int i = 1;
-        while (i < path.corners.Length)
+        float PathLength(NavMeshPath path)
         {
-            Vector3 currentCorner = path.corners[i];
-            lengthSoFar += Vector3.Distance(previousCorner, currentCorner);
-            previousCorner = currentCorner;
-            i++;
-        }
-        return lengthSoFar;
-    }
+            if (path.corners.Length < 2)
+                return 0;
 
+            Vector3 previousCorner = path.corners[0];
+            float lengthSoFar = 0.0F;
+            int i = 1;
+            while (i < path.corners.Length)
+            {
+                Vector3 currentCorner = path.corners[i];
+                lengthSoFar += Vector3.Distance(previousCorner, currentCorner);
+                previousCorner = currentCorner;
+                i++;
+            }
+            return lengthSoFar;
+        }
+
+    }
 }

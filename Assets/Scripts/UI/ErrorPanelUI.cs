@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ErrorPanelUI : MonoBehaviour
-{
-    public RectTransform errorPanel;
 
-    public void DisablePanel()
+namespace SES.UI
+{
+    public class ErrorPanelUI : MonoBehaviour
     {
-        errorPanel.gameObject.SetActive(false);
+        public RectTransform errorPanel;
+
+        public void DisablePanel()
+        {
+            errorPanel.gameObject.SetActive(false);
+        }
     }
 }

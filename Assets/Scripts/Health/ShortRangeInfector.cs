@@ -2,73 +2,62 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SES.Core;
 
-public class ShortRangeInfector : MonoBehaviour
+namespace SES.Health
 {
-    List<Health> peopleInRange = new List<Health>();
-    Health infector;
-    GeneralHealthParamaters healthParameters;
-    float jetEntrainmentCoefficient;
-    float mouthArea;
-    float sqrtMouthArea;
-
-    SchoolManager schoolManager;
-    float timeStep;
-    float timer = 0f;
-
-    // Start is called before the first frame update
-    void Start()
+    public class ShortRangeInfector : MonoBehaviour
     {
-        healthParameters = FindObjectOfType<GeneralHealthParamaters>();
-        jetEntrainmentCoefficient = healthParameters.jetEntrainmentCoefficient;
-        mouthArea = healthParameters.mouthArea;
-        schoolManager = FindObjectOfType<SchoolManager>();
-        timeStep = schoolManager.sim.timeStep;
-        GameObject infectorParent = transform.parent.gameObject;
-        infector = infectorParent.GetComponent<Health>();
-        sqrtMouthArea = Mathf.Sqrt(mouthArea);
-    }
+        List<AgentHealth> peopleInRange = new List<AgentHealth>();
+        AgentHealth infector;
+        GeneralHealthParamaters healthParameters;
+        float jetEntrainmentCoefficient;
+        float mouthArea;
+        float sqrtMouthArea;
 
-    // Update is called once per frame
-    void Update()
-    {
-        timer += Time.deltaTime;
-        if (timer >= timeStep)
+        // Start is called before the first frame update
+        void Start()
         {
-            timer -= timeStep;
-            //Debug.Log(Breathe().ToString());
+            healthParameters = FindObjectOfType<GeneralHealthParamaters>();
+            jetEntrainmentCoefficient = healthParameters.jetEntrainmentCoefficient;
+            mouthArea = healthParameters.mouthArea;
+            GameObject infectorParent = transform.parent.gameObject;
+            infector = infectorParent.GetComponent<AgentHealth>();
+            sqrtMouthArea = Mathf.Sqrt(mouthArea);
+        }
+
+        void TimeStep()
+        {
             IncreaseConcentrationInIndividuals();
         }
-    }
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<Health>())
+        private void OnTriggerEnter(Collider other)
         {
-            if (!other.GetComponent<Health>().IsInfected())
+            if (other.GetComponent<AgentHealth>())
             {
-                peopleInRange.Add(other.GetComponent<Health>());
+                if (!other.GetComponent<AgentHealth>().IsInfected())
+                {
+                    peopleInRange.Add(other.GetComponent<AgentHealth>());
+                }
             }
         }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.GetComponent<Health>())
+        private void OnTriggerExit(Collider other)
         {
-            peopleInRange.Remove(other.GetComponent<Health>());
-            other.GetComponent<Health>().ResetShortRangeInfectionQuanta();
+            if (other.GetComponent<AgentHealth>())
+            {
+                peopleInRange.Remove(other.GetComponent<AgentHealth>());
+                other.GetComponent<AgentHealth>().ResetShortRangeInfectionQuanta();
+            }
         }
-    }
 
-    private void IncreaseConcentrationInIndividuals()
-    {
-        foreach (Health individual in peopleInRange)
+        private void IncreaseConcentrationInIndividuals()
         {
-            float distance = Vector3.Distance(individual.transform.position, infector.transform.position)*100f;
+            foreach (AgentHealth individual in peopleInRange)
+            {
+                float distance = Vector3.Distance(individual.transform.position, infector.transform.position) * 100f;
 
-            individual.SetShortRangeInfectionQuanta(infector.Breathe() * sqrtMouthArea / ( jetEntrainmentCoefficient * distance));
+                individual.SetShortRangeInfectionQuanta(infector.Breathe() * sqrtMouthArea / (jetEntrainmentCoefficient * distance));
+            }
         }
     }
 }

@@ -3,90 +3,99 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class HUDUI : MonoBehaviour
+using SES.School;
+using SES.SimProperties;
+/*
+namespace SES.UI
 {
-    SchoolManager schoolManager;
-
-    [SerializeField] Text classStatus;
-    [SerializeField] Text classTime;
-    [SerializeField] Text classDate;
-    [SerializeField] Button startSim;
-    [SerializeField] Button pauseSim;
-    [SerializeField] Button resumeSim;
-    [SerializeField] Button endSim;
-    [SerializeField] Button spaceControlButton;
-    [SerializeField] Button mainControlsButton;
-
-
-
-
-    // Start is called before the first frame update
-    void Start()
+    
+    public class HUDUI : MonoBehaviour
     {
-        schoolManager = FindObjectOfType<SchoolManager>();
-    }
+        SchoolManager schoolManager;
+        SimulationProperties simProperties;
 
-    // Update is called once per frame
-    void Update()
-    {
-        updateUIInfo();
-    }
+        [SerializeField] Text classStatus;
+        [SerializeField] Text classTime;
+        [SerializeField] Text classDate;
+        [SerializeField] Button startSim;
+        [SerializeField] Button pauseSim;
+        [SerializeField] Button resumeSim;
+        [SerializeField] Button endSim;
+        [SerializeField] Button spaceControlButton;
+        [SerializeField] Button mainControlsButton;
 
-    private void updateUIInfo()
-    {
-        //class status
-        if (schoolManager.classInSession)
+
+
+
+        // Start is called before the first frame update
+        void Start()
         {
-            classStatus.text = "Classes in Session";
-        }
-        else
-        {
-            classStatus.text = "Break time";
+            schoolManager = FindObjectOfType<SchoolManager>();
+            simProperties = FindObjectOfType<SimulationProperties>();
         }
 
-        //time
-        //year - month - day - hour - minute - seconds
-        //DateTime dt = new DateTime(0, 0, 0, 0, schoolManager.schoolTime, 0);
-        
-        classTime.text = String.Format("Time{0:hh:mm}", schoolManager.schoolDate);
-
-        //date
-        classDate.text = String.Format("Day{0:dd}", schoolManager.schoolDate);
-
-    }
-
-    public void UIStartSim()
-    {
-        schoolManager.StartSim();
-        pauseSim.gameObject.SetActive(true);
-    }
-
-    public void UIPauseSim()
-    {
-        schoolManager.PauseSim();
-        resumeSim.gameObject.SetActive(true);
-        pauseSim.gameObject.SetActive(false);
-    }
-
-    public void UIResumeSim()
-    {
-        schoolManager.ResumeSim();
-        pauseSim.gameObject.SetActive(true);
-        resumeSim.gameObject.SetActive(false);
-    }
-
-    public void ShowSpacePanel()
-    {
-        if (GetComponent<AgentPanelUI>().agentPanelUp)
+        // Update is called once per frame
+        void Update()
         {
-            GetComponent<ScreenSelector>().DeactivateAgentPanel();
+            updateUIInfo();
         }
-        GetComponent<SpacePanelUI>().MovePanelUp();
-    }
 
-    public void HideSpacePanel()
-    {
-        GetComponent<SpacePanelUI>().MovePanelDown();
+        private void updateUIInfo()
+        {
+            //class status
+            if (schoolManager.classInSession)
+            {
+                classStatus.text = "Classes in Session";
+            }
+            else
+            {
+                classStatus.text = "Break time";
+            }
+
+            //time
+            //year - month - day - hour - minute - seconds
+            //DateTime dt = new DateTime(0, 0, 0, 0, schoolManager.schoolTime, 0);
+
+            classTime.text = String.Format("Time{0:hh:mm}", simProperties.schoolDate);
+
+            //date
+            classDate.text = String.Format("Day{0:dd}", simProperties.schoolDate);
+
+        }
+
+        public void UIStartSim()
+        {
+            simProperties.StartSim();
+            pauseSim.gameObject.SetActive(true);
+        }
+
+        public void UIPauseSim()
+        {
+            simProperties.PauseSim();
+            resumeSim.gameObject.SetActive(true);
+            pauseSim.gameObject.SetActive(false);
+        }
+
+        public void UIResumeSim()
+        {
+            simProperties.ResumeSim();
+            pauseSim.gameObject.SetActive(true);
+            resumeSim.gameObject.SetActive(false);
+        }
+
+        public void ShowSpacePanel()
+        {
+            if (GetComponent<AgentPanelUI>().agentPanelUp)
+            {
+                GetComponent<ScreenSelector>().DeactivateAgentPanel();
+            }
+            GetComponent<SpacePanelUI>().MovePanelUp();
+        }
+
+        public void HideSpacePanel()
+        {
+            GetComponent<SpacePanelUI>().MovePanelDown();
+        }
     }
 }
+    */

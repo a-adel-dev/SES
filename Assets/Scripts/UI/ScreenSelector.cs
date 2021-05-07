@@ -2,71 +2,74 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
-public class ScreenSelector : MonoBehaviour
+/*
+namespace SES.UI
 {
-    GameObject agent;
-    GameObject previousAgent;
-    AgentPanelUI info;
-
-    void Start()
+    public class ScreenSelector : MonoBehaviour
     {
-        info = GetComponent<AgentPanelUI>();
-    }
+        GameObject agent;
+        GameObject previousAgent;
+        AgentPanelUI info;
 
-    void FixedUpdate()
-    {
-        if (Input.GetMouseButtonDown(0))
+        void Start()
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+            info = GetComponent<AgentPanelUI>();
+        }
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Agents")))
+        void FixedUpdate()
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-                
-                ActivateAgentPanel();
-                Transform selection = hit.transform;
-                agent = selection.gameObject;
-                info.SetAgent(agent);
-                info.UpdateMaskDropdown();
-                info.UpdateActivityDropdown();
-                info.UIConfigureTeacherMovement();
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
 
-                agent.transform.GetChild(1).gameObject.SetActive(true);
-                if (previousAgent != null && ReferenceEquals(agent,previousAgent) == false)
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Agents")))
                 {
-                    previousAgent.transform.GetChild(1).gameObject.SetActive(false);
+
+                    ActivateAgentPanel();
+                    Transform selection = hit.transform;
+                    agent = selection.gameObject;
+                    info.SetAgent(agent);
+                    info.UpdateMaskDropdown();
+                    info.UpdateActivityDropdown();
+                    info.UIConfigureTeacherMovement();
+
+                    agent.transform.GetChild(1).gameObject.SetActive(true);
+                    if (previousAgent != null && ReferenceEquals(agent, previousAgent) == false)
+                    {
+                        previousAgent.transform.GetChild(1).gameObject.SetActive(false);
+                    }
+                    previousAgent = agent;
                 }
-                previousAgent = agent; 
+            }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (agent != null)
+                {
+                    DeactivateAgentPanel();
+                }
             }
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
+        public void ActivateAgentPanel()
         {
-            if (agent != null)
+            if (GetComponent<SpacePanelUI>().spacePanelUp)
             {
-                DeactivateAgentPanel();
-            } 
+                GetComponent<SpacePanelUI>().MovePanelDown();
+            }
+            GetComponent<AgentPanelUI>().MovePanelUp();
         }
-    }
-    public void ActivateAgentPanel()
-    {
-        if (GetComponent<SpacePanelUI>().spacePanelUp)
+
+        public void DeactivateAgentPanel()
         {
-            GetComponent<SpacePanelUI>().MovePanelDown();
+            GetComponent<AgentPanelUI>().MovePanelDown();
+            agent.transform.GetChild(1).gameObject.SetActive(false);
+            agent = null;
         }
-        GetComponent<AgentPanelUI>().MovePanelUp();
-    }
 
-    public void DeactivateAgentPanel()
-    {
-        GetComponent<AgentPanelUI>().MovePanelDown();
-        agent.transform.GetChild(1).gameObject.SetActive(false);
-        agent = null;
+        public GameObject GetAgent()
+        {
+            return agent;
+        }
     }
-
-    public GameObject GetAgent()
-    {
-        return agent;
-    }  
 }
+*/

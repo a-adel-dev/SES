@@ -183,9 +183,7 @@ GameObject:
   - component: {fileID: 5708007398092535966}
   - component: {fileID: 5054096880724676003}
   - component: {fileID: 3178547743717243584}
-  - component: {fileID: 5090771605271733470}
-  - component: {fileID: 1011626511302294818}
-  - component: {fileID: 8724620232373464906}
+  - component: {fileID: 1257264199286992339}
   m_Layer: 0
   m_Name: Teacher room
   m_TagString: Teachersroom
@@ -239,7 +237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0dca7af7b84f6e4a89f0dc07c158fc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5090771605271733470
+  teacherroomObjects: {fileID: 0}
+--- !u!114 &1257264199286992339
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -248,7 +247,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6038756631478423509}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 881518fbeb32501479e82841ef8ba478, type: 3}
+  m_Script: {fileID: 11500000, guid: 38609666ebc16954b899cfa173b37d46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   desks:
@@ -259,32 +258,10 @@ MonoBehaviour:
   - {fileID: 1205550645409901641}
   - {fileID: 3336024943691901176}
   - {fileID: 2678472854292855830}
-  teacherPrefab: {fileID: 708053679854848142, guid: 651694a02e9825b4bb16a8cd66595ad4,
-    type: 3}
---- !u!114 &1011626511302294818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6038756631478423509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da2d0b911dd53aa44856c431c2028ccd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8724620232373464906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6038756631478423509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  lockers: []
+  boardSpots: []
+  teachersSpace: {fileID: 0}
+  board: {fileID: 0}
 --- !u!1 &7690194369818530701
 GameObject:
   m_ObjectHideFlags: 0
