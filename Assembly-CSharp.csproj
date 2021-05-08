@@ -105,7 +105,10 @@
     <Compile Include="Assets\Scripts\Core\ISpace.cs" />
     <Compile Include="Assets\Scripts\Core\IStudentAI.cs" />
     <Compile Include="Assets\Scripts\Core\ITeacherAI.cs" />
+    <Compile Include="Assets\Scripts\Core\IntVariable.cs" />
     <Compile Include="Assets\Scripts\Core\ListHandler.cs" />
+    <Compile Include="Assets\Scripts\Core\ShortVariable.cs" />
+    <Compile Include="Assets\Scripts\Core\SimulationVariables.cs" />
     <Compile Include="Assets\Scripts\Core\SpaceStudentsBucket.cs" />
     <Compile Include="Assets\Scripts\Core\Spot.cs" />
     <Compile Include="Assets\Scripts\Core\SpotBucket.cs" />
@@ -118,6 +121,7 @@
     <Compile Include="Assets\Scripts\Health\ShortRangeInfector.cs" />
     <Compile Include="Assets\Scripts\Health\SpaceHealth.cs" />
     <Compile Include="Assets\Scripts\Health\SpaceHealthVisualization.cs" />
+    <Compile Include="Assets\Scripts\School\DateTimeRecorder.cs" />
     <Compile Include="Assets\Scripts\School\SBreakTime.cs" />
     <Compile Include="Assets\Scripts\School\SClassesInSession.cs" />
     <Compile Include="Assets\Scripts\School\SEgressTime.cs" />
@@ -158,7 +162,9 @@
     <Compile Include="Assets\Scripts\UI\MainControlsPanelUI.cs" />
     <Compile Include="Assets\Scripts\UI\ScreenSelector.cs" />
     <Compile Include="Assets\Scripts\UI\SpacePanelUI.cs" />
+    <Compile Include="Assets\Scripts\UI\TimeReader.cs" />
     <Compile Include="Assets\Scripts\UI\ToolTip.cs" />
+    <Compile Include="Assets\Tester.cs" />
     <None Include="Assets\Scripts\Core\TeacherRoomTester.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\TagDialogue.BT.txt" />

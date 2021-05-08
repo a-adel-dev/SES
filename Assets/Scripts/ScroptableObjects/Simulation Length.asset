@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b923ae5268e763243bd23dbd5dd668d5, type: 3}
-  m_Name: timeStep
+  m_Script: {fileID: 11500000, guid: 7ffaf2a789aacec448d61731d722e536, type: 3}
+  m_Name: Simulation Length
   m_EditorClassIdentifier: 
-  fVariable: 0
+  value: 2

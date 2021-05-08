@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 
 
@@ -6,13 +7,17 @@ namespace SES.School
 {
     public class SOffTime : SSchoolBaseState
     {
-        public short simLength { get; set; } = 3;
-        short progressionIndex = 1;
+        short simLength;
+        short progressionIndex = 0;
 
         public override void EnterState(SchoolDayProgressionController progressionController)
         {
-            Debug.Log($"offtime");
-            Debug.Log($"Day {progressionIndex} is over.");
+            simLength = progressionController.simLength;
+            Debug.Log($"---------------offtime----------------");
+            Debug.Log($"Day {progressionIndex + 1} is over.");
+            TimeSpan skippingTime = progressionController.timeRecorder.SkipToNextDay();
+            Debug.Log(string.Format("{0:c} have been skipped", skippingTime));
+            Debug.Log("----------------------------------------");
         }
 
         public override void Update(SchoolDayProgressionController progressionController)

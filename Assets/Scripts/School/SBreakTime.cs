@@ -1,25 +1,28 @@
 ﻿using UnityEngine;
+using System;
 
 
 namespace SES.School
 {
     public class SBreakTime : SSchoolBaseState
     {
-
-        short sessionTimer = 1;
-        public short sessionLength { get; set; } = 20;
+        short sessionTimer = 0;
         short periodIndex = 0;
-        public short numPeriods { get; set; } = 1;
-        public float timeStep = .5f;
+        short sessionLength , numPeriods;
+        float timeStep = .5f;
         float timer = 0f;
+        
+
         public override void EnterState(SchoolDayProgressionController progressionController)
         {
-            Debug.Log($"BreakTime");
+            numPeriods = progressionController.numPeriods;
+            timeStep = progressionController.timeStep;
+            sessionLength = progressionController.breakLength;
+            Debug.Log($"---------------BreakTime--------------");
         }
 
         public override void Update(SchoolDayProgressionController progressionController)
         {
-            PassTime();
             if (sessionTimer >= sessionLength)
             {
                 sessionTimer = 0;
@@ -35,15 +38,20 @@ namespace SES.School
                     progressionController.TransitionToState(progressionController.classesInSession);
                 }
             }
+            else
+            {
+                PassTime(progressionController);
+            }
         }
-        private void PassTime()
+        private void PassTime(SchoolDayProgressionController progressionController)
         {
             timer += Time.deltaTime;
             if (timer >= timeStep)
             {
                 timer -= timeStep;
-                Debug.Log(sessionTimer);
+
                 sessionTimer++;
+                progressionController.timeRecorder.UpdateSchoolTime(new TimeSpan(0, 1, 0));
             }
         }
     }

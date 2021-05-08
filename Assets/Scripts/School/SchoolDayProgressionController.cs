@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using UnityEngine;
 using SES.Core;
+using System;
 
 namespace SES.School
 {
     public class SchoolDayProgressionController : MonoBehaviour
     {
-        short periodLength = 40;
-        short numPeriods = 4;
-        short simLength = 3;
-        float timeStep = 0.5f;
+        public DateTimeRecorder timeRecorder { get; set; }
+        public short periodLength { get; set; } = 45;
+        public short breakLength { get; set; } = 5;
+        public short numPeriods { get; set; } = 2;
+        public short simLength { get; set; } = 2;
+        public float timeStep { get; set; } = 0.5f;
 
         #region FSm
         private SSchoolBaseState currentState;
@@ -35,15 +38,18 @@ namespace SES.School
 
         private void Start()
         {
-            InitializeStates();
+            InitializeProperties();
+            timeRecorder = GetComponent<DateTimeRecorder>();
             StartSchoolDay();
         }
 
-        private void InitializeStates()
+        private void InitializeProperties()
         {
-            classesInSession.timeStep = timeStep;
-            breakTime.numPeriods = numPeriods;
-            offTime.simLength = simLength;
+            periodLength = SimulationVariables.periodLength;
+            breakLength = SimulationVariables.breakLength;
+            numPeriods = SimulationVariables.numPeriods;
+            simLength = SimulationVariables.simLength;
+            timeStep = SimulationVariables.timeStep;
         }
 
         public void StartSchoolDay()

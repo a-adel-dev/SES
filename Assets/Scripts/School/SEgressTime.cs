@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 
 namespace SES.School
@@ -6,33 +7,38 @@ namespace SES.School
     public class SEgressTime : SSchoolBaseState
     {
         short sessionLength = 20;
-        short sessionTimer = 1;
-        public float timeStep = .5f;
+        short sessionTimer = 0;
+        float timeStep;
         float timer = 0f;
         public override void EnterState(SchoolDayProgressionController progressionController)
         {
-            Debug.Log("Egress Time");
+            timeStep = progressionController.timeStep;
+            Debug.Log("-------------Egress Time-------------");
         }
 
         public override void Update(SchoolDayProgressionController progressionController)
         {
 
-            PassTime();
+            
             if (sessionTimer >= sessionLength)
             {
                 sessionTimer = 0;
                 progressionController.TransitionToState(progressionController.offTime);
             }
+            else
+            {
+                PassTime(progressionController);
+            }
         }
 
-        private void PassTime()
+        private void PassTime(SchoolDayProgressionController progressionController)
         {
             timer += Time.deltaTime;
             if (timer >= timeStep)
             {
                 timer -= timeStep;
-                Debug.Log(sessionTimer);
                 sessionTimer++;
+                progressionController.timeRecorder.UpdateSchoolTime(new TimeSpan(0, 1, 0));
             }
         }
     }

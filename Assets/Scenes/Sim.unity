@@ -1135,8 +1135,8 @@ RectTransform:
   m_Father: {fileID: 1071616812}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.4915254, y: 0}
-  m_AnchorMax: {x: 0.4915254, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3442,7 +3442,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1074738359}
+      - m_Target: {fileID: 0}
         m_MethodName: UIPauseSim
         m_Mode: 1
         m_Arguments:
@@ -4879,7 +4879,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1074738362}
+      - m_Target: {fileID: 0}
         m_MethodName: DefaultSettings
         m_Mode: 1
         m_Arguments:
@@ -7925,7 +7925,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1074738358}
+      - m_Target: {fileID: 0}
         m_MethodName: SetMaskForSelected
         m_Mode: 1
         m_Arguments:
@@ -8161,7 +8161,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1074738359}
+      - m_Target: {fileID: 0}
         m_MethodName: UIResumeSim
         m_Mode: 1
         m_Arguments:
@@ -10062,7 +10062,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 467235315}
-  - component: {fileID: 467235314}
   - component: {fileID: 467235313}
   m_Layer: 0
   m_Name: Tester
@@ -10080,23 +10079,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 467235312}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9c353571ffcbbd41bcf3ac040ed9ced, type: 3}
+  m_Script: {fileID: 11500000, guid: eb478baa8c54dce41b393a363086d7c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentPrefab: {fileID: 6679094881373598523, guid: 99b61440493d6b54c9e1d85d2dc9bf69,
-    type: 3}
---- !u!114 &467235314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 467235312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98b1ea74ddded894696c867edd5cd065, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  VMonth: {fileID: 11400000, guid: d3121435b335d2744967bbe74f8c9c05, type: 2}
+  VDay: {fileID: 11400000, guid: 1885a7b539da1514e956d355a3eb01eb, type: 2}
+  VHour: {fileID: 11400000, guid: dab5bd9dd430a9245a6cc2297560138a, type: 2}
+  VMinute: {fileID: 11400000, guid: 59a05a8b204fe1a45b3c23eee5aee3a4, type: 2}
 --- !u!4 &467235315
 Transform:
   m_ObjectHideFlags: 0
@@ -13146,7 +13135,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.6, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -13982,8 +13971,8 @@ RectTransform:
   m_Father: {fileID: 1204368945}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.6, y: 0}
-  m_AnchorMax: {x: 0.6, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -15331,7 +15320,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1074738358}
+      - m_Target: {fileID: 0}
         m_MethodName: UISetActivityLevel
         m_Mode: 1
         m_Arguments:
@@ -17874,7 +17863,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1074738358}
+      - m_Target: {fileID: 0}
         m_MethodName: InfectSelectedAgent
         m_Mode: 1
         m_Arguments:
@@ -20669,18 +20658,13 @@ GameObject:
   - component: {fileID: 1074738353}
   - component: {fileID: 1074738357}
   - component: {fileID: 1074738358}
-  - component: {fileID: 1074738359}
-  - component: {fileID: 1074738360}
-  - component: {fileID: 1074738361}
-  - component: {fileID: 1074738362}
-  - component: {fileID: 1074738363}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1074738353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20776,7 +20760,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1074738352}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f95bce56f93adad48975d30203051b4a, type: 3}
+  m_Script: {fileID: 11500000, guid: e7849085617182b48b5dfc3b25351ec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1074738358
@@ -20788,85 +20772,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1074738352}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 113ea03a9bb313345852f7c6f5e9d0b2, type: 3}
+  m_Script: {fileID: 11500000, guid: b64ba0d9c384f674ebc6e6e2429255cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1074738359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1074738352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaad03ee5e2646e4dbc756baf263d68f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1074738360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1074738352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73f126aaeb142034e88992fb9270ae95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numAgentsText: {fileID: 111493311}
-  numInfectedText: {fileID: 960584092}
-  numContagiousText: {fileID: 927321074}
-  percentInfectedText: {fileID: 1523646608}
-  percentContagiousText: {fileID: 164824191}
---- !u!114 &1074738361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1074738352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b814d64bc2e1d348866ef630e064cac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spacePanel: {fileID: 1262923116}
-  spacePanelUp: 0
-  classSelectorDropDown: {fileID: 783069720}
-  spaceNameText: {fileID: 1502336258}
-  spaceVolumeText: {fileID: 1480339913}
-  isOutdoorText: {fileID: 206769112}
-  concentrationText: {fileID: 1747392809}
-  numAgentsText: {fileID: 1791345104}
-  airControlDropdown: {fileID: 1771273478}
-  ACHText: {fileID: 896777798}
---- !u!114 &1074738362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1074738352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 306e8e09df9dddf45a4ea4b5d6b6229d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1074738363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1074738352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee7c8431edbc62f4e8ae8d83b2a8e621, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorPanel: {fileID: 1056076091}
+  timeStep: 0.5
 --- !u!1 &1074798928
 GameObject:
   m_ObjectHideFlags: 0
@@ -21315,7 +21224,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1074738363}
+      - m_Target: {fileID: 0}
         m_MethodName: DisablePanel
         m_Mode: 1
         m_Arguments:
@@ -22073,7 +21982,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1074738358}
+      - m_Target: {fileID: 0}
         m_MethodName: UIFreeMovement
         m_Mode: 1
         m_Arguments:
@@ -23198,7 +23107,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.4915254, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -23828,7 +23737,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1074738362}
+      - m_Target: {fileID: 0}
         m_MethodName: ApplySettings
         m_Mode: 1
         m_Arguments:
@@ -24585,10 +24494,10 @@ RectTransform:
   m_Father: {fileID: 1397617184}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -19.34}
-  m_SizeDelta: {x: 184, y: 22.68}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1275007612
 MonoBehaviour:
@@ -25589,7 +25498,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1074738359}
+      - m_Target: {fileID: 0}
         m_MethodName: UIStartSim
         m_Mode: 1
         m_Arguments:
@@ -26126,7 +26035,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1074738358}
+      - m_Target: {fileID: 0}
         m_MethodName: UISetActivityLevel
         m_Mode: 1
         m_Arguments:
@@ -26358,7 +26267,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 619, y: 9.568007}
-  m_SizeDelta: {x: 200, y: 38.68}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: -0.05, y: 1.1}
 --- !u!114 &1397617185
 MonoBehaviour:
@@ -26494,6 +26403,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b276fe9db93e0042a465449b0518fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1406735259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406735257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ec988513dc8444c90f270e1502d07b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1419813064
@@ -32552,7 +32473,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1074738358}
+      - m_Target: {fileID: 0}
         m_MethodName: SetCustomMaskForSelected
         m_Mode: 1
         m_Arguments:
@@ -33192,7 +33113,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1074738359}
+      - m_Target: {fileID: 0}
         m_MethodName: ShowSpacePanel
         m_Mode: 1
         m_Arguments:
@@ -33323,7 +33244,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1074738358}
+      - m_Target: {fileID: 0}
         m_MethodName: UIRestrictMovement
         m_Mode: 1
         m_Arguments:
