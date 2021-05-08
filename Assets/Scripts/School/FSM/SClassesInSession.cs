@@ -1,44 +1,46 @@
 ﻿using UnityEngine;
 using System;
-
+using SES.Core;
 
 namespace SES.School
 {
-    public class SEgressTime : SSchoolBaseState
+    public class SClassesInSession : SSchoolBaseState 
     {
-        short sessionLength = 20;
+
         short sessionTimer = 0;
-        float timeStep;
+        public short sessionLength;
+        public float timeStep;
         float timer = 0f;
+
         public override void EnterState(SchoolDayProgressionController progressionController)
         {
+            sessionLength = progressionController.periodLength;
             timeStep = progressionController.timeStep;
-            Debug.Log("-------------Egress Time-------------");
+            Debug.Log($"----------Classes In session----------");
+            progressionController.StartPeriod();
         }
 
         public override void Update(SchoolDayProgressionController progressionController)
         {
-
             
             if (sessionTimer >= sessionLength)
             {
                 sessionTimer = 0;
-                progressionController.TransitionToState(progressionController.offTime);
+                progressionController.TransitionToState(progressionController.breakTime);
             }
             else
             {
-                PassTime(progressionController);
+                PassTime();
             }
         }
-
-        private void PassTime(SchoolDayProgressionController progressionController)
+        private void PassTime()
         {
             timer += Time.deltaTime;
             if (timer >= timeStep)
             {
                 timer -= timeStep;
                 sessionTimer++;
-                progressionController.timeRecorder.UpdateSchoolTime(new TimeSpan(0, 1, 0));
+                DateTimeRecorder.UpdateSchoolTime(new TimeSpan(0, 1, 0));
             }
         }
     }

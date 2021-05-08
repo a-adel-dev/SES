@@ -6,6 +6,20 @@
 
 
 
+-----------------------------------
+School schedule FSM is done
+Class schedule FSm is done
+
+
+
+------------------------------------
+lab schedule
+Spawning students
+UI control (except for agent and space controls)
+Student AI
+Spawning teachers
+teachers AI
+Health
 
 
 
@@ -18,5 +32,3 @@
 
 
 
-
-(Component)GetComponent<ISpace>()).transform

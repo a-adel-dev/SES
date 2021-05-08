@@ -11,13 +11,8 @@ GameObject:
   - component: {fileID: 3784705064329411917}
   - component: {fileID: 3717130888090133382}
   - component: {fileID: 1783310592}
-  - component: {fileID: 3482367782166669936}
-  - component: {fileID: 9187457044516034095}
   - component: {fileID: 1826447425796764022}
-  - component: {fileID: 8360931038185183004}
-  - component: {fileID: 7582324239823246139}
-  - component: {fileID: -6178941398178253664}
-  - component: {fileID: -391104600408909507}
+  - component: {fileID: 5239175844229488528}
   - component: {fileID: 6883260464292743271}
   - component: {fileID: 8736991644523482950}
   m_Layer: 0
@@ -73,7 +68,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3482367782166669936
+--- !u!114 &1826447425796764022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3784705064329411916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a997fb01664f7ae4bac617b4fa48d200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5239175844229488528
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,100 +94,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   classScheduler: {fileID: 0}
   classroomSubSpaces: {fileID: 0}
-  spawner: {fileID: 0}
-  studentController: {fileID: 0}
-  planner: {fileID: 0}
-  teacherPrefab: {fileID: 708053679854848142, guid: 651694a02e9825b4bb16a8cd66595ad4,
-    type: 3}
-  teacherSpawnPoint:
-  - {fileID: 2296198034020729471}
---- !u!114 &9187457044516034095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3784705064329411916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b58f48ebd43a4248bdab07207c33010, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1826447425796764022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3784705064329411916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a997fb01664f7ae4bac617b4fa48d200, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8360931038185183004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3784705064329411916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee99d65346e178e478d79638725b043c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeStepVariable: {fileID: 11400000, guid: 57cc5cf788c47274f93d3b4ddcda6f43, type: 2}
-  numSpotsForGroupActivity: 4
-  deskGroupActivityCompensationX: 0
-  deskGroupActivityCompensationZ: -0.5
-  minDistanceGroupActivity: 3
-  activityInProgress: 0
---- !u!114 &7582324239823246139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3784705064329411916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35bd587c45632af47a9949c3528e30be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeStepVariable: {fileID: 11400000, guid: 57cc5cf788c47274f93d3b4ddcda6f43, type: 2}
-  timeStep: 0
-  activityInProgress: 0
---- !u!114 &-6178941398178253664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3784705064329411916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spaceVolume: 0
-  outdoor: 0
-  concentration: 0
-  currentConcentration: 0
-  airExchangeRate: 2.16
---- !u!114 &-391104600408909507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3784705064329411916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b64ba0d9c384f674ebc6e6e2429255cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeStep: 0
 --- !u!114 &6883260464292743271
 MonoBehaviour:
   m_ObjectHideFlags: 0

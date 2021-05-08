@@ -1593,7 +1593,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 3.3000488, y: -29.099976}
+  m_AnchoredPosition: {x: 3.3000488, y: -29.099915}
   m_SizeDelta: {x: -43.664185, y: -105.8526}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &91239196
@@ -26414,9 +26414,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1406735257}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28ec988513dc8444c90f270e1502d07b, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d42e1a1be87d8b49abad1cea8e37531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  classrooms: []
+  bathrooms: []
+  corridors: []
+  teachersrooms: []
+  labs: []
+  staircases: []
 --- !u!1 &1419813064
 GameObject:
   m_ObjectHideFlags: 0
@@ -32588,18 +32594,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3784705064693847472}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1783310590 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803,
-    type: 3}
-  m_PrefabInstance: {fileID: 3784705064693847472}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 998759786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d43bfe90b3d05e646b120439d14b20d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1786677009 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1678982495574685156, guid: 0d7227cd1a64bda48ad436b31b6497b1,
@@ -35151,6 +35145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361103eb6f904af4b9cfab28c464831a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  periodLength: 40
+  numPeriods: 4
   classTimes: 
 --- !u!114 &1898138562
 MonoBehaviour:
@@ -39676,7 +39672,7 @@ PrefabInstance:
         type: 3}
       propertyPath: associatedClassrooms.Array.data[0]
       value: 
-      objectReference: {fileID: 1783310590}
+      objectReference: {fileID: 0}
     - target: {fileID: 2859134090217578075, guid: a8c3555f11873464fbb0924ffb181c3a,
         type: 3}
       propertyPath: associatedClassrooms.Array.data[1]
@@ -40712,6 +40708,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -6178941398178253664, guid: 71e29a9d1cca7644b81eb51eb90ce803, type: 3}
+    - {fileID: 3482367782166669936, guid: 71e29a9d1cca7644b81eb51eb90ce803, type: 3}
+    - {fileID: 9187457044516034095, guid: 71e29a9d1cca7644b81eb51eb90ce803, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 71e29a9d1cca7644b81eb51eb90ce803, type: 3}
 --- !u!1001 &5581622618498769266
 PrefabInstance:

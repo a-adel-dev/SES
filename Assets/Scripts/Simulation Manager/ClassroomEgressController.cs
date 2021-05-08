@@ -9,7 +9,6 @@ namespace SES.SimProperties
     {
         [Tooltip("List of classroom whose staircase exit is this object")]
         [SerializeField] List<IClassroom> associatedClassrooms;
-        [SerializeField] FloatVariable timeStep;
 
 
         public void RecallClasses(int waitingTime)

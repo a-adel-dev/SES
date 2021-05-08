@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using SES.Core;
 
 
 
@@ -15,9 +16,10 @@ namespace SES.School
             simLength = progressionController.simLength;
             Debug.Log($"---------------offtime----------------");
             Debug.Log($"Day {progressionIndex + 1} is over.");
-            TimeSpan skippingTime = progressionController.timeRecorder.SkipToNextDay();
+            TimeSpan skippingTime = DateTimeRecorder.SkipToNextDay();
             Debug.Log(string.Format("{0:c} have been skipped", skippingTime));
             Debug.Log("----------------------------------------");
+            //calculate Air dissipation in classes and add it to SpaceHealthControl
         }
 
         public override void Update(SchoolDayProgressionController progressionController)

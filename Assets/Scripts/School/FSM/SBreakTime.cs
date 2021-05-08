@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using SES.Core;
 
 
 namespace SES.School
@@ -19,6 +20,7 @@ namespace SES.School
             timeStep = progressionController.timeStep;
             sessionLength = progressionController.breakLength;
             Debug.Log($"---------------BreakTime--------------");
+            progressionController.EndPeriod();
         }
 
         public override void Update(SchoolDayProgressionController progressionController)
@@ -40,10 +42,10 @@ namespace SES.School
             }
             else
             {
-                PassTime(progressionController);
+                PassTime();
             }
         }
-        private void PassTime(SchoolDayProgressionController progressionController)
+        private void PassTime()
         {
             timer += Time.deltaTime;
             if (timer >= timeStep)
@@ -51,7 +53,7 @@ namespace SES.School
                 timer -= timeStep;
 
                 sessionTimer++;
-                progressionController.timeRecorder.UpdateSchoolTime(new TimeSpan(0, 1, 0));
+                DateTimeRecorder.UpdateSchoolTime(new TimeSpan(0, 1, 0));
             }
         }
     }

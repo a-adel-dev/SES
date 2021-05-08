@@ -7,7 +7,12 @@ namespace SES.Core
     public class TimeStepController : MonoBehaviour
     {
         public float timeStep = 2f;
-        float timer = 0f; 
+        float timer = 0f;
+
+        private void Start()
+        {
+            timeStep = SimulationParameters.timeStep;
+        }
 
         void Update()
         {
