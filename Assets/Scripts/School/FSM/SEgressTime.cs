@@ -7,15 +7,17 @@ namespace SES.School
 {
     public class SEgressTime : SSchoolBaseState
     {
-        short sessionLength = 20;
-        short sessionTimer = 0;
+        int sessionLength = 20;
+        int sessionTimer = 0;
         float timeStep;
         float timer = 0f;
         public override void EnterState(SchoolDayProgressionController progressionController)
         {
+            //consider pausing
             timeStep = progressionController.timeStep;
             Debug.Log("-------------Egress Time-------------");
             progressionController.EgressClasses();
+            progressionController.SchoolState = "Home time";
         }
 
         public override void Update(SchoolDayProgressionController progressionController)

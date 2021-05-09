@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SES.UI
 {
@@ -9,8 +10,12 @@ namespace SES.UI
         Animator anim;
         public void DisableWindow()
         {
-            anim = GetComponent<Animator>();
-            anim.Play("DisableWindow");
+            GetComponent<Animator>().Play("DisableWindow");
+        }
+
+        public void EnableWindows()
+        {
+            GetComponent<Animator>().Play("EnableWindow");
         }
     }
 }

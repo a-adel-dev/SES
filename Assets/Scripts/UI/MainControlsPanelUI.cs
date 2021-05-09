@@ -6,21 +6,16 @@ using UnityEngine.UI;
 using SES.SimProperties;
 using SES.Health;
 using SES.Core;
-/*
+
 namespace SES.UI
 {
     public class MainControlsPanelUI : MonoBehaviour
     {
-        
-        GeneralHealthParamaters healthSettings;
-        SimulationProperties sim;
-
-        [SerializeField] MainControlPanel mainControlPanel;
-
         [SerializeField] Slider timeScaleSlider;
         [SerializeField] InputField numDaysInput;
         [SerializeField] InputField numPeriodsInput;
-        [SerializeField] Slider periodLengthSlider;
+        [SerializeField] InputField periodLengthInput;
+        [SerializeField] InputField breakLengthInput;
         [SerializeField] Toggle activitiesToggle;
 
         [SerializeField] InputField numInfectedStudentsInput;
@@ -32,77 +27,67 @@ namespace SES.UI
         [SerializeField] Toggle schoolHalfToggle;
         [SerializeField] Toggle classHalfToggle;
 
-        [SerializeField] RectTransform ErrorPanel;
-        [SerializeField] FloatVariable timeStep;
-        bool noErrors = true;
+        [SerializeField] RectTransform errorPanel;
+        [SerializeField] Button continueButton;
+        bool noErrors = false;
 
-        // Start is called before the first frame update
-        void Start()
+        private void Update()
         {
-
-            healthSettings = FindObjectOfType<GeneralHealthParamaters>();
+            continueButton.interactable = noErrors;
         }
 
         public void DefaultSettings()
         {
-            timeScaleSlider.value = timeStep.value;
-            numDaysInput.text = sim.simLength.ToString();
-            numPeriodsInput.text = sim.numPeriods.ToString();
-            periodLengthSlider.value = sim.periodLength;
-            activitiesToggle.isOn = sim.activitiesEnabled;
+            timeScaleSlider.value = SimulationDefaults.timeStep;
+            numDaysInput.text = SimulationDefaults.simLength.ToString();
+            numPeriodsInput.text = SimulationDefaults.numPeriods.ToString();
+            periodLengthInput.text = SimulationDefaults.periodLength.ToString();
+            breakLengthInput.text = SimulationDefaults.breakLength.ToString();
+            activitiesToggle.isOn = SimulationDefaults.activitiesEnabled;
 
-            numInfectedStudentsInput.text = healthSettings.numStudentsContagious.ToString();
-            numInfectedTeachersInput.text = healthSettings.numTeachersContagious.ToString();
+            numInfectedStudentsInput.text = SimulationDefaults.initialNumStudentsContagious.ToString();
+            numInfectedTeachersInput.text = SimulationDefaults.initialNumTeachersContagious.ToString();
 
-            egressCoolDownInput.text = sim.cooldownClassExit.ToString();
-            GetHealthMasks(0, healthSettings.studentsMasks);
-            GetHealthMasks(1, healthSettings.teachersMasks);
+            egressCoolDownInput.text = SimulationDefaults.cooldownClassExit.ToString();
+            GetHealthMasks(0, SimulationDefaults.studentsMaskSettings);
+            GetHealthMasks(1, SimulationDefaults.teacherMaskSettings);
 
-            schoolHalfToggle.isOn = sim.halfCapacity;
-            classHalfToggle.isOn = sim.classroomHalfCapacity;
-            airControlDropDown.value = healthSettings.airControlSettings;
-
-
+            schoolHalfToggle.isOn = SimulationDefaults.halfCapacity;
+            classHalfToggle.isOn = SimulationDefaults.classroomHalfCapacity;
+            airControlDropDown.value = SimulationDefaults.airControlSettings;
         }
         public void ApplySettings()
         {
-            noErrors = true;
-            while (noErrors)
+            SimulationParameters.timeStep = timeScaleSlider.value;
+            if (numDaysInput.text == "0" || string.IsNullOrWhiteSpace(numDaysInput.text) || numPeriodsInput.text == "0" || string.IsNullOrWhiteSpace(numPeriodsInput.text)
+                || string.IsNullOrWhiteSpace(numInfectedStudentsInput.text) || string.IsNullOrWhiteSpace(numInfectedTeachersInput.text) || string.IsNullOrWhiteSpace(egressCoolDownInput.text))
             {
-                sim.SetTimeStep(timeScaleSlider.value);
-                if (numDaysInput.text == "0" || string.IsNullOrWhiteSpace(numDaysInput.text) || numPeriodsInput.text == "0" || string.IsNullOrWhiteSpace(numPeriodsInput.text)
-                    || string.IsNullOrWhiteSpace(numInfectedStudentsInput.text) || string.IsNullOrWhiteSpace(numInfectedTeachersInput.text) || string.IsNullOrWhiteSpace(egressCoolDownInput.text))
-                {
-                    ErrorPanel.gameObject.SetActive(true);
-                    noErrors = false;
-                }
-                else
-                {
-                    sim.SetSimLength(int.Parse(numDaysInput.text));
-                    sim.SetNumPeriods(int.Parse(numPeriodsInput.text));
-                    sim.SetPeriodLength((int)periodLengthSlider.value);
-                    sim.EnableActivities(activitiesToggle.isOn);
-
-                    healthSettings.numStudentsContagious = int.Parse(numInfectedStudentsInput.text);
-                    healthSettings.numTeachersContagious = int.Parse(numInfectedTeachersInput.text);
-
-                    sim.cooldownClassExit = int.Parse(egressCoolDownInput.text);
-
-                    SetHealthMasks(0, studentsMasksDropDown.value);
-                    SetHealthMasks(1, teachersMasksDropDown.value);
-
-                    healthSettings.airControlSettings = airControlDropDown.value;
-
-                    sim.halfCapacity = schoolHalfToggle.isOn;
-                    sim.classroomHalfCapacity = classHalfToggle.isOn;
-
-                    mainControlPanel.DisableWindow();
-                    noErrors = false;
-                }
+                errorPanel.gameObject.SetActive(true);
+                noErrors = false;
             }
+            else
+            {
+                SimulationParameters.simLength = Mathf.Abs(int.Parse(numDaysInput.text));
+                SimulationParameters.numPeriods = Mathf.Abs(int.Parse(numPeriodsInput.text));
+                SimulationParameters.periodLength = Mathf.Abs(int.Parse(periodLengthInput.text));
+                SimulationParameters.breakLength = Mathf.Abs(int.Parse(breakLengthInput.text));
+                SimulationParameters.activitiesEnabled = activitiesToggle.isOn;
 
+                SimulationParameters.initialNumStudentsContagious = Mathf.Abs(int.Parse(numInfectedStudentsInput.text));
+                SimulationParameters.initialNumTeachersContagious = Mathf.Abs(int.Parse(numInfectedTeachersInput.text));
+
+                SimulationParameters.cooldownClassExit = Mathf.Abs(int.Parse(egressCoolDownInput.text));
+
+                SetHealthMasks(0, studentsMasksDropDown.value);
+                SetHealthMasks(1, teachersMasksDropDown.value);
+
+                SimulationParameters.airControlSettings = airControlDropDown.value;
+
+                SimulationParameters.halfCapacity = schoolHalfToggle.isOn;
+                SimulationParameters.classroomHalfCapacity = classHalfToggle.isOn;
+                noErrors = true;
+            }
         }
-
         /// <summary>
         /// returns the value of healthMasks settings for a group of agents
         /// </summary>
@@ -153,7 +138,6 @@ namespace SES.UI
                 }
             }
         }
-
         /// <summary>
         /// Set the mask factor for a class of agents
         /// </summary>
@@ -166,19 +150,19 @@ namespace SES.UI
                 switch (Value)
                 {
                     case 0:
-                        healthSettings.studentsMasks = MaskFactor.none;
+                        SimulationDefaults.studentsMaskSettings = MaskFactor.none;
                         break;
                     case 1:
-                        healthSettings.studentsMasks = MaskFactor.cloth;
+                        SimulationDefaults.studentsMaskSettings = MaskFactor.cloth;
                         break;
                     case 2:
-                        healthSettings.studentsMasks = MaskFactor.surgical;
+                        SimulationDefaults.studentsMaskSettings = MaskFactor.surgical;
                         break;
                     case 3:
-                        healthSettings.studentsMasks = MaskFactor.N95;
+                        SimulationDefaults.studentsMaskSettings = MaskFactor.N95;
                         break;
                     default:
-                        healthSettings.studentsMasks = MaskFactor.none;
+                        SimulationDefaults.studentsMaskSettings = MaskFactor.none;
                         break;
                 }
             }
@@ -187,25 +171,22 @@ namespace SES.UI
                 switch (Value)
                 {
                     case 0:
-                        healthSettings.teachersMasks = MaskFactor.none;
+                        SimulationDefaults.teacherMaskSettings = MaskFactor.none;
                         break;
                     case 1:
-                        healthSettings.teachersMasks = MaskFactor.cloth;
+                        SimulationDefaults.teacherMaskSettings = MaskFactor.cloth;
                         break;
                     case 2:
-                        healthSettings.teachersMasks = MaskFactor.surgical;
+                        SimulationDefaults.teacherMaskSettings = MaskFactor.surgical;
                         break;
                     case 3:
-                        healthSettings.teachersMasks = MaskFactor.N95;
+                        SimulationDefaults.teacherMaskSettings = MaskFactor.N95;
                         break;
                     default:
-                        healthSettings.teachersMasks = MaskFactor.none;
+                        SimulationDefaults.teacherMaskSettings = MaskFactor.none;
                         break;
                 }
             }
         }
-
-
     }
 }
-*/

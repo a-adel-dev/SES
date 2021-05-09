@@ -4,8 +4,10 @@ using UnityEngine;
 
 namespace SES.Core
 {
-    public static class SimulationParameters 
+    public static class SimulationDefaults
     {
+        
+
         #region primary parameters
         public static int periodLength { get; set; } = 50;
         public static int breakLength { get; set; } = 5;

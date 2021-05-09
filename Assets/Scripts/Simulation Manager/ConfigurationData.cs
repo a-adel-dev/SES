@@ -10,9 +10,9 @@ namespace SES.SimProperties
         const string ConfigurationDataFileName = "ConfigurationData.csv";
 
         //config data goes here
-        public short simulationTotalLength { get; set; } = 14;
-        public short numberOfSchoolDayPeriods { get; set; } = 4;
-        public short periodLength { get; set; } = 40;
+        public int simulationTotalLength { get; set; } = 14;
+        public int numberOfSchoolDayPeriods { get; set; } = 4;
+        public int periodLength { get; set; } = 40;
 
         public float timeStep { get; set; } = 4f;
 
@@ -51,9 +51,9 @@ namespace SES.SimProperties
         {
             string[] values = csvValues.Split(',');
 
-            simulationTotalLength = short.Parse(values[0]);
-            numberOfSchoolDayPeriods = short.Parse(values[1]);
-            periodLength = short.Parse(values[2]);
+            simulationTotalLength = int.Parse(values[0]);
+            numberOfSchoolDayPeriods = int.Parse(values[1]);
+            periodLength = int.Parse(values[2]);
             timeStep = float.Parse(values[3]);
         }
     }

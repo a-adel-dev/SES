@@ -1,18 +1,20 @@
-﻿using UnityEngine;
-
+﻿using System.Collections;
+using UnityEngine;
 
 namespace SES.School
 {
-    public class SSimOver : SSchoolBaseState
+    public class SPaused : SSchoolBaseState
     {
         public override void EnterState(SchoolDayProgressionController progressionController)
         {
-            progressionController.SchoolState = "Simulation is over";
+            //pause classes and everything
+            progressionController.PauseClasses();
+            progressionController.SchoolState = "Paused";
         }
 
         public override void Update(SchoolDayProgressionController progressionController)
         {
-            
+
         }
     }
 }

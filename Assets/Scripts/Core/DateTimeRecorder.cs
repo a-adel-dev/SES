@@ -14,6 +14,7 @@ namespace SES.Core
         static int hour { get; set; } = 8;
         static int minute { get; set; } = 0;
 
+        
         public static void StartSchoolDate()
         {
             schoolTime = new DateTime(2020, month, day, hour, minute, 00);

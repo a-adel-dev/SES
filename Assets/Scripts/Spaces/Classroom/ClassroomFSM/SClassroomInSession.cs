@@ -17,9 +17,12 @@ namespace SES.Spaces.Classroom
 
         public override void EnterState(ClassroomPeriodSchedular schedular)
         {
-            InitializeValues();
-            StructureClass();
-            CheckActivity();
+            if (resumed == false)
+            {
+                InitializeValues();
+                StructureClass();
+                CheckActivity();
+            }           
         }
 
         public override void Update(ClassroomPeriodSchedular schedular)
@@ -63,7 +66,6 @@ namespace SES.Spaces.Classroom
 
         private void CheckActivity()
         {
-
             if (classSections[currentSectionIndex] >= SimulationParameters.minClassActivityTime)
             {
                 Debug.Log("Activity");

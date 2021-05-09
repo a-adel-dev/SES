@@ -7,11 +7,9 @@ namespace SES.UI
 {
     public class ErrorPanelUI : MonoBehaviour
     {
-        public RectTransform errorPanel;
-
         public void DisablePanel()
         {
-            errorPanel.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 }

@@ -5,33 +5,29 @@ using UnityEngine;
 using UnityEngine.UI;
 using SES.School;
 using SES.SimProperties;
-/*
+using SES.Core;
+
 namespace SES.UI
 {
-    
     public class HUDUI : MonoBehaviour
     {
-        SchoolManager schoolManager;
-        SimulationProperties simProperties;
-
+        SimulationController sim;
         [SerializeField] Text classStatus;
-        [SerializeField] Text classTime;
         [SerializeField] Text classDate;
+        [SerializeField] Button spaceControlButton;
+        [SerializeField] Button mainControlsShowButton;
+        [SerializeField] Button mainControlsHideButton;
         [SerializeField] Button startSim;
         [SerializeField] Button pauseSim;
         [SerializeField] Button resumeSim;
         [SerializeField] Button endSim;
-        [SerializeField] Button spaceControlButton;
-        [SerializeField] Button mainControlsButton;
 
+        SchoolDayProgressionController school;
 
-
-
-        // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
-            schoolManager = FindObjectOfType<SchoolManager>();
-            simProperties = FindObjectOfType<SimulationProperties>();
+            sim = FindObjectOfType<SimulationController>();
+            school = FindObjectOfType<SchoolDayProgressionController>();
         }
 
         // Update is called once per frame
@@ -42,60 +38,67 @@ namespace SES.UI
 
         private void updateUIInfo()
         {
-            //class status
-            if (schoolManager.classInSession)
-            {
-                classStatus.text = "Classes in Session";
-            }
-            else
-            {
-                classStatus.text = "Break time";
-            }
 
+            classStatus.text = school.SchoolState;
             //time
             //year - month - day - hour - minute - seconds
             //DateTime dt = new DateTime(0, 0, 0, 0, schoolManager.schoolTime, 0);
 
-            classTime.text = String.Format("Time{0:hh:mm}", simProperties.schoolDate);
-
-            //date
-            classDate.text = String.Format("Day{0:dd}", simProperties.schoolDate);
+            classDate.text = String.Format("{0:f}", DateTimeRecorder.schoolTime);
 
         }
 
         public void UIStartSim()
         {
-            simProperties.StartSim();
+            sim.StartSim();
             pauseSim.gameObject.SetActive(true);
         }
 
         public void UIPauseSim()
         {
-            simProperties.PauseSim();
+            sim.PauseSim();
             resumeSim.gameObject.SetActive(true);
             pauseSim.gameObject.SetActive(false);
         }
 
         public void UIResumeSim()
         {
-            simProperties.ResumeSim();
+            sim.ResumeSim();
             pauseSim.gameObject.SetActive(true);
             resumeSim.gameObject.SetActive(false);
         }
 
         public void ShowSpacePanel()
         {
-            if (GetComponent<AgentPanelUI>().agentPanelUp)
-            {
-                GetComponent<ScreenSelector>().DeactivateAgentPanel();
-            }
-            GetComponent<SpacePanelUI>().MovePanelUp();
+            //if (GetComponent<AgentPanelUI>().agentPanelUp)
+            //{
+            //    GetComponent<ScreenSelector>().DeactivateAgentPanel();
+            //}
+            //GetComponent<SpacePanelUI>().MovePanelUp();
         }
 
         public void HideSpacePanel()
         {
-            GetComponent<SpacePanelUI>().MovePanelDown();
+            //GetComponent<SpacePanelUI>().MovePanelDown();
         }
+
+        public void EnableStart()
+        {
+            startSim.interactable = true;
+        }
+
+        public void ShowParameters()
+        {
+            mainControlsHideButton.gameObject.SetActive(true);
+            mainControlsShowButton.gameObject.SetActive(false);
+        }
+
+        public void HideParameters()
+        {
+            mainControlsShowButton.gameObject.SetActive(true);
+            mainControlsHideButton.gameObject.SetActive(false);
+        }
+
     }
 }
-    */
+

@@ -7,24 +7,25 @@ namespace SES.School
 {
     public class SchoolDayProgressionController : MonoBehaviour
     {
-        public short periodLength { get; set; } = 45;
-        public short breakLength { get; set; } = 5;
-        public short numPeriods { get; set; } = 2;
-        public short simLength { get; set; } = 2;
+        public int periodLength { get; set; } = 45;
+        public int breakLength { get; set; } = 5;
+        public int numPeriods { get; set; } = 2;
+        public int simLength { get; set; } = 2;
         public float timeStep { get; set; } = 0.5f;
 
         SchoolSubSpacesBucket subspaces;
-
-        
+        public string SchoolState = "";
 
         #region FSm
         private SSchoolBaseState currentState;
+        private SSchoolBaseState pausedState;
 
         public readonly SClassesInSession classesInSession = new SClassesInSession();
         public readonly SBreakTime breakTime = new SBreakTime();
         public readonly SEgressTime egressTime = new SEgressTime();
         public readonly SOffTime offTime = new SOffTime();
         public readonly SSimOver simOver = new SSimOver();
+        public readonly SPaused paused = new SPaused();
 
         public void TransitionToState(SSchoolBaseState state)
         {
@@ -37,16 +38,18 @@ namespace SES.School
         private void Start()
         {
             subspaces = GetComponent<SchoolSubSpacesBucket>();
-            InitializeProperties();
-            StartSchoolDay();
         }
 
         private void Update()
         {
-            currentState.Update(this);
+            if (currentState != null) 
+            {
+                currentState.Update(this);
+            }
         }
 
-        private void InitializeProperties()
+
+        public void InitializeProperties()
         {
             periodLength = SimulationParameters.periodLength;
             breakLength = SimulationParameters.breakLength;
@@ -57,8 +60,23 @@ namespace SES.School
 
         public void StartSchoolDay()
         {
-            DateTimeRecorder.StartSchoolDate();
             TransitionToState(classesInSession);
+        }
+
+        public void PauseSchool()
+        {
+            currentState.resumed = true;
+            pausedState = currentState;
+            TransitionToState(paused);
+        }
+
+        public void ResumeSchool()
+        {
+            if (pausedState != null)
+            {
+                TransitionToState(pausedState);
+                pausedState = null;
+            }
         }
 
         public void StartPeriod()
@@ -75,7 +93,21 @@ namespace SES.School
                 classroom.StartClass();
             }
         }
+        public void PauseClasses()
+        {
+            foreach (IClassroom classroom in subspaces.classrooms)
+            {
+                classroom.PauseClass();
+            }
+        }
 
+        public void ResumeClasses()
+        {
+            foreach (IClassroom classroom in subspaces.classrooms)
+            {
+                classroom.ResumeClass();
+            }
+        }
         public void EndPeriod()
         {
             foreach (IClassroom classroom in subspaces.classrooms)

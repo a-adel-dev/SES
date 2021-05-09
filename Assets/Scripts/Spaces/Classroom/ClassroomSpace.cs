@@ -51,6 +51,18 @@ namespace SES.Spaces.Classroom
             //studentController.ResetPupilBehavior();
         }
 
+        public void PauseClass()
+        {
+            classScheduler.PauseClass();
+            Debug.Log($"Pausing Class {gameObject.name}");
+        }
+
+        public void ResumeClass()
+        {
+            classScheduler.ResumeClass();
+            Debug.Log($"resuming Class {gameObject.name}");
+        }
+
         public void EndClass()
         {
             classScheduler.EndClass();

@@ -15,5 +15,7 @@ namespace SES.Core
         void StartClass();
         //void SetSchoolDayState(SchoolDayState schoolDayState);
         void EndClass();
+        void PauseClass();
+        void ResumeClass();
     }
 }

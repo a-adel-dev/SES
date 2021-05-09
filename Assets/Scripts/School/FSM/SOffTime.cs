@@ -8,8 +8,8 @@ namespace SES.School
 {
     public class SOffTime : SSchoolBaseState
     {
-        short simLength;
-        short progressionIndex = 0;
+        int simLength;
+        int progressionIndex = 0;
 
         public override void EnterState(SchoolDayProgressionController progressionController)
         {

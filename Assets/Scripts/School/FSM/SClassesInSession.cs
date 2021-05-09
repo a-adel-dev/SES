@@ -7,25 +7,32 @@ namespace SES.School
     public class SClassesInSession : SSchoolBaseState 
     {
 
-        short sessionTimer = 0;
-        public short sessionLength;
+        int sessionTimer = 0;
+        public int sessionLength;
         public float timeStep;
         float timer = 0f;
 
         public override void EnterState(SchoolDayProgressionController progressionController)
         {
-            sessionLength = progressionController.periodLength;
-            timeStep = progressionController.timeStep;
-            Debug.Log($"----------Classes In session----------");
-            progressionController.StartPeriod();
+            if (resumed == false)
+            {
+                sessionLength = progressionController.periodLength;
+                timeStep = progressionController.timeStep;
+                progressionController.StartPeriod();
+            }
+            else
+            {
+                progressionController.ResumeClasses();
+            }
+            progressionController.SchoolState = "Classes in session";
         }
 
         public override void Update(SchoolDayProgressionController progressionController)
         {
-            
             if (sessionTimer >= sessionLength)
             {
                 sessionTimer = 0;
+                resumed = false;
                 progressionController.TransitionToState(progressionController.breakTime);
             }
             else

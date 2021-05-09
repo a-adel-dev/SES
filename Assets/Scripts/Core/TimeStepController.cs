@@ -16,7 +16,7 @@ namespace SES.Core
 
         void Update()
         {
-            PassTime();
+            //PassTime();
         }
 
         private void PassTime()
@@ -27,11 +27,6 @@ namespace SES.Core
                 timer -= timeStep;
                 SendMessage("TimeStep");
             }
-        }
-
-        public short TimeStep()
-        {
-            return 1;
         }
     }
 

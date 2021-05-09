@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
+using SES.Core;
 
 namespace SES.SimProperties
 {
@@ -12,6 +8,8 @@ namespace SES.SimProperties
         private void Awake()
         {
             ConfigurationUtils.Initialize();
+            //read data from the csv and put in the defaults file
+            DateTimeRecorder.StartSchoolDate();
         }
     }
 }

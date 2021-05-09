@@ -9,6 +9,7 @@ namespace SES.Spaces.Classroom
     {
         #region FSM
         private SClassroomBaseState currentState;
+        private SClassroomBaseState pausedState;
         protected void TransitionToState(SClassroomBaseState state)
         {
             currentState = state;
@@ -16,14 +17,12 @@ namespace SES.Spaces.Classroom
         }
         #endregion
 
-        private void Start()
-        {
-            PauseClass();
-        }
-
         private void Update()
         {
-            currentState.Update(this);
+            if (currentState != null)
+            {
+                currentState.Update(this);
+            } 
         }
 
         public void StartClass()
@@ -43,7 +42,18 @@ namespace SES.Spaces.Classroom
 
         public void PauseClass()
         {
+            currentState.resumed = true;
+            pausedState = currentState;
             TransitionToState(new SClassroomIdle());
+        }
+
+        public void ResumeClass()
+        {
+            if (pausedState != null)
+            {
+                TransitionToState(pausedState);
+                pausedState = null;
+            }
         }
 
     }
