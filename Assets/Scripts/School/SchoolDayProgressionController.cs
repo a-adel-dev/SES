@@ -13,7 +13,8 @@ namespace SES.School
         public int simLength { get; set; } = 2;
         public float timeStep { get; set; } = 0.5f;
 
-        SchoolSubSpacesBucket subspaces;
+
+        public SchoolSubSpacesBucket subspaces;
         public string SchoolState = "";
 
         #region FSm
@@ -88,10 +89,12 @@ namespace SES.School
             //Direct released classes students to their Labs
             //relinquish students control to labs
             //start classes in the rest of the classes.
+
             foreach (IClassroom classroom in subspaces.classrooms)
             {
                 classroom.StartClass();
             }
+
         }
         public void PauseClasses()
         {

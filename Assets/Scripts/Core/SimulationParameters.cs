@@ -21,9 +21,9 @@ namespace SES.Core
         public static MaskFactor studentsMaskSettings { get; set; } = MaskFactor.none;
         public static MaskFactor teacherMaskSettings { get; set; } = MaskFactor.none;
 
-        public static bool halfCapacity { get; set; } = false;
+        public static bool schoolHalfCapacity { get; set; } = false;
         public static bool classroomHalfCapacity { get; set; } = false;
-
+        
         internal static int airControlSettings { get; set; } = 0;
         #endregion
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using SES.Core;
 
-namespace SES.SimProperties
+namespace SES.SimManager
 {
     public class SimInitializer : MonoBehaviour
     {

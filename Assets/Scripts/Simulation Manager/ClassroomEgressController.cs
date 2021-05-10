@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SES.Core;
 
-namespace SES.SimProperties
+namespace SES.SimManager
 {
     public class ClassroomEgressController : MonoBehaviour
     {

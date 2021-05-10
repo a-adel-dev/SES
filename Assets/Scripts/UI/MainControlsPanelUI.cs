@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using SES.SimProperties;
-using SES.Health;
 using SES.Core;
 
 namespace SES.UI
@@ -28,31 +23,31 @@ namespace SES.UI
         [SerializeField] Toggle classHalfToggle;
 
         [SerializeField] RectTransform errorPanel;
+        [SerializeField] Button defaultsButton;
+        [SerializeField] Button applyButton;
         [SerializeField] Button continueButton;
-        bool noErrors = false;
-
-        private void Update()
-        {
-            continueButton.interactable = noErrors;
-        }
 
         public void DefaultSettings()
         {
             timeScaleSlider.value = SimulationDefaults.timeStep;
+
             numDaysInput.text = SimulationDefaults.simLength.ToString();
             numPeriodsInput.text = SimulationDefaults.numPeriods.ToString();
             periodLengthInput.text = SimulationDefaults.periodLength.ToString();
             breakLengthInput.text = SimulationDefaults.breakLength.ToString();
+
             activitiesToggle.isOn = SimulationDefaults.activitiesEnabled;
 
             numInfectedStudentsInput.text = SimulationDefaults.initialNumStudentsContagious.ToString();
             numInfectedTeachersInput.text = SimulationDefaults.initialNumTeachersContagious.ToString();
 
             egressCoolDownInput.text = SimulationDefaults.cooldownClassExit.ToString();
+
             GetHealthMasks(0, SimulationDefaults.studentsMaskSettings);
             GetHealthMasks(1, SimulationDefaults.teacherMaskSettings);
 
             schoolHalfToggle.isOn = SimulationDefaults.halfCapacity;
+
             classHalfToggle.isOn = SimulationDefaults.classroomHalfCapacity;
             airControlDropDown.value = SimulationDefaults.airControlSettings;
         }
@@ -63,7 +58,7 @@ namespace SES.UI
                 || string.IsNullOrWhiteSpace(numInfectedStudentsInput.text) || string.IsNullOrWhiteSpace(numInfectedTeachersInput.text) || string.IsNullOrWhiteSpace(egressCoolDownInput.text))
             {
                 errorPanel.gameObject.SetActive(true);
-                noErrors = false;
+                continueButton.interactable = false;
             }
             else
             {
@@ -71,6 +66,7 @@ namespace SES.UI
                 SimulationParameters.numPeriods = Mathf.Abs(int.Parse(numPeriodsInput.text));
                 SimulationParameters.periodLength = Mathf.Abs(int.Parse(periodLengthInput.text));
                 SimulationParameters.breakLength = Mathf.Abs(int.Parse(breakLengthInput.text));
+
                 SimulationParameters.activitiesEnabled = activitiesToggle.isOn;
 
                 SimulationParameters.initialNumStudentsContagious = Mathf.Abs(int.Parse(numInfectedStudentsInput.text));
@@ -83,11 +79,42 @@ namespace SES.UI
 
                 SimulationParameters.airControlSettings = airControlDropDown.value;
 
-                SimulationParameters.halfCapacity = schoolHalfToggle.isOn;
+                SimulationParameters.schoolHalfCapacity = schoolHalfToggle.isOn;
                 SimulationParameters.classroomHalfCapacity = classHalfToggle.isOn;
-                noErrors = true;
+                continueButton.interactable = true;
+
             }
         }
+
+        public void MakeValuesReadOnly()
+        {
+            timeScaleSlider.interactable = false;
+            timeScaleSlider.interactable = false;
+            numDaysInput.interactable = false;
+            numPeriodsInput.interactable = false;
+            periodLengthInput.interactable = false;
+            breakLengthInput.interactable = false;
+            activitiesToggle.interactable = false;
+
+            numInfectedStudentsInput.interactable = false;
+            numInfectedTeachersInput.interactable = false;
+
+            egressCoolDownInput.interactable = false;
+
+            GetHealthMasks(0, SimulationDefaults.studentsMaskSettings);
+            GetHealthMasks(1, SimulationDefaults.teacherMaskSettings);
+            studentsMasksDropDown.interactable = false;
+            teachersMasksDropDown.interactable = false;
+
+            schoolHalfToggle.interactable = false;
+            classHalfToggle.interactable = false;
+            airControlDropDown.interactable = false;
+            defaultsButton.gameObject.SetActive(false);
+            applyButton.gameObject.SetActive(false);
+            continueButton.gameObject.SetActive(false);
+        }
+
+        #region enums UI wiring
         /// <summary>
         /// returns the value of healthMasks settings for a group of agents
         /// </summary>
@@ -188,5 +215,7 @@ namespace SES.UI
                 }
             }
         }
+        #endregion
+
     }
 }

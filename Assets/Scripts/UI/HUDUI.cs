@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using SES.School;
-using SES.SimProperties;
+using SES.SimManager;
 using SES.Core;
 
 namespace SES.UI

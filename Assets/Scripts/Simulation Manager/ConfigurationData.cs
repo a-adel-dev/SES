@@ -2,7 +2,7 @@
 using System.IO;
 using System;
 
-namespace SES.SimProperties
+namespace SES.SimManager
 {
     public class ConfigurationData
     {

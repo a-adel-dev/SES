@@ -1694,6 +1694,8 @@ MonoBehaviour:
   schoolHalfToggle: {fileID: 808713991}
   classHalfToggle: {fileID: 709865717}
   errorPanel: {fileID: 1056076091}
+  defaultsButton: {fileID: 234443670}
+  applyButton: {fileID: 1242426306}
   continueButton: {fileID: 918063639}
 --- !u!1 &91765216
 GameObject:
@@ -17805,6 +17807,17 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 438517890}
         m_MethodName: EnableStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 91239200}
+        m_MethodName: MakeValuesReadOnly
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -1,4 +1,4 @@
-﻿namespace SES.SimProperties
+﻿namespace SES.SimManager
 {
     public static class ConfigurationUtils
     {
