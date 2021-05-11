@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using SES.Core;
@@ -9,28 +9,47 @@ namespace SES.School
 {
     public class SchoolSubSpacesBucket : MonoBehaviour
     {
-        public ClassroomSpace[] classrooms;
-        public Bathroom[] bathrooms;
-        public Corridor[] corridors;
-        public Teachersroom[] teachersrooms;
-        public Lab[] labs;
-        public EgressPoint[] staircases;
+        private ClassroomSpace[] totalClassrooms;
+        public Bathroom[] bathrooms { get; set; }
+        public Corridor[] corridors { get; set; }
+        public Teachersroom[] teachersrooms { get; set; }
+        public Lab[] labs { get; set; }
+        public EgressPoint[] staircases { get; set; }
+        public List<ClassroomSpace> classrooms { get; set; } = new List<ClassroomSpace>();
 
         // Use this for initialization
-        void Start()
+        public void Initialize()
         {
             AllocateSubSpaces();
+            PopulateWorkingClassrooms();
         }
 
         private void AllocateSubSpaces()
         {
-            classrooms = FindObjectsOfType<ClassroomSpace>();
+            totalClassrooms = FindObjectsOfType<ClassroomSpace>();
             bathrooms = FindObjectsOfType<Bathroom>();
             corridors = FindObjectsOfType<Corridor>();
             teachersrooms = FindObjectsOfType<Teachersroom>();
             labs = FindObjectsOfType<Lab>();
             staircases = FindObjectsOfType<EgressPoint>();
+        }
 
+        private void PopulateWorkingClassrooms()
+        {
+            if (SimulationParameters.schoolHalfCapacity)
+            {
+                for (int i = 0; i < totalClassrooms.Length; i = i + 2)
+                {
+                    classrooms.Add(totalClassrooms[i]);
+                }
+            }
+            else
+            {
+                foreach (ClassroomSpace classroom in totalClassrooms)
+                {
+                    classrooms.Add(classroom);
+                }
+            }
         }
 
         public Bathroom GetNearestBathroom(IStudentAI pupil)

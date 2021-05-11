@@ -31,6 +31,8 @@ namespace SES.Core
         public static int minClassSectionNumber { get; internal set; } = 1;
         public static int maxClassSectionNumber { get; internal set; } = 8;
         public static int minClassActivityTime { get; internal set; } = 8;
+
+        public static int numSkippedClasses { get; internal set; } = 1;
         #endregion
     }
 }

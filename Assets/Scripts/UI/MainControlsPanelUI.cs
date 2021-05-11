@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using SES.Core;
+using SES.SimManager;
 
 namespace SES.UI
 {
     public class MainControlsPanelUI : MonoBehaviour
     {
+        SimInitializer initializer;
+
         [SerializeField] Slider timeScaleSlider;
         [SerializeField] InputField numDaysInput;
         [SerializeField] InputField numPeriodsInput;
@@ -26,6 +29,12 @@ namespace SES.UI
         [SerializeField] Button defaultsButton;
         [SerializeField] Button applyButton;
         [SerializeField] Button continueButton;
+
+
+        private void Start()
+        {
+            initializer = FindObjectOfType<SimInitializer>();
+        }
 
         public void DefaultSettings()
         {
@@ -81,9 +90,15 @@ namespace SES.UI
 
                 SimulationParameters.schoolHalfCapacity = schoolHalfToggle.isOn;
                 SimulationParameters.classroomHalfCapacity = classHalfToggle.isOn;
-                continueButton.interactable = true;
 
+                
+                continueButton.interactable = true;
             }
+        }
+
+        public void Initializer()
+        {
+            initializer.InitializeVariables();
         }
 
         public void MakeValuesReadOnly()
@@ -101,8 +116,6 @@ namespace SES.UI
 
             egressCoolDownInput.interactable = false;
 
-            GetHealthMasks(0, SimulationDefaults.studentsMaskSettings);
-            GetHealthMasks(1, SimulationDefaults.teacherMaskSettings);
             studentsMasksDropDown.interactable = false;
             teachersMasksDropDown.interactable = false;
 
@@ -111,7 +124,6 @@ namespace SES.UI
             airControlDropDown.interactable = false;
             defaultsButton.gameObject.SetActive(false);
             applyButton.gameObject.SetActive(false);
-            continueButton.gameObject.SetActive(false);
         }
 
         #region enums UI wiring
