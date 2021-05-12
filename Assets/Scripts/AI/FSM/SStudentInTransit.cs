@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 namespace SES.AIControl.FSM
 {
-    public class StateInClassroom : StudentBaseState
+    public class SStudentInTransit : StudentBaseState
     {
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
-            Debug.Log($"in classroom");
+            Debug.Log($"in transit");
+            behaviorControl.ResumeAgent();
         }
 
         public override void OnTriggerEnter(StudentBehaviorControl behaviorControl)

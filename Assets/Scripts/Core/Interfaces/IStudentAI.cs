@@ -9,27 +9,10 @@ namespace SES.Core
 {
     public interface IStudentAI : IAI
     {
+        void StartClass();
+        void StartActivity();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        void NavigateTo(Vector3 location);
         /*
         void SetStudentLocationTo(StudentState location);
         void BackToDesk();

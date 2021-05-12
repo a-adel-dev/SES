@@ -1,28 +1,17 @@
 ﻿using System.Collections;
 using UnityEngine;
 using SES.Core;
-
+/*
 namespace SES.AIControl
 {
     public class StudentAI : MonoBehaviour, IStudentAI
     {
-        StudentBehaviorControl behavior;
+        //StudentBehaviorControl behavior;
 
         private void Start()
         {
-            behavior = GetComponent<StudentBehaviorControl>();
+            //behavior = GetComponent<StudentBehaviorControl>();
         }
-
-        public void SetBehavior(StudentState state)
-        {
-            behavior.SetStudentState(state);
-        }
-
-
-
-
-
-
 
         #region General methods
         public Transform GetTransform()
@@ -175,3 +164,4 @@ namespace SES.AIControl
         #endregion
     }
 }
+*/

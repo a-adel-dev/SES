@@ -10,7 +10,6 @@ namespace SES.Core
 {
     public interface IAI
     {
-        Transform GetTransform();
         GameObject GetGameObject();
 
         bool IsTeacher();

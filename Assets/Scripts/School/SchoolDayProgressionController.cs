@@ -16,6 +16,9 @@ namespace SES.School
 
         public SchoolSubSpacesBucket subspaces;
         public string SchoolState = "";
+        public bool activitiesEnabled;
+
+
 
         #region FSm
         private SSchoolBaseState currentState;
@@ -57,6 +60,7 @@ namespace SES.School
             numPeriods = SimulationParameters.numPeriods;
             simLength = SimulationParameters.simLength;
             timeStep = SimulationParameters.timeStep;
+            activitiesEnabled = SimulationParameters.activitiesEnabled;
         }
 
         public void StartSchoolDay()
@@ -92,6 +96,7 @@ namespace SES.School
 
             foreach (IClassroom classroom in subspaces.classrooms)
             {
+                classroom.SetActivities(activitiesEnabled);
                 classroom.StartClass();
             }
 

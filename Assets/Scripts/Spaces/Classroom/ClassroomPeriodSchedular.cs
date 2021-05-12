@@ -7,10 +7,13 @@ namespace SES.Spaces.Classroom
 {
     public class ClassroomPeriodSchedular : MonoBehaviour
     {
+        public bool activitiesEnabled;
+        public SpaceStudentsBucket studentsBucket;
+        public string currentStateName;
         #region FSM
         private SClassroomBaseState currentState;
         private SClassroomBaseState pausedState;
-        protected void TransitionToState(SClassroomBaseState state)
+        public void TransitionToState(SClassroomBaseState state)
         {
             currentState = state;
             state.EnterState(this);
@@ -21,12 +24,17 @@ namespace SES.Spaces.Classroom
         {
             if (currentState != null)
             {
+                currentStateName = currentState.ToString();
                 currentState.Update(this);
             } 
         }
 
         public void StartClass()
         {
+            if (studentsBucket == null)
+            {
+                studentsBucket = GetComponent<SpaceStudentsBucket>();
+            }
             TransitionToState(new SClassroomInSession());
         }
 
@@ -56,5 +64,18 @@ namespace SES.Spaces.Classroom
             }
         }
 
+        public void SetActivitiesEnabledTo(bool state)
+        {
+            activitiesEnabled = state;
+        }
+
+        public void DoActivity(int activityPeriod, SClassroomInSession perviousState)
+        {
+            pausedState = currentState;
+            SClassActivity activity = new SClassActivity();
+            activity.originalState = perviousState;
+            activity.activityPeriod = activityPeriod;
+            TransitionToState(activity);
+        }
     }
 }

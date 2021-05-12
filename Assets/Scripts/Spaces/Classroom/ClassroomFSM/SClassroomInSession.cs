@@ -17,17 +17,22 @@ namespace SES.Spaces.Classroom
 
         public override void EnterState(ClassroomPeriodSchedular schedular)
         {
+            foreach (IStudentAI student in schedular.studentsBucket.studentsCurrentlyInSpace)
+            {
+                student.StartClass();
+            }
+            //Debug.Log($"In session");
             if (resumed == false)
             {
                 InitializeValues();
                 StructureClass();
-                CheckActivity();
+                CheckActivity(schedular);
             }           
         }
 
         public override void Update(ClassroomPeriodSchedular schedular)
         {
-            PassTime();
+            PassTime(schedular);
         }
 
         void InitializeValues()
@@ -37,7 +42,7 @@ namespace SES.Spaces.Classroom
             timeStep = SimulationParameters.timeStep;
         }
 
-        private void PassTime()
+        private void PassTime(ClassroomPeriodSchedular schedular)
         {
             timer += Time.deltaTime;
             if (timer >= timeStep)
@@ -46,33 +51,42 @@ namespace SES.Spaces.Classroom
                 {
                     return;
                 }
+                //check if last section
                 if (currentSectionIndex + 1 == classSections.Count)
                 {
-                    CheckActivity();
                     lastSection = true;
+                    CheckActivity(schedular);
+                    sessionTimer = 0;
                     return;
                 }
                 timer -= timeStep;
                 sessionTimer++;
-
+                //check if next section
                 if (sessionTimer >= classSections[currentSectionIndex])
                 {
                     currentSectionIndex++;
+                    CheckActivity(schedular);
                     sessionTimer = 0;
-                    CheckActivity();
                 }
             }
         }
 
-        private void CheckActivity()
+        private void CheckActivity(ClassroomPeriodSchedular schedular)
         {
+            //Debug.Log($"checking activity at {sessionTimer}");
+            if (schedular.activitiesEnabled == false)
+            {
+                return;
+            }
             if (classSections[currentSectionIndex] >= SimulationParameters.minClassActivityTime)
             {
-                Debug.Log("Activity");
-            }
-            else
-            {
-                Debug.Log("No activity");
+                resumed = true;
+                //Debug.Log($"Activity time is {classSections[currentSectionIndex]}");
+                schedular.DoActivity((classSections[currentSectionIndex]), this);
+                if (lastSection == false)
+                {
+                    //currentSectionIndex++;
+                }
             }
         }
 
@@ -103,6 +117,10 @@ namespace SES.Spaces.Classroom
                 classroomSectionList.Add(value);
             }
             classSections = classroomSectionList;
+            foreach (int n in classSections)
+            {
+                Debug.Log($"{n}");
+            }
         }
     }
 }

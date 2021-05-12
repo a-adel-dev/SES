@@ -35,12 +35,12 @@ namespace SES.Spaces
             }
         }
 
-        public void SetTimeStep(float timeStep)
+        public GameObject GetGameObject()
         {
             throw new System.NotImplementedException();
         }
 
-        public GameObject GetGameObject()
+        public Spot RequestDesk(IAI student)
         {
             throw new System.NotImplementedException();
         }

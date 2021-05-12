@@ -11,7 +11,7 @@ namespace SES.Spaces
         //ClassroomSpace currentOriginalClass;
         //BoxCollider teachersSpace;
         //SchoolDayState schoolDayState;
-        //public SpotBucket labObjects;
+        public SpotBucket labObjects;
         //public SpaceStudentsBucket labStudents;
 
         ////lab variables
@@ -160,6 +160,19 @@ namespace SES.Spaces
         public GameObject GetGameObject()
         {
             throw new System.NotImplementedException();
+        }
+
+        public Spot RequestDesk(IAI student)
+        {
+            foreach (Spot desk in labObjects.desks)
+            {
+                if (desk.ISpotAvailable())
+                {
+                    desk.FillSpot(student);
+                    return desk;
+                }
+            }
+            return null;
         }
     }
 }

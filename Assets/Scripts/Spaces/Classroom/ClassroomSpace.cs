@@ -7,10 +7,8 @@ namespace SES.Spaces.Classroom
     public class ClassroomSpace : MonoBehaviour, IClassroom
     {
         public ClassroomPeriodSchedular classScheduler;
-        //public SpaceStudentsBucket studentsBucket;
+        public SpaceStudentsBucket studentsBucket;
         public SpotBucket classroomSubSpaces;
-        //public AgentSpawner spawner;
-        //public BehaviorController studentController;
         ////public ActivityPlanner planner;
         ////SchoolDayState schoolDayState;
         ////bool classEmpty = false;
@@ -21,7 +19,7 @@ namespace SES.Spaces.Classroom
         //private void Awake()
         //{
         //    classScheduler = GetComponent<ClassroomPeriodSchedular>();
-        //    studentsBucket = GetComponent<SpaceStudentsBucket>();
+        //    
         //    
         //    spawner = GetComponent<AgentSpawner>();
         //    studentController = GetComponent<BehaviorController>();
@@ -30,6 +28,7 @@ namespace SES.Spaces.Classroom
 
         private void Start()
         {
+            studentsBucket = GetComponent<SpaceStudentsBucket>();
             classroomSubSpaces = GetComponent<SpotBucket>();
             classScheduler = GetComponent<ClassroomPeriodSchedular>();
             //SpawnAgents();
@@ -48,7 +47,6 @@ namespace SES.Spaces.Classroom
         {
             classScheduler.StartClass();
             Debug.Log($"starting {gameObject.name}");
-            //studentController.ResetPupilBehavior();
         }
 
         public void PauseClass()
@@ -74,6 +72,24 @@ namespace SES.Spaces.Classroom
         public GameObject GetGameObject()
         {
             return gameObject;
+        }
+
+        public Spot RequestDesk(IAI student)
+        {
+            foreach (Spot desk in classroomSubSpaces.desks)
+            {
+                if (desk.ISpotAvailable())
+                {
+                    desk.FillSpot(student);
+                    return desk;
+                }
+            }
+            return null;
+        }
+
+        public void SetActivities(bool state)
+        {
+            classScheduler.SetActivitiesEnabledTo(state);
         }
 
         ////    public void SendClassToLab(Lab lab)

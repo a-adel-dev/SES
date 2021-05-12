@@ -39,5 +39,19 @@ namespace SES.Spaces
         {
             throw new System.NotImplementedException();
         }
+
+        public Spot RequestDesk(IAI student)
+        {
+            ListHandler.Shuffle(toilets);
+            foreach (Spot toilet in toilets)
+            {
+                if (toilet.ISpotAvailable())
+                {
+                    toilet.FillSpot(student);
+                    return toilet;
+                }
+            }
+            return null;
+        }
     }
 }

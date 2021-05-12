@@ -56,11 +56,11 @@ namespace SES.School
         {
             Bathroom nearestBathroom = null;
             float distance = Mathf.Infinity;
-            Vector3 pupilPos = pupil.GetTransform().position;
+            Vector3 pupilPos = pupil.GetGameObject().transform.position;
             //NavMeshPath path = new NavMeshPath();
             foreach (Bathroom bathroom in bathrooms)
             {
-                if (Vector3.Distance(bathroom.transform.position, pupil.GetTransform().position) < distance)
+                if (Vector3.Distance(bathroom.transform.position, pupil.GetGameObject().transform.position) < distance)
                 {
                     distance = Vector3.Distance(bathroom.transform.position, pupilPos);
                     nearestBathroom = bathroom;

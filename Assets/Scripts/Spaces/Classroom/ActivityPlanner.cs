@@ -5,10 +5,10 @@ using SES.Core;
 /*
 namespace SES.Spaces.Classroom
 {
+    
     public class ActivityPlanner : MonoBehaviour
     {
         bool activitiesEnabled = false;
-        //ClassroomPeriodSchedular classSchedular;
         int sessionActivityMinTime;
         SpaceStudentsBucket studentsBucket;
         IActivity boardActivity;
@@ -22,7 +22,7 @@ namespace SES.Spaces.Classroom
             //classSchedular = GetComponent<ClassroomPeriodSchedular>();
             studentsBucket = GetComponent<SpaceStudentsBucket>();
             boardActivity = GetComponent<ActivityBoard>();
-            groupActivity = GetComponent<ActivityGroup>();
+            //groupActivity = GetComponent<ActivityGroup>();
         }
 
         private void Update()
@@ -33,36 +33,30 @@ namespace SES.Spaces.Classroom
         public void SetActivityStatus(int index)
         {
             if (!activitiesEnabled) { return; }
-            if (index < sessionActivityMinTime)
+            if (index > sessionActivityMinTime)
             {
-                foreach (IStudentAI pupil in studentsBucket.studentsCurrentlyInSpace)
+                foreach (IStudentAI student in studentsBucket.studentsCurrentlyInSpace)
                 {
-                    pupil.SetControlledTo(false);
+                    student.StartActivity();
                 }
-            }
-            else
-            {
-                foreach (IStudentAI pupil in studentsBucket.studentsCurrentlyInSpace)
-                {
-                    pupil.SetControlledTo(true);
-                }
-
                 StartActivity(index);
             }
         }
+
         private void StartActivity(int index)
         {
             if (Random.Range(0f, 1) < 0.5f)
             {
-                startedActivity = true;
                 currentActivity = boardActivity;
-                StartCoroutine(boardActivity.StartBoardActivity(studentsBucket.studentsCurrentlyInSpace, classroomObjects.boardSpots, index));
+                StartCoroutine((boardActivity as ActivityBoard).StartBoardActivity(studentsBucket.studentsCurrentlyInSpace, classroomObjects.boardSpots, index));
             }
             else
             {
+
                 startedActivity = true;
                 currentActivity = groupActivity;
                 StartCoroutine(groupActivity.StartGroupActivity(studentsBucket.studentsCurrentlyInSpace, classroomObjects.desks, index));
+
             }
         }
 
@@ -71,9 +65,9 @@ namespace SES.Spaces.Classroom
             if (startedActivity == false) { return; }
             if (startedActivity && activity.GetActivityInProgressState() == false)
             {
-                foreach (IStudentAI pupil in studentsBucket.studentsCurrentlyInSpace)
+                foreach (IStudentAI Student in studentsBucket.studentsCurrentlyInSpace)
                 {
-                    pupil.ResetPupil();
+                    Student.StartClass();
                 }
             }
             currentActivity = null;

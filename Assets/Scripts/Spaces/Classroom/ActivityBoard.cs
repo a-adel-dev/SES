@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using SES.Core;
-/*
+
 namespace SES.Spaces.Classroom
 {
-    public class ActivityBoard : MonoBehaviour , IActivity
+    public class ActivityBoard : MonoBehaviour //, IActivity
     {
-        [SerializeField] FloatVariable timeStepVariable;
+        /*
         [SerializeField] float timeStep;
         public bool activityInProgress = false;
  
@@ -59,6 +59,6 @@ namespace SES.Spaces.Classroom
         {
             return activityInProgress;
         }
+        */
     }
 }
-*/

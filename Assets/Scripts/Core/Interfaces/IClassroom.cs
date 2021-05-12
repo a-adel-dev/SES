@@ -17,5 +17,6 @@ namespace SES.Core
         void EndClass();
         void PauseClass();
         void ResumeClass();
+        void SetActivities(bool activitiesEnabled);
     }
 }

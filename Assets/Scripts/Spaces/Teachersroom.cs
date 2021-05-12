@@ -57,5 +57,10 @@ namespace SES.Spaces
         {
             throw new System.NotImplementedException();
         }
+
+        public Spot RequestDesk(IAI teacher)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

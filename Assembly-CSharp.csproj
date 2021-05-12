@@ -83,11 +83,12 @@
     <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\UnitExplosion.cs" />
     <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\WaypointPath.cs" />
     <Compile Include="Assets\Scripts\AI\AI.cs" />
-    <Compile Include="Assets\Scripts\AI\FSM\StateActive.cs" />
-    <Compile Include="Assets\Scripts\AI\FSM\StateInClassroom.cs" />
-    <Compile Include="Assets\Scripts\AI\FSM\StateInLab.cs" />
-    <Compile Include="Assets\Scripts\AI\FSM\StateInTransit.cs" />
-    <Compile Include="Assets\Scripts\AI\FSM\StateOnBreak.cs" />
+    <Compile Include="Assets\Scripts\AI\FSM\SStudentAutonomus.cs" />
+    <Compile Include="Assets\Scripts\AI\FSM\SStudentDoingActivity.cs" />
+    <Compile Include="Assets\Scripts\AI\FSM\SStudentIdle.cs" />
+    <Compile Include="Assets\Scripts\AI\FSM\SStudentInClassroom.cs" />
+    <Compile Include="Assets\Scripts\AI\FSM\SStudentInTransit.cs" />
+    <Compile Include="Assets\Scripts\AI\FSM\SStudentonBreak.cs" />
     <Compile Include="Assets\Scripts\AI\FSM\StudentBaseState.cs" />
     <Compile Include="Assets\Scripts\AI\StudentAI.cs" />
     <Compile Include="Assets\Scripts\AI\StudentBehaviorControl.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Assets\Scripts\Spaces\Classroom\ActivityGroup.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ActivityPlanner.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\BehaviorController.cs" />
+    <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassActivity.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomBaseState.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomEmpty.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomIdle.cs" />

@@ -2,24 +2,44 @@
 using UnityEngine;
 using SES.AIControl.FSM;
 using SES.Core;
+using UnityEngine.AI;
+using SES.Spaces;
+using SES.Spaces.Classroom;
+
 
 namespace SES.AIControl
 {
-    public class StudentBehaviorControl : MonoBehaviour
+    public class StudentBehaviorControl : MonoBehaviour, IStudentAI
     {
-        StudentState state { get; set; }
+        //public GameObject target;
+        public StudentBaseState currentState;
+        public string currentStateName;
+        public Spot currentDesk;
+        public ClassroomSpace mainClassroom;
+        public int baseAutonomyChance;
+        public int breakAutonomyChance;
+        public float timeStep;
+        NavMeshAgent nav;
 
-        private StudentBaseState currentState;
+        public readonly SStudentInClassroom inClassroom = new SStudentInClassroom();
+        public readonly SStudentAutonomus autonomous = new SStudentAutonomus();
+        public readonly SStudentInTransit inTransit = new SStudentInTransit();
+        public readonly SStudentDoingActivity active = new SStudentDoingActivity();
+        public readonly SStudentonBreak onBreak = new SStudentonBreak();
+        public readonly SStudentIdle idle = new SStudentIdle();
 
-        public readonly StateInClassroom inClassroom = new StateInClassroom();
-        public readonly StateInLab inLab = new StateInLab();
-        public readonly StateInTransit inTransit = new StateInTransit();
-        public readonly StateActive active = new StateActive();
-        public readonly StateOnBreak onBreak = new StateOnBreak();
-
+        private void Awake()
+        {
+            nav = GetComponent<NavMeshAgent>();
+        }
         void Update()
         {
-            currentState.Update(this);
+            //NavigateTo(target.transform.position);
+            if (currentState != null)
+            {
+                currentStateName = currentState.ToString();
+                currentState.Update(this);
+            }
         }
 
         private void OnTriggerEnter(Collider other)
@@ -33,28 +53,86 @@ namespace SES.AIControl
             currentState.EnterState(this);
         }
 
-        public void SetStudentState(StudentState _state)
+        public void InitializeProperties()
         {
-            state = _state;
-            switch(state)
-            {
-                case StudentState.inClass:
-                    TransitionToState(inClassroom);
-                    break;
-                case StudentState.inLab:
-                    TransitionToState(inLab);
-                    break;
-                case StudentState.inTransit:
-                    TransitionToState(inTransit);
-                    break;
-                case StudentState.onBreak:
-                    TransitionToState(onBreak);
-                    break;
-                case StudentState.active:
-                    TransitionToState(active);
-                    break;
-            }
+            baseAutonomyChance = SimulationParameters.baseAutonomyChance;
+            breakAutonomyChance = SimulationParameters.breakAutonomyChance;
+            timeStep = SimulationParameters.timeStep;
         }
 
+        public void StartClass()
+        {
+            TransitionToState(inClassroom);
+        }
+
+        public void IdleStudent()
+        {
+            TransitionToState(idle);
+        }
+
+        public void PauseAgent()
+        {
+            GetComponent<NavMeshAgent>().isStopped = true;
+        }
+
+        public void ResumeAgent()
+        {
+            GetComponent<NavMeshAgent>().isStopped = false;
+        }
+
+        public void BackToDesk()
+        {
+            NavigateTo(currentDesk.gameObject.transform.position);
+        }
+
+        public void AssignMainClassroom(ClassroomSpace classroom)
+        {
+            mainClassroom = classroom;
+        }
+
+        public void LookAtBoard()
+        {
+            Vector3 boardModifiedDirection = new Vector3(mainClassroom.classroomSubSpaces.board.transform.position.x,
+                                                            0,
+                                                            mainClassroom.classroomSubSpaces.board.transform.position.z);
+            transform.LookAt(boardModifiedDirection);
+        }
+
+        public Spot RequestDesk(ISpace space) => currentDesk = space.RequestDesk(this);
+
+        public void ReleaseDesk()
+        {
+            currentDesk.ClearSpot();
+        }
+
+        public GameObject GetGameObject()
+        {
+            return gameObject;
+        }
+
+        public bool IsTeacher()
+        {
+            return GetComponent<TeacherAI>();
+        }
+
+        public bool IsStudent()
+        {
+            return GetComponent<StudentBehaviorControl>();
+        }
+
+        public void ReleaseControl()
+        {
+            TransitionToState(autonomous);
+        }
+
+        public void StartActivity()
+        {
+            TransitionToState(active);//i.e prevent autonomus actions
+        }
+
+        public void NavigateTo(Vector3 location)
+        {
+            nav.destination = location;
+        }
     }
 }
