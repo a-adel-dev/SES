@@ -5,7 +5,7 @@ using SES.Core;
 
 namespace SES.Spaces.Classroom
 {
-    public class ClassroomPeriodSchedular : MonoBehaviour
+    public class ClassroomProgressionControl : MonoBehaviour
     {
         public bool activitiesEnabled;
         public SpaceStudentsBucket studentsBucket;
@@ -59,6 +59,11 @@ namespace SES.Spaces.Classroom
         {
             if (pausedState != null)
             {
+                foreach (IStudentAI student in studentsBucket.studentsCurrentlyInSpace)
+                {
+                    student.ResumeAgent();
+                }
+
                 TransitionToState(pausedState);
                 pausedState = null;
             }

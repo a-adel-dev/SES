@@ -2,12 +2,12 @@
 {
     public class SClassroomEmpty : SClassroomBaseState
     {
-        public override void EnterState(ClassroomPeriodSchedular schedular)
+        public override void EnterState(ClassroomProgressionControl schedular)
         {
             //set classroom status to empty
         }
 
-        public override void Update(ClassroomPeriodSchedular schedular)
+        public override void Update(ClassroomProgressionControl schedular)
         {
 
         }

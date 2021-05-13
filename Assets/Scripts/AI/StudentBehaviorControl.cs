@@ -134,5 +134,15 @@ namespace SES.AIControl
         {
             nav.destination = location;
         }
+
+        public void BreakTime()
+        {
+            TransitionToState(onBreak);
+        }
+
+        public void Idle()
+        {
+            TransitionToState(idle);
+        }
     }
 }

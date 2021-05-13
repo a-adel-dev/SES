@@ -5,7 +5,7 @@ namespace SES.AIControl.FSM
     {
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
-            Debug.Log($"Doing activity");
+            //Debug.Log($"Doing activity");
             behaviorControl.ResumeAgent();
         }
 

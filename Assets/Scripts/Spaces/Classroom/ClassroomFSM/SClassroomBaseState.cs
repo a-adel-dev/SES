@@ -4,7 +4,7 @@
     {
 
         public bool resumed = false;
-        public abstract void EnterState(ClassroomPeriodSchedular schedular);
-        public abstract void Update(ClassroomPeriodSchedular schedular);
+        public abstract void EnterState(ClassroomProgressionControl schedular);
+        public abstract void Update(ClassroomProgressionControl schedular);
     }
 }

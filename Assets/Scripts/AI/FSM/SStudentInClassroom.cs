@@ -7,7 +7,7 @@ namespace SES.AIControl.FSM
         float timeStep;
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
-            timeStep = behaviorControl.timeStep;
+            timeStep = behaviorControl.timeStep * 5;
             behaviorControl.ResumeAgent();
             behaviorControl.BackToDesk();
             //Debug.Log($"in classroom");
@@ -30,7 +30,7 @@ namespace SES.AIControl.FSM
         void checkAutonomy(StudentBehaviorControl behaviorControl)
         {
             int chance = Random.Range(0, 100);
-            if (chance < 1.0f)
+            if (chance < behaviorControl.baseAutonomyChance)
             {
                 behaviorControl.ReleaseControl();
             }

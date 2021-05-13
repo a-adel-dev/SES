@@ -15,7 +15,7 @@ namespace SES.Spaces.Classroom
         bool lastSection = false;
         List<int> classSections = new List<int>();
 
-        public override void EnterState(ClassroomPeriodSchedular schedular)
+        public override void EnterState(ClassroomProgressionControl schedular)
         {
             foreach (IStudentAI student in schedular.studentsBucket.studentsCurrentlyInSpace)
             {
@@ -30,9 +30,10 @@ namespace SES.Spaces.Classroom
             }           
         }
 
-        public override void Update(ClassroomPeriodSchedular schedular)
+        public override void Update(ClassroomProgressionControl schedular)
         {
             PassTime(schedular);
+            Debug.Log($"Current index is {currentSectionIndex}, time {classSections[currentSectionIndex]}, out of {classSections.Count} sections");
         }
 
         void InitializeValues()
@@ -42,7 +43,7 @@ namespace SES.Spaces.Classroom
             timeStep = SimulationParameters.timeStep;
         }
 
-        private void PassTime(ClassroomPeriodSchedular schedular)
+        private void PassTime(ClassroomProgressionControl schedular)
         {
             timer += Time.deltaTime;
             if (timer >= timeStep)
@@ -71,7 +72,7 @@ namespace SES.Spaces.Classroom
             }
         }
 
-        private void CheckActivity(ClassroomPeriodSchedular schedular)
+        public void CheckActivity(ClassroomProgressionControl schedular)
         {
             //Debug.Log($"checking activity at {sessionTimer}");
             if (schedular.activitiesEnabled == false)
@@ -85,7 +86,7 @@ namespace SES.Spaces.Classroom
                 schedular.DoActivity((classSections[currentSectionIndex]), this);
                 if (lastSection == false)
                 {
-                    //currentSectionIndex++;
+                    currentSectionIndex++;
                 }
             }
         }

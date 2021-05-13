@@ -6,7 +6,7 @@ namespace SES.Spaces.Classroom
 {
     public class ClassroomSpace : MonoBehaviour, IClassroom
     {
-        public ClassroomPeriodSchedular classScheduler;
+        public ClassroomProgressionControl classScheduler;
         public SpaceStudentsBucket studentsBucket;
         public SpotBucket classroomSubSpaces;
         ////public ActivityPlanner planner;
@@ -30,7 +30,7 @@ namespace SES.Spaces.Classroom
         {
             studentsBucket = GetComponent<SpaceStudentsBucket>();
             classroomSubSpaces = GetComponent<SpotBucket>();
-            classScheduler = GetComponent<ClassroomPeriodSchedular>();
+            classScheduler = GetComponent<ClassroomProgressionControl>();
             //SpawnAgents();
             //planner = GetComponent<ActivityPlanner>();
         }

@@ -1,13 +1,19 @@
-﻿namespace SES.Spaces.Classroom
+﻿using SES.Core;
+
+namespace SES.Spaces.Classroom
 {
     public class SClassroomIdle : SClassroomBaseState
     {
-        public override void EnterState(ClassroomPeriodSchedular schedular)
+        public override void EnterState(ClassroomProgressionControl schedular)
         {
             //idle AI
+            foreach (IStudentAI student in schedular.studentsBucket.studentsCurrentlyInSpace)
+            {
+                student.Idle();
+            }
         }
 
-        public override void Update(ClassroomPeriodSchedular schedular)
+        public override void Update(ClassroomProgressionControl schedular)
         {
             
         }

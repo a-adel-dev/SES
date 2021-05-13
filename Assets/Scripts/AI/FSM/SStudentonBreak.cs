@@ -3,20 +3,42 @@ namespace SES.AIControl.FSM
 {
     public class SStudentonBreak : StudentBaseState
     {
+        float timer = 0f;
+        float timeStep ;
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
             Debug.Log($"on break");
+            timeStep = behaviorControl.timeStep * 2 ;
             behaviorControl.ResumeAgent();
         }
 
         public override void OnTriggerEnter(StudentBehaviorControl behaviorControl)
         {
-            throw new System.NotImplementedException();
+
         }
 
         public override void Update(StudentBehaviorControl behaviorControl)
         {
-            throw new System.NotImplementedException();
+            PassTime(behaviorControl);
+        }
+
+        void checkAutonomy(StudentBehaviorControl behaviorControl)
+        {
+            int chance = Random.Range(0, 100);
+            if (chance < behaviorControl.breakAutonomyChance)
+            {
+                behaviorControl.ReleaseControl();
+            }
+        }
+
+        private void PassTime(StudentBehaviorControl behaviorControl)
+        {
+            timer += Time.deltaTime;
+            if (timer >= timeStep)
+            {
+                timer -= timeStep;
+                checkAutonomy(behaviorControl);
+            }
         }
     }
 }
