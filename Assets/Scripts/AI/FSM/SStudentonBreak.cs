@@ -22,7 +22,7 @@ namespace SES.AIControl.FSM
             PassTime(behaviorControl);
         }
 
-        void checkAutonomy(StudentBehaviorControl behaviorControl)
+        void CheckAutonomy(StudentBehaviorControl behaviorControl)
         {
             int chance = Random.Range(0, 100);
             if (chance < behaviorControl.breakAutonomyChance)
@@ -37,7 +37,7 @@ namespace SES.AIControl.FSM
             if (timer >= timeStep)
             {
                 timer -= timeStep;
-                checkAutonomy(behaviorControl);
+                CheckAutonomy(behaviorControl);
             }
         }
     }

@@ -2,6 +2,7 @@
 using UnityEngine;
 using SES.Core;
 using System;
+using SES.Spaces;
 
 namespace SES.School
 {
@@ -126,7 +127,13 @@ namespace SES.School
 
         public void EgressClasses()
         {
-
+            //for all classes
+            //pick top 4
+            //for each class
+            //release control to the school
+            //find its closest egress point
+            //send it there
+            //repeat
         }
 
     }

@@ -144,5 +144,10 @@ namespace SES.AIControl
         {
             TransitionToState(idle);
         }
+
+        public void TransitStudent()
+        {
+            TransitionToState(inTransit);
+        }
     }
 }

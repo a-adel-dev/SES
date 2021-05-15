@@ -18,6 +18,8 @@ namespace SES.Core
 
         void NavigateTo(Vector3 location);
         void BreakTime();
+
+        void TransitStudent();
         /*
 void SetStudentLocationTo(StudentState location);
 void BackToDesk();

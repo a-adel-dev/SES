@@ -13,10 +13,12 @@ namespace SES.Spaces.Classroom
         int sessionTimer = 0;
         int currentSectionIndex = 0;
         bool lastSection = false;
+        bool wasInActivity = false;
         List<int> classSections = new List<int>();
 
         public override void EnterState(ClassroomProgressionControl schedular)
         {
+            
             foreach (IStudentAI student in schedular.studentsBucket.studentsCurrentlyInSpace)
             {
                 student.StartClass();
@@ -27,13 +29,18 @@ namespace SES.Spaces.Classroom
                 InitializeValues();
                 StructureClass();
                 CheckActivity(schedular);
-            }           
+            }
+            else if (wasInActivity)
+            {
+                wasInActivity = false;
+                CheckActivity(schedular);
+            }
         }
 
         public override void Update(ClassroomProgressionControl schedular)
         {
             PassTime(schedular);
-            Debug.Log($"Current index is {currentSectionIndex}, time {classSections[currentSectionIndex]}, out of {classSections.Count} sections");
+            //Debug.Log($"Current index is {currentSectionIndex}, time {classSections[currentSectionIndex]}, out of {classSections.Count} sections");
         }
 
         void InitializeValues()
@@ -53,7 +60,7 @@ namespace SES.Spaces.Classroom
                     return;
                 }
                 //check if last section
-                if (currentSectionIndex + 1 == classSections.Count)
+                if (currentSectionIndex + 1 >= classSections.Count)
                 {
                     lastSection = true;
                     CheckActivity(schedular);
@@ -79,14 +86,22 @@ namespace SES.Spaces.Classroom
             {
                 return;
             }
+            //if current section is larger than activity minimum threshold
             if (classSections[currentSectionIndex] >= SimulationParameters.minClassActivityTime)
             {
+                //set class to be resumed
                 resumed = true;
+                //flag the session to be in activity
+                wasInActivity = true;
                 //Debug.Log($"Activity time is {classSections[currentSectionIndex]}");
+                //transition to activity state
                 schedular.DoActivity((classSections[currentSectionIndex]), this);
+                //if this is not the last session
                 if (lastSection == false)
                 {
+                    //advance class section index
                     currentSectionIndex++;
+                    sessionTimer = 0;
                 }
             }
         }

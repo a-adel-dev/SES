@@ -92,6 +92,18 @@ namespace SES.Spaces.Classroom
             classScheduler.SetActivitiesEnabledTo(state);
         }
 
+        public List<IStudentAI> ReleaseClass()
+        {
+            classScheduler.EmptyClass();
+            List<IStudentAI> studentslist = new List<IStudentAI>();
+            foreach (IStudentAI student in studentsBucket.spaceOriginalStudents)
+            {
+                student.TransitStudent();
+                studentslist.Add(student);
+            }
+            return studentslist;
+        }
+
         ////    public void SendClassToLab(Lab lab)
         ////    {
         ////        if (studentsBucket.studentsCurrentlyInSpace.Count == 0) { return; }
