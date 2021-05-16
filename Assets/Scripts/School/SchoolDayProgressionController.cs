@@ -131,11 +131,12 @@ namespace SES.School
         /// </summary>
         public bool EgressClassGroup()
         {
+            //TODO: pass in the remaining classes.
             bool success = false;
             //for all egress points
             foreach (EgressPoint stairs in subspaces.staircases)
             {
-                //pick its nearest class from the classroom list 
+                //pick its nearest class from the remaining egress classroom list 
                 IClassroom nearestClassroom = FindNearestClassroom(stairs);
                 if (nearestClassroom != null)
                 {
@@ -154,25 +155,22 @@ namespace SES.School
             return success;
         }
 
-        public IClassroom FindNearestClassroom (ISpace space)
+        public IClassroom FindNearestClassroom (ISpace space, List<IClassroom> classrooms)
         {
             float dist = 100000f;
             IClassroom selectedClass = null;
             Vector3 spacePos = space.GetGameObject().transform.position;
-            foreach (IClassroom classroom in subspaces.classrooms)
+            foreach (IClassroom classroom in classrooms)
             {
                 Debug.Log($"Distance is {Vector3.Distance(classroom.GetGameObject().transform.position,spacePos)}");
-                if (classroom.IsClassEmpty() != false &&
-                    Vector3.Distance(classroom.GetGameObject().transform.position,
+                if (Vector3.Distance(classroom.GetGameObject().transform.position,
                                     spacePos) < dist)
                 {
-                    Debug.Log($"Comparing {selectedClass.GetGameObject().name} to {space.GetGameObject().name}");
                     selectedClass = classroom;
-                    dist = Vector3.Distance(classroom.GetGameObject().transform.position,
-                                    spacePos);
+                    dist = Vector3.Distance(selectedClass.GetGameObject().transform.position,
+                                            spacePos);
                 }
             }
-            //Debug.Log($"{selectedClass.GetGameObject().name} is the nearest classroom to {space.GetGameObject().name}");
             return selectedClass;
         }
 
