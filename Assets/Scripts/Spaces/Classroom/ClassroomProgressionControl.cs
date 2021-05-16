@@ -11,7 +11,7 @@ namespace SES.Spaces.Classroom
         public SpaceStudentsBucket studentsBucket;
         public string currentStateName;
         #region FSM
-        private SClassroomBaseState currentState;
+        public SClassroomBaseState currentState { get; private set; }
         private SClassroomBaseState pausedState;
         public void TransitionToState(SClassroomBaseState state)
         {

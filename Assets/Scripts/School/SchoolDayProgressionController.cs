@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using SES.Core;
 using System;
@@ -125,15 +125,55 @@ namespace SES.School
             }
         }
 
-        public void EgressClasses()
+        /// <summary>
+        /// Egress A cluster of classes equal to the number of egress points
+        /// in school
+        /// </summary>
+        public bool EgressClassGroup()
         {
-            //for all classes
-            //pick top 4
-            //for each class
-            //release control to the school
-            //find its closest egress point
-            //send it there
-            //repeat
+            bool success = false;
+            //for all egress points
+            foreach (EgressPoint stairs in subspaces.staircases)
+            {
+                //pick its nearest class from the classroom list 
+                IClassroom nearestClassroom = FindNearestClassroom(stairs);
+                if (nearestClassroom != null)
+                {
+                    success = true;
+                    List<IStudentAI> studentsToEgress = new List<IStudentAI>();
+                    //release control to the school
+                    studentsToEgress = nearestClassroom.ReleaseClass();
+                    //send the class to the egress point
+                    foreach (IStudentAI student in new List<IStudentAI>())
+                    {
+                        Debug.Log($"Navigating students to egress point");
+                        student.NavigateTo(stairs.gameObject.transform.position);
+                    }
+                }
+            }
+            return success;
+        }
+
+        public IClassroom FindNearestClassroom (ISpace space)
+        {
+            float dist = 100000f;
+            IClassroom selectedClass = null;
+            Vector3 spacePos = space.GetGameObject().transform.position;
+            foreach (IClassroom classroom in subspaces.classrooms)
+            {
+                Debug.Log($"Distance is {Vector3.Distance(classroom.GetGameObject().transform.position,spacePos)}");
+                if (classroom.IsClassEmpty() != false &&
+                    Vector3.Distance(classroom.GetGameObject().transform.position,
+                                    spacePos) < dist)
+                {
+                    Debug.Log($"Comparing {selectedClass.GetGameObject().name} to {space.GetGameObject().name}");
+                    selectedClass = classroom;
+                    dist = Vector3.Distance(classroom.GetGameObject().transform.position,
+                                    spacePos);
+                }
+            }
+            //Debug.Log($"{selectedClass.GetGameObject().name} is the nearest classroom to {space.GetGameObject().name}");
+            return selectedClass;
         }
 
     }

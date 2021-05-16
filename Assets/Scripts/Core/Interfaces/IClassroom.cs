@@ -19,5 +19,6 @@ namespace SES.Core
         void ResumeClass();
         void SetActivities(bool activitiesEnabled);
         List<IStudentAI> ReleaseClass();
+        bool IsClassEmpty();
     }
 }

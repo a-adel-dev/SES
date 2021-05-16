@@ -9,39 +9,13 @@ namespace SES.Spaces.Classroom
         public ClassroomProgressionControl classScheduler;
         public SpaceStudentsBucket studentsBucket;
         public SpotBucket classroomSubSpaces;
-        ////public ActivityPlanner planner;
-        ////SchoolDayState schoolDayState;
-        ////bool classEmpty = false;
-        ////bool spawned = false;
-        ////[SerializeField] GameObject teacherPrefab;
-        ////[SerializeField] List<Spot> teacherSpawnPoint = new List<Spot>();
-
-        //private void Awake()
-        //{
-        //    classScheduler = GetComponent<ClassroomPeriodSchedular>();
-        //    
-        //    
-        //    spawner = GetComponent<AgentSpawner>();
-        //    studentController = GetComponent<BehaviorController>();
-
-        //}
 
         private void Start()
         {
             studentsBucket = GetComponent<SpaceStudentsBucket>();
             classroomSubSpaces = GetComponent<SpotBucket>();
             classScheduler = GetComponent<ClassroomProgressionControl>();
-            //SpawnAgents();
-            //planner = GetComponent<ActivityPlanner>();
         }
-
-        ////public void SpawnAgents()
-        ////{
-        ////    if (spawned) { return; }
-        ////    spawner.SpawnAgents(classroomSubSpaces.desks);
-        ////    spawner.SpawnAgents(teacherPrefab, teacherSpawnPoint);
-        ////    spawned = true;
-        ////}
 
         public void StartClass()
         {
@@ -104,6 +78,12 @@ namespace SES.Spaces.Classroom
             return studentslist;
         }
 
+        public bool IsClassEmpty()
+        {
+            var state = classScheduler.currentState;
+            return state.GetType() == typeof(SClassroomEmpty);
+        }
+
         ////    public void SendClassToLab(Lab lab)
         ////    {
         ////        if (studentsBucket.studentsCurrentlyInSpace.Count == 0) { return; }
@@ -134,24 +114,6 @@ namespace SES.Spaces.Classroom
         ////        classEmpty = false;
         ////    }
 
-
-        ////    public void EgressClass(Vector3 exit)
-        ////    {
-        ////        return;
-        ////        //studentController.EgressClass(exit);
-        ////    }
-
-
-        ////    public void SetSchoolDayState(SchoolDayState state)
-        ////    {
-        ////        schoolDayState = state;
-        ////        classScheduler.SetSchoolDayState(state);
-        ////    }
-
-        ////    public void SetTimeStep(float timeStep)
-        ////    {
-        ////        throw new System.NotImplementedException();
-        ////    }
 
 
     }

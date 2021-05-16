@@ -7,7 +7,13 @@ namespace SES.School
 {
     public class SEgressTime : SSchoolBaseState
     {
-        int sessionLength = 20;
+        /// <summary>
+        /// the time to allow the last egressed class to reach egress point 
+        /// before transitioning to the next state
+        /// </summary>
+        int waitTimeForEgress = 20;
+        int cooldownClassExit = SimulationParameters.cooldownClassExit;
+        bool egressDone = false;
         int sessionTimer = 0;
         float timeStep;
         float timer = 0f;
@@ -16,23 +22,26 @@ namespace SES.School
             //consider pausing
             timeStep = progressionController.timeStep;
             Debug.Log("-------------Egress Time-------------");
-            progressionController.EgressClasses();
+            Debug.Log($"cooldown class Exit is {cooldownClassExit}");
+            progressionController.EgressClassGroup();
             progressionController.SchoolState = "Home time";
+
         }
 
         public override void Update(SchoolDayProgressionController progressionController)
         {
-
-            
-            if (sessionTimer >= sessionLength)
+            if (egressDone == false && sessionTimer >= cooldownClassExit)
             {
                 sessionTimer = 0;
+                egressDone = !progressionController.EgressClassGroup();
+                Debug.Log($"Egressing a classgroup, egressDone is {egressDone}");
+                
+            }
+            if (egressDone && sessionTimer >= waitTimeForEgress)
+            {
                 progressionController.TransitionToState(progressionController.offTime);
             }
-            else
-            {
-                PassTime();
-            }
+            PassTime();
         }
 
         private void PassTime()
@@ -42,6 +51,7 @@ namespace SES.School
             {
                 timer -= timeStep;
                 sessionTimer++;
+                Debug.Log(sessionTimer);
                 DateTimeRecorder.UpdateSchoolTime(new TimeSpan(0, 1, 0));
             }
         }

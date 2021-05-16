@@ -132,7 +132,7 @@ namespace SES.AIControl
 
         public void NavigateTo(Vector3 location)
         {
-            nav.destination = location;
+            nav.SetDestination(location);
         }
 
         public void BreakTime()
