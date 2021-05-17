@@ -22,7 +22,7 @@ namespace SES.School
             //consider pausing
             timeStep = progressionController.timeStep;
             Debug.Log("-------------Egress Time-------------");
-            Debug.Log($"cooldown class Exit is {cooldownClassExit}");
+            //Debug.Log($"cooldown class Exit is {cooldownClassExit}");
             progressionController.EgressClassGroup();
             progressionController.SchoolState = "Home time";
 
@@ -30,15 +30,19 @@ namespace SES.School
 
         public override void Update(SchoolDayProgressionController progressionController)
         {
+            if (egressDone == false && progressionController.remainingEgressClassrooms.Count <= 0)
+            {
+                egressDone = true;
+            }
             if (egressDone == false && sessionTimer >= cooldownClassExit)
             {
                 sessionTimer = 0;
-                egressDone = !progressionController.EgressClassGroup();
-                Debug.Log($"Egressing a classgroup, egressDone is {egressDone}");
-                
+                progressionController.EgressClassGroup();
+                Debug.Log($"Egressing a classgroup, egressDone is {egressDone}"); 
             }
             if (egressDone && sessionTimer >= waitTimeForEgress)
             {
+                progressionController.ResetRemainingEgressClasses();
                 progressionController.TransitionToState(progressionController.offTime);
             }
             PassTime();
