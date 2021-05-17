@@ -136,8 +136,9 @@ namespace SES.School
             //for all egress points
             foreach (EgressPoint stairs in subspaces.staircases)
             {
+                List<IClassroom> remainingClassrooms = new List<IClassroom>(subspaces.classrooms);
                 //pick its nearest class from the remaining egress classroom list 
-                IClassroom nearestClassroom = FindNearestClassroom(stairs);
+                IClassroom nearestClassroom = FindNearestClassroom(stairs, remainingClassrooms);
                 if (nearestClassroom != null)
                 {
                     success = true;

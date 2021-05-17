@@ -1,2 +1,2 @@
-simulationTotalLength,numberOfSchoolDayPeriods,periodLength,timeStep
-20,10,50,10
+timeStep,simulationTotalLength,numberOfSchoolDayPeriods,periodLength,breakLength,ActivitiesEnabled,relocationEnabled,initialNumStudentsContagious,initialNumTeachersContagious,cooldownClassExit,studentsMaskSettings,teacherMaskSettings,halfCapacity,classroomHalfCapacity,airControlSettings,minClassSectionNumber,maxClassSectionNumber,minClassActivityTime
+2,2,2,30,10,1,1,0,0,0,0,0,0,0,6,1,8,8

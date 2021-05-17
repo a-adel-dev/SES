@@ -6,19 +6,17 @@ namespace SES.Core
 {
     public static class SimulationDefaults
     {
-        
-
         #region primary parameters
+        public static float timeStep { get; set; } = 0.5f;
+        public static int simLength { get; set; } = 2;
+        public static int numPeriods { get; set; } = 2;
         public static int periodLength { get; set; } = 50;
         public static int breakLength { get; set; } = 5;
-        public static int numPeriods { get; set; } = 2;
-        public static int simLength { get; set; } = 2;
-        public static float timeStep { get; set; } = 0.5f;
         public static bool activitiesEnabled { get; set; } = true;
-        public static int cooldownClassExit { get; set; } = 0;
-
+        public static bool relocationEnabled { get; set; } = true;
         public static int initialNumStudentsContagious { get; set; } = 0;
         public static int initialNumTeachersContagious { get; set; } = 0;
+        public static int cooldownClassExit { get; set; } = 0;
 
         public static MaskFactor studentsMaskSettings { get; set; } = MaskFactor.none;
         public static MaskFactor teacherMaskSettings { get; set; } = MaskFactor.none;
