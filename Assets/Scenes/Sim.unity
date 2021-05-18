@@ -1686,6 +1686,7 @@ MonoBehaviour:
   periodLengthInput: {fileID: 182111904}
   breakLengthInput: {fileID: 1011296556}
   activitiesToggle: {fileID: 157847572}
+  relocationToggle: {fileID: 1133776685}
   numInfectedStudentsInput: {fileID: 1889937829}
   numInfectedTeachersInput: {fileID: 1692506843}
   egressCoolDownInput: {fileID: 139158497}
@@ -14136,7 +14137,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 125.1, y: -218}
+  m_AnchoredPosition: {x: 125.1, y: -203.7}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &709865717
@@ -16244,7 +16245,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 125.1, y: -182.90001}
+  m_AnchoredPosition: {x: 125.1, y: -168.6}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &808713991
@@ -20154,7 +20155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 25.500072, y: -113.3}
+  m_AnchoredPosition: {x: 25.500072, y: -99.6}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &995766473
@@ -22447,24 +22448,13 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1100844675}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 91239199}
-        m_MethodName: DisableWindow
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 438517890}
-        m_MethodName: EnableStart
+      - m_Target: {fileID: 91239200}
+        m_MethodName: DefaultSettings
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22475,18 +22465,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 91239200}
-        m_MethodName: MakeValuesReadOnly
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 91239200}
-        m_MethodName: Initializer
+        m_MethodName: ResetSettings
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -24604,17 +24583,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 91239200}
         m_MethodName: ApplySettings
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 91239200}
-        m_MethodName: MakeValuesReadOnly
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -27425,6 +27393,7 @@ MonoBehaviour:
   subspaces: {fileID: 0}
   SchoolState: 
   activitiesEnabled: 0
+  relocationEnabled: 0
 --- !u!114 &1406735259
 MonoBehaviour:
   m_ObjectHideFlags: 0

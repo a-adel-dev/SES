@@ -8,17 +8,17 @@ namespace SES.School
 {
     public class SchoolDayProgressionController : MonoBehaviour
     {
+        public SchoolSubSpacesBucket subspaces;
+        public string SchoolState = "";
+        public bool activitiesEnabled;
+        public bool relocationEnabled;
+        public List<IClassroom> remainingEgressClassrooms;
+
         public int periodLength { get; set; } = 45;
         public int breakLength { get; set; } = 5;
         public int numPeriods { get; set; } = 2;
         public int simLength { get; set; } = 2;
         public float timeStep { get; set; } = 0.5f;
-
-
-        public SchoolSubSpacesBucket subspaces;
-        public string SchoolState = "";
-        public bool activitiesEnabled;
-        public List<IClassroom> remainingEgressClassrooms;
 
 
 
@@ -65,6 +65,7 @@ namespace SES.School
             simLength = SimulationParameters.simLength;
             timeStep = SimulationParameters.timeStep;
             activitiesEnabled = SimulationParameters.activitiesEnabled;
+            relocationEnabled = SimulationParameters.relocationEnabled;
             remainingEgressClassrooms = new List<IClassroom>(subspaces.classrooms);
         }
 

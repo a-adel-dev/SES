@@ -15,6 +15,7 @@ namespace SES.UI
         [SerializeField] InputField periodLengthInput;
         [SerializeField] InputField breakLengthInput;
         [SerializeField] Toggle activitiesToggle;
+        [SerializeField] Toggle relocationToggle;
 
         [SerializeField] InputField numInfectedStudentsInput;
         [SerializeField] InputField numInfectedTeachersInput;
@@ -46,6 +47,7 @@ namespace SES.UI
             breakLengthInput.text = SimulationDefaults.breakLength.ToString();
 
             activitiesToggle.isOn = SimulationDefaults.activitiesEnabled;
+            relocationToggle.isOn = SimulationDefaults.relocationEnabled;
 
             numInfectedStudentsInput.text = SimulationDefaults.initialNumStudentsContagious.ToString();
             numInfectedTeachersInput.text = SimulationDefaults.initialNumTeachersContagious.ToString();
@@ -77,6 +79,7 @@ namespace SES.UI
                 SimulationParameters.breakLength = Mathf.Abs(int.Parse(breakLengthInput.text));
 
                 SimulationParameters.activitiesEnabled = activitiesToggle.isOn;
+                SimulationParameters.relocationEnabled = relocationToggle.isOn;
 
                 SimulationParameters.initialNumStudentsContagious = Mathf.Abs(int.Parse(numInfectedStudentsInput.text));
                 SimulationParameters.initialNumTeachersContagious = Mathf.Abs(int.Parse(numInfectedTeachersInput.text));
@@ -91,7 +94,7 @@ namespace SES.UI
                 SimulationParameters.schoolHalfCapacity = schoolHalfToggle.isOn;
                 SimulationParameters.classroomHalfCapacity = classHalfToggle.isOn;
 
-                
+                MakeValuesReadOnly();
                 continueButton.interactable = true;
             }
         }
@@ -110,6 +113,7 @@ namespace SES.UI
             periodLengthInput.interactable = false;
             breakLengthInput.interactable = false;
             activitiesToggle.interactable = false;
+            relocationToggle.interactable = false;
 
             numInfectedStudentsInput.interactable = false;
             numInfectedTeachersInput.interactable = false;
@@ -124,6 +128,34 @@ namespace SES.UI
             airControlDropDown.interactable = false;
             defaultsButton.gameObject.SetActive(false);
             applyButton.gameObject.SetActive(false);
+        }
+
+        public void ResetSettings()
+        {
+            timeScaleSlider.interactable = true;
+            timeScaleSlider.interactable = true;
+            numDaysInput.interactable = true;
+            numPeriodsInput.interactable = true;
+            periodLengthInput.interactable = true;
+            breakLengthInput.interactable = true;
+            activitiesToggle.interactable = true;
+            relocationToggle.interactable = true;
+
+            numInfectedStudentsInput.interactable = true;
+            numInfectedTeachersInput.interactable = true;
+
+            egressCoolDownInput.interactable = true;
+
+            studentsMasksDropDown.interactable = true;
+            teachersMasksDropDown.interactable = true;
+
+            schoolHalfToggle.interactable = true;
+            classHalfToggle.interactable = true;
+            airControlDropDown.interactable = true;
+            defaultsButton.gameObject.SetActive(true);
+            applyButton.gameObject.SetActive(true);
+
+            continueButton.interactable = false;
         }
 
         #region enums UI wiring

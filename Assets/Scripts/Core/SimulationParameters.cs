@@ -13,6 +13,7 @@ namespace SES.Core
         public static int simLength { get; set; } = 2;
         public static float timeStep { get; set; } = 0.5f;
         public static bool activitiesEnabled { get; set; } = true;
+        public static bool relocationEnabled { get; set; } = true;
         public static int cooldownClassExit { get; set; } = 0;
 
         public static int initialNumStudentsContagious { get; set; } = 0;
