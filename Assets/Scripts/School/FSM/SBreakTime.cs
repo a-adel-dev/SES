@@ -20,12 +20,12 @@ namespace SES.School
                 numPeriods = progressionController.numPeriods;
                 timeStep = progressionController.timeStep;
                 sessionLength = progressionController.breakLength;
-                Debug.Log($"---------------Break Time--------------");
+                //Debug.Log($"---------------Break Time--------------");
                 progressionController.EndPeriod();
             }
             else
             {
-                Debug.Log($"----------Resuming Break Time--------------");
+                //Debug.Log($"----------Resuming Break Time--------------");
                 progressionController.ResumeClasses();
             }
             progressionController.SchoolState = "Break Time";
@@ -61,7 +61,6 @@ namespace SES.School
             if (timer >= timeStep)
             {
                 timer -= timeStep;
-                Debug.Log(sessionTimer);
                 sessionTimer++;
                 DateTimeRecorder.UpdateSchoolTime(new TimeSpan(0, 1, 0));
             }

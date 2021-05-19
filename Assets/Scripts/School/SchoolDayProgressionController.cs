@@ -13,6 +13,7 @@ namespace SES.School
         public bool activitiesEnabled;
         public bool relocationEnabled;
         public List<IClassroom> remainingEgressClassrooms;
+        public int remainingEgressStudents;
 
         public int periodLength { get; set; } = 45;
         public int breakLength { get; set; } = 5;
@@ -44,7 +45,6 @@ namespace SES.School
         private void Start()
         {
             subspaces = GetComponent<SchoolSubSpacesBucket>();
-            
         }
 
         private void Update()
@@ -67,11 +67,16 @@ namespace SES.School
             activitiesEnabled = SimulationParameters.activitiesEnabled;
             relocationEnabled = SimulationParameters.relocationEnabled;
             remainingEgressClassrooms = new List<IClassroom>(subspaces.classrooms);
+            remainingEgressStudents = TotalAgentsBucket.GetStudents().Count;
         }
 
         public void StartSchoolDay()
         {
             TransitionToState(classesInSession);
+            foreach (EgressPoint stair in subspaces.staircases)
+            {
+                stair.AddStudentEgressListener(HandleStudentEgress);
+            }
         }
 
         public void PauseSchool()
@@ -129,13 +134,16 @@ namespace SES.School
                 classroom.EndClass();
             }
         }
-
         /// <summary>
         /// Egress A cluster of classes equal to the number of egress points
         /// in school
         /// </summary>
         public void EgressClassGroup()
         {
+            if (remainingEgressClassrooms.Count <= 0)
+            {
+                return;
+            }
             //for all egress points
             foreach (EgressPoint stairs in subspaces.staircases)
             {
@@ -150,16 +158,17 @@ namespace SES.School
                     //send the class to the egress point
                     foreach (IStudentAI student in studentsToEgress)
                     {
-                        Debug.Log($"Navigating students to egress point");
+                        //Debug.Log($"Navigating students to egress point");
                         student.NavigateTo(stairs.gameObject.transform.position);
                     }
                 }
             }
         }
 
-        internal void ResetRemainingEgressClasses()
+        internal void ResetEgress()
         {
             remainingEgressClassrooms = new List<IClassroom>(subspaces.classrooms);
+            remainingEgressStudents = TotalAgentsBucket.GetStudents().Count;
         }
 
         public IClassroom FindNearestClassroom (ISpace space, List<IClassroom> classrooms)
@@ -170,8 +179,8 @@ namespace SES.School
             foreach (IClassroom classroom in classrooms)
             {
                 //Debug.Log($"Distance is {Vector3.Distance(classroom.GetGameObject().transform.position,spacePos)}");
-                if (Vector3.Distance(classroom.GetGameObject().transform.position,
-                                    spacePos) < dist)
+                if (classroom.IsClassEmpty() == false && Vector3.Distance(classroom.GetGameObject().transform.position,
+                                                                            spacePos) < dist)
                 {
                     selectedClass = classroom;
                     dist = Vector3.Distance(selectedClass.GetGameObject().transform.position,
@@ -181,5 +190,16 @@ namespace SES.School
             return selectedClass;
         }
 
+        //should be an event listener
+        public void EgressStudent()
+        {
+            remainingEgressStudents--;
+        }
+
+        private void HandleStudentEgress()
+        {
+            remainingEgressStudents--;
+            //Debug.Log($"egress");
+        }
     }
 }

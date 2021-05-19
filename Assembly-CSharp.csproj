@@ -99,6 +99,7 @@
     <Compile Include="Assets\Scripts\Core\ClassLabPair.cs" />
     <Compile Include="Assets\Scripts\Core\DateTimeRecorder.cs" />
     <Compile Include="Assets\Scripts\Core\Enums.cs" />
+    <Compile Include="Assets\Scripts\Core\Events\StudentEgressEvent.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\IAI.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\IAISpawner.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\IActivity.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Assets\Scripts\Core\Tester.cs" />
     <Compile Include="Assets\Scripts\Core\TesterC.cs" />
     <Compile Include="Assets\Scripts\Core\TimeStepController.cs" />
+    <Compile Include="Assets\Scripts\Core\TotalAgentsBucket.cs" />
     <Compile Include="Assets\Scripts\Health\AgentHealth.cs" />
     <Compile Include="Assets\Scripts\Health\Droplet.cs" />
     <Compile Include="Assets\Scripts\Health\GeneralHealthParamaters.cs" />

@@ -41,7 +41,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5045893397817307284}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.95
@@ -58,6 +58,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0dd54ba72b3d894fa4cbf2ccc510028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HealthyCollector: {fileID: 0}
+  InfectedCollector: {fileID: 0}
 --- !u!114 &5250729060631852584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,4 +72,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab8c30fc240c0a74f8bf686d34984e39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeStep: {fileID: 0}

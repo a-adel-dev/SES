@@ -171,6 +171,11 @@ namespace SES.AIControl
             throw new System.NotImplementedException();
         }
 
+        public void AssignOriginalPosition()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void AssignSpot(Spot spot)
         {
             throw new System.NotImplementedException();
@@ -206,6 +211,11 @@ namespace SES.AIControl
             throw new System.NotImplementedException();
         }
 
+        public void Idle()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public bool IsInClassroom()
         {
             throw new System.NotImplementedException();
@@ -222,6 +232,11 @@ namespace SES.AIControl
         }
 
         public bool IsTeacher()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ResumeAgent()
         {
             throw new System.NotImplementedException();
         }

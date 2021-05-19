@@ -15,6 +15,8 @@ namespace SES.AIControl
         public StudentBaseState currentState;
         public string currentStateName;
         public Spot currentDesk;
+        public Spot mainDesk;
+        public Vector3 originalPosition;
         public ClassroomSpace mainClassroom;
         public int baseAutonomyChance;
         public int breakAutonomyChance;
@@ -148,6 +150,26 @@ namespace SES.AIControl
         public void TransitStudent()
         {
             TransitionToState(inTransit);
+        }
+
+        public void ResetDay()
+        {
+            nav.enabled = false;
+            transform.localPosition = originalPosition;
+            nav.enabled = true;
+            nav.SetDestination(originalPosition);
+            IdleStudent();
+        }
+
+        public void AssignOriginalPosition()
+        {
+
+            originalPosition = transform.localPosition;
+        }
+
+        public void AssignDesk(Spot desk)
+        {
+            currentDesk = desk;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace SES.AIControl.FSM
         float timeStep ;
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
-            Debug.Log($"on break");
+            //Debug.Log($"on break");
             timeStep = behaviorControl.timeStep * 2 ;
             behaviorControl.ResumeAgent();
         }

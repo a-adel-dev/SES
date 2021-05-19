@@ -6,11 +6,6 @@ namespace SES.Spaces.Classroom
     {
         public override void EnterState(ClassroomProgressionControl schedular)
         {
-            //idle AI
-            foreach (IStudentAI student in schedular.studentsBucket.studentsCurrentlyInSpace)
-            {
-                student.Idle();
-            }
         }
 
         public override void Update(ClassroomProgressionControl schedular)

@@ -12,14 +12,15 @@ namespace SES.Core
         void StartClass();
         void StartActivity();
 
-        void Idle();
 
-        void ResumeAgent();
+
+
 
         void NavigateTo(Vector3 location);
         void BreakTime();
 
         void TransitStudent();
+        void ResetDay();
         /*
 void SetStudentLocationTo(StudentState location);
 void BackToDesk();

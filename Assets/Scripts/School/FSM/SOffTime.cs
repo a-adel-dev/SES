@@ -20,6 +20,15 @@ namespace SES.School
             Debug.Log(string.Format("{0:c} have been skipped", skippingTime));
             Debug.Log("----------------------------------------");
             //calculate Air dissipation in classes and add it to SpaceHealthControl
+            ResetStudents();
+        }
+
+        private void ResetStudents()
+        {
+            foreach (IStudentAI student in TotalAgentsBucket.GetStudents())
+            {
+                student.ResetDay();
+            }
         }
 
         public override void Update(SchoolDayProgressionController progressionController)

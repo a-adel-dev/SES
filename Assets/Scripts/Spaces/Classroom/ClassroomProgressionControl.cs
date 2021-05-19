@@ -59,11 +59,6 @@ namespace SES.Spaces.Classroom
         {
             if (pausedState != null)
             {
-                foreach (IStudentAI student in studentsBucket.studentsCurrentlyInSpace)
-                {
-                    student.ResumeAgent();
-                }
-
                 TransitionToState(pausedState);
                 pausedState = null;
             }

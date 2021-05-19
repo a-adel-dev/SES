@@ -1547,6 +1547,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 836377342}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &87415914
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 87415915}
+  m_Layer: 0
+  m_Name: HealthyEgressCollector
+  m_TagString: Untagged
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &87415915
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87415914}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 24.78, y: -2.82, z: 17.81}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &91239194
 GameObject:
   m_ObjectHideFlags: 0
@@ -8759,6 +8789,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2859134090217578075, guid: a8c3555f11873464fbb0924ffb181c3a,
+        type: 3}
+      propertyPath: HealthyCollector
+      value: 
+      objectReference: {fileID: 87415914}
     - target: {fileID: 2859134090217578075, guid: a8c3555f11873464fbb0924ffb181c3a,
         type: 3}
       propertyPath: associatedClassrooms.Array.size
@@ -22901,6 +22936,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2859134090217578075, guid: a8c3555f11873464fbb0924ffb181c3a,
         type: 3}
+      propertyPath: HealthyCollector
+      value: 
+      objectReference: {fileID: 87415914}
+    - target: {fileID: 2859134090217578075, guid: a8c3555f11873464fbb0924ffb181c3a,
+        type: 3}
       propertyPath: associatedClassrooms.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -27394,6 +27434,7 @@ MonoBehaviour:
   SchoolState: 
   activitiesEnabled: 0
   relocationEnabled: 0
+  remainingEgressStudents: 0
 --- !u!114 &1406735259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35449,6 +35490,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2859134090217578075, guid: a8c3555f11873464fbb0924ffb181c3a,
+        type: 3}
+      propertyPath: HealthyCollector
+      value: 
+      objectReference: {fileID: 87415914}
     - target: {fileID: 5045893397817307284, guid: a8c3555f11873464fbb0924ffb181c3a,
         type: 3}
       propertyPath: m_Name
@@ -40899,41 +40945,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2859134090217578075, guid: a8c3555f11873464fbb0924ffb181c3a,
         type: 3}
-      propertyPath: associatedClassrooms.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2859134090217578075, guid: a8c3555f11873464fbb0924ffb181c3a,
-        type: 3}
-      propertyPath: associatedClassrooms.Array.data[0]
+      propertyPath: HealthyCollector
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2859134090217578075, guid: a8c3555f11873464fbb0924ffb181c3a,
-        type: 3}
-      propertyPath: associatedClassrooms.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2859134090217578075, guid: a8c3555f11873464fbb0924ffb181c3a,
-        type: 3}
-      propertyPath: associatedClassrooms.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2859134090217578075, guid: a8c3555f11873464fbb0924ffb181c3a,
-        type: 3}
-      propertyPath: associatedClassrooms.Array.data[3]
-      value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 87415914}
     - target: {fileID: 5045893397817307284, guid: a8c3555f11873464fbb0924ffb181c3a,
         type: 3}
       propertyPath: m_Name
       value: Stairs_NE
       objectReference: {fileID: 0}
-    - target: {fileID: 5250729060631852584, guid: a8c3555f11873464fbb0924ffb181c3a,
-        type: 3}
-      propertyPath: timeStep
-      value: 
-      objectReference: {fileID: 11400000, guid: 57cc5cf788c47274f93d3b4ddcda6f43,
-        type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5250729060631852584, guid: a8c3555f11873464fbb0924ffb181c3a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a8c3555f11873464fbb0924ffb181c3a, type: 3}
 --- !u!1001 &203255003939626813
 PrefabInstance:

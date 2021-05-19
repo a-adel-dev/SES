@@ -1,48 +1,43 @@
 ﻿using UnityEngine;
 using System;
 using SES.Core;
+using System.Collections.Generic;
+using SES.Spaces;
 
 
 namespace SES.School
 {
     public class SEgressTime : SSchoolBaseState
     {
-        /// <summary>
-        /// the time to allow the last egressed class to reach egress point 
-        /// before transitioning to the next state
-        /// </summary>
-        int waitTimeForEgress = 20;
-        int cooldownClassExit = SimulationParameters.cooldownClassExit;
-        bool egressDone = false;
+        int cooldownClassExit;
         int sessionTimer = 0;
         float timeStep;
         float timer = 0f;
+
+        
+        
         public override void EnterState(SchoolDayProgressionController progressionController)
         {
-            //consider pausing
-            timeStep = progressionController.timeStep;
-            Debug.Log("-------------Egress Time-------------");
-            //Debug.Log($"cooldown class Exit is {cooldownClassExit}");
-            progressionController.EgressClassGroup();
+            cooldownClassExit = SimulationParameters.cooldownClassExit;
             progressionController.SchoolState = "Home time";
-
+            if (resumed == false)
+            {
+                timeStep = progressionController.timeStep;
+                progressionController.EgressClassGroup();
+            }
         }
 
         public override void Update(SchoolDayProgressionController progressionController)
         {
-            if (egressDone == false && progressionController.remainingEgressClassrooms.Count <= 0)
+            if (sessionTimer >= cooldownClassExit)
             {
-                egressDone = true;
-            }
-            if (egressDone == false && sessionTimer >= cooldownClassExit)
-            {
+                //Debug.Log($"Egressing a class group. session timer is {sessionTimer}, cooldown exit is {cooldownClassExit}");
                 sessionTimer = 0;
                 progressionController.EgressClassGroup();
-                Debug.Log($"Egressing a classgroup, egressDone is {egressDone}"); 
             }
-            if (egressDone && sessionTimer >= waitTimeForEgress)
+            if (progressionController.remainingEgressStudents <= 0)
             {
-                progressionController.ResetRemainingEgressClasses();
+                progressionController.ResetEgress();
                 progressionController.TransitionToState(progressionController.offTime);
             }
             PassTime();
@@ -55,7 +50,6 @@ namespace SES.School
             {
                 timer -= timeStep;
                 sessionTimer++;
-                Debug.Log(sessionTimer);
                 DateTimeRecorder.UpdateSchoolTime(new TimeSpan(0, 1, 0));
             }
         }

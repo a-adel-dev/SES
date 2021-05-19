@@ -10,6 +10,7 @@ namespace SES.AIControl.FSM
             timeStep = behaviorControl.timeStep * 5;
             behaviorControl.ResumeAgent();
             behaviorControl.BackToDesk();
+            behaviorControl.GetComponent<MeshRenderer>().enabled = true;
             //Debug.Log($"in classroom");
         }
 

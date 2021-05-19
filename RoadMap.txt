@@ -1,0 +1,25 @@
+01 - implement Egress (1 day)
+	- Finish Egress
+	- restart school day
+02 - Implement activities(2 days)
+	- board Activity
+	- Group Activity
+03 - Implement student AI (4 days)
+	- Going to locker
+	- Going to bathroom
+04 - Implement teachers Spawning (2 days)
+	- Classroom spawning
+	- Teacherroom spawning
+	- labs spawning
+05 - Teacher AI (2 days)
+	- teacher rudemntiry movement
+	- teacher Autonomy
+06 - Class Relocation( 1 day)
+07 - Agent Health(1.5 days)
+08 - Space Health(1.5 days)
+09 - stats UI(0.5 day)
+10 - Agent UI(1 day)
+11 - Space UI(1 day)
+12 - implement Students talking to eahother in class ( 1 day)
+13 - Ending simulation(4- 5 days)
+	- results display

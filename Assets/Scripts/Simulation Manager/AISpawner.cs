@@ -44,6 +44,7 @@ namespace SES.SimManager
                         GameObject student = Instantiate(studentprefab, classroom.classroomSubSpaces.desks[i].transform.position, Quaternion.identity);
                         student.name = $"{classroom.name}_student_{counter}";
                         AddToClassroom(classroom, student);
+                        student.GetComponent<StudentBehaviorControl>().AssignDesk(classroom.classroomSubSpaces.desks[i]);
                         counter++;
                     }
                 }
@@ -54,6 +55,7 @@ namespace SES.SimManager
                         GameObject student = Instantiate(studentprefab, desk.transform.position, Quaternion.identity);
                         student.name = $"{classroom.name}_student_{counter}";
                         AddToClassroom(classroom, student);
+                        student.GetComponent<StudentBehaviorControl>().AssignDesk(desk);
                         counter++;
                     }
                 }
@@ -66,10 +68,11 @@ namespace SES.SimManager
             classroom.studentsBucket.AddToSpaceOriginalStudents(student.GetComponent<IStudentAI>());
             classroom.studentsBucket.AddToStudentsCurrentlyInSpace(student.GetComponent<IStudentAI>());
             student.transform.parent = classroom.transform;
+            behavior.AssignOriginalPosition();
+            TotalAgentsBucket.AddToStudents(behavior);
 
             behavior.IdleStudent();
             behavior.AssignMainClassroom(classroom);
-            behavior.RequestDesk(classroom);
             behavior.InitializeProperties();
         }
 

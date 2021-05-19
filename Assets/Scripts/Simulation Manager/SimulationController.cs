@@ -20,20 +20,22 @@ namespace SES.SimManager
 
         public void StartSim()
         {
-            school.InitializeProperties();
             spawner.SpawnStudents();
             spawner.SpawnTeachers();
+            school.InitializeProperties();
             school.StartSchoolDay();
         }
 
         public void PauseSim()
         {
             school.PauseSchool();
+            TotalAgentsBucket.PauseAgents();
         }
 
         public void ResumeSim()
         {
             school.ResumeSchool();
+            TotalAgentsBucket.ResumeAgents();
         }
     }
 }

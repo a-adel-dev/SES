@@ -14,6 +14,9 @@ namespace SES.Core
 
         bool IsTeacher();
         bool IsStudent();
+        void AssignOriginalPosition();
+        void Idle();
+        void ResumeAgent();
 
         /*
         void SetNearPOI(bool status);

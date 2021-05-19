@@ -20,25 +20,25 @@ namespace SES.Spaces.Classroom
         public void StartClass()
         {
             classScheduler.StartClass();
-            Debug.Log($"starting {gameObject.name}");
+            //Debug.Log($"starting {gameObject.name}");
         }
 
         public void PauseClass()
         {
             classScheduler.PauseClass();
-            Debug.Log($"Pausing Class {gameObject.name}");
+            //Debug.Log($"Pausing Class {gameObject.name}");
         }
 
         public void ResumeClass()
         {
             classScheduler.ResumeClass();
-            Debug.Log($"resuming Class {gameObject.name}");
+            //Debug.Log($"resuming Class {gameObject.name}");
         }
 
         public void EndClass()
         {
             classScheduler.EndClass();
-            Debug.Log($"Ending Class {gameObject.name}");
+            //Debug.Log($"Ending Class {gameObject.name}");
             //studentController.FreePupilsBehavior();
 
         }

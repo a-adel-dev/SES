@@ -1,17 +1,13 @@
--Student activity material is not responding properly ** Fixed: changed the way to indicate selections
--At the end of the day, students in activity do not exit school
+
+- class section index out of range bug
 -constrict short range infection only to people in the room
--do not acticvate start simulation button unless settings are applied.
--Allow movement during pause. 
--Review Activity status function (students remain doing activity after they actually finish)
 -update breathing state dynamically.
-Global Infection Problem***********
+
 
 
 
 TODO:
 *****check teachers area wandering
 Mange teachers at end of day.
-let camera and selection move during Pause.
 camera move to selected classes
 indicate selected classes.

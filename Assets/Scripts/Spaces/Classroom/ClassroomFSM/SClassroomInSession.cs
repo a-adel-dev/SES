@@ -132,11 +132,45 @@ namespace SES.Spaces.Classroom
                                                 * SimulationParameters.periodLength);
                 classroomSectionList.Add(value);
             }
+
+            classroomSectionList = CleanUpList(classroomSectionList);
+
             classSections = classroomSectionList;
-            foreach (int n in classSections)
+            PrintList(classSections);
+        }
+
+        private void PrintList(List<int> classSections)
+        {
+            string list = "[";
+            foreach (int value in classSections)
             {
-                Debug.Log($"{n}");
+                list += value.ToString();
+                list += " , ";
             }
+            list += "]";
+            Debug.Log(list);
+
+        }
+
+        List<int> CleanUpList(List<int> classroomSectionList)
+        {
+            List<int> cleanedUpList = new List<int>(classroomSectionList);
+            int sumListValues = 0;
+            foreach (int value in cleanedUpList)
+            {
+                sumListValues += value;
+            }
+            if (sumListValues < SimulationParameters.periodLength)
+            {
+                int difference = SimulationParameters.periodLength - sumListValues;
+                cleanedUpList[0] += difference;
+            }
+            else if (sumListValues > SimulationParameters.periodLength)
+            {
+                int difference = sumListValues - SimulationParameters.periodLength;
+                cleanedUpList[0] -= difference;
+            }
+            return cleanedUpList;
         }
     }
 }
