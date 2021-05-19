@@ -1,2 +1,2 @@
-timeStep,simulationTotalLength,numberOfSchoolDayPeriods,periodLength,breakLength,ActivitiesEnabled,relocationEnabled,initialNumStudentsContagious,initialNumTeachersContagious,cooldownClassExit,studentsMaskSettings,teacherMaskSettings,halfCapacity,classroomHalfCapacity,airControlSettings,minClassSectionNumber,maxClassSectionNumber,minClassActivityTime
-1,2,1,10,10,1,1,0,0,0,0,0,0,0,6,1,8,8
+timeStep,simulationTotalLength,numberOfSchoolDayPeriods,periodLength,breakLength,ActivitiesEnabled,relocationEnabled,initialNumStudentsContagious,initialNumTeachersContagious,cooldownClassExit,studentsMaskSettings,teacherMaskSettings,halfCapacity,classroomHalfCapacity,airControlSettings,minClassSectionNumber,maxClassSectionNumber,minClassActivityTime,adultWalkingSpeed,childrenWalkingSpeed,baseAutonomyChance,breakAutonomyChance
+1,2,1,10,10,1,1,0,0,0,0,0,0,0,6,1,8,8,1.5,0.6,10,20

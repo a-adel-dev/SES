@@ -29,13 +29,7 @@ namespace SES.Core
         #endregion
 
         #region Secondry parameters
-        public static int minClassSectionNumber { get; internal set; } = 1;
-        public static int maxClassSectionNumber { get; internal set; } = 8;
-        public static int minClassActivityTime { get; internal set; } = 8;
 
-        public static int numSkippedClasses { get; internal set; } = 1;
-
-        public static int baseAutonomyChance { get; set; } = 10;
         public static int breakAutonomyChance { get; set; } = 40;
         #endregion
     }

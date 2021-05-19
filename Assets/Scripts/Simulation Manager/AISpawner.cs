@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using SES.Spaces.Classroom;
 using SES.Spaces;
 using SES.AIControl;
+using UnityEngine.AI;
 
 namespace SES.SimManager
 {
@@ -69,6 +70,7 @@ namespace SES.SimManager
             classroom.studentsBucket.AddToStudentsCurrentlyInSpace(student.GetComponent<IStudentAI>());
             student.transform.parent = classroom.transform;
             behavior.AssignOriginalPosition();
+            student.GetComponent<NavMeshAgent>().speed = SimulationDefaults.childrenWalkingSpeed * (60f / SimulationParameters.timeStep);
             TotalAgentsBucket.AddToStudents(behavior);
 
             behavior.IdleStudent();
@@ -78,7 +80,8 @@ namespace SES.SimManager
 
         public void SpawnTeachers()
         {
-
+            //teacher.GetComponent<NavMeshAgent>().speed = SimulationDefaults.adultWalkingSpeed * (60f / SimulationDefaults.timeStep);
         }
+
     }
 }

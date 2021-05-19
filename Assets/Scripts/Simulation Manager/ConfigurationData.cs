@@ -30,6 +30,12 @@ namespace SES.SimManager
         public int maxClassSectionNumber { get; set; } = 8;
         public int minClassActivityTime { get; set; } = 8;
 
+        public float adultWalkingSpeed { get; set; } = 1.5f;
+        public float childrenWalkingSpeed { get; set; } = 0.6f;
+        public int baseAutonomyChance { get; set; } = 10;
+        public int breakAutonomyChance { get; set; } = 20;
+
+
 
 
         #endregion
@@ -83,6 +89,10 @@ namespace SES.SimManager
             minClassSectionNumber = int.Parse(values[15]);
             maxClassSectionNumber = int.Parse(values[16]);
             minClassActivityTime = int.Parse(values[17]);
+            adultWalkingSpeed = float.Parse(values[18]);
+            childrenWalkingSpeed = float.Parse(values[19]);
+            baseAutonomyChance = int.Parse(values[20]);
+            breakAutonomyChance = int.Parse(values[21]);
         }
     }
 }

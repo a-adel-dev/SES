@@ -45,8 +45,8 @@ namespace SES.Spaces.Classroom
 
         void InitializeValues()
         {
-            minSectionNumber = SimulationParameters.minClassSectionNumber;
-            maxSectionNumber = SimulationParameters.maxClassSectionNumber;
+            minSectionNumber = SimulationDefaults.minClassSectionNumber;
+            maxSectionNumber = SimulationDefaults.maxClassSectionNumber;
             timeStep = SimulationParameters.timeStep;
         }
 
@@ -87,7 +87,7 @@ namespace SES.Spaces.Classroom
                 return;
             }
             //if current section is larger than activity minimum threshold
-            if (classSections[currentSectionIndex] >= SimulationParameters.minClassActivityTime)
+            if (classSections[currentSectionIndex] >= SimulationDefaults.minClassActivityTime)
             {
                 //set class to be resumed
                 resumed = true;

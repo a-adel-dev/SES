@@ -29,6 +29,8 @@ namespace SES.SimManager
             SimulationDefaults.minClassSectionNumber = configurationData.minClassSectionNumber;
             SimulationDefaults.maxClassSectionNumber = configurationData.maxClassSectionNumber;
             SimulationDefaults.minClassActivityTime = configurationData.minClassActivityTime;
+            SimulationDefaults.childrenWalkingSpeed = configurationData.childrenWalkingSpeed;
+            SimulationDefaults.adultWalkingSpeed = configurationData.adultWalkingSpeed;
 
         }
 

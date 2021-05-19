@@ -31,6 +31,12 @@ namespace SES.Core
         public static int minClassSectionNumber { get; internal set; } = 1;
         public static int maxClassSectionNumber { get; internal set; } = 8;
         public static int minClassActivityTime { get; internal set; } = 8;
+
+        public static float adultWalkingSpeed { get; set; } = 1.5f;
+        public static float childrenWalkingSpeed { get; set; } = 0.6f;
+
+        public static int baseAutonomyChance { get; set; } = 10;
+        public static int breakAutonomyChance { get; set; } = 20;
         #endregion
     }
 }

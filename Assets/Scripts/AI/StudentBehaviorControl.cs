@@ -57,8 +57,8 @@ namespace SES.AIControl
 
         public void InitializeProperties()
         {
-            baseAutonomyChance = SimulationParameters.baseAutonomyChance;
-            breakAutonomyChance = SimulationParameters.breakAutonomyChance;
+            baseAutonomyChance = SimulationDefaults.baseAutonomyChance;
+            breakAutonomyChance = SimulationDefaults.breakAutonomyChance;
             timeStep = SimulationParameters.timeStep;
         }
 
