@@ -171,6 +171,11 @@ namespace SES.AIControl
             throw new System.NotImplementedException();
         }
 
+        public void AssignDesk(Spot spot)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void AssignOriginalPosition()
         {
             throw new System.NotImplementedException();
@@ -187,6 +192,11 @@ namespace SES.AIControl
         }
 
         public void ClearClassRoom()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ClearSpot()
         {
             throw new System.NotImplementedException();
         }
@@ -232,6 +242,11 @@ namespace SES.AIControl
         }
 
         public bool IsTeacher()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void NavigateTo(Vector3 location)
         {
             throw new System.NotImplementedException();
         }

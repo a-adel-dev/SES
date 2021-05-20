@@ -147,7 +147,6 @@
     <Compile Include="Assets\Scripts\Spaces\Bathroom.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ActivityBoard.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ActivityGroup.cs" />
-    <Compile Include="Assets\Scripts\Spaces\Classroom\ActivityPlanner.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\BehaviorController.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassActivity.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomBaseState.cs" />
@@ -157,7 +156,6 @@
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomOnBreak.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomProgressionControl.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomSpace.cs" />
-    <Compile Include="Assets\Scripts\Spaces\Classroom\classRoomSpawner.cs" />
     <Compile Include="Assets\Scripts\Spaces\Corridor.cs" />
     <Compile Include="Assets\Scripts\Spaces\EgressPoint.cs" />
     <Compile Include="Assets\Scripts\Spaces\Lab.cs" />

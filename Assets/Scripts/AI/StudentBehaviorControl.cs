@@ -15,6 +15,7 @@ namespace SES.AIControl
         public StudentBaseState currentState;
         public string currentStateName;
         public Spot currentDesk;
+        public Spot currentSpot;
         public Spot mainDesk;
         public Vector3 originalPosition;
         public ClassroomSpace mainClassroom;
@@ -102,10 +103,7 @@ namespace SES.AIControl
 
         public Spot RequestDesk(ISpace space) => currentDesk = space.RequestDesk(this);
 
-        public void ReleaseDesk()
-        {
-            currentDesk.ClearSpot();
-        }
+        
 
         public GameObject GetGameObject()
         {
@@ -170,6 +168,25 @@ namespace SES.AIControl
         public void AssignDesk(Spot desk)
         {
             currentDesk = desk;
+        }
+        public void ReleaseDesk()
+        {
+            currentDesk.ClearSpot();
+        }
+
+        public void AssignSpot(Spot spot)
+        {
+            currentSpot = spot;
+            spot.FillSpot(this);
+        }
+        public void ClearSpot()
+        {
+            currentSpot.ClearSpot();
+        }
+
+        public void SetStoppingDistance(float distance)
+        {
+            nav.stoppingDistance = distance;
         }
     }
 }

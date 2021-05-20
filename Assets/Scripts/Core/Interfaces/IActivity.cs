@@ -8,6 +8,7 @@ namespace SES.Core
 {
     public interface IActivity
     {
-        bool GetActivityInProgressState();
+        void StartActivity();
+        void EndActivity();
     }
 }

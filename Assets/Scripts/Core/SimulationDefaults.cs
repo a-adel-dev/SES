@@ -37,6 +37,11 @@ namespace SES.Core
 
         public static int baseAutonomyChance { get; set; } = 10;
         public static int breakAutonomyChance { get; set; } = 20;
+
+        public static int numSpotsForGroupActivity { get; set; } = 4;
+        public static float deskGroupActivityCompensationX { get; set; } = 0f;
+        public static float deskGroupActivityCompensationZ { get; set; } = -0.5f;
+        public static float minDistanceGroupActivity { get; set; } = 3f;
         #endregion
     }
 }

@@ -10,6 +10,7 @@ namespace SES.Spaces.Classroom
         public bool activitiesEnabled;
         public SpaceStudentsBucket studentsBucket;
         public string currentStateName;
+
         #region FSM
         public SClassroomBaseState currentState { get; private set; }
         private SClassroomBaseState pausedState;

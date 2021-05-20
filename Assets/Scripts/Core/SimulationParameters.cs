@@ -27,10 +27,5 @@ namespace SES.Core
         
         internal static int airControlSettings { get; set; } = 0;
         #endregion
-
-        #region Secondry parameters
-
-        public static int breakAutonomyChance { get; set; } = 40;
-        #endregion
     }
 }

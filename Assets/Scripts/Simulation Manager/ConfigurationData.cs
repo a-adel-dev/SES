@@ -35,6 +35,11 @@ namespace SES.SimManager
         public int baseAutonomyChance { get; set; } = 10;
         public int breakAutonomyChance { get; set; } = 20;
 
+        public int numSpotsForGroupActivity { get; set; } = 4;
+        public float deskGroupActivityCompensationX { get; set; } = 0f;
+        public float deskGroupActivityCompensationZ { get; set; } = -0.5f;
+        public float minDistanceGroupActivity { get; set; } = 3f;
+
 
 
 
@@ -93,6 +98,11 @@ namespace SES.SimManager
             childrenWalkingSpeed = float.Parse(values[19]);
             baseAutonomyChance = int.Parse(values[20]);
             breakAutonomyChance = int.Parse(values[21]);
+            numSpotsForGroupActivity = int.Parse(values[22]);
+            deskGroupActivityCompensationX = float.Parse(values[23]);
+            deskGroupActivityCompensationZ = float.Parse(values[24]);
+            minDistanceGroupActivity = float.Parse(values[25]);
+
         }
     }
 }

@@ -5,7 +5,6 @@ namespace SES.AIControl.FSM
     {
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
-            //Debug.Log($"Doing activity");
             behaviorControl.ResumeAgent();
         }
 
@@ -16,10 +15,7 @@ namespace SES.AIControl.FSM
 
         public override void Update(StudentBehaviorControl behaviorControl)
         {
-            Vector3 board = new Vector3(behaviorControl.mainClassroom.classroomSubSpaces.board.transform.position.x,
-                                         0,
-                                         behaviorControl.mainClassroom.classroomSubSpaces.board.transform.position.z);
-            behaviorControl.NavigateTo(board);
+
         }
 
         public override string ToString()

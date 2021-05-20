@@ -31,6 +31,10 @@ namespace SES.SimManager
             SimulationDefaults.minClassActivityTime = configurationData.minClassActivityTime;
             SimulationDefaults.childrenWalkingSpeed = configurationData.childrenWalkingSpeed;
             SimulationDefaults.adultWalkingSpeed = configurationData.adultWalkingSpeed;
+            SimulationDefaults.numSpotsForGroupActivity = configurationData.numSpotsForGroupActivity;
+            SimulationDefaults.deskGroupActivityCompensationX = configurationData.deskGroupActivityCompensationX;
+            SimulationDefaults.deskGroupActivityCompensationZ = configurationData.deskGroupActivityCompensationZ;
+            SimulationDefaults.minDistanceGroupActivity = configurationData.minDistanceGroupActivity;
 
         }
 

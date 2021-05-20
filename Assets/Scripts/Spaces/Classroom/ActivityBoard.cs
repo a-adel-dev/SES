@@ -5,60 +5,42 @@ using SES.Core;
 
 namespace SES.Spaces.Classroom
 {
-    public class ActivityBoard : MonoBehaviour //, IActivity
+    public class ActivityBoard : IActivity
     {
-        /*
-        [SerializeField] float timeStep;
-        public bool activityInProgress = false;
- 
-        // Use this for initialization
-
-
-        private void update()
+        List<IStudentAI> students = new List<IStudentAI>();
+        List<Spot> spots = new List<Spot>();
+        public ActivityBoard(List<IStudentAI> studentsInClass, List<Spot> activitySpots)
         {
-            timeStep = timeStepVariable.value;
+            students = ListHandler.Shuffle(studentsInClass);
+            spots = ListHandler.Shuffle(activitySpots);
         }
 
-        public IEnumerator StartBoardActivity(List<IStudentAI> studentsInClass, List<Spot> activitySpots, int index)
-        {
-            activityInProgress = true;
-            if (Mathf.Abs(timeStep) <= Mathf.Epsilon)
+        public void StartActivity()
+        { 
+            if (students.Count != 0)
             {
-                Debug.LogError($"timeStep is not set in boardActivity");
-            }
-            //Debug.Log("board");
-            if (studentsInClass.Count != 0)
-            {
-
-                List<Spot> boardSpots = new List<Spot>(activitySpots);//TODO: Shuffle spots before passing them in
-                int randomIndex = Random.Range(1, boardSpots.Count);
+                int randomIndex = Random.Range(1, spots.Count);
                 for (int i = 0; i < randomIndex; i++)
                 {
-                    studentsInClass[i].AssignSpot(boardSpots[i]);// wouldn't the same pupil be picked every time? i think we need to shuffle students.
-                    boardSpots[i].FillSpot(studentsInClass[i]);
-                    studentsInClass[i].GuideTo(boardSpots[i].transform.position);
-                }
-                yield return new WaitForSecondsRealtime((index - 2) * timeStep);
-                for (int i = 0; i < randomIndex; i++)
-                {
-                    var spot = studentsInClass[i].ReleaseSpot();
-                    spot.ClearSpot();
-                    studentsInClass[i].BackToDesk();
+                    students[i].AssignSpot(spots[i]);
+                    spots[i].FillSpot(students[i]);
+                    students[i].NavigateTo(spots[i].transform.position);
                 }
             }
-            activityInProgress = false;
-            //planner.EndActivity();
         }
 
-        public void SetTimeStep(float _timeStep)
+        public void EndActivity()
         {
-            timeStep = _timeStep;
-        }
+            foreach (Spot boardSpot in spots)
+            {
+                if (boardSpot.ISpotAvailable() == false)
+                { 
+                    IStudentAI student = boardSpot.ClearSpot() as IStudentAI;
+                    student.ClearSpot();
+                    student.BackToDesk();
+                }
 
-        public bool GetActivityInProgressState()
-        {
-            return activityInProgress;
+            }
         }
-        */
     }
 }

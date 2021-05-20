@@ -17,10 +17,14 @@ namespace SES.Core
         void AssignOriginalPosition();
         void Idle();
         void ResumeAgent();
+        void AssignDesk(Spot spot);
+        void NavigateTo(Vector3 location);
+        void AssignSpot(Spot spot);
+        void ClearSpot();
 
         /*
         void SetNearPOI(bool status);
-        void AssignSpot(Spot spot);
+        
         void SetControlledTo(bool state);
 
         void SetCurrentClass(ISpace classroom);
