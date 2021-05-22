@@ -14,7 +14,7 @@ namespace SES.Core
             spaceOriginalStudents.Add(student);
         }
 
-        public void AddToStudentsCurrentlyInSpace(IStudentAI student)
+        public void ReceiveStudent(IStudentAI student)
         {
             studentsCurrentlyInSpace.Add(student);
         }

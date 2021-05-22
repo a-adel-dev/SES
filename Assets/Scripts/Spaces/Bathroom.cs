@@ -4,7 +4,7 @@ using SES.Core;
 
 namespace SES.Spaces
 {
-    public class Bathroom : MonoBehaviour, ISpace
+    public class Bathroom : MonoBehaviour, IBathroom
     {
         List<Spot> toilets = new List<Spot>();
         List<Spot> availableToilets = new List<Spot>();
@@ -15,19 +15,9 @@ namespace SES.Spaces
             {
                 toilets.Add(other.GetComponent<Spot>());
                 availableToilets.Add(other.GetComponent<Spot>());
-
             }
         }
 
-        public Spot GetAToilet(IAI agent)
-        {
-            if (availableToilets.Count <= 0) { return null; }
-            Spot randomToilet = availableToilets[Random.Range(0, availableToilets.Count)];
-            //Debug.Log("assigning Toilet: " + randomToilet.name + " to: " + agent.gameObject.name);
-            randomToilet.FillSpot(agent);
-            availableToilets.Remove(randomToilet);
-            return randomToilet;
-        }
 
         public void ReleaseToilet(Spot toilet)
         {
@@ -37,10 +27,10 @@ namespace SES.Spaces
 
         public GameObject GetGameObject()
         {
-            throw new System.NotImplementedException();
+            return gameObject;
         }
 
-        public Spot RequestDesk(IAI student)
+        public Spot RequestToilet(IAI student)
         {
             ListHandler.Shuffle(toilets);
             foreach (Spot toilet in toilets)
@@ -52,6 +42,11 @@ namespace SES.Spaces
                 }
             }
             return null;
+        }
+
+        public Spot RequestDesk(IAI agent)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -27,6 +27,10 @@ namespace SES.Spaces.Classroom
                     students[i].NavigateTo(spots[i].transform.position);
                 }
             }
+            foreach (IStudentAI student in students)
+            {
+                student.LookAtBoard();
+            }
         }
 
         public void EndActivity()

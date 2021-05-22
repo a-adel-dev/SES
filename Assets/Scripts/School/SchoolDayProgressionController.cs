@@ -6,7 +6,7 @@ using SES.Spaces;
 
 namespace SES.School
 {
-    public class SchoolDayProgressionController : MonoBehaviour
+    public class SchoolDayProgressionController : MonoBehaviour, ISchool
     {
         public SchoolSubSpacesBucket subspaces;
         public string SchoolState = "";
@@ -49,13 +49,13 @@ namespace SES.School
 
         private void Update()
         {
-            if (currentState != null) 
+            if (currentState != null)
             {
                 currentState.Update(this);
             }
         }
 
-        
+
 
         public void InitializeProperties()
         {
@@ -171,7 +171,7 @@ namespace SES.School
             remainingEgressStudents = TotalAgentsBucket.GetStudents().Count;
         }
 
-        public IClassroom FindNearestClassroom (ISpace space, List<IClassroom> classrooms)
+        public IClassroom FindNearestClassroom(ISpace space, List<IClassroom> classrooms)
         {
             float dist = 100000f;
             IClassroom selectedClass = null;
@@ -200,6 +200,11 @@ namespace SES.School
         {
             remainingEgressStudents--;
             //Debug.Log($"egress");
+        }
+
+        public Bathroom RequestBathroom(IAI agent)
+        {
+            return subspaces.GetNearestBathroom(agent);
         }
     }
 }

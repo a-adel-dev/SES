@@ -206,11 +206,6 @@ namespace SES.AIControl
             throw new System.NotImplementedException();
         }
 
-        public Transform GetTransform()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void GoToClassRoom()
         {
             throw new System.NotImplementedException();
@@ -221,17 +216,12 @@ namespace SES.AIControl
             throw new System.NotImplementedException();
         }
 
-        public void Idle()
+        public void IdleAgent()
         {
             throw new System.NotImplementedException();
         }
 
         public bool IsInClassroom()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool IsInfected()
         {
             throw new System.NotImplementedException();
         }
@@ -251,27 +241,17 @@ namespace SES.AIControl
             throw new System.NotImplementedException();
         }
 
+        public void PauseAgent()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void ResumeAgent()
         {
             throw new System.NotImplementedException();
         }
 
-        public void SetControlledTo(bool state)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void SetCurrentClass(ISpace classroom)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void SetInClassroomto(bool v)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void SetNearPOI(bool status)
         {
             throw new System.NotImplementedException();
         }

@@ -33,12 +33,12 @@ namespace SES.Core
         {
             foreach (IStudentAI student in totalStudents)
             {
-                student.Idle();
+                student.PauseAgent();
             }
 
             foreach (ITeacherAI teacher in totalTeachers)
             {
-                teacher.Idle();
+                teacher.PauseAgent();
             }
         }
 

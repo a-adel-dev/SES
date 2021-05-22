@@ -18,11 +18,11 @@ namespace SES.AIControl
         public Spot currentSpot;
         public Spot mainDesk;
         public Vector3 originalPosition;
-        public ClassroomSpace mainClassroom;
+        public ClassroomSpace currentClassroom;
         public int baseAutonomyChance;
         public int breakAutonomyChance;
         public float timeStep;
-        NavMeshAgent nav;
+        public NavMeshAgent nav;
 
         public readonly SStudentInClassroom inClassroom = new SStudentInClassroom();
         public readonly SStudentAutonomus autonomous = new SStudentAutonomus();
@@ -68,7 +68,7 @@ namespace SES.AIControl
             TransitionToState(inClassroom);
         }
 
-        public void IdleStudent()
+        public void IdleAgent()
         {
             TransitionToState(idle);
         }
@@ -90,14 +90,14 @@ namespace SES.AIControl
 
         public void AssignMainClassroom(ClassroomSpace classroom)
         {
-            mainClassroom = classroom;
+            currentClassroom = classroom;
         }
 
         public void LookAtBoard()
         {
-            Vector3 boardModifiedDirection = new Vector3(mainClassroom.classroomSubSpaces.board.transform.position.x,
+            Vector3 boardModifiedDirection = new Vector3(currentClassroom.classroomSubSpaces.board.transform.position.x,
                                                             0,
-                                                            mainClassroom.classroomSubSpaces.board.transform.position.z);
+                                                            currentClassroom.classroomSubSpaces.board.transform.position.z);
             transform.LookAt(boardModifiedDirection);
         }
 
@@ -140,11 +140,6 @@ namespace SES.AIControl
             TransitionToState(onBreak);
         }
 
-        public void Idle()
-        {
-            TransitionToState(idle);
-        }
-
         public void TransitStudent()
         {
             TransitionToState(inTransit);
@@ -156,7 +151,7 @@ namespace SES.AIControl
             transform.localPosition = originalPosition;
             nav.enabled = true;
             nav.SetDestination(originalPosition);
-            IdleStudent();
+            IdleAgent();
         }
 
         public void AssignOriginalPosition()
@@ -188,5 +183,7 @@ namespace SES.AIControl
         {
             nav.stoppingDistance = distance;
         }
+
+        
     }
 }

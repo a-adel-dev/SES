@@ -1,0 +1,10 @@
+﻿tree("root")
+	sequence
+		PickLocker
+		GoToLocker
+		CheckReach
+		WaitRandom 2.0 , 4.0
+		ReleaseLocker
+		BackToDesk
+		CheckReach
+		RequestStatus

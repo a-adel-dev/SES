@@ -43,6 +43,7 @@ namespace SES.Spaces.Classroom
 
         }
 
+
         public GameObject GetGameObject()
         {
             return gameObject;
@@ -56,6 +57,19 @@ namespace SES.Spaces.Classroom
                 {
                     desk.FillSpot(student);
                     return desk;
+                }
+            }
+            return null;
+        }
+
+        public Spot RequestLocker(IAI student)
+        {
+            foreach (Spot locker in ListHandler.Shuffle(classroomSubSpaces.lockers))
+            {
+                if (locker.ISpotAvailable())
+                {
+                    locker.FillSpot(student);
+                    return locker;
                 }
             }
             return null;
@@ -82,6 +96,11 @@ namespace SES.Spaces.Classroom
         {
             var state = classScheduler.currentState;
             return state.GetType() == typeof(SClassroomEmpty);
+        }
+
+        public void ExitClassroom(IStudentAI agent)
+        {
+            studentsBucket.studentsCurrentlyInSpace.Remove(agent);
         }
 
         ////    public void SendClassToLab(Lab lab)

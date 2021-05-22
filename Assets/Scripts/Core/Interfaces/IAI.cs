@@ -15,7 +15,8 @@ namespace SES.Core
         bool IsTeacher();
         bool IsStudent();
         void AssignOriginalPosition();
-        void Idle();
+        void IdleAgent();
+        void PauseAgent();
         void ResumeAgent();
         void AssignDesk(Spot spot);
         void NavigateTo(Vector3 location);

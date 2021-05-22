@@ -78,5 +78,20 @@ namespace SES.Spaces.Classroom
             activity.activityPeriod = activityPeriod;
             TransitionToState(activity);
         }
+
+        public void RequestStatus(IStudentAI student)
+        {
+            if (currentState.GetType() == typeof(SClassroomInSession))
+            {
+                student.StartClass();
+            }
+
+            else if (currentState.GetType() == typeof(SClassroomOnBreak))
+            {
+                student.BreakTime();
+            }
+        }
+
+
     }
 }

@@ -83,6 +83,7 @@
     <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\UnitExplosion.cs" />
     <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\WaypointPath.cs" />
     <Compile Include="Assets\Scripts\AI\AI.cs" />
+    <Compile Include="Assets\Scripts\AI\Beahviors.cs" />
     <Compile Include="Assets\Scripts\AI\FSM\SStudentAutonomus.cs" />
     <Compile Include="Assets\Scripts\AI\FSM\SStudentDoingActivity.cs" />
     <Compile Include="Assets\Scripts\AI\FSM\SStudentIdle.cs" />
@@ -103,8 +104,10 @@
     <Compile Include="Assets\Scripts\Core\Interfaces\IAI.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\IAISpawner.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\IActivity.cs" />
+    <Compile Include="Assets\Scripts\Core\Interfaces\IBathroom.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\IClassroom.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\ILab.cs" />
+    <Compile Include="Assets\Scripts\Core\Interfaces\ISchool.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\ISpace.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\IStudentAI.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\ITeacherAI.cs" />
@@ -178,7 +181,6 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\TagDialogue.BT.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
-    <None Include="Assets\Behaviors\LockerActivity.BT.txt" />
     <None Include="Assets\Behaviors\BathroomActivity.BT.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\PlayTag.commented.BT.txt" />
@@ -203,8 +205,10 @@
     <None Include="Assets\Scripts\Behaviors\bathroom.BT.txt" />
     <None Include="Assets\Behaviors\Main.BT.txt" />
     <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Sniper.BT.txt" />
+    <None Include="Assets\Behaviors\BathroomBehavior.BT.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\PandaBehaviour\Examples\00_ChangeColor\Assets\ChangeColor.BT.txt" />
+    <None Include="Assets\Behaviors\LockerBehavior.BT.txt" />
     <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Hunter.BT.txt" />
     <None Include="Assets\Behaviors\GoBack.BT.txt" />
     <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\Computer.BT.txt" />

@@ -37,7 +37,7 @@ namespace SES.Spaces
             {
                 //if healthy
                 //transfer student to healthy collector space
-                other.GetComponent<StudentBehaviorControl>().IdleStudent();
+                other.GetComponent<StudentBehaviorControl>().IdleAgent();
                 other.gameObject.GetComponent<MeshRenderer>().enabled = false;
                 other.gameObject.transform.position = HealthyCollector.transform.position;
                 //invoke event

@@ -67,13 +67,13 @@ namespace SES.SimManager
         {
             StudentBehaviorControl behavior = student.GetComponent<StudentBehaviorControl>();
             classroom.studentsBucket.AddToSpaceOriginalStudents(student.GetComponent<IStudentAI>());
-            classroom.studentsBucket.AddToStudentsCurrentlyInSpace(student.GetComponent<IStudentAI>());
+            classroom.studentsBucket.ReceiveStudent(student.GetComponent<IStudentAI>());
             student.transform.parent = classroom.transform;
             behavior.AssignOriginalPosition();
             student.GetComponent<NavMeshAgent>().speed = SimulationDefaults.childrenWalkingSpeed * (60f / SimulationParameters.timeStep);
             TotalAgentsBucket.AddToStudents(behavior);
 
-            behavior.IdleStudent();
+            behavior.IdleAgent();
             behavior.AssignMainClassroom(classroom);
             behavior.InitializeProperties();
         }

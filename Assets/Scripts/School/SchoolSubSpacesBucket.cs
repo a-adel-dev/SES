@@ -52,15 +52,15 @@ namespace SES.School
             }
         }
 
-        public Bathroom GetNearestBathroom(IStudentAI pupil)
+        public Bathroom GetNearestBathroom(IAI agent)
         {
             Bathroom nearestBathroom = null;
             float distance = Mathf.Infinity;
-            Vector3 pupilPos = pupil.GetGameObject().transform.position;
+            Vector3 pupilPos = agent.GetGameObject().transform.position;
             //NavMeshPath path = new NavMeshPath();
             foreach (Bathroom bathroom in bathrooms)
             {
-                if (Vector3.Distance(bathroom.transform.position, pupil.GetGameObject().transform.position) < distance)
+                if (Vector3.Distance(bathroom.transform.position, agent.GetGameObject().transform.position) < distance)
                 {
                     distance = Vector3.Distance(bathroom.transform.position, pupilPos);
                     nearestBathroom = bathroom;

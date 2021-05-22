@@ -19,6 +19,7 @@ namespace SES.Core
         void ResetDay();
 
         void BackToDesk();
+        void LookAtBoard();
         /*
 void SetStudentLocationTo(StudentState location);
 void BackToDesk();
