@@ -90,6 +90,11 @@ namespace SES.Spaces.Classroom
             {
                 student.BreakTime();
             }
+
+            else if (currentState.GetType() == typeof(SClassActivity))
+            {
+                student.StartClass();
+            }
         }
 
 

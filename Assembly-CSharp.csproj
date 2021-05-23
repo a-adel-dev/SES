@@ -85,10 +85,15 @@
     <Compile Include="Assets\Scripts\AI\AI.cs" />
     <Compile Include="Assets\Scripts\AI\Beahviors.cs" />
     <Compile Include="Assets\Scripts\AI\FSM\SStudentAutonomus.cs" />
+    <Compile Include="Assets\Scripts\AI\FSM\SStudentBackToClassBehavior.cs" />
+    <Compile Include="Assets\Scripts\AI\FSM\SStudentBathroomBehavior.cs" />
     <Compile Include="Assets\Scripts\AI\FSM\SStudentDoingActivity.cs" />
     <Compile Include="Assets\Scripts\AI\FSM\SStudentIdle.cs" />
     <Compile Include="Assets\Scripts\AI\FSM\SStudentInClassroom.cs" />
     <Compile Include="Assets\Scripts\AI\FSM\SStudentInTransit.cs" />
+    <Compile Include="Assets\Scripts\AI\FSM\SStudentLockerBehavior.cs" />
+    <Compile Include="Assets\Scripts\AI\FSM\SStudentNearPOIBehavior.cs" />
+    <Compile Include="Assets\Scripts\AI\FSM\SStudentToiletBehavior.cs" />
     <Compile Include="Assets\Scripts\AI\FSM\SStudentonBreak.cs" />
     <Compile Include="Assets\Scripts\AI\FSM\StudentBaseState.cs" />
     <Compile Include="Assets\Scripts\AI\StudentAI.cs" />
@@ -121,6 +126,7 @@
     <Compile Include="Assets\Scripts\Core\Tester.cs" />
     <Compile Include="Assets\Scripts\Core\TesterC.cs" />
     <Compile Include="Assets\Scripts\Core\TimeStepController.cs" />
+    <Compile Include="Assets\Scripts\Core\Timer.cs" />
     <Compile Include="Assets\Scripts\Core\TotalAgentsBucket.cs" />
     <Compile Include="Assets\Scripts\Health\AgentHealth.cs" />
     <Compile Include="Assets\Scripts\Health\Droplet.cs" />
@@ -188,6 +194,7 @@
     <None Include="Assets\PandaBehaviour\README.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <None Include="Assets\Behaviors\POIBehavior.BT.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\Scripts\TextFile1.txt" />
     <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Player.BT.txt" />

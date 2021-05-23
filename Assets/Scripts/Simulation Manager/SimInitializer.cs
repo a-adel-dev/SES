@@ -19,6 +19,7 @@ namespace SES.SimManager
         {
             school = FindObjectOfType<SchoolDayProgressionController>();
             spawner = GetComponent<AISpawner>();
+            
         }
 
 
@@ -26,7 +27,6 @@ namespace SES.SimManager
         {
             school.subspaces.Initialize();
             spawner.Initialize();
-            
         }
     }
 }

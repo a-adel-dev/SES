@@ -1,0 +1,3 @@
+﻿tree("POI")
+	while NearPOI
+		WaitRandom 2.0 , 4.0

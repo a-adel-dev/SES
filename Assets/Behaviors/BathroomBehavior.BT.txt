@@ -1,16 +1,19 @@
 ﻿tree("root")
 	sequence
-		ExitClassroom
-		RequestBathroom
-		GoToBathroom
-		CheckReach
-		RequestToilet
-		GoToToilet
-		WaitRandom 2.0 , 4.0
-		ReleaseToilet
-		ExitBathroom
-		GoToClass
-		CheckReach
-		BackToDesk
-		EnterClass
-		RequestStatus
+		mute
+			sequence
+				ExitClassroom
+				RequestBathroom
+				GoToBathroom
+				CheckReach
+				RequestToilet
+				GoToToilet
+				WaitRandom 2.0 , 4.0
+				ReleaseToilet
+		sequence
+			ExitBathroom
+			GoToClass
+			CheckReach
+			BackToDesk
+			EnterClass
+			RequestStatus

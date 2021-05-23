@@ -1,20 +1,15 @@
-﻿using UnityEngine;
-using SES.Core;
-using Panda;
+﻿
 
 
 namespace SES.AIControl.FSM
 {
     public class SStudentAutonomus : StudentBaseState
     {
-        PandaBehaviour bT;
+        int toiletChance = 2;
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
-            bT = behaviorControl.GetComponent<PandaBehaviour>();
-            //behaviorControl.ResumeAgent();
-            Debug.Log($"Autonomus");
-            //activiate panda
-            bT.enabled = true;
+            //behaviorControl.BehaviorGoToLocker();
+            behaviorControl.BehaviorGoToBathroom();
         }
 
         public override void OnTriggerEnter(StudentBehaviorControl behaviorControl)

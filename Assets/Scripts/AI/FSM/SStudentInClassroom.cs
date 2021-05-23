@@ -7,11 +7,13 @@ namespace SES.AIControl.FSM
         float timeStep;
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
+            
             timeStep = behaviorControl.timeStep * 5;
             behaviorControl.ResumeAgent();
             behaviorControl.BackToDesk();
             behaviorControl.GetComponent<MeshRenderer>().enabled = true;
             //Debug.Log($"in classroom");
+            behaviorControl.visitedPOI = false;
         }
 
         public override void OnTriggerEnter(StudentBehaviorControl behaviorControl)

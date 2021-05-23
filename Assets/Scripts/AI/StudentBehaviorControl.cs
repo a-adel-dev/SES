@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using SES.AIControl.FSM;
 using SES.Core;
 using UnityEngine.AI;
-using SES.Spaces;
 using SES.Spaces.Classroom;
-
+using SES.School;
+using SES.Spaces;
+using System;
 
 namespace SES.AIControl
 {
@@ -21,8 +21,18 @@ namespace SES.AIControl
         public ClassroomSpace currentClassroom;
         public int baseAutonomyChance;
         public int breakAutonomyChance;
+        public bool visitedPOI = false;
+
+
+
+
         public float timeStep;
         public NavMeshAgent nav;
+        public IBathroom bathroomToVisit;
+        public ISchool school;
+        public bool inCorridor = false;
+        public bool nearPOI = false;
+        public POI poi;
 
         public readonly SStudentInClassroom inClassroom = new SStudentInClassroom();
         public readonly SStudentAutonomus autonomous = new SStudentAutonomus();
@@ -34,6 +44,7 @@ namespace SES.AIControl
         private void Awake()
         {
             nav = GetComponent<NavMeshAgent>();
+            school = FindObjectOfType<SchoolDayProgressionController>();
         }
         void Update()
         {
@@ -48,6 +59,28 @@ namespace SES.AIControl
         private void OnTriggerEnter(Collider other)
         {
             currentState.OnTriggerEnter(this);
+            if (other.GetComponent<Corridor>())
+            {
+                inCorridor = true;
+            }
+            if (other.GetComponent<POI>())
+            {
+                nearPOI = true;
+                poi = other.GetComponent<POI>();
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.GetComponent<Corridor>())
+            {
+                inCorridor = false;
+            }
+            if (other.GetComponent<POI>())
+            {
+                nearPOI = false;
+                poi = null;
+            }
         }
 
         void TransitionToState(StudentBaseState state)
@@ -184,6 +217,31 @@ namespace SES.AIControl
             nav.stoppingDistance = distance;
         }
 
-        
+        public void BehaviorGoToLocker()
+        {
+            TransitionToState(new SStudentLockerBehavior());
+        }
+
+        public void BehaviorGoToBathroom()
+        {
+            TransitionToState(new SStudentBathroomBehavior());
+        }
+
+        public void VisitToilet()
+        {
+            TransitionToState(new SStudentToiletBehavior());
+        }
+
+        public void GoToClassroom()
+        {
+            TransitionToState(new SStudentBackToClassBehavior());
+        }
+
+        internal void StopForPOI()
+        {
+            TransitionToState(new SStudentNearPOIBehavior());
+        }
+
+
     }
 }
