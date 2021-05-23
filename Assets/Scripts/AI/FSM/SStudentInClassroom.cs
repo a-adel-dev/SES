@@ -16,11 +16,6 @@ namespace SES.AIControl.FSM
             behaviorControl.visitedPOI = false;
         }
 
-        public override void OnTriggerEnter(StudentBehaviorControl behaviorControl)
-        {
-            
-        }
-
         public override void Update(StudentBehaviorControl behaviorControl)
         {
             behaviorControl.LookAtBoard();

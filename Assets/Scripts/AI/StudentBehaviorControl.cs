@@ -58,7 +58,6 @@ namespace SES.AIControl
 
         private void OnTriggerEnter(Collider other)
         {
-            currentState.OnTriggerEnter(this);
             if (other.GetComponent<Corridor>())
             {
                 inCorridor = true;

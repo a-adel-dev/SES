@@ -13,15 +13,11 @@ namespace SES.AIControl.FSM
         {
             behaviorControl.visitedPOI = true;
             behaviorControl.NavigateTo(behaviorControl.poi.transform.position);
+            POIWaitingTime = Random.Range(SimulationDefaults.lockerWaitingTime - 0.5f, SimulationDefaults.lockerWaitingTime + 1);
             Vector3 POIDirection = new Vector3(behaviorControl.poi.transform.position.x,
                                                             0,
                                                             behaviorControl.poi.transform.position.z);
             behaviorControl.transform.LookAt(POIDirection);
-
-        }
-
-        public override void OnTriggerEnter(StudentBehaviorControl behaviorControl)
-        {
 
         }
 

@@ -16,6 +16,7 @@ namespace SES.AIControl.FSM
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
             toiletToVisit = behaviorControl.bathroomToVisit.RequestToilet(behaviorControl);
+            toiletWaitingTime = Random.Range(SimulationDefaults.lockerWaitingTime, SimulationDefaults.lockerWaitingTime + 3);
             if (toiletToVisit != null)
             {
                 behaviorControl.NavigateTo(toiletToVisit.transform.position);
@@ -25,12 +26,6 @@ namespace SES.AIControl.FSM
                 behaviorControl.GoToClassroom();
             }
         }
-
-        public override void OnTriggerEnter(StudentBehaviorControl behaviorControl)
-        {
-
-        }
-
         public override void Update(StudentBehaviorControl behaviorControl)
         {
             PassTime();

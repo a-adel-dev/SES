@@ -42,6 +42,9 @@ namespace SES.Core
         public static float deskGroupActivityCompensationX { get; set; } = 0f;
         public static float deskGroupActivityCompensationZ { get; set; } = -0.5f;
         public static float minDistanceGroupActivity { get; set; } = 3f;
+
+        public static int bathroomChance { get; set; } = 2;
+        public static float lockerWaitingTime { get; set; } = 2f;
         #endregion
     }
 }

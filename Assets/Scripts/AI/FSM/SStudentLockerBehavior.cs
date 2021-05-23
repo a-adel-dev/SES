@@ -9,7 +9,7 @@ namespace SES.AIControl.FSM
         float timer = 0;
         Spot lockerToVisit;
 
-        float lockerWaitingTime = 2.0f;
+        float waitingTime;
         float sessionTimer;
 
         public override void EnterState(StudentBehaviorControl behaviorControl)
@@ -22,18 +22,14 @@ namespace SES.AIControl.FSM
             {
                 RequestStatus(behaviorControl);
             }
-        }
-
-        public override void OnTriggerEnter(StudentBehaviorControl behaviorControl)
-        {
-
+            waitingTime = Random.Range(SimulationDefaults.lockerWaitingTime - 1f, SimulationDefaults.lockerWaitingTime + 1);
         }
 
         public override void Update(StudentBehaviorControl behaviorControl)
         {
             PassTime();
 
-            if (sessionTimer > lockerWaitingTime)
+            if (sessionTimer > waitingTime)
             {
                 ReleaseLocker();
                 behaviorControl.NavigateTo(behaviorControl.currentDesk.transform.position);

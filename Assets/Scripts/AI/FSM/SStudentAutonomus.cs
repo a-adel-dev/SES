@@ -1,20 +1,23 @@
-﻿
+﻿using UnityEngine;
+using SES.Core;
 
 
 namespace SES.AIControl.FSM
 {
     public class SStudentAutonomus : StudentBaseState
     {
-        int toiletChance = 2;
+        
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
-            //behaviorControl.BehaviorGoToLocker();
-            behaviorControl.BehaviorGoToBathroom();
-        }
-
-        public override void OnTriggerEnter(StudentBehaviorControl behaviorControl)
-        {
-
+            int randomIndex = Random.Range(1, 10);
+            if (randomIndex < SimulationDefaults.bathroomChance)
+            {
+                behaviorControl.BehaviorGoToBathroom();
+            }
+            else
+            {
+                behaviorControl.BehaviorGoToLocker();
+            }
         }
 
         public override void Update(StudentBehaviorControl behaviorControl)

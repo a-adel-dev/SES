@@ -10,6 +10,7 @@ namespace SES.Core
         public List<Spot> boardSpots = new List<Spot>();
         public BoxCollider teachersSpace;
         public GameObject board;
+        public GameObject entrance;
         List<Spot> availableLockers;
         List<Spot> availableDesks = new List<Spot>();
 
@@ -35,16 +36,6 @@ namespace SES.Core
         {
             if (lockers == null) { return; }
             availableLockers = new List<Spot>(lockers);
-        }
-
-        public List<Spot> GetSpaceDesks()
-        {
-            return desks;
-        }
-
-        public BoxCollider GetTeacherSpace()
-        {
-            return teachersSpace;
         }
 
         public Spot GetRandomLocker()
@@ -75,15 +66,6 @@ namespace SES.Core
             }
         }
 
-        public void ShuffleBoardSpots()
-        {
-            boardSpots =  ListHandler.Shuffle(boardSpots);
-        }
-
-        public GameObject GetClassBoard()
-        {
-            return board;
-        }
 
         public Spot GetAvailableDesk()
         {

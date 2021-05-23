@@ -8,11 +8,6 @@ namespace SES.AIControl.FSM
             behaviorControl.ResumeAgent();
         }
 
-        public override void OnTriggerEnter(StudentBehaviorControl behaviorControl)
-        {
-
-        }
-
         public override void Update(StudentBehaviorControl behaviorControl)
         {
 

@@ -5,19 +5,18 @@ namespace SES.AIControl.FSM
 {
     public class SStudentBackToClassBehavior : StudentBaseState
     {
+        float timer = 0;
+        bool stopForPOI = false;
+        int POIChance = 1;
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
-            behaviorControl.NavigateTo(behaviorControl.currentClassroom.transform.position);
-        }
-
-        public override void OnTriggerEnter(StudentBehaviorControl behaviorControl)
-        {
-
+            behaviorControl.NavigateTo(behaviorControl.currentClassroom.classroomSubSpaces.entrance.transform.position);
         }
 
         public override void Update(StudentBehaviorControl behaviorControl)
         {
-            if (behaviorControl.nearPOI && behaviorControl.inCorridor && behaviorControl.visitedPOI == false)
+            PassTime();
+            if (behaviorControl.nearPOI && behaviorControl.inCorridor && behaviorControl.visitedPOI == false && stopForPOI)
             {
                 behaviorControl.StopForPOI();
             }
@@ -36,6 +35,14 @@ namespace SES.AIControl.FSM
             return "Going Back To Class";
         }
 
-
+        private void PassTime()
+        {
+            timer += Time.deltaTime;
+            if (timer >= SimulationParameters.timeStep)
+            {
+                timer -= SimulationParameters.timeStep;
+                stopForPOI = Random.Range(1, 10) <= POIChance;
+            }
+        }
     }
 }

@@ -35,6 +35,8 @@ namespace SES.SimManager
             SimulationDefaults.deskGroupActivityCompensationX = configurationData.deskGroupActivityCompensationX;
             SimulationDefaults.deskGroupActivityCompensationZ = configurationData.deskGroupActivityCompensationZ;
             SimulationDefaults.minDistanceGroupActivity = configurationData.minDistanceGroupActivity;
+            SimulationDefaults.bathroomChance = configurationData.bathroomChance;
+            SimulationDefaults.lockerWaitingTime = configurationData.lockerWaitingTime;
 
         }
 

@@ -40,6 +40,9 @@ namespace SES.SimManager
         public float deskGroupActivityCompensationZ { get; set; } = -0.5f;
         public float minDistanceGroupActivity { get; set; } = 3f;
 
+        public int bathroomChance { get; set; } = 2;
+        public float lockerWaitingTime { get; set; } = 2f;
+
 
 
 
@@ -102,7 +105,8 @@ namespace SES.SimManager
             deskGroupActivityCompensationX = float.Parse(values[23]);
             deskGroupActivityCompensationZ = float.Parse(values[24]);
             minDistanceGroupActivity = float.Parse(values[25]);
-
+            bathroomChance = int.Parse(values[26]);
+            lockerWaitingTime = float.Parse(values[27]);
         }
     }
 }

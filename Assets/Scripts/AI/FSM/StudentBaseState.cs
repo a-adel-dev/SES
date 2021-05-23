@@ -4,7 +4,5 @@
     {
         public abstract void EnterState(StudentBehaviorControl behaviorControl);
         public abstract void Update(StudentBehaviorControl behaviorControl);
-
-        public abstract void OnTriggerEnter(StudentBehaviorControl behaviorControl);
     }
 }

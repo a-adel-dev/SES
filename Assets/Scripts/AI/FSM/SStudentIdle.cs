@@ -14,11 +14,6 @@ namespace SES.AIControl.FSM
             behaviorControl.PauseAgent();
         }
 
-        public override void OnTriggerEnter(StudentBehaviorControl behaviorControl)
-        {
-
-        }
-
         public override void Update(StudentBehaviorControl behaviorControl)
         {
 
