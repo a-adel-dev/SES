@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using SES.Core;
 namespace SES.AIControl.FSM
 {
     public class SStudentInClassroom : StudentBaseState
@@ -8,7 +9,7 @@ namespace SES.AIControl.FSM
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
             
-            timeStep = behaviorControl.timeStep * 5;
+            timeStep = SimulationParameters.timeStep * 5;
             behaviorControl.ResumeAgent();
             behaviorControl.BackToDesk();
             behaviorControl.GetComponent<MeshRenderer>().enabled = true;

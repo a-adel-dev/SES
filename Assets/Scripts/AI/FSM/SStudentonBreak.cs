@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using SES.Core;
 namespace SES.AIControl.FSM
 {
     public class SStudentonBreak : StudentBaseState
@@ -8,7 +9,7 @@ namespace SES.AIControl.FSM
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
             //Debug.Log($"on break");
-            timeStep = behaviorControl.timeStep * 2 ;
+            timeStep = SimulationParameters.timeStep * 2 ;
             behaviorControl.ResumeAgent();
         }
 

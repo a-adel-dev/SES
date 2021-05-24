@@ -36911,7 +36911,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   studentprefab: {fileID: 6679094881373598523, guid: 99b61440493d6b54c9e1d85d2dc9bf69,
     type: 3}
-  teacherprefab: {fileID: 0}
+  teacherprefab: {fileID: 708053679854848142, guid: 651694a02e9825b4bb16a8cd66595ad4,
+    type: 3}
 --- !u!1001 &1932966366
 PrefabInstance:
   m_ObjectHideFlags: 0

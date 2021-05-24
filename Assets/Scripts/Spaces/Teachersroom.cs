@@ -11,7 +11,12 @@ namespace SES.Spaces
         //public List<ITeacherAI> originalRoomTeachers = new List<ITeacherAI>();
         //public List<ITeacherAI> teachersCurrentlyInRoom = new List<ITeacherAI>();
         //public List<ITeacherAI> outOfRoomTeachers = new List<ITeacherAI>();
-        //public float timeStep;
+        public SpotBucket subspaces { get; set; }
+
+        private void Start()
+        {
+            subspaces = GetComponent<SpotBucket>();
+        }
 
 
         //public void AddToOriginalRoomTeachers(ITeacherAI teacher)

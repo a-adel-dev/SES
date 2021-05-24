@@ -11,28 +11,22 @@ namespace SES.AIControl
 {
     public class StudentBehaviorControl : MonoBehaviour, IStudentAI
     {
-        //public GameObject target;
-        public StudentBaseState currentState;
-        public string currentStateName;
-        public Spot currentDesk;
-        public Spot currentSpot;
-        public Spot mainDesk;
-        public Vector3 originalPosition;
-        public ClassroomSpace currentClassroom;
-        public int baseAutonomyChance;
-        public int breakAutonomyChance;
-        public bool visitedPOI = false;
+        public StudentBaseState currentState { get; set; }
+        public string currentStateName { get; set; }
+        public Spot currentDesk { get; set; }
+        public Spot currentSpot { get; set; }
+        public Vector3 originalPosition { get; set; }
+        public ClassroomSpace currentClassroom { get; set; }
+        public int baseAutonomyChance { get; set; }
+        public int breakAutonomyChance { get; set; }
+        public bool visitedPOI { get; set; } = false;
 
-
-
-
-        public float timeStep;
-        public NavMeshAgent nav;
-        public IBathroom bathroomToVisit;
-        public ISchool school;
-        public bool inCorridor = false;
-        public bool nearPOI = false;
-        public POI poi;
+        public NavMeshAgent nav { get; set; }
+        public IBathroom bathroomToVisit { get; set; }
+        public ISchool school { get; set; }
+        public bool inCorridor { get; set; } = false;
+        public bool nearPOI { get; set; } = false;
+        public POI poi { get; set; }
 
         public readonly SStudentInClassroom inClassroom = new SStudentInClassroom();
         public readonly SStudentAutonomus autonomous = new SStudentAutonomus();
@@ -48,7 +42,6 @@ namespace SES.AIControl
         }
         void Update()
         {
-            //NavigateTo(target.transform.position);
             if (currentState != null)
             {
                 currentStateName = currentState.ToString();
@@ -92,7 +85,6 @@ namespace SES.AIControl
         {
             baseAutonomyChance = SimulationDefaults.baseAutonomyChance;
             breakAutonomyChance = SimulationDefaults.breakAutonomyChance;
-            timeStep = SimulationParameters.timeStep;
         }
 
         public void StartClass()

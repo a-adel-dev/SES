@@ -97,8 +97,7 @@ GameObject:
   - component: {fileID: 4883184976260265442}
   - component: {fileID: 6870786197774672087}
   - component: {fileID: 3553884003612468737}
-  - component: {fileID: -1655908857123734982}
-  - component: {fileID: 8457426912948384654}
+  - component: {fileID: 1270294536922979408}
   m_Layer: 0
   m_Name: Lab
   m_TagString: Lab
@@ -147,8 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25a704cd732c5694ea025de80c76c5a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  board: {fileID: 0}
---- !u!114 &-1655908857123734982
+  labObjects: {fileID: 0}
+--- !u!114 &1270294536922979408
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,26 +156,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7265495422432722968}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 881518fbeb32501479e82841ef8ba478, type: 3}
+  m_Script: {fileID: 11500000, guid: 38609666ebc16954b899cfa173b37d46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   desks: []
-  teacherPrefab: {fileID: 708053679854848142, guid: 651694a02e9825b4bb16a8cd66595ad4,
-    type: 3}
---- !u!114 &8457426912948384654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7265495422432722968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spaceVolume: 0
-  outdoor: 0
-  concentration: 0
-  currentConcentration: 0
-  airExchangeRate: 2.16
+  lockers: []
+  boardSpots: []
+  teachersSpace: {fileID: 0}
+  board: {fileID: 0}
+  entrance: {fileID: 0}

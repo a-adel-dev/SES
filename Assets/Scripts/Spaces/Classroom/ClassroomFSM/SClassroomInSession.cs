@@ -149,7 +149,6 @@ namespace SES.Spaces.Classroom
             }
             list += "]";
             Debug.Log(list);
-
         }
 
         List<int> CleanUpList(List<int> classroomSectionList)

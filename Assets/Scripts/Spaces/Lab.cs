@@ -1,38 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using SES.Core;
-using SES.Spaces.Classroom;
 
 namespace SES.Spaces
 {
     public class Lab : MonoBehaviour, ILab
     {
-        //ClassroomSpace currentOriginalClass;
-        //BoxCollider teachersSpace;
-        //SchoolDayState schoolDayState;
-        public SpotBucket labObjects;
+        public SpotBucket labObjects { get; set; }
         //public SpaceStudentsBucket labStudents;
 
-        ////lab variables
-        //bool labEmpty = true;
-        //bool started = false; // a bool to enable the function to update cleartogo status
-
-        ////school variables
-        //float timeStep;
-
-        //private void Start()
-        //{
-        //    labStudents = GetComponent<SpaceStudentsBucket>();
-        //    if (GetComponent<SpotBucket>() == false)
-        //    {
-        //        Debug.LogError($" SpotBucket component does not exist on {gameObject.name}.");
-        //    }
-        //    else
-        //    {
-        //        labObjects = GetComponent<SpotBucket>();
-        //    }
-        //}
+        private void Start()
+        {
+            //labStudents = GetComponent<SpaceStudentsBucket>();
+            if (GetComponent<SpotBucket>() == false)
+            {
+                Debug.LogError($" SpotBucket component does not exist on {gameObject.name}.");
+            }
+            else
+            {
+                labObjects = GetComponent<SpotBucket>();
+            }
+        }
 
         //public void SetlabEmptyTo(bool status)
         //{
@@ -159,7 +146,7 @@ namespace SES.Spaces
 
         public GameObject GetGameObject()
         {
-            throw new System.NotImplementedException();
+            return gameObject;
         }
 
         public Spot RequestDesk(IAI student)
