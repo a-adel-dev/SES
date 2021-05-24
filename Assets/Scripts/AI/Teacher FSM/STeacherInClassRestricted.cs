@@ -58,5 +58,10 @@ namespace SES.AIControl.FSM
                                                             behaviorControl.currentClass.GetGameObject().transform.position.z);
             behaviorControl.transform.LookAt(studentsDirecton);
         }
+
+        public override string ToString()
+        {
+            return "Teaching a class with restricted movement"; 
+        }
     }
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 using SES.Core;
 using UnityEngine.AI;
 using SES.AIControl.FSM;
-
-
+using SES.Spaces;
+using System;
 
 namespace SES.AIControl
 {
@@ -13,9 +13,16 @@ namespace SES.AIControl
     public class TeacherBehaviorControl : MonoBehaviour, ITeacherAI
     {
         public IClassroom currentClass { get; set; }
+        public Spot currentDesk { get; set; }
         public NavMeshAgent nav { get; set; }
+        public ISpace teacherroom { get; set; }
 
+        public ILab currentLab { get; set; }
 
+        public bool inCorridor { get; set; } = false;
+        public bool nearPOI { get; set; } = false;
+        public POI poi { get; set; }
+        public bool visitedPOI { get; set; } = false;
 
         public STeacherBaseState currentState { get; set; }
         public string currentStateName { get; set; }
@@ -49,12 +56,66 @@ namespace SES.AIControl
             currentState.EnterState(this);
         }
 
-        public void WanderRestricted()
+        public void ClassroomRestricted()
         {
             TransitionToState(new STeacherInClassRestricted());
         }
 
+        public void ClassroomFree()
+        {
+            TransitionToState(new STeacherInClassFree());
+        }
 
+        public void StopForPOI()
+        {
+            TransitionToState(new STeacherPOI());
+        }
+
+        public void Rest()
+        {
+            TransitionToState(new STeacherResting());
+        }
+
+        internal void BehaviorGoToBathroom()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void BehaviorGoToLocker()
+        {
+            TransitionToState(new STeacherLocker());
+        }
+
+        public void GoToTeacherroom()
+        {
+            TransitionToState(new STeacherGoingToTeacherroom());
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.GetComponent<Corridor>())
+            {
+                inCorridor = true;
+            }
+            if (other.GetComponent<POI>())
+            {
+                nearPOI = true;
+                poi = other.GetComponent<POI>();
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.GetComponent<Corridor>())
+            {
+                inCorridor = false;
+            }
+            if (other.GetComponent<POI>())
+            {
+                nearPOI = false;
+                poi = null;
+            }
+        }
 
 
         public void SetCurrentClassroom(IClassroom classroom)

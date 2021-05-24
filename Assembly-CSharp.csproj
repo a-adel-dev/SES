@@ -99,7 +99,13 @@
     <Compile Include="Assets\Scripts\AI\StudentAI.cs" />
     <Compile Include="Assets\Scripts\AI\StudentBehaviorControl.cs" />
     <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherBaseState.cs" />
+    <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherGoingToClassroom.cs" />
+    <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherGoingToTeacherroom.cs" />
+    <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherInClassFree.cs" />
     <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherInClassRestricted.cs" />
+    <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherLocker.cs" />
+    <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherPOI.cs" />
+    <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherResting.cs" />
     <Compile Include="Assets\Scripts\AI\TeacherBehaviorControl.cs" />
     <Compile Include="Assets\Scripts\AI\TeacherNavigation.cs" />
     <Compile Include="Assets\Scripts\Core\AgentSpawner.cs" />

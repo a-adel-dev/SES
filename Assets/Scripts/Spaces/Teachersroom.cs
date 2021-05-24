@@ -60,12 +60,33 @@ namespace SES.Spaces
         //}
         public GameObject GetGameObject()
         {
-            throw new System.NotImplementedException();
+            return gameObject;
         }
 
         public Spot RequestDesk(IAI teacher)
         {
-            throw new System.NotImplementedException();
+            foreach (Spot desk in subspaces.desks)
+            {
+                if (desk.ISpotAvailable())
+                {
+                    desk.FillSpot(teacher);
+                    return desk;
+                }
+            }
+            return null;
+        }
+
+        public Spot RequestLocker(IAI teacher)
+        {
+            foreach (Spot locker in ListHandler.Shuffle(subspaces.lockers))
+            {
+                if (locker.ISpotAvailable())
+                {
+                    locker.FillSpot(teacher);
+                    return locker;
+                }
+            }
+            return null;
         }
     }
 }
