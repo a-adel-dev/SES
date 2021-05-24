@@ -9,9 +9,11 @@ namespace SES.Core
 {
     public interface IClassroom : ISpace
     {
+
         //void RecieveStudents();
         //void EgressClass(Vector3 position);
-        
+        SpotBucket GetClassroomSubspaces();
+        SpaceStudentsBucket GetClassStudents();
         void StartClass();
         //void SetSchoolDayState(SchoolDayState schoolDayState);
         void EndClass();

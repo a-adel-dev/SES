@@ -136,7 +136,7 @@ namespace SES.AIControl
 
         public bool IsTeacher()
         {
-            return GetComponent<TeacherAI>();
+            return GetComponent<TeacherBehaviorControl>();
         }
 
         public bool IsStudent()

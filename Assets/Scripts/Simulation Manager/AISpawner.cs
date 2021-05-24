@@ -84,9 +84,13 @@ namespace SES.SimManager
             foreach (ClassroomSpace classroom in classrooms)
             {
                 GameObject teacher = Instantiate(teacherprefab, classroom.classroomSubSpaces.entrance.transform.position, Quaternion.identity);
-                teacher.GetComponent<NavMeshAgent>().speed = SimulationDefaults.adultWalkingSpeed * (60f / SimulationDefaults.timeStep);
+                NavMeshAgent teacherNav = teacher.GetComponent<NavMeshAgent>();
+                teacherNav.speed = SimulationDefaults.adultWalkingSpeed * (60f / SimulationDefaults.timeStep);
                 teacher.name = $"teacher_{counter}";
-                TotalAgentsBucket.AddToTeachers(teacher.GetComponent<TeacherAI>());
+                TeacherBehaviorControl behavior = teacher.GetComponent<TeacherBehaviorControl>();
+                TotalAgentsBucket.AddToTeachers(behavior);
+                behavior.SetCurrentClassroom(classroom);
+                behavior.WanderRestricted();
             }
 
             for (int i = 0; i < 2; i++)
@@ -94,9 +98,10 @@ namespace SES.SimManager
                 foreach (Lab lab in school.subspaces.labs)
                 {
                     GameObject teacher = Instantiate(teacherprefab, lab.labObjects.entrance.transform.position, Quaternion.identity);
-                    teacher.GetComponent<NavMeshAgent>().speed = SimulationDefaults.adultWalkingSpeed * (60f / SimulationDefaults.timeStep);
+                    NavMeshAgent teacherNav = teacher.GetComponent<NavMeshAgent>();
+                    teacherNav.speed = SimulationDefaults.adultWalkingSpeed * (60f / SimulationDefaults.timeStep);
                     teacher.name = $"teacher_{counter}";
-                    TotalAgentsBucket.AddToTeachers(teacher.GetComponent<TeacherAI>());
+                    TotalAgentsBucket.AddToTeachers(teacher.GetComponent<TeacherBehaviorControl>());
                 }
             }
 
@@ -105,9 +110,10 @@ namespace SES.SimManager
                 for (int i = 0; i < teachersroom.subspaces.desks.Count; i = i + 2)
                 {
                     GameObject teacher = Instantiate(teacherprefab, teachersroom.subspaces.desks[i].transform.position, Quaternion.identity);
-                    teacher.GetComponent<NavMeshAgent>().speed = SimulationDefaults.adultWalkingSpeed * (60f / SimulationDefaults.timeStep);
+                    NavMeshAgent teacherNav = teacher.GetComponent<NavMeshAgent>();
+                    teacherNav.speed = SimulationDefaults.adultWalkingSpeed * (60f / SimulationDefaults.timeStep);
                     teacher.name = $"teacher_{counter}";
-                    TotalAgentsBucket.AddToTeachers(teacher.GetComponent<TeacherAI>());
+                    TotalAgentsBucket.AddToTeachers(teacher.GetComponent<TeacherBehaviorControl>());
                 }
             }
             

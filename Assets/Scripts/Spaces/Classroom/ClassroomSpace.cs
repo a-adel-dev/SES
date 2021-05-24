@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using SES.Core;
 using System.Collections.Generic;
+using System;
 
 namespace SES.Spaces.Classroom
 {
     public class ClassroomSpace : MonoBehaviour, IClassroom
     {
         public ClassroomProgressionControl classScheduler;
-        public SpaceStudentsBucket studentsBucket;
-        public SpotBucket classroomSubSpaces;
+        public SpaceStudentsBucket studentsBucket { get; set; }
+        public SpotBucket classroomSubSpaces { get; set; }
+
+
 
         private void Start()
         {
@@ -21,6 +24,16 @@ namespace SES.Spaces.Classroom
         {
             classScheduler.StartClass();
             //Debug.Log($"starting {gameObject.name}");
+        }
+
+        public SpotBucket GetClassroomSubspaces()
+        {
+            return classroomSubSpaces;
+        }
+
+        public SpaceStudentsBucket GetClassStudents()
+        {
+            return studentsBucket;
         }
 
         public void PauseClass()
