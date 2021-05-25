@@ -22,6 +22,7 @@ namespace SES.School
                 sessionLength = progressionController.breakLength;
                 //Debug.Log($"---------------Break Time--------------");
                 progressionController.EndPeriod();
+                progressionController.ReplaceClassTeahers();
             }
             else
             {

@@ -3,6 +3,7 @@ using UnityEngine;
 using SES.Core;
 using System;
 using SES.Spaces;
+using SES.Spaces.Classroom;
 
 namespace SES.School
 {
@@ -205,6 +206,47 @@ namespace SES.School
         public Bathroom RequestBathroom(IAI agent)
         {
             return subspaces.GetNearestBathroom(agent);
+        }
+
+        public void ReplaceClassTeahers()
+        {
+            List<ITeacherAI> teachersToReplace = new List<ITeacherAI>();
+            List<ClassroomSpace> classesToFill = ListHandler.Shuffle(subspaces.classrooms);
+
+            foreach (ITeacherAI teacher in TotalAgentsBucket.GetTeachers())
+            {
+                if (teacher.currentLab == null)
+                {
+                    teachersToReplace.Add(teacher);
+                    teacher.ClearCurrentClassroom();
+                }
+            }
+            teachersToReplace =  ListHandler.Shuffle(teachersToReplace);
+            
+            int teacherIndex = 0;
+            foreach (IClassroom classroom in classesToFill)
+            {
+                teachersToReplace[teacherIndex].currentClass = classroom;
+                teacherIndex++;
+            }
+
+            foreach (ITeacherAI teacher in teachersToReplace)
+            {
+                if (teacher.currentClass != null)
+                {
+                    teacher.GoToClassroom();
+                }
+
+                else if (teacher.IsInTeacherroom() && teacher.currentClass == null)
+                {
+                    teacher.Rest();
+                }
+
+                else if (teacher.currentClass == null)
+                {
+                    teacher.GoToTeacherroom();
+                }
+            }
         }
     }
 }

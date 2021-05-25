@@ -72,6 +72,7 @@ namespace SES.AIControl
             {
                 nearPOI = false;
                 poi = null;
+                visitedPOI = false;
             }
         }
 

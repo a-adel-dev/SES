@@ -5,14 +5,17 @@ using SES.Core;
 
 namespace SES.Spaces
 {
-    public class Teachersroom : MonoBehaviour, ISpace
+    public class Teachersroom : MonoBehaviour, ITeachersroom
     {
 
         //public List<ITeacherAI> originalRoomTeachers = new List<ITeacherAI>();
         //public List<ITeacherAI> teachersCurrentlyInRoom = new List<ITeacherAI>();
         //public List<ITeacherAI> outOfRoomTeachers = new List<ITeacherAI>();
         public SpotBucket subspaces { get; set; }
+        
 
+        public List<ITeacherAI> teachers { get; set; } = new List<ITeacherAI>();
+        
         private void Start()
         {
             subspaces = GetComponent<SpotBucket>();
@@ -88,5 +91,17 @@ namespace SES.Spaces
             }
             return null;
         }
+
+        public void AddToTeachersInRoom(ITeacherAI teacher)
+        {
+            teachers.Add(teacher);
+        }
+
+        public void ExitTeacherroom(ITeacherAI teacher)
+        {
+            teachers.Remove(teacher);
+        }
+
+        
     }
 }

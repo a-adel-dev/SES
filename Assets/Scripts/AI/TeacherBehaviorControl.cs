@@ -6,16 +6,16 @@ using UnityEngine.AI;
 using SES.AIControl.FSM;
 using SES.Spaces;
 using System;
+using SES.School;
 
 namespace SES.AIControl
 {
-
     public class TeacherBehaviorControl : MonoBehaviour, ITeacherAI
     {
         public IClassroom currentClass { get; set; }
         public Spot currentDesk { get; set; }
         public NavMeshAgent nav { get; set; }
-        public ISpace teacherroom { get; set; }
+        public ITeachersroom teacherroom { get; set; }
 
         public ILab currentLab { get; set; }
 
@@ -23,6 +23,9 @@ namespace SES.AIControl
         public bool nearPOI { get; set; } = false;
         public POI poi { get; set; }
         public bool visitedPOI { get; set; } = false;
+
+        public IBathroom bathroomToVisit { get; set; }
+        public ISchool school { get; set; }
 
         public STeacherBaseState currentState { get; set; }
         public string currentStateName { get; set; }
@@ -33,6 +36,7 @@ namespace SES.AIControl
         void Start()
         {
             nav = GetComponent<NavMeshAgent>();
+            school = FindObjectOfType<SchoolDayProgressionController>();
             //health = GetComponent<AgentHealth>();
             //if (IsInClassroom())
             //{
@@ -78,7 +82,7 @@ namespace SES.AIControl
 
         internal void BehaviorGoToBathroom()
         {
-            throw new NotImplementedException();
+            TransitionToState(new STeacherBathroom());
         }
 
         internal void BehaviorGoToLocker()
@@ -89,6 +93,12 @@ namespace SES.AIControl
         public void GoToTeacherroom()
         {
             TransitionToState(new STeacherGoingToTeacherroom());
+        }
+
+        public void GoToClassroom()
+        {
+            teacherroom.ExitTeacherroom(this);
+            TransitionToState(new STeacherGoingToClassroom());
         }
 
         private void OnTriggerEnter(Collider other)
@@ -114,6 +124,7 @@ namespace SES.AIControl
             {
                 nearPOI = false;
                 poi = null;
+                visitedPOI = false;
             }
         }
 
@@ -121,6 +132,22 @@ namespace SES.AIControl
         public void SetCurrentClassroom(IClassroom classroom)
         {
             currentClass = classroom;
+        }
+
+        public void ClearCurrentClassroom()
+        {
+            currentClass = null;
+        }
+
+        public void ExitTeacherroom()
+        {
+            currentDesk.ClearSpot();
+            currentDesk = null;
+        }
+
+        public void VisitToilet()
+        {
+            TransitionToState(new STeacherToilet());
         }
 
         ///// <summary>
@@ -226,6 +253,19 @@ namespace SES.AIControl
         public void ResumeAgent()
         {
             nav.isStopped = false;
+        }
+
+        public bool IsInTeacherroom()
+        {
+            if (teacherroom != null)
+            {
+                return teacherroom.teachers.Contains(this);
+            }
+            else
+            {
+                return false;
+            }
+            
         }
     }
 

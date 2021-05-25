@@ -46,7 +46,14 @@ namespace SES.Spaces
 
         public Spot RequestDesk(IAI agent)
         {
-            throw new System.NotImplementedException();
+            Debug.LogError($"'Request Desk()' Not valid for {this.gameObject.name}");
+            return null;
+        }
+
+        public Spot RequestLocker(IAI agent)
+        {
+            Debug.LogError($"'Request Locker()'Not valid for {this.gameObject.name}");
+            return null;
         }
     }
 }

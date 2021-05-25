@@ -12,11 +12,6 @@ namespace SES.Spaces
         [SerializeField] GameObject HealthyCollector;
         [SerializeField] GameObject InfectedCollector;
         StudentEgressEvent egressEvent = new StudentEgressEvent();
-        private void Update()
-        {
-            //check for collision with students
-            //separate the healthy from the unhealthy
-        }
 
         /// <summary>
         /// List of classroom whose staircase exit is this object
@@ -24,11 +19,6 @@ namespace SES.Spaces
         public GameObject GetGameObject()
         {
             return gameObject;
-        }
-
-        public Spot RequestDesk(IAI student)
-        {
-            throw new System.NotImplementedException();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -52,6 +42,17 @@ namespace SES.Spaces
         public void AddStudentEgressListener(UnityAction listener)
         {
             egressEvent.AddListener(listener);
+        }
+
+        public Spot RequestLocker(IAI agent)
+        {
+            Debug.LogError($"'Request Locker()'Not valid for {this.gameObject.name}");
+            return null;
+        }
+        public Spot RequestDesk(IAI student)
+        {
+            Debug.LogError($"'Request Desk()' Not valid for {this.gameObject.name}");
+            return null;
         }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using SES.Core;
+using System;
 
 namespace SES.Spaces
 {
     public class Lab : MonoBehaviour, ILab
     {
-        public SpotBucket labObjects { get; set; }
+        public SpotBucket labSubSpaces { get; set; }
         //public SpaceStudentsBucket labStudents;
 
         private void Start()
@@ -17,7 +18,7 @@ namespace SES.Spaces
             }
             else
             {
-                labObjects = GetComponent<SpotBucket>();
+                labSubSpaces = GetComponent<SpotBucket>();
             }
         }
 
@@ -151,12 +152,25 @@ namespace SES.Spaces
 
         public Spot RequestDesk(IAI student)
         {
-            foreach (Spot desk in labObjects.desks)
+            foreach (Spot desk in labSubSpaces.desks)
             {
                 if (desk.ISpotAvailable())
                 {
                     desk.FillSpot(student);
                     return desk;
+                }
+            }
+            return null;
+        }
+
+        public Spot RequestLocker(IAI agent)
+        {
+            foreach (Spot locker in ListHandler.Shuffle(labSubSpaces.lockers))
+            {
+                if (locker.ISpotAvailable())
+                {
+                    locker.FillSpot(agent);
+                    return locker;
                 }
             }
             return null;

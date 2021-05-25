@@ -99,13 +99,14 @@ namespace SES.SimManager
                     teacherroomIndex = 0;
                 }
                 behavior.ClassroomFree();
+                counter++;
             }
 
             for (int i = 0; i < 2; i++)
             {
                 foreach (Lab lab in school.subspaces.labs)
                 {
-                    GameObject teacher = Instantiate(teacherprefab, lab.labObjects.entrance.transform.position, Quaternion.identity);
+                    GameObject teacher = Instantiate(teacherprefab, lab.labSubSpaces.entrance.transform.position, Quaternion.identity);
                     NavMeshAgent teacherNav = teacher.GetComponent<NavMeshAgent>();
                     TeacherBehaviorControl behavior = teacher.GetComponent<TeacherBehaviorControl>();
                     teacherNav.speed = SimulationDefaults.adultWalkingSpeed * (60f / SimulationDefaults.timeStep);
@@ -113,10 +114,11 @@ namespace SES.SimManager
                     TotalAgentsBucket.AddToTeachers(teacher.GetComponent<TeacherBehaviorControl>());
                     behavior.currentLab = lab;
                     behavior.ClassroomFree();
+                    counter++;
                 }
             }
 
-            foreach (Teachersroom teachersroom in school.subspaces.teachersrooms)
+            foreach (ITeachersroom teachersroom in teacherrooms)
             {
                 for (int i = 0; i < teachersroom.subspaces.desks.Count; i = i + 2)
                 {
@@ -127,16 +129,12 @@ namespace SES.SimManager
                     teacher.name = $"teacher_{counter}";
                     TotalAgentsBucket.AddToTeachers(teacher.GetComponent<TeacherBehaviorControl>());
                     behavior.teacherroom = teachersroom;
+                    behavior.teacherroom.AddToTeachersInRoom(behavior);
+                    behavior.Rest();
+                    counter++;
                 }
             }
             
         }
-
-        void AssignTeacherRoom(ITeacherAI teacher)
-        {
-            int roomIndex = 0;
-            
-        }
-
     }
 }
