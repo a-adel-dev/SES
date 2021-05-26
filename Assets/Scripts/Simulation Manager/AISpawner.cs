@@ -19,11 +19,11 @@ namespace SES.SimManager
         List<ClassroomSpace> classrooms = new List<ClassroomSpace>();
         Teachersroom[] teacherrooms;
 
-        SchoolDayProgressionController school;
+        SchoolScheduler school;
 
         private void Start()
         {
-            school = FindObjectOfType<SchoolDayProgressionController>();
+            school = FindObjectOfType<SchoolScheduler>();
         }
 
         public void Initialize()
@@ -74,7 +74,7 @@ namespace SES.SimManager
             TotalAgentsBucket.AddToStudents(behavior);
 
             behavior.IdleAgent();
-            behavior.AssignMainClassroom(classroom);
+            behavior.AssignCurrentClassroom(classroom);
             behavior.InitializeProperties();
         }
 
@@ -91,6 +91,7 @@ namespace SES.SimManager
                 TeacherBehaviorControl behavior = teacher.GetComponent<TeacherBehaviorControl>();
                 TotalAgentsBucket.AddToTeachers(behavior);
                 behavior.SetCurrentClassroom(classroom);
+                classroom.classTeacher = behavior;
                 
                 behavior.teacherroom = school.subspaces.teachersrooms[teacherroomIndex];
                 teacherroomIndex++;
@@ -98,7 +99,7 @@ namespace SES.SimManager
                 {
                     teacherroomIndex = 0;
                 }
-                behavior.ClassroomFree();
+                //behavior.ClassroomFree();
                 counter++;
             }
 

@@ -9,6 +9,12 @@ namespace SES.Core
         public List<IStudentAI> studentsCurrentlyInSpace = new List<IStudentAI>();
         public List<IStudentAI> studentsOutOfSpace = new List<IStudentAI>();
 
+        public string students = "";
+
+        private void Update()
+        {
+            students = $"students: {studentsCurrentlyInSpace.Count}";
+        }
         public void AddToSpaceOriginalStudents(IStudentAI student)
         {
             spaceOriginalStudents.Add(student);
@@ -46,14 +52,6 @@ namespace SES.Core
         public void ClearStudentsInSpace()
         {
             studentsCurrentlyInSpace = new List<IStudentAI>();
-        }
-
-        public void ReceiveStudents(List<IStudentAI> students)
-        {
-            foreach (IStudentAI student in students)
-            {
-                AddToSpaceOriginalStudents(student);
-            }
         }
     }
 }

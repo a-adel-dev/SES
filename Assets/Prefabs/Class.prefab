@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1783310592}
   - component: {fileID: 5239175844229488528}
   - component: {fileID: 6883260464292743271}
-  - component: {fileID: 8736991644523482950}
   - component: {fileID: 998759790}
   - component: {fileID: 998759794}
+  - component: {fileID: 5564307066506042867}
   m_Layer: 0
   m_Name: Class
   m_TagString: Classroom
@@ -83,8 +83,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   classScheduler: {fileID: 0}
-  studentsBucket: {fileID: 0}
-  classroomSubSpaces: {fileID: 0}
+  teacher: {fileID: 0}
 --- !u!114 &6883260464292743271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,20 +134,6 @@ MonoBehaviour:
   teachersSpace: {fileID: 651212694340099072}
   board: {fileID: 0}
   entrance: {fileID: 7204012869814609781}
---- !u!114 &8736991644523482950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3784705064329411916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9c353571ffcbbd41bcf3ac040ed9ced, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentPrefab: {fileID: 6679094881373598523, guid: 99b61440493d6b54c9e1d85d2dc9bf69,
-    type: 3}
 --- !u!114 &998759790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +149,7 @@ MonoBehaviour:
   activitiesEnabled: 0
   studentsBucket: {fileID: 0}
   currentStateName: 
+  teacher: {fileID: 0}
 --- !u!114 &998759794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,6 +160,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1dc7b1569a5f1d44185a25a3c569408c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  students: 
+--- !u!114 &5564307066506042867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3784705064329411916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe8154ae5329c745aad504fe1cc4277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3876234189946989952

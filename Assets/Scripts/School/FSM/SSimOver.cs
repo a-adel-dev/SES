@@ -5,12 +5,12 @@ namespace SES.School
 {
     public class SSimOver : SSchoolBaseState
     {
-        public override void EnterState(SchoolDayProgressionController progressionController)
+        public override void EnterState(SchoolScheduler progressionController)
         {
             progressionController.SchoolState = "Simulation is over";
         }
 
-        public override void Update(SchoolDayProgressionController progressionController)
+        public override void Update(SchoolScheduler progressionController)
         {
             
         }

@@ -6,7 +6,7 @@ namespace SES.SimManager
 {
     public class SimInitializer : MonoBehaviour
     {
-        SchoolDayProgressionController school;
+        SchoolScheduler school;
         AISpawner spawner;
         private void Awake()
         {
@@ -17,7 +17,7 @@ namespace SES.SimManager
 
         private void Start()
         {
-            school = FindObjectOfType<SchoolDayProgressionController>();
+            school = FindObjectOfType<SchoolScheduler>();
             spawner = GetComponent<AISpawner>();
             
         }

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using SES.Core;
 using System.Collections.Generic;
-using System;
 
 namespace SES.Spaces.Classroom
 {
@@ -10,12 +9,32 @@ namespace SES.Spaces.Classroom
         public ClassroomProgressionControl classScheduler;
         public SpaceStudentsBucket studentsBucket { get; set; }
         public SpotBucket classroomSubSpaces { get; set; }
+        public ClassroomTeacherBucket teacher;
+
+        public ITeacherAI classTeacher
+        {
+            get
+            {
+                return teacher.teacher;
+            }
+
+            set
+            {
+                teacher.teacher = value;
+            }
+        }
 
 
 
         private void Start()
         {
             studentsBucket = GetComponent<SpaceStudentsBucket>();
+            teacher = GetComponent<ClassroomTeacherBucket>();
+            if (studentsBucket == null)
+            {
+                Debug.Log($"didn't acquire studentsbucket for {gameObject.name}");
+            }
+            
             classroomSubSpaces = GetComponent<SpotBucket>();
             classScheduler = GetComponent<ClassroomProgressionControl>();
         }
@@ -29,11 +48,6 @@ namespace SES.Spaces.Classroom
         public SpotBucket GetClassroomSubspaces()
         {
             return classroomSubSpaces;
-        }
-
-        public SpaceStudentsBucket GetClassStudents()
-        {
-            return studentsBucket;
         }
 
         public void PauseClass()
@@ -95,14 +109,27 @@ namespace SES.Spaces.Classroom
 
         public List<IStudentAI> ReleaseClass()
         {
-            classScheduler.EmptyClass();
+            EmptyClass();
             List<IStudentAI> studentslist = new List<IStudentAI>();
+            foreach (Spot desk in classroomSubSpaces.desks)
+            {
+                desk.ClearSpot();
+            }
+            
             foreach (IStudentAI student in studentsBucket.spaceOriginalStudents)
             {
-                student.TransitStudent();
+                student.ClearCurrentClass();
+                student.currentDesk = null;
                 studentslist.Add(student);
+                studentsBucket.studentsCurrentlyInSpace.Remove(student);
             }
             return studentslist;
+        }
+
+        public void EmptyClass()
+        {
+
+            classScheduler.EmptyClass();
         }
 
         public bool IsClassEmpty()
@@ -115,6 +142,13 @@ namespace SES.Spaces.Classroom
         {
             studentsBucket.studentsCurrentlyInSpace.Remove(agent);
         }
+
+        public void ReceiveStudent(IStudentAI student)
+        {
+            studentsBucket.studentsCurrentlyInSpace.Add(student);
+        }
+
+        
 
         ////    public void SendClassToLab(Lab lab)
         ////    {

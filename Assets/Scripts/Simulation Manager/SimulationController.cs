@@ -8,12 +8,12 @@ namespace SES.SimManager
 {
     public class SimulationController : MonoBehaviour
     {
-        SchoolDayProgressionController school;
+        SchoolScheduler school;
         
         IAISpawner spawner;
         private void Awake()
         {
-            school = FindObjectOfType<SchoolDayProgressionController>();
+            school = FindObjectOfType<SchoolScheduler>();
             spawner = FindObjectOfType<AISpawner>();
 
         }

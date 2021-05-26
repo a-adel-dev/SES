@@ -17,6 +17,7 @@ namespace SES.AIControl
         public Spot currentSpot { get; set; }
         public Vector3 originalPosition { get; set; }
         public ClassroomSpace currentClassroom { get; set; }
+        public ILab currentLab { get; set; }
         public int baseAutonomyChance { get; set; }
         public int breakAutonomyChance { get; set; }
         public bool visitedPOI { get; set; } = false;
@@ -38,15 +39,7 @@ namespace SES.AIControl
         private void Awake()
         {
             nav = GetComponent<NavMeshAgent>();
-            school = FindObjectOfType<SchoolDayProgressionController>();
-        }
-        void Update()
-        {
-            if (currentState != null)
-            {
-                currentStateName = currentState.ToString();
-                currentState.Update(this);
-            }
+            school = FindObjectOfType<SchoolScheduler>();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -80,6 +73,7 @@ namespace SES.AIControl
         {
             currentState = state;
             currentState.EnterState(this);
+            currentStateName = currentState.ToString();
         }
 
         public void InitializeProperties()
@@ -113,9 +107,14 @@ namespace SES.AIControl
             NavigateTo(currentDesk.gameObject.transform.position);
         }
 
-        public void AssignMainClassroom(ClassroomSpace classroom)
+        public void AssignCurrentClassroom(IClassroom classroom)
         {
-            currentClassroom = classroom;
+            currentClassroom = classroom as ClassroomSpace;
+        }
+
+        public void AssignLab(ILab lab)
+        {
+            currentLab = lab;
         }
 
         public void LookAtBoard()
@@ -181,7 +180,6 @@ namespace SES.AIControl
 
         public void AssignOriginalPosition()
         {
-
             originalPosition = transform.localPosition;
         }
 
@@ -234,6 +232,14 @@ namespace SES.AIControl
             TransitionToState(new SStudentNearPOIBehavior());
         }
 
+        public void ClearCurrentClass()
+        {
+            currentClassroom = null;
+        }
 
+        public void ClearCurrentLab()
+        {
+            currentLab = null;
+        }
     }
 }

@@ -10,7 +10,25 @@ namespace SES.Spaces.Classroom
         public bool activitiesEnabled;
         public SpaceStudentsBucket studentsBucket;
         public string currentStateName;
+        public ClassroomTeacherBucket teacher;
 
+        public ITeacherAI classTeacher
+        {
+            get
+            {
+                return teacher.teacher;
+            }
+
+            set
+            {
+                teacher.teacher = value;
+            }
+        }
+
+        private void Start()
+        {
+            teacher = GetComponent<ClassroomTeacherBucket>();
+        }
         #region FSM
         public SClassroomBaseState currentState { get; private set; }
         private SClassroomBaseState pausedState;
@@ -41,11 +59,48 @@ namespace SES.Spaces.Classroom
 
         public void EndClass()
         {
+            if (studentsBucket == null)
+            {
+                studentsBucket = GetComponent<SpaceStudentsBucket>();
+            }
             TransitionToState(new SClassroomOnBreak());
+        }
+
+        public void ReleaseTeacher()
+        {
+            if (classTeacher == null)
+            {
+                return;
+            }
+            ///cleared teacher
+            classTeacher.ClearCurrentClassroom();
+            classTeacher.GoToTeacherroom();
+            Debug.Log($"Sending {classTeacher.GetGameObject().name} to his teacher room");
+            classTeacher = null;
+        }
+
+        public void RequestTeacher()
+        {
+            if (classTeacher != null) { return; }
+            while (classTeacher == null)
+            {
+                int randomIndex = Random.Range(0, TotalAgentsBucket.GetTeachers().Count);
+                if (TotalAgentsBucket.GetTeachers()[randomIndex].currentLab == null &&
+                    TotalAgentsBucket.GetTeachers()[randomIndex].currentClass == null)
+                {
+                    classTeacher = TotalAgentsBucket.GetTeachers()[randomIndex];
+                    classTeacher.currentClass = GetComponent<ClassroomSpace>();
+                    classTeacher.GoToClassroom();
+                }
+            }
         }
 
         public void EmptyClass()
         {
+            if (studentsBucket == null)
+            {
+                studentsBucket = GetComponent<SpaceStudentsBucket>();
+            }
             TransitionToState(new SClassroomEmpty());
         }
 

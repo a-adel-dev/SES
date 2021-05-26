@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using SES.School;
@@ -22,12 +20,12 @@ namespace SES.UI
         [SerializeField] Button resumeSim;
         [SerializeField] Button endSim;
 
-        SchoolDayProgressionController school;
+        SchoolScheduler school;
 
         private void Start()
         {
             sim = FindObjectOfType<SimulationController>();
-            school = FindObjectOfType<SchoolDayProgressionController>();
+            school = FindObjectOfType<SchoolScheduler>();
         }
 
         // Update is called once per frame
@@ -38,7 +36,6 @@ namespace SES.UI
 
         private void updateUIInfo()
         {
-
             classStatus.text = school.SchoolState;
             //time
             //year - month - day - hour - minute - seconds

@@ -4,7 +4,7 @@
     {
         public override void EnterState(ClassroomProgressionControl schedular)
         {
-            //set classroom status to empty
+            schedular.ReleaseTeacher();
         }
 
         public override void Update(ClassroomProgressionControl schedular)

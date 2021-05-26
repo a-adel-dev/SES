@@ -9,15 +9,15 @@ namespace SES.School
 
         int sessionTimer = 0;
         public int sessionLength;
-        public float timeStep;
         float timer = 0f;
 
-        public override void EnterState(SchoolDayProgressionController progressionController)
+        public override void EnterState(SchoolScheduler progressionController)
         {
+
             if (resumed == false)
             {
                 sessionLength = progressionController.periodLength;
-                timeStep = progressionController.timeStep;
+                progressionController.RelocateClasses();
                 progressionController.StartPeriod();
             }
             else
@@ -27,7 +27,7 @@ namespace SES.School
             progressionController.SchoolState = "Classes in session";
         }
 
-        public override void Update(SchoolDayProgressionController progressionController)
+        public override void Update(SchoolScheduler progressionController)
         {
             if (sessionTimer >= sessionLength)
             {
@@ -43,9 +43,9 @@ namespace SES.School
         private void PassTime()
         {
             timer += Time.deltaTime;
-            if (timer >= timeStep)
+            if (timer >= SimulationParameters.timeStep)
             {
-                timer -= timeStep;
+                timer -= SimulationParameters.timeStep;
                 sessionTimer++;
                 DateTimeRecorder.UpdateSchoolTime(new TimeSpan(0, 1, 0));
             }

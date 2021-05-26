@@ -1,4 +1,5 @@
-﻿namespace SES.Core
+﻿
+namespace SES.Core
 {
     [System.Serializable]
     public struct ClassLabPair 
@@ -11,5 +12,6 @@
             classroom = _classroom;
             lab = _lab;
         }
+
     }
 }
