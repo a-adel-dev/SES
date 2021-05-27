@@ -36,7 +36,7 @@ namespace SES.AIControl
         void Start()
         {
             nav = GetComponent<NavMeshAgent>();
-            school = FindObjectOfType<SchoolScheduler>();
+            school = FindObjectOfType<SchoolDayProgressionController>();
             //health = GetComponent<AgentHealth>();
             //if (IsInClassroom())
             //{

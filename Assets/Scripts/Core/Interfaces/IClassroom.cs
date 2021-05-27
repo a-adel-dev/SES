@@ -13,6 +13,7 @@ namespace SES.Core
         //void RecieveStudents();
         //void EgressClass(Vector3 position);
         SpotBucket GetClassroomSubspaces();
+        SpaceStudentsBucket GetClassStudents();
         void StartClass();
         //void SetSchoolDayState(SchoolDayState schoolDayState);
         void EndClass();
@@ -21,7 +22,5 @@ namespace SES.Core
         void SetActivities(bool activitiesEnabled);
         List<IStudentAI> ReleaseClass();
         bool IsClassEmpty();
-        void EmptyClass();
-        void ReceiveStudent(IStudentAI student);
     }
 }

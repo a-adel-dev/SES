@@ -26,8 +26,6 @@ namespace SES.Spaces.Classroom
             //Debug.Log($"In session");
             if (resumed == false)
             {
-                schedular.ReleaseTeacher();
-                schedular.RequestTeacher();
                 InitializeValues();
                 StructureClass();
                 CheckActivity(schedular);

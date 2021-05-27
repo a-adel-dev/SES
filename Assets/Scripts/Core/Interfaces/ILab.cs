@@ -8,6 +8,6 @@ namespace SES.Core
 {
     public interface ILab : ISpace
     {
-        List<IStudentAI> EndLab();
+        void EndLab(IClassroom classroom);
     }
 }

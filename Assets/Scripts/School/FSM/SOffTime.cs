@@ -11,7 +11,7 @@ namespace SES.School
         int simLength;
         int progressionIndex = 0;
 
-        public override void EnterState(SchoolScheduler progressionController)
+        public override void EnterState(SchoolDayProgressionController progressionController)
         {
             simLength = progressionController.simLength;
             Debug.Log($"---------------offtime----------------");
@@ -31,7 +31,7 @@ namespace SES.School
             }
         }
 
-        public override void Update(SchoolScheduler progressionController)
+        public override void Update(SchoolDayProgressionController progressionController)
         {
             progressionIndex++;
             if (progressionIndex < simLength)

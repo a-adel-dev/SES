@@ -1,19 +1,17 @@
 ﻿using UnityEngine;
 using SES.Core;
 using System;
-using System.Collections.Generic;
 
 namespace SES.Spaces
 {
     public class Lab : MonoBehaviour, ILab
     {
         public SpotBucket labSubSpaces { get; set; }
-        public SpaceStudentsBucket labStudents;
-        public string message = "";
+        //public SpaceStudentsBucket labStudents;
 
         private void Start()
         {
-            labStudents = GetComponent<SpaceStudentsBucket>();
+            //labStudents = GetComponent<SpaceStudentsBucket>();
             if (GetComponent<SpotBucket>() == false)
             {
                 Debug.LogError($" SpotBucket component does not exist on {gameObject.name}.");
@@ -79,34 +77,35 @@ namespace SES.Spaces
         //    }
         //}
 
-        public List<IStudentAI> EndLab()
+        public void EndLab(IClassroom classroom)
         {
-            List<IStudentAI> students = new List<IStudentAI>();
             //clear desk spots
-            foreach (Spot desk in labSubSpaces.desks)
-            {
-                desk.ClearSpot();
-            }
-            //for students oput of the lab
-            foreach (IStudentAI student in labStudents.studentsCurrentlyInSpace)
-            {
-                students.Add(student);
-                //clear students labspots
-                student.ClearCurrentLab();
-                student.currentDesk = null;
-            }
-            //for students currntly in lab
-            labStudents.ClearStudentsInSpace();
-            labStudents.ClearSpaceFromStudents();
-
-            return students;
+            //foreach (Spot desk in labObjects.desks)
+            //{
+            //    desk.ClearSpot();
+            //}
+            ////for students oput of the lab
+            //foreach (IStudentAI student in labStudents.studentsOutOfSpace)
+            //{
+            //    //clear students labspots
+            //    student.ClearCurrentLab();
+            //    student.SetStudentLocationTo(StudentState.inClass);
+            //    student.SetCurrentClass(classroom);
+            //}
+            ////for students currntly in lab
+            //foreach (IStudentAI student in labStudents.studentsCurrentlyInSpace.ToArray())
+            //{
+            //    student.SetControlledTo(true);
+            //    student.BackToDesk();
+            //    student.BackToOriginalClassroom();
+            //    //add queue condition
+            //}
+            //labStudents.ClearStudentsInSpace();
+            //labStudents.ClearSpaceFromStudents();
+            //currentOriginalClass = null;
+            //SetlabEmptyTo(true);
         }
 
-
-        private void Update()
-        {
-            //message = ($"{gameObject.name} has {labStudents.studentsCurrentlyInSpace.Count} students");
-        }
         //void UpdateStudentsChancesToExitLab()
         //{
         //    if (started == false && labStudents.studentsCurrentlyInSpace.Count > 0)
@@ -175,12 +174,6 @@ namespace SES.Spaces
                 }
             }
             return null;
-        }
-
-        internal void ReceiveStudent(IStudentAI student)
-        {
-            student.currentDesk = RequestDesk(student);
-            labStudents.ReceiveStudent(student);
         }
     }
 }

@@ -146,15 +146,15 @@
     <Compile Include="Assets\Scripts\Health\ShortRangeInfector.cs" />
     <Compile Include="Assets\Scripts\Health\SpaceHealth.cs" />
     <Compile Include="Assets\Scripts\Health\SpaceHealthVisualization.cs" />
+    <Compile Include="Assets\Scripts\School\FSM\SBreakTime.cs" />
     <Compile Include="Assets\Scripts\School\FSM\SClassesInSession.cs" />
     <Compile Include="Assets\Scripts\School\FSM\SEgressTime.cs" />
     <Compile Include="Assets\Scripts\School\FSM\SOffTime.cs" />
     <Compile Include="Assets\Scripts\School\FSM\SPaused.cs" />
     <Compile Include="Assets\Scripts\School\FSM\SSchoolBaseState.cs" />
-    <Compile Include="Assets\Scripts\School\FSM\SSchoolBreakTime.cs" />
     <Compile Include="Assets\Scripts\School\FSM\SSimOver.cs" />
+    <Compile Include="Assets\Scripts\School\SchoolDayProgressionController.cs" />
     <Compile Include="Assets\Scripts\School\SchoolManager.cs" />
-    <Compile Include="Assets\Scripts\School\SchoolScheduler.cs" />
     <Compile Include="Assets\Scripts\School\SchoolSubSpacesBucket.cs" />
     <Compile Include="Assets\Scripts\School\TeacherPool.cs" />
     <Compile Include="Assets\Scripts\Simulation Manager\AISpawner.cs" />
@@ -176,7 +176,6 @@
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomOnBreak.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomProgressionControl.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomSpace.cs" />
-    <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomTeacherBucket.cs" />
     <Compile Include="Assets\Scripts\Spaces\Corridor.cs" />
     <Compile Include="Assets\Scripts\Spaces\EgressPoint.cs" />
     <Compile Include="Assets\Scripts\Spaces\Lab.cs" />

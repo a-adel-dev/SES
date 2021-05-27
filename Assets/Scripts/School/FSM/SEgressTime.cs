@@ -16,7 +16,7 @@ namespace SES.School
 
         
         
-        public override void EnterState(SchoolScheduler progressionController)
+        public override void EnterState(SchoolDayProgressionController progressionController)
         {
             cooldownClassExit = SimulationParameters.cooldownClassExit;
             progressionController.SchoolState = "Home time";
@@ -27,7 +27,7 @@ namespace SES.School
             }
         }
 
-        public override void Update(SchoolScheduler progressionController)
+        public override void Update(SchoolDayProgressionController progressionController)
         {
             if (sessionTimer >= cooldownClassExit)
             {

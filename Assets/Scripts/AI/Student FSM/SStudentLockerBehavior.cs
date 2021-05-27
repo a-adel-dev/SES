@@ -54,14 +54,7 @@ namespace SES.AIControl.FSM
 
         bool PickLocker(StudentBehaviorControl control)
         {
-            if (control.currentClassroom != null)
-            {
-                lockerToVisit = control.currentClassroom.RequestLocker(control);
-            }
-            else if (control.currentLab != null)
-            {
-                lockerToVisit = control.currentLab.RequestLocker(control);
-            }
+            lockerToVisit = control.currentClassroom.RequestLocker(control);
             return (lockerToVisit != null);
         }
 
@@ -73,14 +66,7 @@ namespace SES.AIControl.FSM
 
         void RequestStatus(StudentBehaviorControl control)
         {
-            if (control.currentClassroom != null)
-            {
-                control.currentClassroom.classScheduler.RequestStatus(control);
-            }
-            else if (control.currentLab != null)
-            {
-                control.StartClass();
-            }
+            control.currentClassroom.classScheduler.RequestStatus(control);
         }
 
     }

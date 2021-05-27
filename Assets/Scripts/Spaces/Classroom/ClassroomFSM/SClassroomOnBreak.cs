@@ -7,15 +7,12 @@ namespace SES.Spaces.Classroom
     {
         public override void EnterState(ClassroomProgressionControl schedular)
         {
-            Debug.Log($"{schedular.gameObject.name} is going on a break");
-            Debug.Log($"{schedular.studentsBucket}"); //.studentsCurrentlyInSpace
-            if (schedular.studentsBucket.studentsCurrentlyInSpace != null)
+            //Debug.Log("Class is on a break");
+            //Control AI
+            foreach (IStudentAI student in schedular.studentsBucket.studentsCurrentlyInSpace)
             {
-                foreach (IStudentAI student in schedular.studentsBucket.studentsCurrentlyInSpace)
-                {
-                    student.BreakTime();
-                }
-            } 
+                student.BreakTime();
+            }
         }
 
         public override void Update(ClassroomProgressionControl schedular)

@@ -20,12 +20,6 @@ namespace SES.Core
 
         void BackToDesk();
         void LookAtBoard();
-        void ClearCurrentClass();
-        void AssignLab(ILab lab);
-        Spot currentDesk { get; set; }
-
-        void ClearCurrentLab();
-        void AssignCurrentClassroom(IClassroom classroom);
         /*
 void SetStudentLocationTo(StudentState location);
 void BackToDesk();

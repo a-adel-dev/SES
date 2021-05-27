@@ -5,7 +5,7 @@ using SES.Core;
 
 namespace SES.School
 {
-    public class SSchoolBreakTime : SSchoolBaseState
+    public class SBreakTime : SSchoolBaseState
     {
         int sessionTimer = 0;
         int periodIndex = 0;
@@ -13,7 +13,7 @@ namespace SES.School
         float timeStep = .5f;
         float timer = 0f;
 
-        public override void EnterState(SchoolScheduler progressionController)
+        public override void EnterState(SchoolDayProgressionController progressionController)
         {
             if (resumed == false)
             {
@@ -21,8 +21,8 @@ namespace SES.School
                 timeStep = progressionController.timeStep;
                 sessionLength = progressionController.breakLength;
                 //Debug.Log($"---------------Break Time--------------");
-                progressionController.DecoupleClassLabs();
                 progressionController.EndPeriod();
+                progressionController.ReplaceClassTeahers();
             }
             else
             {
@@ -32,7 +32,7 @@ namespace SES.School
             progressionController.SchoolState = "Break Time";
         }
 
-        public override void Update(SchoolScheduler progressionController)
+        public override void Update(SchoolDayProgressionController progressionController)
         {
             if (sessionTimer >= sessionLength)
             {
@@ -48,7 +48,6 @@ namespace SES.School
                 else
                 {
                     resumed = false;
-                    //progressionController.ReplaceClassTeahers();
                     progressionController.TransitionToState(progressionController.classesInSession);
                 }
             }
