@@ -11,11 +11,10 @@ GameObject:
   - component: {fileID: 3784705064329411917}
   - component: {fileID: 3717130888090133382}
   - component: {fileID: 1783310592}
-  - component: {fileID: 5239175844229488528}
-  - component: {fileID: 6883260464292743271}
-  - component: {fileID: 8736991644523482950}
-  - component: {fileID: 998759790}
-  - component: {fileID: 998759794}
+  - component: {fileID: 1223190155944798138}
+  - component: {fileID: 3027045554768976822}
+  - component: {fileID: 4570525801431744672}
+  - component: {fileID: 1508162435210513214}
   m_Layer: 0
   m_Name: Class
   m_TagString: Classroom
@@ -34,7 +33,6 @@ Transform:
   m_LocalPosition: {x: 9.58, y: 0, z: 19.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 3350706369253470165}
   - {fileID: 7599219722099137175}
   - {fileID: 3724687241162378974}
   - {fileID: 6564123759624393658}
@@ -52,8 +50,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.74, y: 3, z: 7.5}
-  m_Center: {x: 0, y: 1.5, z: 0}
+  m_Size: {x: 5.735914, y: 3, z: 7.019911}
+  m_Center: {x: 0.088731766, y: 1.5, z: -0.22766018}
 --- !u!54 &1783310592
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -70,7 +68,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5239175844229488528
+--- !u!114 &1223190155944798138
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -82,74 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d43bfe90b3d05e646b120439d14b20d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  classScheduler: {fileID: 0}
-  studentsBucket: {fileID: 0}
-  classroomSubSpaces: {fileID: 0}
---- !u!114 &6883260464292743271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3784705064329411916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38609666ebc16954b899cfa173b37d46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  desks:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  lockers:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  boardSpots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  teachersSpace: {fileID: 651212694340099072}
-  board: {fileID: 0}
-  entrance: {fileID: 7204012869814609781}
---- !u!114 &8736991644523482950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3784705064329411916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9c353571ffcbbd41bcf3ac040ed9ced, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentPrefab: {fileID: 6679094881373598523, guid: 99b61440493d6b54c9e1d85d2dc9bf69,
-    type: 3}
---- !u!114 &998759790
+--- !u!114 &3027045554768976822
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,7 +95,19 @@ MonoBehaviour:
   activitiesEnabled: 0
   studentsBucket: {fileID: 0}
   currentStateName: 
---- !u!114 &998759794
+--- !u!114 &4570525801431744672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3784705064329411916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29b61611ac7d32843a13a6411b90d202, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1508162435210513214
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,49 +117,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1dc7b1569a5f1d44185a25a3c569408c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &3876234189946989952
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3350706369253470165}
-  - component: {fileID: 2296198034020729471}
-  m_Layer: 0
-  m_Name: TeacherSpawnPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 2800000, guid: ad2e3e92b00839c4e991ca602ef19822, type: 3}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3350706369253470165
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3876234189946989952}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.11, y: 0, z: -2.75}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3784705064329411917}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2296198034020729471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3876234189946989952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0de4493fa125d847a32426efb665e98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6490279545308601080
@@ -249,7 +149,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3784705064329411917}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &651212694340099072
 BoxCollider:
@@ -262,8 +162,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.5946436, y: 3, z: 1.6732054}
-  m_Center: {x: 0, y: 1.5, z: 0}
+  m_Size: {x: 5.7556376, y: 3, z: 1.772279}
+  m_Center: {x: 0.08049703, y: 1.5, z: -0.049536824}
 --- !u!54 &51928465196865056
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -290,7 +190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6564123759624393658}
   m_Layer: 0
-  m_Name: ClassDoor
+  m_Name: Entrance
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -304,11 +204,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7204012869814609781}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.28, y: 0, z: -3.8}
+  m_LocalPosition: {x: -1.58, y: 0, z: -3.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3784705064329411917}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7378286807094158857
 GameObject:
@@ -341,7 +241,7 @@ Transform:
   m_LocalScale: {x: 0.57353646, y: 1, z: 0.73322535}
   m_Children: []
   m_Father: {fileID: 3784705064329411917}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &417379429586437887
 MeshFilter:
@@ -366,6 +266,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -390,6 +291,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &6825415178536927470
 MonoBehaviour:
   m_ObjectHideFlags: 0

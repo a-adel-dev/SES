@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using UnityEngine;
 
 namespace SES.Core
 {
     public interface ILab : ISpace
     {
         void EndLab(IClassroom classroom);
+        Vector3 Entrance { get; }
+        void ReceiveStudent(IStudentAI student);
+        void StudentExitLab(IStudentAI student);
     }
 }

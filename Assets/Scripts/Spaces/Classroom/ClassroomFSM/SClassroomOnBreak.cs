@@ -9,7 +9,9 @@ namespace SES.Spaces.Classroom
         {
             //Debug.Log("Class is on a break");
             //Control AI
-            foreach (IStudentAI student in schedular.studentsBucket.studentsCurrentlyInSpace)
+            schedular.ReleaseTeacher();
+            
+            foreach (IStudentAI student in schedular.studentsBucket.GetStudentsInSpace())
             {
                 student.BreakTime();
             }

@@ -50,20 +50,20 @@ namespace SES.Health
             //}
         }
 
-        public void PopulateAgentLists()
-        {
-            foreach (IAI agent in totalAgents)
-            {
-                if (agent.IsTeacher())
-                {
-                    teachers.Add(agent as ITeacherAI);
-                }
-                else
-                {
-                    students.Add(agent as IStudentAI);
-                }
-            }
-        }
+        //public void PopulateAgentLists()
+        //{
+        //    foreach (IAI agent in totalAgents)
+        //    {
+        //        if (agent.IsTeacher())
+        //        {
+        //            teachers.Add(agent as ITeacherAI);
+        //        }
+        //        else
+        //        {
+        //            students.Add(agent as IStudentAI);
+        //        }
+        //    }
+        //}
 
         public List<IStudentAI> GetStudents()
         {

@@ -8,7 +8,6 @@ namespace SES.AIControl.FSM
     {
         float timer = 0;
         Spot lockerToVisit;
-
         float waitingTime;
         float sessionTimer;
 
@@ -54,7 +53,14 @@ namespace SES.AIControl.FSM
 
         bool PickLocker(StudentBehaviorControl control)
         {
-            lockerToVisit = control.currentClassroom.RequestLocker(control);
+            if (control.currentClassroom != null)
+            {
+                lockerToVisit = control.currentClassroom.RequestLocker(control);
+            }
+            else if (control.currentLab != null)
+            {
+                lockerToVisit = control.currentLab.RequestLocker(control);
+            }
             return (lockerToVisit != null);
         }
 
@@ -66,7 +72,7 @@ namespace SES.AIControl.FSM
 
         void RequestStatus(StudentBehaviorControl control)
         {
-            control.currentClassroom.classScheduler.RequestStatus(control);
+            control.currentClassroom.RequestStatus(control);
         }
 
     }

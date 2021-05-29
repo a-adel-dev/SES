@@ -19,7 +19,7 @@ namespace SES.Spaces.Classroom
         public override void EnterState(ClassroomProgressionControl schedular)
         {
             
-            foreach (IStudentAI student in schedular.studentsBucket.studentsCurrentlyInSpace)
+            foreach (IStudentAI student in schedular.studentsBucket.GetStudentsInSpace())
             {
                 student.StartClass();
             }
@@ -29,6 +29,14 @@ namespace SES.Spaces.Classroom
                 InitializeValues();
                 StructureClass();
                 CheckActivity(schedular);
+                if (schedular.teacherBucket.teacher != null)
+                {
+                    schedular.teacherBucket.teacher.ClassroomFree();
+                }
+                Debug.Log("requesting teacher");
+                schedular.RequestTeacher();
+                schedular.teacherBucket.teacher.currentClass = schedular.GetComponent<IClassroom>();
+                schedular.teacherBucket.teacher.GoToClassroom();
             }
             else if (wasInActivity)
             {
@@ -82,7 +90,7 @@ namespace SES.Spaces.Classroom
         public void CheckActivity(ClassroomProgressionControl schedular)
         {
             //Debug.Log($"checking activity at {sessionTimer}");
-            if (schedular.activitiesEnabled == false)
+            if (SimulationParameters.activitiesEnabled == false)
             {
                 return;
             }
@@ -148,7 +156,7 @@ namespace SES.Spaces.Classroom
                 list += " , ";
             }
             list += "]";
-            Debug.Log(list);
+            //Debug.Log(list);
         }
 
         List<int> CleanUpList(List<int> classroomSectionList)

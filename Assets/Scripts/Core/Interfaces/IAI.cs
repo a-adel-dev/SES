@@ -11,26 +11,13 @@ namespace SES.Core
     public interface IAI
     {
         GameObject GetGameObject();
-
-        bool IsTeacher();
-        bool IsStudent();
-        void AssignOriginalPosition();
         void IdleAgent();
         void PauseAgent();
         void ResumeAgent();
-        void AssignDesk(Spot spot);
         void NavigateTo(Vector3 location);
-        void AssignSpot(Spot spot);
-        void ClearSpot();
-
-        /*
-        void SetNearPOI(bool status);
-        
-        void SetControlledTo(bool state);
-
-        void SetCurrentClass(ISpace classroom);
-        bool IsInfected();
-        */
+        void GoToAnotherLevel(Vector3 location);
+        Spot currentDesk { get; set; }
+        IBathroom bathroomToVisit { get; set; }
 
     }
 }

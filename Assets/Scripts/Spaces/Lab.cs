@@ -6,12 +6,21 @@ namespace SES.Spaces
 {
     public class Lab : MonoBehaviour, ILab
     {
-        public SpotBucket labSubSpaces { get; set; }
-        //public SpaceStudentsBucket labStudents;
+        SpotBucket labSubSpaces { get; set; }
+        SpaceStudentsBucket studentsBucket;
+
+        public Vector3 Entrance
+        {
+            get
+            {
+                return labSubSpaces.entrance.transform.position;
+            }
+        }
+
 
         private void Start()
         {
-            //labStudents = GetComponent<SpaceStudentsBucket>();
+            studentsBucket = GetComponent<SpaceStudentsBucket>();
             if (GetComponent<SpotBucket>() == false)
             {
                 Debug.LogError($" SpotBucket component does not exist on {gameObject.name}.");
@@ -20,6 +29,16 @@ namespace SES.Spaces
             {
                 labSubSpaces = GetComponent<SpotBucket>();
             }
+        }
+
+        public void StudentExitLab(IStudentAI student)
+        {
+            studentsBucket.ReleaseStudent(student);
+        }
+
+        public void ReceiveStudent(IStudentAI student)
+        {
+            studentsBucket.ReceiveStudent(student);
         }
 
         //public void SetlabEmptyTo(bool status)

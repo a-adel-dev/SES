@@ -12,11 +12,11 @@ namespace SES.AIControl.FSM
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
             behaviorControl.visitedPOI = true;
-            behaviorControl.NavigateTo(behaviorControl.poi.transform.position);
+            behaviorControl.NavigateTo(behaviorControl.poi.GetGameObject().transform.position);
             POIWaitingTime = Random.Range(SimulationDefaults.lockerWaitingTime - 0.5f, SimulationDefaults.lockerWaitingTime + 1);
-            Vector3 POIDirection = new Vector3(behaviorControl.poi.transform.position.x,
+            Vector3 POIDirection = new Vector3(behaviorControl.poi.GetGameObject().transform.position.x,
                                                             0,
-                                                            behaviorControl.poi.transform.position.z);
+                                                            behaviorControl.poi.GetGameObject().transform.position.z);
             behaviorControl.transform.LookAt(POIDirection);
 
         }

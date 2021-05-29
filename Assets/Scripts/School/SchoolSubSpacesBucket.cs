@@ -17,11 +17,15 @@ namespace SES.School
         public EgressPoint[] staircases { get; set; }
         public List<ClassroomSpace> classrooms { get; set; } = new List<ClassroomSpace>();
 
-        // Use this for initialization
+
         public void Initialize()
         {
-            AllocateSubSpaces();
             PopulateWorkingClassrooms();
+        }
+
+        private void Start()
+        {
+            AllocateSubSpaces();
         }
 
         private void AllocateSubSpaces()

@@ -14,7 +14,10 @@ namespace SES.AIControl.FSM
             {
                 behaviorControl.teacherroom.AddToTeachersInRoom(behaviorControl);
                 behaviorControl.currentDesk = behaviorControl.teacherroom.RequestDesk(behaviorControl);
-                behaviorControl.NavigateTo(behaviorControl.currentDesk.transform.position);
+                if (behaviorControl.currentDesk != null)
+                {
+                    behaviorControl.NavigateTo(behaviorControl.currentDesk.transform.position);
+                }
                 behaviorControl.visitedPOI = false;
             }
             else

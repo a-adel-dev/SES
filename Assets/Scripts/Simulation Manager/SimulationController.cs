@@ -15,14 +15,12 @@ namespace SES.SimManager
         {
             school = FindObjectOfType<SchoolDayProgressionController>();
             spawner = FindObjectOfType<AISpawner>();
-
         }
 
         public void StartSim()
         {
             spawner.SpawnStudents();
             spawner.SpawnTeachers();
-            school.InitializeProperties();
             school.StartSchoolDay();
         }
 

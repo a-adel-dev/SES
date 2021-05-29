@@ -9,18 +9,20 @@ namespace SES.Core
 {
     public interface IClassroom : ISpace
     {
-
-        //void RecieveStudents();
-        //void EgressClass(Vector3 position);
-        SpotBucket GetClassroomSubspaces();
-        SpaceStudentsBucket GetClassStudents();
+        void RequestStatus(IStudentAI student);
+        void ReceiveStudent(IStudentAI student);
         void StartClass();
-        //void SetSchoolDayState(SchoolDayState schoolDayState);
         void EndClass();
         void PauseClass();
         void ResumeClass();
-        void SetActivities(bool activitiesEnabled);
-        List<IStudentAI> ReleaseClass();
+        List<IStudentAI> ReleaseAllClassStudents();
         bool IsClassEmpty();
+        void StudentExitClassroom(IStudentAI agent);
+        SpotBucket classroomSubSpaces { get; set; }
+
+        Vector3 entrance { get; }
+
+        ITeacherAI Teacher { get; set; }
+
     }
 }

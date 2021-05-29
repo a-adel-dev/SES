@@ -8,6 +8,7 @@ namespace SES.SimManager
     {
         SchoolDayProgressionController school;
         AISpawner spawner;
+
         private void Awake()
         {
             ConfigurationUtils.Initialize();
@@ -18,13 +19,12 @@ namespace SES.SimManager
         private void Start()
         {
             school = FindObjectOfType<SchoolDayProgressionController>();
-            spawner = GetComponent<AISpawner>();
-            
+            spawner = GetComponent<AISpawner>();   
         }
-
 
         public void InitializeVariables()
         {
+            school.InitializeProperties();
             school.subspaces.Initialize();
             spawner.Initialize();
         }

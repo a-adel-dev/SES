@@ -7,11 +7,29 @@ namespace SES.Spaces.Classroom
 {
     public class ClassroomSpace : MonoBehaviour, IClassroom
     {
-        public ClassroomProgressionControl classScheduler;
-        public SpaceStudentsBucket studentsBucket { get; set; }
+        ClassroomProgressionControl classScheduler;
+        SpaceStudentsBucket studentsBucket { get; set; }
         public SpotBucket classroomSubSpaces { get; set; }
 
+        public Vector3 entrance
+        {
+            get
+            {
+                return classroomSubSpaces.entrance.transform.position;
+            }
+        }
 
+        public ITeacherAI Teacher
+        {
+            get
+            {
+                return GetComponent<ClassTeacherBucket>().teacher;
+            }
+            set
+            {
+                GetComponent<ClassTeacherBucket>().teacher = value;
+            }
+        }
 
         private void Start()
         {
@@ -23,39 +41,22 @@ namespace SES.Spaces.Classroom
         public void StartClass()
         {
             classScheduler.StartClass();
-            //Debug.Log($"starting {gameObject.name}");
-        }
-
-        public SpotBucket GetClassroomSubspaces()
-        {
-            return classroomSubSpaces;
-        }
-
-        public SpaceStudentsBucket GetClassStudents()
-        {
-            return studentsBucket;
         }
 
         public void PauseClass()
         {
             classScheduler.PauseClass();
-            //Debug.Log($"Pausing Class {gameObject.name}");
         }
 
         public void ResumeClass()
         {
             classScheduler.ResumeClass();
-            //Debug.Log($"resuming Class {gameObject.name}");
         }
 
         public void EndClass()
         {
             classScheduler.EndClass();
-            //Debug.Log($"Ending Class {gameObject.name}");
-            //studentController.FreePupilsBehavior();
-
         }
-
 
         public GameObject GetGameObject()
         {
@@ -88,16 +89,19 @@ namespace SES.Spaces.Classroom
             return null;
         }
 
-        public void SetActivities(bool state)
-        {
-            classScheduler.SetActivitiesEnabledTo(state);
-        }
-
-        public List<IStudentAI> ReleaseClass()
+        public List<IStudentAI> ReleaseAllClassStudents()
         {
             classScheduler.EmptyClass();
             List<IStudentAI> studentslist = new List<IStudentAI>();
-            foreach (IStudentAI student in studentsBucket.spaceOriginalStudents)
+            List<IStudentAI> spaceStudents = studentsBucket.GetStudentsInSpace();
+            List<IStudentAI> outofSpaceStudents = studentsBucket.GetStudentsOutOfSpace();
+            foreach (IStudentAI student in spaceStudents)
+            {
+                student.TransitStudent();
+                studentslist.Add(student);
+            }
+
+            foreach (IStudentAI student in outofSpaceStudents)
             {
                 student.TransitStudent();
                 studentslist.Add(student);
@@ -111,42 +115,32 @@ namespace SES.Spaces.Classroom
             return state.GetType() == typeof(SClassroomEmpty);
         }
 
-        public void ExitClassroom(IStudentAI agent)
+        public void StudentExitClassroom(IStudentAI agent)
         {
-            studentsBucket.studentsCurrentlyInSpace.Remove(agent);
+            studentsBucket.ReleaseStudent(agent);
         }
 
-        ////    public void SendClassToLab(Lab lab)
-        ////    {
-        ////        if (studentsBucket.studentsCurrentlyInSpace.Count == 0) { return; }
-        ////        //foreach of the students 
-        ////        foreach (IStudentAI student in studentsBucket.studentsCurrentlyInSpace)
-        ////        {
-        ////            //assign all students to a lab
-        ////            student.SetCurrentLab(lab);
-        ////            //set students status to inLab
-        ////            student.SetStudentLocationTo(StudentState.inLab);
-        ////            student.AssignLab(lab);
-        ////            student.GetLabPosition(lab);
+        public void ReceiveStudent(IStudentAI student)
+        {
+            studentsBucket.ReceiveStudent(student);
+        }
 
-        ////        }
-        ////        foreach (IStudentAI student in studentsBucket.spaceOriginalStudents)
-        ////        {
-        ////            student.SetControlledTo(true);
-        ////            student.GoToLab();
-        ////            student.Enterlab(lab);
-        ////        }
-        ////        studentsBucket.ClearStudentsInSpace();
-        ////        classEmpty = true;
-        ////        //TODO: check the status of out of class pupils
-        ////    }
+        public void RequestStatus(IStudentAI student)
+        {
+            if (classScheduler.currentState.GetType() == typeof(SClassroomInSession))
+            {
+                student.StartClass();
+            }
 
-        ////    public void RecieveStudents()
-        ////    {
-        ////        classEmpty = false;
-        ////    }
+            else if (classScheduler.currentState.GetType() == typeof(SClassroomOnBreak))
+            {
+                student.BreakTime();
+            }
 
-
-
+            else if (classScheduler.currentState.GetType() == typeof(SClassActivity))
+            {
+                student.StartActivity();
+            }
+        }
     }
 }

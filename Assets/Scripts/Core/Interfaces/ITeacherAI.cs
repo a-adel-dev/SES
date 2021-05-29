@@ -12,5 +12,7 @@
         void Rest();
         void GoToTeacherroom();
         void ClearCurrentClassroom();
+        void ClassroomFree();
+        void ClassroomRestricted();
     }
 }

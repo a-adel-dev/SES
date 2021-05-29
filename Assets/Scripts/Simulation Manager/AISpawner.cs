@@ -14,9 +14,7 @@ namespace SES.SimManager
         [SerializeField] GameObject studentprefab;
         [SerializeField] GameObject teacherprefab;
 
-        bool classroomHalfCapacity;
-
-        List<ClassroomSpace> classrooms = new List<ClassroomSpace>();
+        List<IClassroom> classrooms = new List<IClassroom>();
         Teachersroom[] teacherrooms;
 
         SchoolDayProgressionController school;
@@ -28,60 +26,58 @@ namespace SES.SimManager
 
         public void Initialize()
         {
-            classrooms = school.subspaces.classrooms;
+            foreach (ClassroomSpace classroom in school.subspaces.classrooms)
+            {
+                classrooms.Add(classroom as IClassroom);
+            }
             teacherrooms = school.subspaces.teachersrooms;
-            classroomHalfCapacity = SimulationParameters.classroomHalfCapacity;
         }
 
         public void SpawnStudents()
         {
-            foreach (ClassroomSpace classroom in classrooms)
+            foreach (IClassroom classroom in classrooms)
             {
                 int counter = 1;
-                if (classroomHalfCapacity)
+                for (int i = 0; i < classroom.classroomSubSpaces.desks.Count; i += (SimulationParameters.classroomHalfCapacity ? 2: 1))
                 {
-                    for (int i = 0; i < classroom.classroomSubSpaces.desks.Count; i = i + 2)
-                    {
-                        GameObject student = Instantiate(studentprefab, classroom.classroomSubSpaces.desks[i].transform.position, Quaternion.identity);
-                        student.name = $"{classroom.name}_student_{counter}";
-                        AddToClassroom(classroom, student);
-                        student.GetComponent<StudentBehaviorControl>().AssignDesk(classroom.classroomSubSpaces.desks[i]);
-                        counter++;
-                    }
-                }
-                else
-                {
-                    foreach (Spot desk in classroom.classroomSubSpaces.desks)
-                    {
-                        GameObject student = Instantiate(studentprefab, desk.transform.position, Quaternion.identity);
-                        student.name = $"{classroom.name}_student_{counter}";
-                        AddToClassroom(classroom, student);
-                        student.GetComponent<StudentBehaviorControl>().AssignDesk(desk);
-                        counter++;
-                    }
+                    //instantiate student
+                    GameObject student = Instantiate(studentprefab, classroom.classroomSubSpaces.desks[i].transform.position, Quaternion.identity);
+                    //name the student object
+                    student.name = $"{classroom.GetGameObject().name}_student_{counter}";
+                    //Set student class parameters
+                    AddToClassroom(classroom, student, classroom.classroomSubSpaces.desks[i]);
+                    //increase the counter
+                    counter++;
                 }
             }
         }
 
-        private static void AddToClassroom(ClassroomSpace classroom, GameObject student)
+        private static void AddToClassroom(IClassroom classroom, GameObject student, Spot desk)
         {
+            //get the student AI
             StudentBehaviorControl behavior = student.GetComponent<StudentBehaviorControl>();
-            classroom.studentsBucket.AddToSpaceOriginalStudents(student.GetComponent<IStudentAI>());
-            classroom.studentsBucket.ReceiveStudent(student.GetComponent<IStudentAI>());
-            student.transform.parent = classroom.transform;
-            behavior.AssignOriginalPosition();
-            student.GetComponent<NavMeshAgent>().speed = SimulationDefaults.childrenWalkingSpeed * (60f / SimulationParameters.timeStep);
-            TotalAgentsBucket.AddToStudents(behavior);
+            behavior.school = FindObjectOfType<SchoolDayProgressionController>();//assign the school
+            classroom.ReceiveStudent(student.GetComponent<IStudentAI>());//add student to the class
+            behavior.currentClassroom = classroom;//assign student current classroom
+            behavior.currentDesk = desk;//assign the student current desk
+            desk.FillSpot(behavior);//fill desk with student
 
-            behavior.IdleAgent();
-            behavior.AssignMainClassroom(classroom);
-            behavior.InitializeProperties();
+            
+            student.transform.parent = classroom.GetGameObject().transform;//make the student a child of the class
+            behavior.SetSpawnLocation();//set student original position for dat reset purpose
+            //Set Student speed
+            student.GetComponent<NavMeshAgent>().speed = SimulationDefaults.childrenWalkingSpeed
+                                                        * (60f / SimulationParameters.timeStep);
+            TotalAgentsBucket.AddToStudents(behavior);//add student to the agent list
+            
+            behavior.IdleAgent();//stop student
         }
 
         public void SpawnTeachers()
         {
             int counter = 1;
             int teacherroomIndex = 0;
+            //Spawn classroom teachers
             foreach (ClassroomSpace classroom in classrooms)
             {
                 GameObject teacher = Instantiate(teacherprefab, classroom.classroomSubSpaces.entrance.transform.position, Quaternion.identity);
@@ -91,6 +87,8 @@ namespace SES.SimManager
                 TeacherBehaviorControl behavior = teacher.GetComponent<TeacherBehaviorControl>();
                 TotalAgentsBucket.AddToTeachers(behavior);
                 behavior.SetCurrentClassroom(classroom);
+                classroom.Teacher = behavior;
+
                 
                 behavior.teacherroom = school.subspaces.teachersrooms[teacherroomIndex];
                 teacherroomIndex++;
@@ -98,15 +96,14 @@ namespace SES.SimManager
                 {
                     teacherroomIndex = 0;
                 }
-                behavior.ClassroomFree();
                 counter++;
             }
-
+            //spawn lab teachers
             for (int i = 0; i < 2; i++)
             {
                 foreach (Lab lab in school.subspaces.labs)
                 {
-                    GameObject teacher = Instantiate(teacherprefab, lab.labSubSpaces.entrance.transform.position, Quaternion.identity);
+                    GameObject teacher = Instantiate(teacherprefab, lab.Entrance, Quaternion.identity);
                     NavMeshAgent teacherNav = teacher.GetComponent<NavMeshAgent>();
                     TeacherBehaviorControl behavior = teacher.GetComponent<TeacherBehaviorControl>();
                     teacherNav.speed = SimulationDefaults.adultWalkingSpeed * (60f / SimulationDefaults.timeStep);
@@ -117,7 +114,7 @@ namespace SES.SimManager
                     counter++;
                 }
             }
-
+            //spawn teacherrooms teachers
             foreach (ITeachersroom teachersroom in teacherrooms)
             {
                 for (int i = 0; i < teachersroom.subspaces.desks.Count; i = i + 2)
@@ -127,7 +124,8 @@ namespace SES.SimManager
                     TeacherBehaviorControl behavior = teacher.GetComponent<TeacherBehaviorControl>();
                     teacherNav.speed = SimulationDefaults.adultWalkingSpeed * (60f / SimulationDefaults.timeStep);
                     teacher.name = $"teacher_{counter}";
-                    TotalAgentsBucket.AddToTeachers(teacher.GetComponent<TeacherBehaviorControl>());
+                    TotalAgentsBucket.AddToTeachers(behavior);
+                    TotalAgentsBucket.AddToAvailableTeachers(behavior);
                     behavior.teacherroom = teachersroom;
                     behavior.teacherroom.AddToTeachersInRoom(behavior);
                     behavior.Rest();

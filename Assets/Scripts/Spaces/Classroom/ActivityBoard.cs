@@ -22,7 +22,6 @@ namespace SES.Spaces.Classroom
                 int randomIndex = Random.Range(1, spots.Count);
                 for (int i = 0; i < randomIndex; i++)
                 {
-                    students[i].AssignSpot(spots[i]);
                     spots[i].FillSpot(students[i]);
                     students[i].NavigateTo(spots[i].transform.position);
                 }
@@ -40,7 +39,6 @@ namespace SES.Spaces.Classroom
                 if (boardSpot.ISpotAvailable() == false)
                 { 
                     IStudentAI student = boardSpot.ClearSpot() as IStudentAI;
-                    student.ClearSpot();
                     student.BackToDesk();
                 }
 

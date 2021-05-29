@@ -267,6 +267,11 @@ namespace SES.AIControl
             }
             
         }
+
+        public void GoToAnotherLevel(Vector3 location)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 

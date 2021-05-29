@@ -11,35 +11,13 @@ namespace SES.Core
     {
         void StartClass();
         void StartActivity();
-
         void SetStoppingDistance(float distance);
-        
         void BreakTime();
         void TransitStudent();
         void ResetDay();
-
         void BackToDesk();
         void LookAtBoard();
-        /*
-void SetStudentLocationTo(StudentState location);
-void BackToDesk();
-void BackToOriginalClassroom();
-void AssignLabPosition(Vector3 position);
-void ResetPupil();
-void setStoppingDistance(float v);
-void GuideTo(Vector3 vector3);
-Spot ReleaseSpot();
-void IncreaseClearenceChance();
-void RestrictPupil();
-void ResetClearenceChance();
-void MoveTo(Vector3 exit);
-void SetCurrentLab(ISpace lab);
-void AssignLab(ISpace lab);
-void GoToLab();
-void Enterlab(ISpace lab);
-void GetLabPosition(ISpace lab);
-
-void ClearCurrentLab();
-*/
+        void SetSpawnLocation();
+        bool IsFree();
     }
 }

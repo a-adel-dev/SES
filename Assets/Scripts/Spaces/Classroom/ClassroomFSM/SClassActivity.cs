@@ -20,11 +20,12 @@ namespace SES.Spaces.Classroom
             {
                 PickActivity(schedular);
                 timeStep = SimulationParameters.timeStep;
-                //Debug.Log($"Activity, activity period is  {activityPeriod}");
-                //make student active
-                foreach (IStudentAI student in schedular.studentsBucket.studentsCurrentlyInSpace)
+                foreach (IStudentAI student in schedular.studentsBucket.GetStudentsInSpace())
                 {
-                    student.StartActivity();
+                    if (student.IsFree())
+                    {
+                        student.StartActivity();
+                    }
                 }
             }
         }
@@ -34,7 +35,7 @@ namespace SES.Spaces.Classroom
             PassTime();
             if (activityPeriod - sessionTimer <= 2f)
             { 
-                foreach (IStudentAI student in schedular.studentsBucket.studentsCurrentlyInSpace)
+                foreach (IStudentAI student in schedular.studentsBucket.GetStudentsInSpace())
                 {
                     student.StartClass();
                 }
@@ -69,12 +70,12 @@ namespace SES.Spaces.Classroom
         {
 
             //add board Activity to activity list
-            ActivityBoard boardActivity = new ActivityBoard(schedular.studentsBucket.studentsCurrentlyInSpace,
+            ActivityBoard boardActivity = new ActivityBoard(schedular.studentsBucket.GetStudentsInSpace(),
                                                             schedular.GetComponent<SpotBucket>().boardSpots);
             activityList.Add(boardActivity);
 
             //add group Activity to activity list
-            ActivityGroup groupActivity = new ActivityGroup(schedular.studentsBucket.studentsCurrentlyInSpace,
+            ActivityGroup groupActivity = new ActivityGroup(schedular.studentsBucket.GetStudentsInSpace(),
                                                             schedular.GetComponent<SpotBucket>().desks);
             activityList.Add(groupActivity);
 

@@ -8,7 +8,7 @@ namespace SES.AIControl.FSM
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
 
-            behaviorControl.currentClassroom.ExitClassroom(behaviorControl);
+            behaviorControl.currentClassroom.StudentExitClassroom(behaviorControl);
             behaviorControl.bathroomToVisit = behaviorControl.school.RequestBathroom(behaviorControl);
             behaviorControl.NavigateTo(behaviorControl.bathroomToVisit.GetGameObject().transform.position);
         }

@@ -16,10 +16,11 @@ namespace SES.AIControl.FSM
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
             toiletToVisit = behaviorControl.bathroomToVisit.RequestToilet(behaviorControl);
-            toiletWaitingTime = Random.Range(SimulationDefaults.lockerWaitingTime, SimulationDefaults.lockerWaitingTime + 3);
             if (toiletToVisit != null)
             {
                 behaviorControl.NavigateTo(toiletToVisit.transform.position);
+                toiletWaitingTime = Random.Range(SimulationDefaults.lockerWaitingTime,
+                                                 SimulationDefaults.lockerWaitingTime + 3);
             }
             else
             {
@@ -35,9 +36,7 @@ namespace SES.AIControl.FSM
                 toiletToVisit.ClearSpot();
                 toiletToVisit = null;
                 behaviorControl.bathroomToVisit = null;
-
                 behaviorControl.GoToClassroom();
-
             }
         }
 

@@ -5,42 +5,37 @@ namespace SES.AIControl.FSM
     public class SStudentInClassroom : StudentBaseState
     {
         float timer = 0f;
-        float timeStep;
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
-            
-            timeStep = SimulationParameters.timeStep * 5;
             behaviorControl.ResumeAgent();
             behaviorControl.BackToDesk();
             behaviorControl.GetComponent<MeshRenderer>().enabled = true;
-            //Debug.Log($"in classroom");
-            behaviorControl.visitedPOI = false;
         }
 
         public override void Update(StudentBehaviorControl behaviorControl)
         {
-            behaviorControl.LookAtBoard();
-            //check if you can go
-            //if you can go
-            //Enable Autonomus state
+            if (behaviorControl.currentClassroom != null)
+            {
+                behaviorControl.LookAtBoard();
+            }
             PassTime(behaviorControl);
         }
 
         void CheckAutonomy(StudentBehaviorControl behaviorControl)
         {
             int chance = Random.Range(0, 100);
-            if (chance < behaviorControl.baseAutonomyChance)
+            if (chance < SimulationDefaults.baseAutonomyChance)
             {
-                behaviorControl.ReleaseControl();
+                behaviorControl.BeAutonomus();
             }
         }
 
         private void PassTime(StudentBehaviorControl behaviorControl)
         {
             timer += Time.deltaTime;
-            if (timer >= timeStep)
+            if (timer >= SimulationParameters.timeStep)
             {
-                timer -= timeStep;
+                timer -= SimulationParameters.timeStep;
                 CheckAutonomy(behaviorControl);
             }
         }

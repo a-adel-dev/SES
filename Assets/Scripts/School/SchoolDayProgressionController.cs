@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using SES.Core;
-using System;
 using SES.Spaces;
 using SES.Spaces.Classroom;
 
@@ -11,29 +10,19 @@ namespace SES.School
     {
         public SchoolSubSpacesBucket subspaces;
         public string SchoolState = "";
-        public bool activitiesEnabled;
-        public bool relocationEnabled;
         public List<IClassroom> remainingEgressClassrooms;
         public int remainingEgressStudents;
-
-        public int periodLength { get; set; } = 45;
-        public int breakLength { get; set; } = 5;
-        public int numPeriods { get; set; } = 2;
-        public int simLength { get; set; } = 2;
-        public float timeStep { get; set; } = 0.5f;
-
-
 
         #region FSm
         private SSchoolBaseState currentState;
         private SSchoolBaseState pausedState;
 
-        public readonly SClassesInSession classesInSession = new SClassesInSession();
-        public readonly SBreakTime breakTime = new SBreakTime();
-        public readonly SEgressTime egressTime = new SEgressTime();
-        public readonly SOffTime offTime = new SOffTime();
+        public readonly SSchoolClassesInSession classesInSession = new SSchoolClassesInSession();
+        public readonly SSchoolBreakTime breakTime = new SSchoolBreakTime();
+        public readonly SSchoolEgressTime egressTime = new SSchoolEgressTime();
+        public readonly SSchoolOffTime offTime = new SSchoolOffTime();
         public readonly SSimOver simOver = new SSimOver();
-        public readonly SPaused paused = new SPaused();
+        public readonly SSchoolPaused paused = new SSchoolPaused();
 
         public void TransitionToState(SSchoolBaseState state)
         {
@@ -41,12 +30,6 @@ namespace SES.School
             currentState.EnterState(this);
         }
         #endregion
-
-
-        private void Start()
-        {
-            subspaces = GetComponent<SchoolSubSpacesBucket>();
-        }
 
         private void Update()
         {
@@ -56,23 +39,14 @@ namespace SES.School
             }
         }
 
-
-
         public void InitializeProperties()
         {
-            periodLength = SimulationParameters.periodLength;
-            breakLength = SimulationParameters.breakLength;
-            numPeriods = SimulationParameters.numPeriods;
-            simLength = SimulationParameters.simLength;
-            timeStep = SimulationParameters.timeStep;
-            activitiesEnabled = SimulationParameters.activitiesEnabled;
-            relocationEnabled = SimulationParameters.relocationEnabled;
-            remainingEgressClassrooms = new List<IClassroom>(subspaces.classrooms);
-            remainingEgressStudents = TotalAgentsBucket.GetStudents().Count;
+            subspaces = GetComponent<SchoolSubSpacesBucket>();  
         }
 
         public void StartSchoolDay()
         {
+            
             TransitionToState(classesInSession);
             foreach (EgressPoint stair in subspaces.staircases)
             {
@@ -106,9 +80,11 @@ namespace SES.School
             //relinquish students control to labs
             //start classes in the rest of the classes.
 
+            remainingEgressClassrooms = new List<IClassroom>(subspaces.classrooms);
+            remainingEgressStudents = TotalAgentsBucket.GetStudents().Count;
+
             foreach (IClassroom classroom in subspaces.classrooms)
             {
-                classroom.SetActivities(activitiesEnabled);
                 classroom.StartClass();
             }
 
@@ -141,6 +117,7 @@ namespace SES.School
         /// </summary>
         public void EgressClassGroup()
         {
+            //Debug.Log($"Remaining students: {remainingEgressStudents}");
             if (remainingEgressClassrooms.Count <= 0)
             {
                 return;
@@ -154,24 +131,17 @@ namespace SES.School
                 {
                     List<IStudentAI> studentsToEgress = new List<IStudentAI>();
                     //release control to the school
-                    studentsToEgress = nearestClassroom.ReleaseClass();
+                    studentsToEgress = nearestClassroom.ReleaseAllClassStudents();
                     remainingEgressClassrooms.Remove(nearestClassroom);
                     //send the class to the egress point
                     foreach (IStudentAI student in studentsToEgress)
                     {
                         //Debug.Log($"Navigating students to egress point");
-                        student.NavigateTo(stairs.gameObject.transform.position);
+                        student.GoToAnotherLevel(stairs.gameObject.transform.position);
                     }
                 }
             }
         }
-
-        internal void ResetEgress()
-        {
-            remainingEgressClassrooms = new List<IClassroom>(subspaces.classrooms);
-            remainingEgressStudents = TotalAgentsBucket.GetStudents().Count;
-        }
-
         public IClassroom FindNearestClassroom(ISpace space, List<IClassroom> classrooms)
         {
             float dist = 100000f;
@@ -189,12 +159,6 @@ namespace SES.School
                 }
             }
             return selectedClass;
-        }
-
-        //should be an event listener
-        public void EgressStudent()
-        {
-            remainingEgressStudents--;
         }
 
         private void HandleStudentEgress()

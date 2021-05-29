@@ -8,6 +8,7 @@ namespace SES.Core
     {
         static List<IStudentAI> totalStudents = new List<IStudentAI>();
         static List<ITeacherAI> totalTeachers = new List<ITeacherAI>();
+        static Queue<ITeacherAI> availableTeachers = new Queue<ITeacherAI>();
 
         public static void AddToStudents(IStudentAI student)
         {
@@ -54,5 +55,19 @@ namespace SES.Core
                 teacher.ResumeAgent();
             }
         }
+
+        public static void AddToAvailableTeachers(ITeacherAI teacher)
+        {
+            availableTeachers.Enqueue(teacher);
+            //Debug.Log($"available teachers: {availableTeachers.Count}");
+        }
+
+        public static ITeacherAI GetAvailableTeacher()
+        {
+            //Debug.Log($"About to take a teacher: {availableTeachers.Count}");
+            return availableTeachers.Dequeue();
+
+        }
+
     }
 }

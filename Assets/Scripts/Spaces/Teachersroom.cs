@@ -99,7 +99,10 @@ namespace SES.Spaces
 
         public void ExitTeacherroom(ITeacherAI teacher)
         {
-            teachers.Remove(teacher);
+            if (teachers.Contains(teacher))
+            {
+                teachers.Remove(teacher);
+            }
         }
 
         

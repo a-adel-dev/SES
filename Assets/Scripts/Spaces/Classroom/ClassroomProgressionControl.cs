@@ -7,13 +7,19 @@ namespace SES.Spaces.Classroom
 {
     public class ClassroomProgressionControl : MonoBehaviour
     {
-        public bool activitiesEnabled;
         public SpaceStudentsBucket studentsBucket;
         public string currentStateName;
+        public ClassTeacherBucket teacherBucket;
+
+        private void Start()
+        {
+            teacherBucket = GetComponent<ClassTeacherBucket>();
+        }
 
         #region FSM
         public SClassroomBaseState currentState { get; private set; }
         private SClassroomBaseState pausedState;
+        
         public void TransitionToState(SClassroomBaseState state)
         {
             currentState = state;
@@ -27,7 +33,7 @@ namespace SES.Spaces.Classroom
             {
                 currentStateName = currentState.ToString();
                 currentState.Update(this);
-            } 
+            }
         }
 
         public void StartClass()
@@ -65,11 +71,6 @@ namespace SES.Spaces.Classroom
             }
         }
 
-        public void SetActivitiesEnabledTo(bool state)
-        {
-            activitiesEnabled = state;
-        }
-
         public void DoActivity(int activityPeriod, SClassroomInSession perviousState)
         {
             pausedState = currentState;
@@ -79,24 +80,30 @@ namespace SES.Spaces.Classroom
             TransitionToState(activity);
         }
 
-        public void RequestStatus(IStudentAI student)
+        public void ReleaseTeacher()
         {
-            if (currentState.GetType() == typeof(SClassroomInSession))
+            if (teacherBucket.teacher == null)
             {
-                student.StartClass();
+                return;
             }
-
-            else if (currentState.GetType() == typeof(SClassroomOnBreak))
-            {
-                student.BreakTime();
-            }
-
-            else if (currentState.GetType() == typeof(SClassActivity))
-            {
-                student.StartClass();
-            }
+            ///cleared teacher
+            teacherBucket.teacher.ClearCurrentClassroom();
+            TotalAgentsBucket.AddToAvailableTeachers(teacherBucket.teacher);
+            teacherBucket.teacher.GoToTeacherroom();
+            //Debug.Log($"Sending {teacherBucket.teacher.GetGameObject().name} to his teacher room");
+            teacherBucket.teacher = null;
         }
 
-
+        public void RequestTeacher()
+        {
+            if (teacherBucket.teacher != null) { return; }
+            ITeacherAI teach = TotalAgentsBucket.GetAvailableTeacher();
+            teacherBucket.teacher = teach;
+            if (teacherBucket.teacher == null)
+            {
+                Debug.LogError($"Could not find a teacher, {gameObject.name}");
+            }
+            Debug.Log($"found teacher: {teach.GetGameObject().name}");
+        }
     }
 }

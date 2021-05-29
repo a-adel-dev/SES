@@ -5,9 +5,9 @@ namespace SES.Core
 { 
     public class SpaceStudentsBucket : MonoBehaviour
     {
-        public List<IStudentAI> spaceOriginalStudents = new List<IStudentAI>();
-        public List<IStudentAI> studentsCurrentlyInSpace = new List<IStudentAI>();
-        public List<IStudentAI> studentsOutOfSpace = new List<IStudentAI>();
+        List<IStudentAI> spaceOriginalStudents = new List<IStudentAI>();
+        List<IStudentAI> studentsCurrentlyInSpace = new List<IStudentAI>();
+        List<IStudentAI> studentsOutOfSpace = new List<IStudentAI>();
 
         public void AddToSpaceOriginalStudents(IStudentAI student)
         {
@@ -19,9 +19,9 @@ namespace SES.Core
             studentsCurrentlyInSpace.Add(student);
         }
 
-        public void ShuffleClassroomPupils()
+        public List<IStudentAI> GetStudentsInSpace()
         {
-            studentsCurrentlyInSpace = ListHandler.Shuffle(studentsCurrentlyInSpace);
+            return studentsCurrentlyInSpace;
         }
 
         public bool IsInsideSpace(IStudentAI student)
@@ -29,7 +29,7 @@ namespace SES.Core
             return (studentsCurrentlyInSpace.Contains(student));
         }
 
-        public void RemoveFromClass(IStudentAI student)
+        public void ReleaseStudent(IStudentAI student)
         {
             if (studentsCurrentlyInSpace.Contains(student))
             {
@@ -38,22 +38,15 @@ namespace SES.Core
             }
         }
 
-        public void ClearSpaceFromStudents()
+
+        public List<IStudentAI> GetStudentsOutOfSpace()
         {
-            spaceOriginalStudents = new List<IStudentAI>();
+            return studentsOutOfSpace;
+        }
+        public void ResetSpace()
+        {
+            spaceOriginalStudents.Clear();
         }
 
-        public void ClearStudentsInSpace()
-        {
-            studentsCurrentlyInSpace = new List<IStudentAI>();
-        }
-
-        public void ReceiveStudents(List<IStudentAI> students)
-        {
-            foreach (IStudentAI student in students)
-            {
-                AddToSpaceOriginalStudents(student);
-            }
-        }
     }
 }
