@@ -5,14 +5,42 @@ namespace SES.Core
 {
     public class SpotBucket : MonoBehaviour
     {
-        public List<Spot> desks = new List<Spot>();
-        public List<Spot> lockers = new List<Spot>();
-        public List<Spot> boardSpots = new List<Spot>();
-        public BoxCollider teachersSpace;
-        public GameObject board;
-        public GameObject entrance;
-        List<Spot> availableLockers;
-        List<Spot> availableDesks = new List<Spot>();
+
+        [SerializeField] List<Spot> desks = new List<Spot>();
+        [SerializeField] List<Spot> lockers = new List<Spot>();
+        [SerializeField] List<Spot> boardSpots = new List<Spot>();
+        [SerializeField] BoxCollider teachersSpace;
+        [SerializeField] Transform board;
+        [SerializeField] Transform entrance;
+
+        public string availableDesksCount = "";
+        public string availableLockersCount = "";
+
+
+        Stack<Spot> availableDesks  = new Stack<Spot>();
+        Stack<Spot> availableLockers  = new Stack<Spot>();
+
+
+        public List<Spot> BoardSpots
+        {
+            get
+            {
+                return boardSpots;
+            }
+            set
+            {
+                boardSpots = value;
+            }
+        }
+
+        public List<Spot> Desks { get => desks; }
+        public BoxCollider TeacherSpace { get => teachersSpace; }
+        public Transform Board { get => board; }
+        public Transform Entrance { get => entrance; }
+
+        
+
+
 
         private void Start()
         {
@@ -20,25 +48,31 @@ namespace SES.Core
             PopulateAvailableDesks();
         }
 
+        private void Update()
+        {
+            availableDesksCount = availableDesks.Count.ToString();
+            availableLockersCount = availableLockers.Count.ToString();
+        }
+
         public void PopulateAvailableDesks()
         {
             if (desks == null) { return; }
-            foreach (Spot desk in desks)
+            for (int i = 0; i < desks.Count; i += (SimulationParameters.classroomHalfCapacity ? 2 : 1))
             {
-                if (desk.ISpotAvailable())
-                {
-                    availableDesks.Add(desk);
-                }
+                availableDesks.Push(desks[i]);
             }
         }
 
         private void PopulateAvailableLockers()
         {
             if (lockers == null) { return; }
-            availableLockers = new List<Spot>(lockers);
+            foreach (Spot locker in lockers)
+            {
+                availableLockers.Push(locker);
+            }
         }
 
-        public Spot GetRandomLocker()
+        public Spot GetRandomLocker(IAI agent)
         {
             if (availableLockers.Count <= 0)
             {
@@ -46,36 +80,77 @@ namespace SES.Core
             }
             else
             {
-                Spot randomLocker;
-                int randomIndex = Random.Range(0, availableLockers.Count);
-                randomLocker = availableLockers[randomIndex];
-                availableLockers.Remove(randomLocker);
-                return randomLocker;
+                Spot locker = availableLockers.Pop();
+                locker.FillSpot(agent);
+                return locker;
             }
         }
 
         public void ReturnLocker(Spot locker)
         {
-            if (availableLockers.Contains(locker)==false && lockers.Contains(locker))
-            {
-                availableLockers.Add(locker);
-            }
-            else
-            {
-                Debug.LogError("locker is not in class!");
-            }
+            //if (availableLockers.Contains(locker)==false && lockers.Contains(locker))
+            //{
+            locker.ClearSpot();
+            availableLockers.Push(locker);
+            //}
+            //else
+            //{
+            //    //Debug.LogError("locker is not in space!");
+            //}
         }
-
 
         public Spot GetAvailableDesk()
         {
+            return availableDesks.Pop();
+        }
+        public Spot GetAvailableDesk(IAI agent)
+        {
             if (availableDesks.Count <= 0)
             {
-                Debug.Log($"Could not find an available desk!");
+                return null;
             }
-            Spot selectedDesk = availableDesks[Random.Range(0, availableDesks.Count)];
-            availableDesks.Remove(selectedDesk);
-            return selectedDesk;
+            else
+            {
+                Spot selectedDesk = availableDesks.Pop();
+                selectedDesk.FillSpot(agent);
+                return selectedDesk;
+            }
+        }
+
+        public void ClearDesk(Spot desk)
+        {
+            //if (availableDesks.Contains(desk) == false && desks.Contains(desk))
+            //{
+            desk.ClearSpot();
+            availableDesks.Push(desk);
+            //}
+            //else
+            //{
+            //    //Debug.LogError("desk is not in space!");
+            //}
+        }
+
+        public int GetAvailableDesksCount()
+        {
+            return availableDesks.Count;
+        }
+
+        public void ResetDesks()
+        {
+            foreach (Spot desk in desks)
+            {
+                desk.ClearSpot();  
+            }
+            PopulateAvailableDesks();
+        }
+
+        public void ResetLockers()
+        {
+            foreach (Spot locker in lockers)
+            {
+                locker.ClearSpot();
+            }
+            PopulateAvailableLockers();
         }
     }
 

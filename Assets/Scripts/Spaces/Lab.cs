@@ -1,22 +1,15 @@
 ﻿using UnityEngine;
 using SES.Core;
 using System;
+using System.Collections.Generic;
 
 namespace SES.Spaces
 {
     public class Lab : MonoBehaviour, ILab
     {
-        SpotBucket labSubSpaces { get; set; }
+        public SpotBucket SubSpaces { get; set; }
+
         SpaceStudentsBucket studentsBucket;
-
-        public Vector3 Entrance
-        {
-            get
-            {
-                return labSubSpaces.entrance.transform.position;
-            }
-        }
-
 
         private void Start()
         {
@@ -27,7 +20,7 @@ namespace SES.Spaces
             }
             else
             {
-                labSubSpaces = GetComponent<SpotBucket>();
+                SubSpaces = GetComponent<SpotBucket>();
             }
         }
 
@@ -38,131 +31,9 @@ namespace SES.Spaces
 
         public void ReceiveStudent(IStudentAI student)
         {
-            studentsBucket.ReceiveStudent(student);
+            student.TransitStudent();
+            student.BackToDesk();
         }
-
-        //public void SetlabEmptyTo(bool status)
-        //{
-        //    labEmpty = status;
-        //}
-
-        //public bool IsLabEmpty()
-        //{
-        //    return labEmpty;
-        //}
-
-        //public Spot AssignLabPositionToStudent()
-        //{
-        //    //assign each student to a lab position
-        //    Spot selectedDesk = null;
-        //    for (int i = 0; i < labObjects.desks.Count; i++)
-        //    {
-        //        if (labObjects.desks[i].ISpotAvailable())
-        //        {
-        //            selectedDesk = labObjects.desks[i];
-
-        //            break;
-        //        }
-        //    }
-        //    if (selectedDesk == null)
-        //    {
-        //        //Debug.LogError($"Could not find a desk for pupil {pupil.GetGameObject().name} in the {this.gameObject.name}");
-        //        return selectedDesk;
-        //    }
-        //    else
-        //    {
-        //        //pupil.AssignLabPosition(selectedDesk.transform.position);
-        //        return selectedDesk;
-        //    }
-        //}
-
-        //public void StartLab()
-        //{
-        //    SetlabEmptyTo(false);
-        //    StartCoroutine(ManageControlStatus());
-        //    InvokeRepeating(nameof(UpdateStarted), 10.0f * timeStep, 10f * timeStep);
-        //}
-
-        //IEnumerator ManageControlStatus()
-        //{
-        //    if (labEmpty == true)
-        //    {
-        //        yield break;
-        //    }
-        //    yield return new WaitForSeconds(10f * timeStep);
-        //    foreach (IStudentAI student in labStudents.studentsCurrentlyInSpace)
-        //    {
-        //        student.SetControlledTo(false);
-        //    }
-        //}
-
-        public void EndLab(IClassroom classroom)
-        {
-            //clear desk spots
-            //foreach (Spot desk in labObjects.desks)
-            //{
-            //    desk.ClearSpot();
-            //}
-            ////for students oput of the lab
-            //foreach (IStudentAI student in labStudents.studentsOutOfSpace)
-            //{
-            //    //clear students labspots
-            //    student.ClearCurrentLab();
-            //    student.SetStudentLocationTo(StudentState.inClass);
-            //    student.SetCurrentClass(classroom);
-            //}
-            ////for students currntly in lab
-            //foreach (IStudentAI student in labStudents.studentsCurrentlyInSpace.ToArray())
-            //{
-            //    student.SetControlledTo(true);
-            //    student.BackToDesk();
-            //    student.BackToOriginalClassroom();
-            //    //add queue condition
-            //}
-            //labStudents.ClearStudentsInSpace();
-            //labStudents.ClearSpaceFromStudents();
-            //currentOriginalClass = null;
-            //SetlabEmptyTo(true);
-        }
-
-        //void UpdateStudentsChancesToExitLab()
-        //{
-        //    if (started == false && labStudents.studentsCurrentlyInSpace.Count > 0)
-        //    {
-        //        //Debug.Log($"updating clearto go status");
-        //        started = true;
-        //        foreach (IStudentAI pupil in labStudents.studentsCurrentlyInSpace)
-        //        {
-        //            pupil.ResetPupil();
-        //        }
-        //        started = true;
-        //    }
-        //}
-
-        //void UpdateStarted()
-        //{
-        //    started = false;
-        //}
-
-        //public void SetCurrentOriginalClass(ClassroomSpace classroom)
-        //{
-        //    currentOriginalClass = classroom;
-        //}
-
-        //public BoxCollider GetTeacherSpace()
-        //{
-        //    return teachersSpace;
-        //}
-
-        //public void SetTimeStep(float timeStep)
-        //{
-        //    throw new System.NotImplementedException();
-        //}
-
-        //public void SetSchoolDayState(SchoolDayState state)
-        //{
-        //    schoolDayState = state;
-        //}
 
         public GameObject GetGameObject()
         {
@@ -171,28 +42,62 @@ namespace SES.Spaces
 
         public Spot RequestDesk(IAI student)
         {
-            foreach (Spot desk in labSubSpaces.desks)
-            {
-                if (desk.ISpotAvailable())
-                {
-                    desk.FillSpot(student);
-                    return desk;
-                }
-            }
-            return null;
+            return SubSpaces.GetAvailableDesk(student);
         }
 
         public Spot RequestLocker(IAI agent)
         {
-            foreach (Spot locker in ListHandler.Shuffle(labSubSpaces.lockers))
+            return SubSpaces.GetRandomLocker(agent);
+        }
+
+        public void MarkStudents(List<IStudentAI> students)
+        {
+            foreach (IStudentAI student in students)
             {
-                if (locker.ISpotAvailable())
-                {
-                    locker.FillSpot(agent);
-                    return locker;
-                }
+                student.CurrentClassroom = null;
+                student.CurrentLab = this;
+                student.currentDesk = RequestDesk(student);
+                studentsBucket.ReceiveStudent(student);
             }
-            return null;
+        }
+
+        public void StartLab()
+        {
+            foreach (IStudentAI student in studentsBucket.GetStudentsInSpace())
+            {
+                student.StartClass();
+            }
+        }
+
+        public void EndLab(IClassroom classroom)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<IStudentAI> ReleaseLabStudents()
+        {
+            List<IStudentAI> students = new List<IStudentAI>();
+            foreach (IStudentAI student in studentsBucket.GetStudentsInSpace())
+            {
+                students.Add(student);
+            }
+            foreach (IStudentAI student in studentsBucket.GetStudentsOutOfSpace())
+            {
+                students.Add(student);
+            }
+            return students;
+        }
+
+        public List<IStudentAI> GetStudentsInLab()
+        {
+            return studentsBucket.GetStudentsInSpace();
+        }
+
+        public void EndLab()
+        {
+            studentsBucket.ResetSpace();
+            SubSpaces.ResetDesks();
+            SubSpaces.ResetLockers();
         }
     }
 }

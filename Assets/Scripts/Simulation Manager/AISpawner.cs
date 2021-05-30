@@ -38,14 +38,16 @@ namespace SES.SimManager
             foreach (IClassroom classroom in classrooms)
             {
                 int counter = 1;
-                for (int i = 0; i < classroom.classroomSubSpaces.desks.Count; i += (SimulationParameters.classroomHalfCapacity ? 2: 1))
+                int spawnCounter = classroom.classroomSubSpaces.GetAvailableDesksCount();
+                for (int i = 0; i < spawnCounter; i++)
                 {
+                    Spot desk = classroom.classroomSubSpaces.GetAvailableDesk(); //get an available desk
                     //instantiate student
-                    GameObject student = Instantiate(studentprefab, classroom.classroomSubSpaces.desks[i].transform.position, Quaternion.identity);
+                    GameObject student = Instantiate(studentprefab, desk.transform.position, Quaternion.identity);
                     //name the student object
                     student.name = $"{classroom.GetGameObject().name}_student_{counter}";
                     //Set student class parameters
-                    AddToClassroom(classroom, student, classroom.classroomSubSpaces.desks[i]);
+                    AddToClassroom(classroom, student, desk);
                     //increase the counter
                     counter++;
                 }
@@ -58,8 +60,9 @@ namespace SES.SimManager
             StudentBehaviorControl behavior = student.GetComponent<StudentBehaviorControl>();
             behavior.school = FindObjectOfType<SchoolDayProgressionController>();//assign the school
             classroom.ReceiveStudent(student.GetComponent<IStudentAI>());//add student to the class
-            behavior.currentClassroom = classroom;//assign student current classroom
-            behavior.currentDesk = desk;//assign the student current desk
+            behavior.CurrentClassroom = classroom;//assign student current classroom
+            
+            behavior.currentDesk = desk;//assign desk to the student
             desk.FillSpot(behavior);//fill desk with student
 
             
@@ -67,7 +70,7 @@ namespace SES.SimManager
             behavior.SetSpawnLocation();//set student original position for dat reset purpose
             //Set Student speed
             student.GetComponent<NavMeshAgent>().speed = SimulationDefaults.childrenWalkingSpeed
-                                                        * (60f / SimulationParameters.timeStep);
+                                                        * (60f / SimulationParameters.TimeStep);
             TotalAgentsBucket.AddToStudents(behavior);//add student to the agent list
             
             behavior.IdleAgent();//stop student
@@ -80,7 +83,8 @@ namespace SES.SimManager
             //Spawn classroom teachers
             foreach (ClassroomSpace classroom in classrooms)
             {
-                GameObject teacher = Instantiate(teacherprefab, classroom.classroomSubSpaces.entrance.transform.position, Quaternion.identity);
+                //Debug.Log($"{classroom.classroomSubSpaces.Entrance}");
+                GameObject teacher = Instantiate(teacherprefab, classroom.classroomSubSpaces.Entrance.position, Quaternion.identity);
                 NavMeshAgent teacherNav = teacher.GetComponent<NavMeshAgent>();
                 teacherNav.speed = SimulationDefaults.adultWalkingSpeed * (60f / SimulationDefaults.timeStep);
                 teacher.name = $"teacher_{counter}";
@@ -103,7 +107,7 @@ namespace SES.SimManager
             {
                 foreach (Lab lab in school.subspaces.labs)
                 {
-                    GameObject teacher = Instantiate(teacherprefab, lab.Entrance, Quaternion.identity);
+                    GameObject teacher = Instantiate(teacherprefab, lab.SubSpaces.Entrance.position, Quaternion.identity);
                     NavMeshAgent teacherNav = teacher.GetComponent<NavMeshAgent>();
                     TeacherBehaviorControl behavior = teacher.GetComponent<TeacherBehaviorControl>();
                     teacherNav.speed = SimulationDefaults.adultWalkingSpeed * (60f / SimulationDefaults.timeStep);
@@ -117,9 +121,11 @@ namespace SES.SimManager
             //spawn teacherrooms teachers
             foreach (ITeachersroom teachersroom in teacherrooms)
             {
-                for (int i = 0; i < teachersroom.subspaces.desks.Count; i = i + 2)
+                int spawnCounter = teachersroom.subspaces.GetAvailableDesksCount();
+                for (int i = 0; i < spawnCounter; i = i + 2)
                 {
-                    GameObject teacher = Instantiate(teacherprefab, teachersroom.subspaces.desks[i].transform.position, Quaternion.identity);
+                    Spot desk = teachersroom.subspaces.GetAvailableDesk(); //get an available desk
+                    GameObject teacher = Instantiate(teacherprefab, desk.transform.position, Quaternion.identity);
                     NavMeshAgent teacherNav = teacher.GetComponent<NavMeshAgent>();
                     TeacherBehaviorControl behavior = teacher.GetComponent<TeacherBehaviorControl>();
                     teacherNav.speed = SimulationDefaults.adultWalkingSpeed * (60f / SimulationDefaults.timeStep);

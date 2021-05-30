@@ -48,9 +48,9 @@ namespace SES.AIControl.FSM
         private void PassTime()
         {
             timer += Time.deltaTime;
-            if (timer >= SimulationParameters.timeStep)
+            if (timer >= SimulationParameters.TimeStep)
             {
-                timer -= SimulationParameters.timeStep;
+                timer -= SimulationParameters.TimeStep;
                 sessionTimer++;
             }
         }

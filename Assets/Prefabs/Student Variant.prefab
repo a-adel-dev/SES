@@ -64,16 +64,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed5e7a3d44128b846b51aadb2dcc0c26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentStateName: 
-  currentDesk: {fileID: 0}
-  currentSpot: {fileID: 0}
-  mainDesk: {fileID: 0}
-  originalPosition: {x: 0, y: 0, z: 0}
-  currentClassroom: {fileID: 0}
-  baseAutonomyChance: 0
-  breakAutonomyChance: 0
-  timeStep: 0
-  nav: {fileID: 0}
+  currentLab: 
+  currentClass: 
 --- !u!1001 &2315893126524298578
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -313,7 +305,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: bcbe10db8c620674b92707e6a6a4a923, type: 2}
+      objectReference: {fileID: 2100000, guid: e0355a26428b05a4a89fbb21bdbe56f0, type: 2}
     - target: {fileID: 919132149155446097, guid: 93ff4e381a623004485bba318caa4b42,
         type: 3}
       propertyPath: m_Name

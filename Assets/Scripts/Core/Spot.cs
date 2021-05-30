@@ -8,8 +8,14 @@ namespace SES.Core
     {
         private bool available = true;
         private IAI occupyingAgent;
+        public string currentAgent = "";
 
 
+
+        private void Update()
+        {
+            currentAgent = occupyingAgent == null ? "...." : occupyingAgent.GetGameObject().name;
+        }
         // add an agent to a spot and make it occupied
         public void FillSpot(IAI agent)
         {

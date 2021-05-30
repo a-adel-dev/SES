@@ -23,7 +23,7 @@ namespace SES.School
 
         public override void Update(SchoolDayProgressionController progressionController)
         {
-            if (sessionTimer >= SimulationParameters.cooldownClassExit)
+            if (sessionTimer >= SimulationParameters.CooldownClassExit)
             {
                 //Debug.Log($"Egressing a class group. session timer is {sessionTimer}, cooldown exit is {SimulationParameters.cooldownClassExit}");
                 sessionTimer = 0;
@@ -39,9 +39,9 @@ namespace SES.School
         private void PassTime()
         {
             timer += Time.deltaTime;
-            if (timer >= SimulationParameters.timeStep)
+            if (timer >= SimulationParameters.TimeStep)
             {
-                timer -= SimulationParameters.timeStep;
+                timer -= SimulationParameters.TimeStep;
                 sessionTimer++;
                 DateTimeRecorder.UpdateSchoolTime(new TimeSpan(0, 1, 0));
             }

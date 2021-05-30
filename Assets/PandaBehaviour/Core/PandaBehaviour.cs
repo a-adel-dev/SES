@@ -93,7 +93,7 @@ namespace Panda
         [Task]
         public void Wait(float duration)
         {
-            duration = duration * SimulationParameters.timeStep;
+            duration = duration * SimulationParameters.TimeStep;
             var task = Task.current;
             var info = task.item != null ? (WaitFloatInfo)task.item : (WaitFloatInfo)(task.item = new WaitFloatInfo());
 
@@ -131,8 +131,8 @@ namespace Panda
         [Task]
         public void WaitRandom(float min, float max)
         {
-            min = min * SimulationParameters.timeStep;
-            max = max * SimulationParameters.timeStep;
+            min = min * SimulationParameters.TimeStep;
+            max = max * SimulationParameters.TimeStep;
             var task = Task.current;
             var info = task.item != null ? (WaitRandomFloatInfo)task.item : (WaitRandomFloatInfo)(task.item = new WaitRandomFloatInfo());
 

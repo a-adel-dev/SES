@@ -8,6 +8,7 @@ namespace SES.AIControl.FSM
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
             behaviorControl.ResumeAgent();
+            behaviorControl.ClearLocker();
         }
 
         public override void Update(StudentBehaviorControl behaviorControl)
@@ -27,9 +28,9 @@ namespace SES.AIControl.FSM
         private void PassTime(StudentBehaviorControl behaviorControl)
         {
             timer += Time.deltaTime;
-            if (timer >= SimulationParameters.timeStep)
+            if (timer >= SimulationParameters.TimeStep)
             {
-                timer -= SimulationParameters.timeStep;
+                timer -= SimulationParameters.TimeStep;
                 CheckAutonomy(behaviorControl);
             }
         }

@@ -7,7 +7,10 @@ namespace SES.AIControl.FSM
     {
         public override void EnterState(TeacherBehaviorControl behaviorControl)
         {
-            behaviorControl.currentDesk.ClearSpot();
+            if (behaviorControl.currentDesk != null)
+            {
+                behaviorControl.currentDesk.ClearSpot();
+            }
             behaviorControl.teacherroom.ExitTeacherroom(behaviorControl);
             behaviorControl.bathroomToVisit = behaviorControl.school.RequestBathroom(behaviorControl);
             behaviorControl.NavigateTo(behaviorControl.bathroomToVisit.GetGameObject().transform.position);

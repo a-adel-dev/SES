@@ -19,7 +19,7 @@ namespace SES.Spaces.Classroom
             if (resumed == false)
             {
                 PickActivity(schedular);
-                timeStep = SimulationParameters.timeStep;
+                timeStep = SimulationParameters.TimeStep;
                 foreach (IStudentAI student in schedular.studentsBucket.GetStudentsInSpace())
                 {
                     if (student.IsFree())
@@ -71,12 +71,12 @@ namespace SES.Spaces.Classroom
 
             //add board Activity to activity list
             ActivityBoard boardActivity = new ActivityBoard(schedular.studentsBucket.GetStudentsInSpace(),
-                                                            schedular.GetComponent<SpotBucket>().boardSpots);
+                                                            schedular.GetComponent<SpotBucket>().BoardSpots);
             activityList.Add(boardActivity);
 
             //add group Activity to activity list
             ActivityGroup groupActivity = new ActivityGroup(schedular.studentsBucket.GetStudentsInSpace(),
-                                                            schedular.GetComponent<SpotBucket>().desks);
+                                                            schedular.GetComponent<SpotBucket>().Desks);
             activityList.Add(groupActivity);
 
             //choose a random activity

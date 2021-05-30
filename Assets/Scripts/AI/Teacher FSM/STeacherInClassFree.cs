@@ -12,7 +12,7 @@ namespace SES.AIControl.FSM
 
         public override void EnterState(TeacherBehaviorControl behaviorControl)
         {
-            timeStep = SimulationParameters.timeStep;
+            timeStep = SimulationParameters.TimeStep;
             Wander(behaviorControl);
             wanderTime = Random.Range(1, 5);
         }

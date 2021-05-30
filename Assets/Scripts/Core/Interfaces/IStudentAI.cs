@@ -19,5 +19,8 @@ namespace SES.Core
         void LookAtBoard();
         void SetSpawnLocation();
         bool IsFree();
+        IClassroom CurrentClassroom { get; set; }
+        ILab CurrentLab { get; set; }
+        void GoToClassroom();
     }
 }

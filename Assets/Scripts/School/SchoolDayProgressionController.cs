@@ -8,10 +8,13 @@ namespace SES.School
 {
     public class SchoolDayProgressionController : MonoBehaviour, ISchool
     {
-        public SchoolSubSpacesBucket subspaces;
+        public SchoolSubSpacesBucket subspaces { get; set; }
         public string SchoolState = "";
-        public List<IClassroom> remainingEgressClassrooms;
-        public int remainingEgressStudents;
+        List<IClassroom> remainingEgressClassrooms;
+        List<IClassroom> workingClasses = new List<IClassroom>();
+        public int remainingEgressStudents { get; set; }
+        List<ClassLabPair> classlabPairs = new List<ClassLabPair>();
+
 
         #region FSm
         private SSchoolBaseState currentState;
@@ -72,23 +75,33 @@ namespace SES.School
 
         public void StartPeriod()
         {
-            //Create ClassLabPairs
-            //allocate classes to send to labs
-            //Instruct classes in classLabPairs to releaseStudents to 'thhis' control
-            //ask the labs for a list of lab positions to assign to students
-            //Direct released classes students to their Labs
-            //relinquish students control to labs
-            //start classes in the rest of the classes.
-
             remainingEgressClassrooms = new List<IClassroom>(subspaces.classrooms);
             remainingEgressStudents = TotalAgentsBucket.GetStudents().Count;
+            if (SimulationParameters.RelocationEnabled)
+            {
+                //create ClassLab Association
+                CreateClassLabPairs();
+                //Send classes to their labs
+                SendClassesToLab();
+                //create workin classes list
+                CreateWorkingClassesList();
+                foreach (ClassLabPair pair in classlabPairs)
+                {
+                    pair.lab.StartLab();
+                }
+            }
+            else
+            {
+                workingClasses = new List<IClassroom>(subspaces.classrooms);
+            }
 
-            foreach (IClassroom classroom in subspaces.classrooms)
+            foreach (IClassroom classroom in workingClasses)
             {
                 classroom.StartClass();
             }
 
         }
+
         public void PauseClasses()
         {
             foreach (IClassroom classroom in subspaces.classrooms)
@@ -106,6 +119,22 @@ namespace SES.School
         }
         public void EndPeriod()
         {
+            foreach (ClassLabPair pair in classlabPairs)
+            {
+                List<IStudentAI> allStudents = pair.lab.ReleaseLabStudents();
+                List<IStudentAI> studentsInLab = pair.lab.GetStudentsInLab();
+                pair.lab.EndLab();
+
+                pair.classroom.MarkStudents(allStudents);
+                foreach (IStudentAI student in studentsInLab)
+                {
+                    pair.classroom.ReceiveStudent(student);
+                    student.TransitStudent();
+                    student.BackToDesk();
+                    student.BreakTime();
+                }  
+            }
+            classlabPairs.Clear();
             foreach (IClassroom classroom in subspaces.classrooms)
             {
                 classroom.EndClass();
@@ -172,43 +201,56 @@ namespace SES.School
             return subspaces.GetNearestBathroom(agent);
         }
 
-        public void ReplaceClassTeahers()
+        void CreateClassLabPairs()
         {
-            List<ITeacherAI> teachersToReplace = new List<ITeacherAI>();
-            List<ClassroomSpace> classesToFill = ListHandler.Shuffle(subspaces.classrooms);
-
-            foreach (ITeacherAI teacher in TotalAgentsBucket.GetTeachers())
+            int randomIndex = Random.Range(1, subspaces.labs.Length);
+            List<ClassroomSpace> classrooms = ListHandler.Shuffle(subspaces.classrooms);
+            List<ILab> labs = new List<ILab>();
+            foreach (ILab lab in subspaces.labs)
             {
-                if (teacher.currentLab == null)
+                labs.Add(lab);
+            }
+            labs = ListHandler.Shuffle(labs);
+            for (int i = 0; i < Mathf.Min(classrooms.Count, randomIndex); i++)
+            {
+                classlabPairs.Add(new ClassLabPair(classrooms[i], labs[i]));
+            }
+        }
+
+        void SendClassesToLab()
+        {
+            foreach (ClassLabPair pair in classlabPairs)
+            {
+                List<IStudentAI> totalStudents = pair.classroom.ReleaseClassStudents();
+                List<IStudentAI> inClassStudents = pair.classroom.RequestLabStudents();
+                pair.classroom.ClearClassStudents();
+
+                pair.lab.MarkStudents(totalStudents);                    
+
+                foreach (IStudentAI student in inClassStudents)
                 {
-                    teachersToReplace.Add(teacher);
-                    teacher.ClearCurrentClassroom();
+                    pair.lab.ReceiveStudent(student);
+                    student.TransitStudent();
                 }
             }
-            teachersToReplace =  ListHandler.Shuffle(teachersToReplace);
-            
-            int teacherIndex = 0;
-            foreach (IClassroom classroom in classesToFill)
+        }
+
+        void CreateWorkingClassesList()
+        {
+            workingClasses.Clear();
+            foreach (ClassroomSpace classroom in subspaces.classrooms)
             {
-                teachersToReplace[teacherIndex].currentClass = classroom;
-                teacherIndex++;
-            }
-
-            foreach (ITeacherAI teacher in teachersToReplace)
-            {
-                if (teacher.currentClass != null)
+                bool isInClassLabPairs = false;
+                foreach (ClassLabPair pair in classlabPairs)
                 {
-                    teacher.GoToClassroom();
+                    if (pair.classroom as ClassroomSpace == classroom)
+                    {
+                        isInClassLabPairs = true;
+                    }
                 }
-
-                else if (teacher.IsInTeacherroom() && teacher.currentClass == null)
+                if (isInClassLabPairs == false)
                 {
-                    teacher.Rest();
-                }
-
-                else if (teacher.currentClass == null)
-                {
-                    teacher.GoToTeacherroom();
+                    workingClasses.Add(classroom);
                 }
             }
         }

@@ -7,6 +7,7 @@ namespace SES.AIControl.FSM
         {
             //Debug.Log($"in transit");
             behaviorControl.ResumeAgent();
+            behaviorControl.ClearLocker();
         }
 
         public override void Update(StudentBehaviorControl behaviorControl)

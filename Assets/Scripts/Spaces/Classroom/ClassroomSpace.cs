@@ -11,11 +11,11 @@ namespace SES.Spaces.Classroom
         SpaceStudentsBucket studentsBucket { get; set; }
         public SpotBucket classroomSubSpaces { get; set; }
 
-        public Vector3 entrance
+        public Vector3 Entrance
         {
             get
             {
-                return classroomSubSpaces.entrance.transform.position;
+                return classroomSubSpaces.Entrance.position;
             }
         }
 
@@ -65,28 +65,30 @@ namespace SES.Spaces.Classroom
 
         public Spot RequestDesk(IAI student)
         {
-            foreach (Spot desk in classroomSubSpaces.desks)
+            Spot desk = classroomSubSpaces.GetAvailableDesk(student);
+            if (desk != null)
             {
-                if (desk.ISpotAvailable())
-                {
-                    desk.FillSpot(student);
-                    return desk;
-                }
+                return desk;
             }
-            return null;
+            else
+            {
+                Debug.LogError($"Could not find a free desk in {gameObject.name} ");
+                return null;
+            }
         }
 
         public Spot RequestLocker(IAI student)
         {
-            foreach (Spot locker in ListHandler.Shuffle(classroomSubSpaces.lockers))
+            Spot locker =  classroomSubSpaces.GetRandomLocker(student);
+            if (locker != null)
             {
-                if (locker.ISpotAvailable())
-                {
-                    locker.FillSpot(student);
-                    return locker;
-                }
+                return locker;
             }
-            return null;
+            else
+            {
+                Debug.Log($"Could not find a free locker in {gameObject.name} ");
+                return null;
+            }
         }
 
         public List<IStudentAI> ReleaseAllClassStudents()
@@ -109,6 +111,34 @@ namespace SES.Spaces.Classroom
             return studentslist;
         }
 
+        public List<IStudentAI> ReleaseClassStudents()
+        {
+            List<IStudentAI> students = new List<IStudentAI>();
+            foreach (IStudentAI student in studentsBucket.GetStudentsInSpace())
+            {
+                student.TransitStudent();
+                students.Add(student);
+            }
+            foreach (IStudentAI student in studentsBucket.GetStudentsOutOfSpace())
+            {
+                students.Add(student);
+            }
+
+            return students;
+        }
+
+        public List<IStudentAI> RequestLabStudents()
+        {
+            return studentsBucket.GetStudentsInSpace();
+        }
+
+
+        public void ClearClassStudents()
+        {
+            studentsBucket.ResetSpace();
+            classScheduler.EmptyClass(); 
+        }
+
         public bool IsClassEmpty()
         {
             var state = classScheduler.currentState;
@@ -119,7 +149,10 @@ namespace SES.Spaces.Classroom
         {
             studentsBucket.ReleaseStudent(agent);
         }
-
+        /// <summary>
+        /// adds a student to the current class students list
+        /// </summary>
+        /// <param name="student">student to be added</param>
         public void ReceiveStudent(IStudentAI student)
         {
             studentsBucket.ReceiveStudent(student);
@@ -140,6 +173,21 @@ namespace SES.Spaces.Classroom
             else if (classScheduler.currentState.GetType() == typeof(SClassActivity))
             {
                 student.StartActivity();
+            }
+        }
+        /// <summary>
+        /// puts the students in the class students list, assign them the class,
+        /// nulls their lab, and assign them a desk each.
+        /// </summary>
+        /// <param name="students">A list of the students to be marked</param>
+        public void MarkStudents(List<IStudentAI> students)
+        {
+            foreach (IStudentAI student in students)
+            {
+                student.CurrentClassroom = this;
+                student.CurrentLab = null;
+                student.currentDesk = RequestDesk(student);
+                studentsBucket.ReceiveStudent(student);
             }
         }
     }

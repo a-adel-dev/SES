@@ -7,7 +7,7 @@ namespace SES.AIControl.FSM
     public class SStudentLockerBehavior : StudentBaseState
     {
         float timer = 0;
-        Spot lockerToVisit;
+        
         float waitingTime;
         float sessionTimer;
 
@@ -15,11 +15,15 @@ namespace SES.AIControl.FSM
         {
             if (PickLocker(behaviorControl))
             {
-                behaviorControl.NavigateTo(lockerToVisit.transform.position);
+                behaviorControl.NavigateTo(behaviorControl.lockerToVisit.transform.position);
             }
-            else
+            else if (behaviorControl.CurrentClassroom != null)
             {
                 RequestStatus(behaviorControl);
+            }
+            else if (behaviorControl.CurrentLab != null)
+            {
+                behaviorControl.StartClass();
             }
             waitingTime = Random.Range(SimulationDefaults.lockerWaitingTime - 1f, SimulationDefaults.lockerWaitingTime + 1);
         }
@@ -30,9 +34,16 @@ namespace SES.AIControl.FSM
 
             if (sessionTimer > waitingTime)
             {
-                ReleaseLocker();
+                behaviorControl.ClearLocker();
                 behaviorControl.NavigateTo(behaviorControl.currentDesk.transform.position);
-                RequestStatus(behaviorControl);
+                if (behaviorControl.CurrentClassroom != null)
+                {
+                    RequestStatus(behaviorControl);
+                }
+                else
+                {
+                    behaviorControl.StartClass();
+                }
             }
         }
 
@@ -44,35 +55,30 @@ namespace SES.AIControl.FSM
         private void PassTime()
         {
             timer += Time.deltaTime;
-            if (timer >= SimulationParameters.timeStep)
+            if (timer >= SimulationParameters.TimeStep)
             {
-                timer -= SimulationParameters.timeStep;
+                timer -= SimulationParameters.TimeStep;
                 sessionTimer++;
             }
         }
 
         bool PickLocker(StudentBehaviorControl control)
         {
-            if (control.currentClassroom != null)
+            if (control.CurrentClassroom != null)
             {
-                lockerToVisit = control.currentClassroom.RequestLocker(control);
-            }
-            else if (control.currentLab != null)
-            {
-                lockerToVisit = control.currentLab.RequestLocker(control);
-            }
-            return (lockerToVisit != null);
-        }
+                control.lockerToVisit = control.CurrentClassroom.RequestLocker(control);
 
-        void ReleaseLocker()
-        {
-            lockerToVisit.ClearSpot();
-            lockerToVisit = null;
+            }
+            else if (control.CurrentLab != null)
+            {
+                control.lockerToVisit = control.CurrentLab.RequestLocker(control);
+            }
+            return (control.lockerToVisit != null);
         }
 
         void RequestStatus(StudentBehaviorControl control)
         {
-            control.currentClassroom.RequestStatus(control);
+            control.CurrentClassroom.RequestStatus(control);
         }
 
     }

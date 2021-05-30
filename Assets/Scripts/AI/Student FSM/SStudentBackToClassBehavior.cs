@@ -11,13 +11,13 @@ namespace SES.AIControl.FSM
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
             stopForPOI = Random.Range(1, 100) <= POIChance;
-            if (behaviorControl.currentClassroom != null)
+            if (behaviorControl.CurrentClassroom != null)
             {
-                behaviorControl.NavigateTo(behaviorControl.currentClassroom.entrance);
+                behaviorControl.NavigateTo(behaviorControl.CurrentClassroom.Entrance);
             }
-            else if (behaviorControl.currentLab != null)
+            else if (behaviorControl.CurrentLab != null)
             {
-                behaviorControl.NavigateTo(behaviorControl.currentLab.Entrance);
+                behaviorControl.NavigateTo(behaviorControl.CurrentLab.SubSpaces.Entrance.position);
             }
         }
 
@@ -27,22 +27,22 @@ namespace SES.AIControl.FSM
             {
                 behaviorControl.StopForPOI();
             }
-            if (behaviorControl.currentClassroom != null)
+            if (behaviorControl.CurrentClassroom != null)
             {
                 if (behaviorControl.nav.remainingDistance <= behaviorControl.nav.stoppingDistance &&
                     behaviorControl.nav.pathPending == false)
                 {
-                    behaviorControl.currentClassroom.ReceiveStudent(behaviorControl);
+                    behaviorControl.CurrentClassroom.ReceiveStudent(behaviorControl);
                     behaviorControl.NavigateTo(behaviorControl.currentDesk.transform.position);
-                    behaviorControl.currentClassroom.RequestStatus(behaviorControl);
+                    behaviorControl.CurrentClassroom.RequestStatus(behaviorControl);
                 }
             }
-            else if (behaviorControl.currentLab != null)
+            else if (behaviorControl.CurrentLab != null)
             {
                 if (behaviorControl.nav.remainingDistance <= behaviorControl.nav.stoppingDistance &&
                     behaviorControl.nav.pathPending == false)
                 {
-                    behaviorControl.currentLab.ReceiveStudent(behaviorControl);
+                    behaviorControl.CurrentLab.ReceiveStudent(behaviorControl);
                     behaviorControl.StartClass();
                 }
             }

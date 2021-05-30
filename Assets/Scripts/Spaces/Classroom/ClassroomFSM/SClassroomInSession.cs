@@ -33,7 +33,7 @@ namespace SES.Spaces.Classroom
                 {
                     schedular.teacherBucket.teacher.ClassroomFree();
                 }
-                Debug.Log("requesting teacher");
+                //Debug.Log("requesting teacher");
                 schedular.RequestTeacher();
                 schedular.teacherBucket.teacher.currentClass = schedular.GetComponent<IClassroom>();
                 schedular.teacherBucket.teacher.GoToClassroom();
@@ -55,7 +55,7 @@ namespace SES.Spaces.Classroom
         {
             minSectionNumber = SimulationDefaults.minClassSectionNumber;
             maxSectionNumber = SimulationDefaults.maxClassSectionNumber;
-            timeStep = SimulationParameters.timeStep;
+            timeStep = SimulationParameters.TimeStep;
         }
 
         private void PassTime(ClassroomProgressionControl schedular)

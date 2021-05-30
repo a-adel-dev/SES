@@ -9,7 +9,7 @@ namespace SES.AIControl.FSM
         int randomLookChance = 10;
         public override void EnterState(TeacherBehaviorControl behaviorControl)
         {
-            timeStep = SimulationParameters.timeStep * 5;
+            timeStep = SimulationParameters.TimeStep * 5;
             if (behaviorControl.currentDesk == null)
             {
                 behaviorControl.teacherroom.AddToTeachersInRoom(behaviorControl);

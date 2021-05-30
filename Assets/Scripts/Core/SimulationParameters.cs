@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿
 namespace SES.Core
 {
     public static class SimulationParameters 
@@ -11,10 +8,10 @@ namespace SES.Core
         public static int breakLength { get; set; } = 5;
         public static int numPeriods { get; set; } = 2;
         public static int simLength { get; set; } = 2;
-        public static float timeStep { get; set; } = 0.5f;
+        public static float TimeStep { get; set; } = 0.5f;
         public static bool activitiesEnabled { get; set; } = true;
-        public static bool relocationEnabled { get; set; } = true;
-        public static int cooldownClassExit { get; set; } = 0;
+        public static bool RelocationEnabled { get; set; } = true;
+        public static int CooldownClassExit { get; set; } = 0;
 
         public static int initialNumStudentsContagious { get; set; } = 0;
         public static int initialNumTeachersContagious { get; set; } = 0;

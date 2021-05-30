@@ -7,12 +7,13 @@ namespace SES.AIControl
 {
     public class StudentBehaviorControl : MonoBehaviour, IStudentAI
     {
+
         public StudentBaseState currentState { get; set; }
         public string currentStateName { get; set; }
         public Vector3 originalPosition { get; set; }
         public Spot currentDesk { get; set; }
-        public IClassroom currentClassroom { get; set; }
-        public ILab currentLab { get; set; }
+        public IClassroom CurrentClassroom { get; set; }
+        public ILab CurrentLab { get; set; }
         public NavMeshAgent nav { get; set; }
         public IBathroom bathroomToVisit { get; set; }
         public ISchool school { get; set; }
@@ -20,6 +21,10 @@ namespace SES.AIControl
         public bool inCorridor { get; set; } = false;
         public bool nearPOI { get; set; } = false;
         public ISpace poi { get; set; }
+        public Spot lockerToVisit { get; set; }
+
+        public string currentLabText = "";
+        public string currentClassText = "";
 
         #region FSM
         public readonly SStudentInClassroom inClassroom = new SStudentInClassroom();
@@ -35,6 +40,13 @@ namespace SES.AIControl
         }
         void Update()
         {
+            if (currentDesk == null)
+            {
+                Debug.Log($"{gameObject.name}: I don't have a desk!");
+            }
+            currentClassText = CurrentClassroom == null? "..." : CurrentClassroom.GetGameObject().name;
+            currentLabText = CurrentLab == null ? "..." : CurrentLab.GetGameObject().name;
+
             if (currentState != null)
             {
                 currentStateName = currentState.ToString();
@@ -148,9 +160,9 @@ namespace SES.AIControl
 
         public void LookAtBoard()
         {
-            Vector3 boardModifiedDirection = new Vector3(currentClassroom.classroomSubSpaces.board.transform.position.x,
+            Vector3 boardModifiedDirection = new Vector3(CurrentClassroom.classroomSubSpaces.Board.position.x,
                                                             0,
-                                                            currentClassroom.classroomSubSpaces.board.transform.position.z);
+                                                            CurrentClassroom.classroomSubSpaces.Board.position.z);
             transform.LookAt(boardModifiedDirection);
         }
 
@@ -183,7 +195,7 @@ namespace SES.AIControl
             nav.enabled = true;
             nav.SetDestination(originalPosition);
             IdleAgent();
-            currentClassroom.ReceiveStudent(this);
+            CurrentClassroom.ReceiveStudent(this);
         }
 
         public void SetStoppingDistance(float distance)
@@ -194,6 +206,22 @@ namespace SES.AIControl
         public bool IsFree()
         {
             return currentState.GetType() == typeof(SStudentInClassroom);
+        }
+
+        public void ClearLocker()
+        {
+            if (lockerToVisit != null)
+            {
+                if (CurrentClassroom != null)
+                {
+                    CurrentClassroom.classroomSubSpaces.ReturnLocker(lockerToVisit);
+                }
+                else if (CurrentLab != null)
+                {
+                    CurrentLab.SubSpaces.ReturnLocker(lockerToVisit);
+                }
+            }
+            lockerToVisit = null;
         }
     }
 }

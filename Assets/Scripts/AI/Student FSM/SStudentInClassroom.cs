@@ -10,11 +10,13 @@ namespace SES.AIControl.FSM
             behaviorControl.ResumeAgent();
             behaviorControl.BackToDesk();
             behaviorControl.GetComponent<MeshRenderer>().enabled = true;
+            behaviorControl.ClearLocker();
         }
 
         public override void Update(StudentBehaviorControl behaviorControl)
         {
-            if (behaviorControl.currentClassroom != null)
+            behaviorControl.BackToDesk();
+            if (behaviorControl.CurrentClassroom != null)
             {
                 behaviorControl.LookAtBoard();
             }
@@ -33,9 +35,9 @@ namespace SES.AIControl.FSM
         private void PassTime(StudentBehaviorControl behaviorControl)
         {
             timer += Time.deltaTime;
-            if (timer >= SimulationParameters.timeStep)
+            if (timer >= SimulationParameters.TimeStep)
             {
-                timer -= SimulationParameters.timeStep;
+                timer -= SimulationParameters.TimeStep;
                 CheckAutonomy(behaviorControl);
             }
         }

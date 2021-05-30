@@ -170,7 +170,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 027d5fc3defa58a489f6a2b5640fcc15,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 027d5fc3defa58a489f6a2b5640fcc15, type: 3}

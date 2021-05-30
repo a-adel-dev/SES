@@ -20,9 +20,12 @@ namespace SES.Core
         void StudentExitClassroom(IStudentAI agent);
         SpotBucket classroomSubSpaces { get; set; }
 
-        Vector3 entrance { get; }
+        Vector3 Entrance { get; }
 
         ITeacherAI Teacher { get; set; }
-
+        List<IStudentAI> ReleaseClassStudents();
+        List<IStudentAI> RequestLabStudents();
+        void ClearClassStudents();
+        void MarkStudents(List<IStudentAI> students);
     }
 }

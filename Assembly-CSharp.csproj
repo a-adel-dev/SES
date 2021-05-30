@@ -60,7 +60,6 @@
     <Compile Include="Assets\Scripts\AI\TeacherBehaviorControl.cs" />
     <Compile Include="Assets\Scripts\Spaces\POI.cs" />
     <Compile Include="Assets\Scripts\UI\MainControlsPanelUI.cs" />
-    <Compile Include="Assets\Scripts\Core\Timer.cs" />
     <Compile Include="Assets\Scripts\AI\Student FSM\SStudentInClassroom.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassActivity.cs" />
     <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\ShooterGameController.cs" />
@@ -82,17 +81,14 @@
     <Compile Include="Assets\Scripts\Simulation Manager\SimInitializer.cs" />
     <Compile Include="Assets\Scripts\Core\Spot.cs" />
     <Compile Include="Assets\Scripts\School\FSM\SSchoolPaused.cs" />
-    <Compile Include="Assets\Scripts\Spaces\Labs\LabTeacherSpawner.cs" />
     <Compile Include="Assets\Scripts\AI\Student FSM\SStudentLockerBehavior.cs" />
     <Compile Include="Assets\Scripts\Spaces\Corridor.cs" />
     <Compile Include="Assets\Scripts\Core\Events\StudentEgressEvent.cs" />
     <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\WaypointPath.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomSpace.cs" />
-    <Compile Include="Assets\Scripts\AI\TeacherNavigation.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomBaseState.cs" />
     <Compile Include="Assets\Scripts\School\FSM\SSchoolBaseState.cs" />
     <Compile Include="Assets\Scripts\Health\Droplet.cs" />
-    <Compile Include="Assets\Scripts\School\TeacherPool.cs" />
     <Compile Include="Assets\Scripts\UI\ErrorPanelUI.cs" />
     <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\FollowCamera.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomEmpty.cs" />
@@ -103,7 +99,6 @@
     <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\AIVision.cs" />
     <Compile Include="Assets\Scripts\Health\GeneralHealthParamaters.cs" />
     <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\TriggerType.cs" />
-    <Compile Include="Assets\Scripts\Core\TesterC.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\ITeacherAI.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\ISchool.cs" />
     <Compile Include="Assets\Tester.cs" />
@@ -112,10 +107,8 @@
     <Compile Include="Assets\Scripts\Simulation Manager\SimulationController.cs" />
     <Compile Include="Assets\Scripts\Core\DateTimeRecorder.cs" />
     <Compile Include="Assets\PandaBehaviour\Examples\00_ChangeColor\Assets\MyCube.cs" />
-    <Compile Include="Assets\Scripts\Simulation Manager\ClassroomEgressController.cs" />
     <Compile Include="Assets\Scripts\Spaces\EgressPoint.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomInSession.cs" />
-    <Compile Include="Assets\Scripts\Spaces\Teachersroom\TeachersRoomDesksBucket.cs" />
     <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\BulletImpact.cs" />
     <Compile Include="Assets\Scripts\UI\SpacePanelUI.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\ILab.cs" />
@@ -127,7 +120,6 @@
     <Compile Include="Assets\Scripts\UI\ScreenSelector.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\IStudentAI.cs" />
     <Compile Include="Assets\Scripts\Spaces\Teachersroom.cs" />
-    <Compile Include="Assets\Scripts\Core\Tester.cs" />
     <Compile Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\Computer.cs" />
     <Compile Include="Assets\Scripts\School\SchoolSubSpacesBucket.cs" />
     <Compile Include="Assets\Scripts\UI\Label.cs" />
@@ -135,7 +127,6 @@
     <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Unit.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\IntVariable.cs" />
     <Compile Include="Assets\Scripts\UI\ToolTip.cs" />
-    <Compile Include="Assets\Scripts\Core\TimeStepController.cs" />
     <Compile Include="Assets\Scripts\Spaces\Bathroom.cs" />
     <Compile Include="Assets\Scripts\Core\TotalAgentsBucket.cs" />
     <Compile Include="Assets\Scripts\Spaces\Lab.cs" />
@@ -144,7 +135,6 @@
     <Compile Include="Assets\Scripts\Core\Interfaces\IAI.cs" />
     <Compile Include="Assets\Scripts\Simulation Manager\ConfigurationUtils.cs" />
     <Compile Include="Assets\Scripts\AI\Student FSM\SStudentonBreak.cs" />
-    <Compile Include="Assets\Scripts\School\SchoolManager.cs" />
     <Compile Include="Assets\Scripts\Core\SimulationDefaults.cs" />
     <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherToilet.cs" />
     <Compile Include="Assets\Scripts\AI\Student FSM\SStudentToiletBehavior.cs" />
@@ -160,15 +150,11 @@
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomIdle.cs" />
     <Compile Include="Assets\Scripts\Health\AgentHealth.cs" />
     <Compile Include="Assets\Scripts\AI\Student FSM\SStudentDoingActivity.cs" />
-    <Compile Include="Assets\Scripts\AI\AI.cs" />
     <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherGoingToClassroom.cs" />
     <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Patroller.cs" />
-    <Compile Include="Assets\Scripts\Simulation Manager\SimulationProperties.cs" />
     <Compile Include="Assets\Scripts\Health\SpaceHealthVisualization.cs" />
-    <Compile Include="Assets\Scripts\Core\AgentSpawner.cs" />
     <Compile Include="Assets\Scripts\AI\Student FSM\SStudentBackToClassBehavior.cs" />
     <Compile Include="Assets\Scripts\Health\SpaceHealth.cs" />
-    <Compile Include="Assets\Scripts\AI\Beahviors.cs" />
     <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherInClassRestricted.cs" />
     <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherInClassFree.cs" />
     <Compile Include="Assets\Scripts\Health\ShortRangeInfector.cs" />
@@ -178,19 +164,16 @@
     <Compile Include="Assets\Scripts\Core\ClassLabPair.cs" />
     <Compile Include="Assets\Scripts\Core\SpotBucket.cs" />
     <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\UnitExplosion.cs" />
-    <Compile Include="Assets\Scripts\Core\CameraController.cs" />
     <Compile Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\Player.cs" />
     <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherLocker.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\IAISpawner.cs" />
     <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\HUD.cs" />
-    <Compile Include="Assets\Scripts\AI\StudentAI.cs" />
     <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherGoingToTeacherroom.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomOnBreak.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\IActivity.cs" />
     <Compile Include="Assets\Scripts\Core\Enums.cs" />
   </ItemGroup>
   <ItemGroup>
-     <None Include="Assets\Scripts\Core\TeacherRoomTester.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\TagDialogue.BT.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
@@ -211,14 +194,12 @@
      <None Include="Assets\PandaBehaviour\ChangeLog.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
      <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
-     <None Include="Assets\Scripts\Behaviors\TestBehavior.BT.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
-     <None Include="Assets\Scripts\Behaviors\bathroom.BT.txt" />
      <None Include="Assets\Behaviors\Main.BT.txt" />
      <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Sniper.BT.txt" />
      <None Include="Assets\Behaviors\BathroomBehavior.BT.txt" />

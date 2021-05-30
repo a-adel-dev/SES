@@ -9,6 +9,18 @@ namespace SES.Core
         List<IStudentAI> studentsCurrentlyInSpace = new List<IStudentAI>();
         List<IStudentAI> studentsOutOfSpace = new List<IStudentAI>();
 
+
+        [SerializeField] string spaceOriginalStudentsCount = "";
+        [SerializeField] string studentsCurrentlyInSpaceCount = "";
+        [SerializeField] string studentsOutOfSpaceCount = "";
+
+
+        private void Update()
+        {
+            spaceOriginalStudentsCount = $"{spaceOriginalStudents.Count}";
+            studentsCurrentlyInSpaceCount = $"{studentsCurrentlyInSpace.Count}";
+            studentsOutOfSpaceCount = $"{studentsOutOfSpace.Count}";
+        }
         public void AddToSpaceOriginalStudents(IStudentAI student)
         {
             spaceOriginalStudents.Add(student);
@@ -17,6 +29,10 @@ namespace SES.Core
         public void ReceiveStudent(IStudentAI student)
         {
             studentsCurrentlyInSpace.Add(student);
+            if (studentsOutOfSpace.Contains(student))
+            {
+                studentsOutOfSpace.Remove(student);
+            }
         }
 
         public List<IStudentAI> GetStudentsInSpace()
@@ -43,9 +59,12 @@ namespace SES.Core
         {
             return studentsOutOfSpace;
         }
+
         public void ResetSpace()
         {
             spaceOriginalStudents.Clear();
+            studentsCurrentlyInSpace.Clear();
+            studentsOutOfSpace.Clear();
         }
 
     }

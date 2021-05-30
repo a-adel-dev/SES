@@ -7,13 +7,15 @@ namespace SES.Spaces.Classroom
 {
     public class ClassroomProgressionControl : MonoBehaviour
     {
-        public SpaceStudentsBucket studentsBucket;
-        public string currentStateName;
-        public ClassTeacherBucket teacherBucket;
+        public SpaceStudentsBucket studentsBucket { get; set; }
+        [SerializeField] string currentStateName;
+        public ClassTeacherBucket teacherBucket { get; set; }
+        public SpotBucket Subspaces { get; set; }
 
         private void Start()
         {
             teacherBucket = GetComponent<ClassTeacherBucket>();
+            Subspaces = GetComponent<SpotBucket>();
         }
 
         #region FSM
@@ -47,6 +49,10 @@ namespace SES.Spaces.Classroom
 
         public void EndClass()
         {
+            if (studentsBucket == null)
+            {
+                studentsBucket = GetComponent<SpaceStudentsBucket>();
+            }
             TransitionToState(new SClassroomOnBreak());
         }
 
@@ -103,7 +109,7 @@ namespace SES.Spaces.Classroom
             {
                 Debug.LogError($"Could not find a teacher, {gameObject.name}");
             }
-            Debug.Log($"found teacher: {teach.GetGameObject().name}");
+            //Debug.Log($"found teacher: {teach.GetGameObject().name}");
         }
     }
 }

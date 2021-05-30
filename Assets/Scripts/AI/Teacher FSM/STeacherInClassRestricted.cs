@@ -12,7 +12,7 @@ namespace SES.AIControl.FSM
 
         public override void EnterState(TeacherBehaviorControl behaviorControl)
         {
-            timeStep = SimulationParameters.timeStep;
+            timeStep = SimulationParameters.TimeStep;
             Wander(behaviorControl);
             wanderTime = Random.Range(1, 5);
         }
@@ -25,8 +25,8 @@ namespace SES.AIControl.FSM
 
         private static void Wander(TeacherBehaviorControl behaviorControl)
         {
-            Vector3 bounds_min = behaviorControl.currentClass.classroomSubSpaces.teachersSpace.bounds.min;
-            Vector3 bounds_max = behaviorControl.currentClass.classroomSubSpaces.teachersSpace.bounds.max;
+            Vector3 bounds_min = behaviorControl.currentClass.classroomSubSpaces.TeacherSpace.bounds.min;
+            Vector3 bounds_max = behaviorControl.currentClass.classroomSubSpaces.TeacherSpace.bounds.max;
             float waypoint_x = Random.Range(bounds_min[0], bounds_max[0]);
             float waypoint_z = Random.Range(bounds_min[2], bounds_max[2]);
             Vector3 waypoint = new Vector3(waypoint_x, 0f, waypoint_z);

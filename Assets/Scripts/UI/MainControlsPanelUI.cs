@@ -64,7 +64,7 @@ namespace SES.UI
         }
         public void ApplySettings()
         {
-            SimulationParameters.timeStep = timeScaleSlider.value;
+            SimulationParameters.TimeStep = timeScaleSlider.value;
             if (numDaysInput.text == "0" || string.IsNullOrWhiteSpace(numDaysInput.text) || numPeriodsInput.text == "0" || string.IsNullOrWhiteSpace(numPeriodsInput.text)
                 || string.IsNullOrWhiteSpace(numInfectedStudentsInput.text) || string.IsNullOrWhiteSpace(numInfectedTeachersInput.text) || string.IsNullOrWhiteSpace(egressCoolDownInput.text))
             {
@@ -79,12 +79,12 @@ namespace SES.UI
                 SimulationParameters.breakLength = Mathf.Abs(int.Parse(breakLengthInput.text));
 
                 SimulationParameters.activitiesEnabled = activitiesToggle.isOn;
-                SimulationParameters.relocationEnabled = relocationToggle.isOn;
+                SimulationParameters.RelocationEnabled = relocationToggle.isOn;
 
                 SimulationParameters.initialNumStudentsContagious = Mathf.Abs(int.Parse(numInfectedStudentsInput.text));
                 SimulationParameters.initialNumTeachersContagious = Mathf.Abs(int.Parse(numInfectedTeachersInput.text));
 
-                SimulationParameters.cooldownClassExit = Mathf.Abs(int.Parse(egressCoolDownInput.text));
+                SimulationParameters.CooldownClassExit = Mathf.Abs(int.Parse(egressCoolDownInput.text));
 
                 SetHealthMasks(0, studentsMasksDropDown.value);
                 SetHealthMasks(1, teachersMasksDropDown.value);
