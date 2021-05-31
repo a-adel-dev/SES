@@ -196,6 +196,7 @@ namespace SES.AIControl
             nav.SetDestination(originalPosition);
             IdleAgent();
             CurrentClassroom.ReceiveStudent(this);
+            currentDesk = CurrentClassroom.RequestDesk(this);
         }
 
         public void SetStoppingDistance(float distance)

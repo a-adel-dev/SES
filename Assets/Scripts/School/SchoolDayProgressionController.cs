@@ -161,6 +161,7 @@ namespace SES.School
                     List<IStudentAI> studentsToEgress = new List<IStudentAI>();
                     //release control to the school
                     studentsToEgress = nearestClassroom.ReleaseAllClassStudents();
+                    nearestClassroom.EmptyClass();
                     remainingEgressClassrooms.Remove(nearestClassroom);
                     //send the class to the egress point
                     foreach (IStudentAI student in studentsToEgress)
@@ -223,7 +224,7 @@ namespace SES.School
             {
                 List<IStudentAI> totalStudents = pair.classroom.ReleaseClassStudents();
                 List<IStudentAI> inClassStudents = pair.classroom.RequestLabStudents();
-                pair.classroom.ClearClassStudents();
+                pair.classroom.EmptyClass();
 
                 pair.lab.MarkStudents(totalStudents);                    
 

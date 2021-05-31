@@ -133,7 +133,7 @@ namespace SES.Spaces.Classroom
         }
 
 
-        public void ClearClassStudents()
+        public void EmptyClass()
         {
             studentsBucket.ResetSpace();
             classScheduler.EmptyClass(); 

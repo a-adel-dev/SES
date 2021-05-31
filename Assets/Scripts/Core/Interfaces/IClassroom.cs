@@ -25,7 +25,7 @@ namespace SES.Core
         ITeacherAI Teacher { get; set; }
         List<IStudentAI> ReleaseClassStudents();
         List<IStudentAI> RequestLabStudents();
-        void ClearClassStudents();
+        void EmptyClass();
         void MarkStudents(List<IStudentAI> students);
     }
 }
