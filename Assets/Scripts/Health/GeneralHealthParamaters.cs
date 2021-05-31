@@ -11,59 +11,10 @@ namespace SES.Health
         public static int numContagious = 0;
         public static int numInfected = 0;
 
-        [Header("General")]
-        [Tooltip("The critical radius after which larger radius are not counted in the sim Cᵣ(μm)")]
-        public float criticalRadius = 2.6f;
-        [Tooltip("the concentration of suspended pathogen to the infection rate Cᵢ(infection quanta)")]
-        public float viralInfectivity = 0.1f;
+        public List<ITeacherAI> teachers = new List<ITeacherAI>();
+        public List<IStudentAI> students = new List<IStudentAI>();
 
-
-
-        [Header("Breathing flow")]
-        [Tooltip("Breathing flow rate assumed for mouth breathing Q_b (m3/h)")]
-        public float normalBreathingFlowRate = 0.5f;
-        [Tooltip("Breathing flow rate assumed for talking Q_b (m3/h)")]
-        public float talkingBreathingFlowRate = 0.75f;
-        [Tooltip("Breathing flow rate assumed for shouting (m3/h)")]
-        public float LoudtalkingBreathingFlowRate = 1.0f;
-
-        [Header("Breathing droplet concentration")]
-        [Tooltip("Breathing droplet concentration (cm-3)")]
-        public float avarageNaturalDropletConentration = 0.1f;
-        [Tooltip("Talking droplet concentration (cm-3)")]
-        public float avarageTalkingDropletConcentration = 0.3f;
-        [Tooltip("Shouting droplet concentration (cm-3)")]
-        public float avarageShoutingDropletConcentration = 0.9f;
-
-        [Header("Virion parameters")]
-        [Tooltip("Concentration of virions in the droplets (copies/liquid volume)")]
-        public float viralLoad = 10E11f;
-
-
-        [Header("Short range infection parameters")]
-        [Tooltip("The jet entrainment coefficient which is typically fall in the range for the turbulent jet 0.1 - 0.15 (α)")]
-        public float jetEntrainmentCoefficient = 0.1f;
-        [Tooltip("Mouth area (cm^2")]
-        public float mouthArea = 2f;
-
-
-        [Header("Space parameters")]
-        public float initialAirExchangeRate = 3f;
-
-
-        [Header("Mask Parameters")]
-        public float n95MaskValue = 0.05f;
-        public float surgicalMaskValue = 0.15f;
-        public float clothMaskValue = 0.8f;
-
-        [Header("Visualization Parameters")]
-        [Tooltip("how fast a space is considerred to be totally contaminated")]
-        public float spaceInfectionThreshold = .001f;
-
-        [Header("infection Parameters")]
-        [Tooltip("Time before infected turns to contagious, in hours, minutes, seconds")]
-        //originally (66,0,0)
-        public TimeSpan timeBeforeContagious = new TimeSpan(0, 10, 0);
+        
 
         [Header("Health Settings")]
         public int numStudentInfected = 0;
@@ -78,15 +29,12 @@ namespace SES.Health
         HealthStats healthstats;
         SpaceHealth[] spaces;
 
-
-
-
         private void Start()
         {
             healthstats = FindObjectOfType<HealthStats>();
             foreach (SpaceHealth space in FindObjectsOfType<SpaceHealth>())
             {
-                space.SetAirExhangeRate(initialAirExchangeRate);
+                space.SetAirExhangeRate(SimulationDefaults.InitialAirExchangeRate);
             }
             PopulateAirControlList();
             spaces = FindObjectsOfType<SpaceHealth>();
@@ -102,46 +50,38 @@ namespace SES.Health
             globalAirControl.Add(7.92f);
         }
 
-        public void SetAirExchangeRateForSpaces()
-        {
-            foreach (SpaceHealth space in spaces)
-            {
-                space.airExchangeRate = globalAirControl[airControlSettings];
-            }
-        }
-
-        public void InfectdSelectedStudents()
+        public static void InfectdSelectedStudents()
         {
             //Debug.Log($"infecting {numStudentsContagious} students");
-            var studentsToInfect = ListHandler.GetRandomItemsFromList(healthstats.GetStudents(), numStudentsContagious);
-            foreach (AgentHealth student in studentsToInfect)
+            List<IStudentAI> studentsToInfect = ListHandler.GetRandomItemsFromList(TotalAgentsBucket.GetStudents(), SimulationParameters.initialNumStudentsContagious);
+            foreach (IStudentAI student in studentsToInfect)
             {
                 //Debug.Log($"infecting {student.gameObject.name}");
-                student.InfectAgent();
+                student.AgentHealth.InfectAgent();
             }
         }
 
-        public void InfectSelectedTeachers()
+        public static void InfectSelectedTeachers()
         {
             //Debug.Log($"infecting {numTeachersContagious} teachers");
-            var teachersToInfect = ListHandler.GetRandomItemsFromList(healthstats.GetTeachers(), numTeachersContagious);
-            foreach (AgentHealth teacher in teachersToInfect)
+            List<ITeacherAI> teachersToInfect = ListHandler.GetRandomItemsFromList(TotalAgentsBucket.GetTeachers(), SimulationParameters.initialNumTeachersContagious);
+            foreach (ITeacherAI teacher in teachersToInfect)
             {
-                teacher.InfectAgent();
+                teacher.AgentHealth.InfectAgent();
                 //Debug.Log($"infecting {teacher.gameObject.name}");
             }
         }
 
-        public void SetMaskForAgents()
+        public static void SetMaskForAgents()
         {
-            foreach (AgentHealth student in healthstats.GetStudents())
+            foreach (IStudentAI student in TotalAgentsBucket.GetStudents())
             {
-                student.SetMaskFactor(studentsMasks);
+                student.AgentHealth.SetMaskFactor(SimulationParameters.studentsMaskSettings);
             }
 
-            foreach (AgentHealth teacher in healthstats.GetTeachers())
+            foreach (ITeacherAI teacher in TotalAgentsBucket.GetTeachers())
             {
-                teacher.SetMaskFactor(teachersMasks);
+                teacher.AgentHealth.SetMaskFactor(SimulationParameters.teacherMaskSettings);
             }
         }
     }

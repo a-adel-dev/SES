@@ -7,17 +7,15 @@ namespace SES.Health
 {
     public class SpaceHealth : MonoBehaviour
     {
-        [Tooltip("The volume of Space in m^3")]
-        public float spaceVolume;
-        [Tooltip("Is space outdoor?")]
-        public bool outdoor = false;
-        [Tooltip("Viral Concentration in space quanta/m^3")]
-        public float concentration;
-        [Tooltip("Concentration when infected individuals leave space")]
-        public float currentConcentration;
-        [Tooltip("Air Exchange rate /hour")]
-        public float airExchangeRate = 3f;
-        [Tooltip("Air Exchange rate /minute")]
+        public float SpaceVolume { get; set; }
+        [SerializeField] bool outdoor = false;
+        public bool Outdoor { get => outdoor; set => outdoor = value; }
+        public float Concentration { get; set; }
+        /// <summary>
+        /// Concentration when infected individuals leave space
+        /// </summary>
+        public float CurrentConcentration { get; set; }
+        public float AirExchangeRate { get; set; } = 3f;
         float EffectiveAirExchangeRate;
         /// <summary>
         /// List of agents in the current space
@@ -27,32 +25,19 @@ namespace SES.Health
         /// wheather there is infected individuals in space
         /// </summary>
         bool infectorsPresent = false;
+        float timer = 0f;
 
         // Start is called before the first frame update
         void Start()
         {
             ComputeSpaceVolume();
+            EffectiveAirExchangeRate = AirExchangeRate / 60f;
+
         }
 
-        private void ComputeSpaceVolume()
-        {
-            Collider volume = GetComponent<Collider>();
-            Collider[] colliders = GetComponentsInChildren<Collider>();
-            Bounds bounds = new Bounds(transform.position, Vector3.zero);
-            foreach (Collider nextCollider in colliders)
-            {
-                bounds.Encapsulate(nextCollider.bounds);
-            }
-            spaceVolume = bounds.size[0] * bounds.size[1] * bounds.size[2];
-            //Debug.Log($"{gameObject.name} space volume: {spaceVolume}");
-        }
-
-        // Update is called once per frame
         void Update()
         {
-            infectorsPresent = IsInfectorsPresent();
-
-            //Debug.Log($"concentration: {concentration}, current concentration: {currentConcentration}");
+            PassTime();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -60,7 +45,6 @@ namespace SES.Health
             if (other.GetComponent<AgentHealth>())
             {
                 agentsInSpace.Add(other.GetComponent<AgentHealth>());
-                other.GetComponent<AgentHealth>().SetCurrentSpace(this);
             }
         }
 
@@ -69,28 +53,29 @@ namespace SES.Health
             if (other.GetComponent<AgentHealth>())
             {
                 agentsInSpace.Remove(other.GetComponent<AgentHealth>());
+                
             }
         }
 
         public void SetAirExhangeRate(float ACH)
         {
-            airExchangeRate = ACH;
-            EffectiveAirExchangeRate = airExchangeRate / 60f;
+            AirExchangeRate = ACH;
+            EffectiveAirExchangeRate = AirExchangeRate / 60f;
         }
 
         public float GetAirExhangeRate()
         {
-            return airExchangeRate;
+            return AirExchangeRate;
         }
 
         private void IncreaseSpaceInfectionConcentration()
         {
-            if (outdoor)
+            if (Outdoor)
             { return; }
 
             foreach (AgentHealth agent in agentsInSpace)
             {
-                concentration += agent.Breathe() / (EffectiveAirExchangeRate * spaceVolume);
+                Concentration += agent.Breathe() / (EffectiveAirExchangeRate * SpaceVolume);
             }
         }
 
@@ -98,7 +83,7 @@ namespace SES.Health
         {
             foreach (AgentHealth agent in agentsInSpace)
             {
-                if (agent.IsInfected())
+                if (agent.IsContagious())
                 {
                     return true;
                 }
@@ -109,35 +94,27 @@ namespace SES.Health
 
         private void DissipateConcentration()
         {
-            if (outdoor)
+            if (Outdoor)
             { return; }
             if (infectorsPresent)
             {
-                currentConcentration = concentration;
+                CurrentConcentration = Concentration;
                 return;
             }
             else
             {
-                concentration = Mathf.Max(0f, concentration - (currentConcentration * EffectiveAirExchangeRate));
+                Concentration = Mathf.Max(0f, Concentration - (CurrentConcentration * EffectiveAirExchangeRate));
             }
-        }
-
-        public void TimeStep()
-        {
-            //Debug.Log($"TimeStep");
-            IncreaseSpaceInfectionConcentration();
-            DissipateConcentration();
-            AttemptInfection();
         }
 
         void AttemptInfection()
         {
-            if (Mathf.Abs(concentration) <= Mathf.Epsilon) { return; }
+            if (Mathf.Abs(Concentration) <= Mathf.Epsilon) { return; }
             foreach (AgentHealth agent in agentsInSpace)
             {
                 float threshold = Random.Range(0f, 10f);//should be (0,100)
                                                         //Debug.Log($"{threshold} against {agent.GetInfectionQuanta()}");
-                if (agent.healthCondition == HealthCondition.healthy && agent.GetInfectionQuanta() > threshold)
+                if (agent.HealthCondition == HealthCondition.healthy && agent.GetInfectionQuanta() > threshold)
                 {
                     agent.ExposeAgent();
                     Debug.Log($"{agent.gameObject.name} was exposed");
@@ -148,6 +125,25 @@ namespace SES.Health
         public int GetNumAgents()
         {
             return agentsInSpace.Count;
+        }
+
+        private void PassTime()
+        {
+            timer += Time.deltaTime;
+            if (timer >= SimulationParameters.TimeStep)
+            {
+                timer -= SimulationParameters.TimeStep;
+                infectorsPresent = IsInfectorsPresent();
+                AttemptInfection();
+                IncreaseSpaceInfectionConcentration();
+                DissipateConcentration();
+
+            }
+        }
+        private void ComputeSpaceVolume()
+        {
+            Collider volume = GetComponent<Collider>();
+            SpaceVolume = volume.bounds.size[0] * volume.bounds.size[1] * volume.bounds.size[2];
         }
     }
 }

@@ -10,7 +10,8 @@
     {
         Breathing,
         Talking,
-        LoudTalking
+        LoudTalking,
+        Paused
     }
 
     public enum MaskFactor

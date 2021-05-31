@@ -2,7 +2,8 @@
 using System;
 using SES.School;
 using SES.Core;
-using SES.AIControl;
+using SES.Health;
+
 
 namespace SES.SimManager
 {
@@ -21,7 +22,21 @@ namespace SES.SimManager
         {
             spawner.SpawnStudents();
             spawner.SpawnTeachers();
+            SetHealthConditions();
             school.StartSchoolDay();
+        }
+
+        private void SetHealthConditions()
+        {
+            //infect students
+            GeneralHealthParamaters.InfectdSelectedStudents();
+            //infect teachers
+            GeneralHealthParamaters.InfectSelectedTeachers();
+            //set students masks
+
+            //set teacher masks
+            GeneralHealthParamaters.SetMaskForAgents();
+            //set space Air control
         }
 
         public void PauseSim()

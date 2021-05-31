@@ -9,6 +9,7 @@ namespace SES.AIControl.FSM
         {
             behaviorControl.ResumeAgent();
             behaviorControl.ClearLocker();
+            behaviorControl.AgentHealth.SetActivityType(ActivityType.LoudTalking);
         }
 
         public override void Update(StudentBehaviorControl behaviorControl)

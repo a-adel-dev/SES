@@ -19,6 +19,7 @@ namespace SES.AIControl.FSM
             {
                 behaviorControl.NavigateTo(behaviorControl.CurrentLab.SubSpaces.Entrance.position);
             }
+            behaviorControl.AgentHealth.SetActivityType(ActivityType.Breathing);
         }
 
         public override void Update(StudentBehaviorControl behaviorControl)

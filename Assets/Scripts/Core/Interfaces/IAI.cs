@@ -19,5 +19,7 @@ namespace SES.Core
         Spot currentDesk { get; set; }
         IBathroom bathroomToVisit { get; set; }
 
+        IAgentHealth AgentHealth { get; set; }
+
     }
 }

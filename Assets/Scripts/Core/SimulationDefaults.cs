@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 
 namespace SES.Core
 {
@@ -42,9 +40,26 @@ namespace SES.Core
         public static float deskGroupActivityCompensationX { get; set; } = 0f;
         public static float deskGroupActivityCompensationZ { get; set; } = -0.5f;
         public static float minDistanceGroupActivity { get; set; } = 3f;
-
         public static int bathroomChance { get; set; } = 2;
         public static float lockerWaitingTime { get; set; } = 2f;
+
+        public static float CriticalRadius { get; set; } = 2.6f;
+        public static float ViralInfectivity { get; set; } = 0.1f;
+        public static float NormalBreathingFlowRate { get; set; } = 0.5f;
+        public static float TalkingBreathingFlowRate { get; set; } = 0.75f;
+        public static float LoudtalkingBreathingFlowRate { get; set; } = 1.0f;
+        public static float AvarageNaturalDropletConentration { get; set; } = 0.1f;
+        public static float AvarageTalkingDropletConcentration { get; set; } = 0.3f;
+        public static float AvarageShoutingDropletConcentration { get; set; } = 0.9f; 
+        public static float ViralLoad { get; set; } = 10E11f;
+        public static float JetEntrainmentCoefficient { get; set; } = 0.1f;
+        public static float MouthArea { get; set; } = 2f;
+        public static float InitialAirExchangeRate { get; set; } = 3f;
+        public static float N95MaskValue { get; set; } = 0.05f;
+        public static float SurgicalMaskValue { get; set; } = 0.15f;
+        public static float ClothMaskValue { get; set; } = 0.8f;
+        public static float SpaceInfectionThreshold { get; set; } = .001f;
+        public static TimeSpan TimeBeforeContagious { get; set; } = new TimeSpan(0, 10, 0);
         #endregion
     }
 }

@@ -17,6 +17,7 @@ namespace SES.AIControl.FSM
             }
             behaviorControl.bathroomToVisit = behaviorControl.school.RequestBathroom(behaviorControl);
             behaviorControl.NavigateTo(behaviorControl.bathroomToVisit.GetGameObject().transform.position);
+            behaviorControl.AgentHealth.SetActivityType(ActivityType.Breathing);
         }
 
         public override void Update(StudentBehaviorControl behaviorControl)

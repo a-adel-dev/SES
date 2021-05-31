@@ -5,7 +5,7 @@ using SES.Core;
 
 namespace SES.Spaces.Classroom
 {
-    public class ActivityGroup : MonoBehaviour, IActivity
+    public class ActivityGroup : IActivity
     {
         List<IStudentAI> students = new List<IStudentAI>();
         List<Spot> spots = new List<Spot>();

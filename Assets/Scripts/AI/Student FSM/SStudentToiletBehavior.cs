@@ -26,6 +26,7 @@ namespace SES.AIControl.FSM
             {
                 behaviorControl.GoToClassroom();
             }
+            behaviorControl.AgentHealth.SetActivityType(ActivityType.Breathing);
         }
         public override void Update(StudentBehaviorControl behaviorControl)
         {

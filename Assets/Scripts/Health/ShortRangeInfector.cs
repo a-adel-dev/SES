@@ -10,31 +10,26 @@ namespace SES.Health
     {
         List<AgentHealth> peopleInRange = new List<AgentHealth>();
         AgentHealth infector;
-        GeneralHealthParamaters healthParameters;
-        float jetEntrainmentCoefficient;
-        float mouthArea;
         float sqrtMouthArea;
+        float timer = 0f;
 
-        // Start is called before the first frame update
         void Start()
         {
-            healthParameters = FindObjectOfType<GeneralHealthParamaters>();
-            jetEntrainmentCoefficient = healthParameters.jetEntrainmentCoefficient;
-            mouthArea = healthParameters.mouthArea;
             GameObject infectorParent = transform.parent.gameObject;
             infector = infectorParent.GetComponent<AgentHealth>();
-            sqrtMouthArea = Mathf.Sqrt(mouthArea);
+            sqrtMouthArea = Mathf.Sqrt(SimulationDefaults.MouthArea);
         }
 
-        void TimeStep()
+        private void Update()
         {
-            IncreaseConcentrationInIndividuals();
+            PassTime();
         }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.GetComponent<AgentHealth>())
             {
-                if (!other.GetComponent<AgentHealth>().IsInfected())
+                if (other.GetComponent<AgentHealth>().HealthCondition == HealthCondition.healthy) 
                 {
                     peopleInRange.Add(other.GetComponent<AgentHealth>());
                 }
@@ -54,9 +49,21 @@ namespace SES.Health
         {
             foreach (AgentHealth individual in peopleInRange)
             {
-                float distance = Vector3.Distance(individual.transform.position, infector.transform.position) * 100f;
+                if (individual.CurrentSpace == infector.CurrentSpace)
+                {
+                    float distance = Vector3.Distance(individual.transform.position, infector.transform.position) * 100f;
+                    individual.SetShortRangeInfectionQuanta(infector.Breathe() * sqrtMouthArea / (SimulationDefaults.JetEntrainmentCoefficient * distance));
+                }
+            }
+        }
 
-                individual.SetShortRangeInfectionQuanta(infector.Breathe() * sqrtMouthArea / (jetEntrainmentCoefficient * distance));
+        private void PassTime()
+        {
+            timer += Time.deltaTime;
+            if (timer >= SimulationParameters.TimeStep)
+            {
+                timer -= SimulationParameters.TimeStep;
+                IncreaseConcentrationInIndividuals();
             }
         }
     }

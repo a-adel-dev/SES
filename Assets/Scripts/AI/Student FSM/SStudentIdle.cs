@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-
+﻿using SES.Core;
 namespace SES.AIControl.FSM
 {
     public class SStudentIdle : StudentBaseState
@@ -12,6 +6,7 @@ namespace SES.AIControl.FSM
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
             behaviorControl.PauseAgent();
+            behaviorControl.AgentHealth.SetActivityType(ActivityType.Paused);
         }
 
         public override void Update(StudentBehaviorControl behaviorControl)

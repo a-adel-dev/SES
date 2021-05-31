@@ -4,117 +4,114 @@ using SES.Core;
 
 namespace SES.Health
 {
-    public class AgentHealth : MonoBehaviour
+    public class AgentHealth : MonoBehaviour, IAgentHealth
     {
+        public HealthCondition HealthCondition { get; set; } = HealthCondition.healthy;
+        public ActivityType Activity { get; private set; } = ActivityType.Breathing;
 
-
-        public HealthCondition healthCondition = HealthCondition.healthy;
-        public ActivityType activity { get; private set; } = ActivityType.Breathing;
-        public DateTime schoolDate = new DateTime(); 
-
-        float maskFactor = 1f;
+        [SerializeField] float maskFactor = 1f;
         float breathingFlowRate;
         float numberDensity;
         float dropletVolume;
-        SpaceHealth currentSpace;
+        public SpaceHealth CurrentSpace { get; set; }
         float infectionQuanta = 0f;
         float infectiuosQuanta = 0f;
         float shortRangeInfectionQuanta = 0f;
         DateTime contagiousTime;
         bool updatedHealthStats = false;
-
-
-        ShortRangeInfector shortRangeInfector;
-        GeneralHealthParamaters healthParamaters;
+        float timer = 0f;
 
 
         void Start()
         {
-            healthParamaters = FindObjectOfType<GeneralHealthParamaters>();
-            float criticalRadiusInM = healthParamaters.criticalRadius * 1E-6f;
+            float criticalRadiusInM = SimulationDefaults.CriticalRadius * 1E-6f;
             dropletVolume = Mathf.PI * Mathf.Pow(criticalRadiusInM, 3f);
-            SetBreathingRate();
-            SetNumberDensity();
-            shortRangeInfector = transform.GetChild(0).GetComponent<ShortRangeInfector>();
         }
 
-
-        public void SetSchoolDate(DateTime dt)
+        private void Update()
         {
-            schoolDate = dt;
+            PassTime();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.GetComponent<SpaceHealth>())
+            {
+                CurrentSpace = other.GetComponent<SpaceHealth>();
+            }
         }
 
         public float Breathe()
         {
             //if healthy, breathe in , don't return infectionquanta
-            if (healthCondition == HealthCondition.healthy || healthCondition == HealthCondition.infected)
+            if (HealthCondition == HealthCondition.healthy || HealthCondition == HealthCondition.infected)
             {
-                infectionQuanta = breathingFlowRate * (currentSpace.GetComponent<SpaceHealth>().concentration +
-                    shortRangeInfectionQuanta) * healthParamaters.viralInfectivity * maskFactor;
+                //Debug.Log($"{CurrentSpace.GetComponent<SpaceHealth>()}");
+                infectionQuanta = breathingFlowRate * (CurrentSpace.GetComponent<SpaceHealth>().Concentration +
+                    shortRangeInfectionQuanta) * SimulationDefaults.ViralInfectivity * maskFactor;
                 return 0f;
             }
 
-            infectiuosQuanta = (breathingFlowRate * maskFactor * numberDensity * dropletVolume * healthParamaters.viralLoad) * 3.48E+14f / 60f;
+            infectiuosQuanta = (breathingFlowRate * maskFactor * numberDensity * dropletVolume * SimulationDefaults.ViralLoad) * 3.48E+14f / 60f;
             return infectiuosQuanta;
         }
 
         public void SetActivityType(ActivityType type)
         {
-            activity = type;
+            Activity = type;
             SetBreathingRate();
             SetNumberDensity();
         }
 
         private void SetNumberDensity()
         {
-            if (activity == ActivityType.Breathing)
+            if (Activity == ActivityType.Breathing)
             {
-                numberDensity = healthParamaters.avarageNaturalDropletConentration * 1E-6f;
+                numberDensity = SimulationDefaults.AvarageNaturalDropletConentration * 1E-6f;
             }
-            else if (activity == ActivityType.Talking)
+            else if (Activity == ActivityType.Talking)
             {
-                numberDensity = healthParamaters.avarageTalkingDropletConcentration * 1E-6f;
+                numberDensity = SimulationDefaults.AvarageTalkingDropletConcentration * 1E-6f;
             }
-            else if (activity == ActivityType.LoudTalking)
+            else if (Activity == ActivityType.LoudTalking)
             {
-                numberDensity = healthParamaters.avarageShoutingDropletConcentration * 1E-6f;
+                numberDensity = SimulationDefaults.AvarageShoutingDropletConcentration * 1E-6f;
+            }
+            else if (Activity == ActivityType.Paused)
+            {
+                numberDensity = 0f;
             }
         }
 
         private void SetBreathingRate()
         {
-            if (activity == ActivityType.Breathing)
+            if (Activity == ActivityType.Breathing)
             {
                 //Debug.Log($"Setting Flow Rate to {healthParamaters.normalBreathingFlowRate}");
-                breathingFlowRate = healthParamaters.normalBreathingFlowRate / 60f;
+                breathingFlowRate = SimulationDefaults.NormalBreathingFlowRate / 60f;
             }
-            else if (activity == ActivityType.Talking)
+            else if (Activity == ActivityType.Talking)
             {
-                breathingFlowRate = healthParamaters.talkingBreathingFlowRate / 60f;
+                breathingFlowRate = SimulationDefaults.TalkingBreathingFlowRate / 60f;
             }
-            else if (activity == ActivityType.LoudTalking)
+            else if (Activity == ActivityType.LoudTalking)
             {
-                breathingFlowRate = healthParamaters.LoudtalkingBreathingFlowRate / 60f;
+                breathingFlowRate = SimulationDefaults.LoudtalkingBreathingFlowRate / 60f;
             }
-        }
-
-        /*
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.GetComponent<SpaceHealth>())
+            else if (Activity == ActivityType.Paused)
             {
-                currentSpace = other.GetComponent<SpaceHealth>();
+                breathingFlowRate = 0f;
             }
-        }
-        */
-        public void SetCurrentSpace(SpaceHealth space)
-        {
-            currentSpace = space;
         }
 
         public bool IsInfected()
         {
-            return healthCondition == HealthCondition.infected;
+            return HealthCondition == HealthCondition.infected;
+        }
+
+        public bool IsContagious()
+        {
+            return HealthCondition == HealthCondition.contagious;
         }
 
         public void SetShortRangeInfectionQuanta(float quanta)
@@ -129,19 +126,18 @@ namespace SES.Health
 
         public void InfectAgent()
         {
-            Debug.Log($"adding to contagious");
-            healthCondition = HealthCondition.contagious;
-            shortRangeInfector.gameObject.SetActive(true);
+            HealthCondition = HealthCondition.contagious;
+            transform.GetChild(0).gameObject.SetActive(true);
             GeneralHealthParamaters.numContagious++;
         }
 
         public void ExposeAgent()
         {
             Debug.Log($"adding to infected");
-            healthCondition = HealthCondition.infected;
+            HealthCondition = HealthCondition.infected;
             GeneralHealthParamaters.numInfected++;
             contagiousTime = new DateTime();
-            contagiousTime = schoolDate + healthParamaters.timeBeforeContagious;
+            contagiousTime = DateTimeRecorder.schoolTime + SimulationDefaults.TimeBeforeContagious;
         }
 
         public float GetInfectionQuanta()
@@ -151,24 +147,14 @@ namespace SES.Health
 
         public void SetMaskFactor(MaskFactor _maskFactor)
         {
-            switch (_maskFactor)
+            maskFactor = _maskFactor switch
             {
-                case MaskFactor.none:
-                    maskFactor = 1f;
-                    break;
-                case MaskFactor.cloth:
-                    maskFactor = healthParamaters.clothMaskValue;
-                    break;
-                case MaskFactor.surgical:
-                    maskFactor = healthParamaters.surgicalMaskValue;
-                    break;
-                case MaskFactor.N95:
-                    maskFactor = healthParamaters.n95MaskValue;
-                    break;
-                default:
-                    maskFactor = 1f;
-                    break;
-            }
+                MaskFactor.none => 1f,
+                MaskFactor.cloth => SimulationDefaults.ClothMaskValue,
+                MaskFactor.surgical => SimulationDefaults.SurgicalMaskValue,
+                MaskFactor.N95 => SimulationDefaults.N95MaskValue,
+                _ => 1f,
+            };
         }
 
         public void SetMaskFactor(float factor)
@@ -181,15 +167,25 @@ namespace SES.Health
             return maskFactor;
         }
 
-        void TimeStep()
+        void UpdateHealth()
         {
-            if (healthCondition == HealthCondition.infected && updatedHealthStats == false && schoolDate >= contagiousTime)
+            if (HealthCondition == HealthCondition.infected && updatedHealthStats == false && DateTimeRecorder.schoolTime >= contagiousTime)
             {
-                healthCondition = HealthCondition.contagious;
-                Debug.Log(String.Format("{0:hh mm ss} contagious time, {1:hh mm ss} schooldate", contagiousTime, schoolDate));
+                HealthCondition = HealthCondition.contagious;
+                //Debug.Log(String.Format("{0:hh mm ss} contagious time, {1:hh mm ss} schooldate", contagiousTime, DateTimeRecorder.schoolTime));
                 GeneralHealthParamaters.numContagious++;
                 GeneralHealthParamaters.numInfected--;
                 updatedHealthStats = true;
+            }
+        }
+
+        private void PassTime()
+        {
+            timer += Time.deltaTime;
+            if (timer >= SimulationParameters.TimeStep)
+            {
+                timer -= SimulationParameters.TimeStep;
+                UpdateHealth();
             }
         }
     }

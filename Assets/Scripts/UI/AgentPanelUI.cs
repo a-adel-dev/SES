@@ -10,8 +10,8 @@ namespace SES.UI
 {
     public class AgentPanelUI : MonoBehaviour
     {
-        GeneralHealthParamaters healthParamaters;
-        AgentHealth agentHealth;
+        //GeneralHealthParamaters healthParamaters;
+        //AgentHealth agentHealth;
         GameObject agent;
         public bool agentPanelUp = false;
 
@@ -34,7 +34,7 @@ namespace SES.UI
 
         void Start()
         {
-            healthParamaters = FindObjectOfType<GeneralHealthParamaters>();
+            //healthParamaters = FindObjectOfType<GeneralHealthParamaters>();
             animator = agentPanel.GetComponent<Animator>();
         }
 
@@ -47,10 +47,10 @@ namespace SES.UI
         {
             if (agent == null) { return; }
             agentName.text = agent.name;
-            infected.text = agentHealth.IsInfected() ? "Yes" : "No";
-            infectionQuanta.text = agentHealth.IsInfected() ? "infected" : string.Format("{0:N3}", agentHealth.GetInfectionQuanta());
-            maskFactor.text = string.Format("{0:P2}", agentHealth.GetMaskFactor());
-            maskFactorValue.text = string.Format("{0:P2}", agentHealth.GetMaskFactor());
+            //infected.text = agentHealth.IsInfected() ? "Yes" : "No";
+            //infectionQuanta.text = agentHealth.IsInfected() ? "infected" : string.Format("{0:N3}", agentHealth.GetInfectionQuanta());
+            //maskFactor.text = string.Format("{0:P2}", agentHealth.GetMaskFactor());
+            //maskFactorValue.text = string.Format("{0:P2}", agentHealth.GetMaskFactor());
         }
 
         public void UIConfigureTeacherMovement()

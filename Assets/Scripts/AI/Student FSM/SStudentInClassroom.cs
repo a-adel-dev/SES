@@ -11,6 +11,7 @@ namespace SES.AIControl.FSM
             behaviorControl.BackToDesk();
             behaviorControl.GetComponent<MeshRenderer>().enabled = true;
             behaviorControl.ClearLocker();
+            behaviorControl.AgentHealth.SetActivityType(ActivityType.Breathing);
         }
 
         public override void Update(StudentBehaviorControl behaviorControl)

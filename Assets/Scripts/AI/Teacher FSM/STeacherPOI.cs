@@ -18,6 +18,7 @@ namespace SES.AIControl.FSM
                                                             0,
                                                             behaviorControl.poi.transform.position.z);
             behaviorControl.transform.LookAt(POIDirection);
+            behaviorControl.AgentHealth.SetActivityType(ActivityType.Breathing);
 
         }
 

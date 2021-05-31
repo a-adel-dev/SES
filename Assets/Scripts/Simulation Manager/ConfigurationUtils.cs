@@ -10,33 +10,51 @@ namespace SES.SimManager
         public static void Initialize()
         {
             configurationData = new ConfigurationData();
-            SimulationDefaults.timeStep = configurationData.timeStep;
-            SimulationDefaults.simLength = configurationData.simulationTotalLength;
-            SimulationDefaults.numPeriods = configurationData.numberOfSchoolDayPeriods;
-            SimulationDefaults.periodLength = configurationData.periodLength;
-            SimulationDefaults.breakLength = configurationData.breakLength;
-            SimulationDefaults.activitiesEnabled = configurationData.activitiesEnabled;
-            SimulationDefaults.relocationEnabled = configurationData.relocationEnabled;
-            SimulationDefaults.initialNumStudentsContagious = configurationData.initialNumStudentsContagious;
-            SimulationDefaults.initialNumTeachersContagious = configurationData.initialNumTeachersContagious;
-            SimulationDefaults.cooldownClassExit = configurationData.cooldownClassExit;
-            GetStudentMaskSettings(configurationData.studentsMaskSettings);
-            GetTeacherMaskSettings(configurationData.teacherMaskSettings);
-            SimulationDefaults.halfCapacity = configurationData.schoolHalfCapacity;
-            SimulationDefaults.classroomHalfCapacity = configurationData.classroomHalfCapacity;
-            SimulationDefaults.airControlSettings = configurationData.airControlSettings;
+            SimulationDefaults.timeStep = configurationData.TimeStep;
+            SimulationDefaults.simLength = configurationData.SimulationTotalLength;
+            SimulationDefaults.numPeriods = configurationData.NumberOfSchoolDayPeriods;
+            SimulationDefaults.periodLength = configurationData.PeriodLength;
+            SimulationDefaults.breakLength = configurationData.BreakLength;
+            SimulationDefaults.activitiesEnabled = configurationData.ActivitiesEnabled;
+            SimulationDefaults.relocationEnabled = configurationData.RelocationEnabled;
+            SimulationDefaults.initialNumStudentsContagious = configurationData.InitialNumStudentsContagious;
+            SimulationDefaults.initialNumTeachersContagious = configurationData.InitialNumTeachersContagious;
+            SimulationDefaults.cooldownClassExit = configurationData.CooldownClassExit;
+            GetStudentMaskSettings(configurationData.StudentsMaskSettings);
+            GetTeacherMaskSettings(configurationData.TeacherMaskSettings);
+            SimulationDefaults.halfCapacity = configurationData.SchoolHalfCapacity;
+            SimulationDefaults.classroomHalfCapacity = configurationData.ClassroomHalfCapacity;
+            SimulationDefaults.airControlSettings = configurationData.AirControlSettings;
 
-            SimulationDefaults.minClassSectionNumber = configurationData.minClassSectionNumber;
-            SimulationDefaults.maxClassSectionNumber = configurationData.maxClassSectionNumber;
-            SimulationDefaults.minClassActivityTime = configurationData.minClassActivityTime;
-            SimulationDefaults.childrenWalkingSpeed = configurationData.childrenWalkingSpeed;
-            SimulationDefaults.adultWalkingSpeed = configurationData.adultWalkingSpeed;
-            SimulationDefaults.numSpotsForGroupActivity = configurationData.numSpotsForGroupActivity;
-            SimulationDefaults.deskGroupActivityCompensationX = configurationData.deskGroupActivityCompensationX;
-            SimulationDefaults.deskGroupActivityCompensationZ = configurationData.deskGroupActivityCompensationZ;
-            SimulationDefaults.minDistanceGroupActivity = configurationData.minDistanceGroupActivity;
-            SimulationDefaults.bathroomChance = configurationData.bathroomChance;
-            SimulationDefaults.lockerWaitingTime = configurationData.lockerWaitingTime;
+            SimulationDefaults.minClassSectionNumber = configurationData.MinClassSectionNumber;
+            SimulationDefaults.maxClassSectionNumber = configurationData.MaxClassSectionNumber;
+            SimulationDefaults.minClassActivityTime = configurationData.MinClassActivityTime;
+            SimulationDefaults.childrenWalkingSpeed = configurationData.ChildrenWalkingSpeed;
+            SimulationDefaults.adultWalkingSpeed = configurationData.AdultWalkingSpeed;
+            SimulationDefaults.numSpotsForGroupActivity = configurationData.NumSpotsForGroupActivity;
+            SimulationDefaults.deskGroupActivityCompensationX = configurationData.DeskGroupActivityCompensationX;
+            SimulationDefaults.deskGroupActivityCompensationZ = configurationData.DeskGroupActivityCompensationZ;
+            SimulationDefaults.minDistanceGroupActivity = configurationData.MinDistanceGroupActivity;
+            SimulationDefaults.bathroomChance = configurationData.BathroomChance;
+            SimulationDefaults.lockerWaitingTime = configurationData.LockerWaitingTime;
+
+            SimulationDefaults.CriticalRadius = configurationData.CriticalRadius;
+            SimulationDefaults.ViralInfectivity = configurationData.ViralInfectivity;
+            SimulationDefaults.NormalBreathingFlowRate = configurationData.NormalBreathingFlowRate;
+            SimulationDefaults.TalkingBreathingFlowRate = configurationData.TalkingBreathingFlowRate;
+            SimulationDefaults.LoudtalkingBreathingFlowRate = configurationData.LoudtalkingBreathingFlowRate;
+            SimulationDefaults.AvarageNaturalDropletConentration = configurationData.AvarageNaturalDropletConentration;
+            SimulationDefaults.AvarageTalkingDropletConcentration = configurationData.AvarageTalkingDropletConcentration;
+            SimulationDefaults.AvarageShoutingDropletConcentration = configurationData.AvarageShoutingDropletConcentration;
+            SimulationDefaults.ViralLoad = configurationData.ViralLoad;
+            SimulationDefaults.JetEntrainmentCoefficient = configurationData.JetEntrainmentCoefficient;
+            SimulationDefaults.MouthArea = configurationData.MouthArea;
+            SimulationDefaults.InitialAirExchangeRate = configurationData.InitialAirExchangeRate;
+            SimulationDefaults.N95MaskValue = configurationData.N95MaskValue;
+            SimulationDefaults.SurgicalMaskValue = configurationData.SurgicalMaskValue;
+            SimulationDefaults.ClothMaskValue = configurationData.ClothMaskValue;
+            SimulationDefaults.SpaceInfectionThreshold = configurationData.SpaceInfectionThreshold;
+            SimulationDefaults.TimeBeforeContagious = configurationData.TimeBeforeContagious;
 
         }
 

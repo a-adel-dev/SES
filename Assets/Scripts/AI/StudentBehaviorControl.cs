@@ -23,6 +23,8 @@ namespace SES.AIControl
         public ISpace poi { get; set; }
         public Spot lockerToVisit { get; set; }
 
+        public IAgentHealth AgentHealth { get; set; }
+
         public string currentLabText = "";
         public string currentClassText = "";
 
@@ -37,6 +39,7 @@ namespace SES.AIControl
         private void Awake()
         {
             nav = GetComponent<NavMeshAgent>();
+            AgentHealth = GetComponent<IAgentHealth>();
         }
         void Update()
         {

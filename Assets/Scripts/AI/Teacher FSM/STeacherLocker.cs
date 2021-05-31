@@ -23,6 +23,7 @@ namespace SES.AIControl.FSM
                 behaviorControl.Rest();
             }
             waitingTime = Random.Range(SimulationDefaults.lockerWaitingTime - 1f, SimulationDefaults.lockerWaitingTime + 1);
+            behaviorControl.AgentHealth.SetActivityType(ActivityType.Breathing);
         }
 
         public override void Update(TeacherBehaviorControl behaviorControl)

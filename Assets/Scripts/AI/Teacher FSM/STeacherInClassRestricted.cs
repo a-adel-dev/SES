@@ -15,6 +15,7 @@ namespace SES.AIControl.FSM
             timeStep = SimulationParameters.TimeStep;
             Wander(behaviorControl);
             wanderTime = Random.Range(1, 5);
+            behaviorControl.AgentHealth.SetActivityType(ActivityType.LoudTalking);
         }
 
         public override void Update(TeacherBehaviorControl behaviorControl)

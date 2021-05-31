@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3027045554768976822}
   - component: {fileID: 4570525801431744672}
   - component: {fileID: 1508162435210513214}
+  - component: {fileID: 689897394844726692}
   m_Layer: 0
   m_Name: Class
   m_TagString: Classroom
@@ -92,8 +93,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e5782643e719a745976041486307330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activitiesEnabled: 0
-  studentsBucket: {fileID: 0}
   currentStateName: 
 --- !u!114 &4570525801431744672
 MonoBehaviour:
@@ -119,6 +118,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dc7b1569a5f1d44185a25a3c569408c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spaceOriginalStudentsCount: 
+  studentsCurrentlyInSpaceCount: 
+  studentsOutOfSpaceCount: 
+--- !u!114 &689897394844726692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3784705064329411916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spaceVolume: 0
+  outdoor: 0
+  concentration: 0
+  currentConcentration: 0
+  airExchangeRate: 3
 --- !u!1 &6490279545308601080
 GameObject:
   m_ObjectHideFlags: 0

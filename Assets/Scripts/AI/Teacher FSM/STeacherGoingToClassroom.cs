@@ -13,6 +13,7 @@ namespace SES.AIControl.FSM
             {
                 behaviorControl.teacherroom.subspaces.ClearDesk(behaviorControl.currentDesk);
             }
+            behaviorControl.AgentHealth.SetActivityType(ActivityType.Breathing);
         }
 
         public override void Update(TeacherBehaviorControl behaviorControl)

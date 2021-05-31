@@ -168,45 +168,25 @@ namespace SES.UI
         {
             if (identifier == 0)
             {
-                switch (factor)
+                studentsMasksDropDown.value = factor switch
                 {
-                    case MaskFactor.none:
-                        studentsMasksDropDown.value = 0;
-                        break;
-                    case MaskFactor.cloth:
-                        studentsMasksDropDown.value = 1;
-                        break;
-                    case MaskFactor.surgical:
-                        studentsMasksDropDown.value = 2;
-                        break;
-                    case MaskFactor.N95:
-                        studentsMasksDropDown.value = 3;
-                        break;
-                    default:
-                        studentsMasksDropDown.value = 0;
-                        break;
-                }
+                    MaskFactor.none => 0,
+                    MaskFactor.cloth => 1,
+                    MaskFactor.surgical => 2,
+                    MaskFactor.N95 => 3,
+                    _ => 0,
+                };
             }
             else
             {
-                switch (factor)
+                teachersMasksDropDown.value = factor switch
                 {
-                    case MaskFactor.none:
-                        teachersMasksDropDown.value = 0;
-                        break;
-                    case MaskFactor.cloth:
-                        teachersMasksDropDown.value = 1;
-                        break;
-                    case MaskFactor.surgical:
-                        teachersMasksDropDown.value = 2;
-                        break;
-                    case MaskFactor.N95:
-                        teachersMasksDropDown.value = 3;
-                        break;
-                    default:
-                        teachersMasksDropDown.value = 0;
-                        break;
-                }
+                    MaskFactor.none => 0,
+                    MaskFactor.cloth => 1,
+                    MaskFactor.surgical => 2,
+                    MaskFactor.N95 => 3,
+                    _ => 0,
+                };
             }
         }
         /// <summary>
@@ -218,45 +198,25 @@ namespace SES.UI
         {
             if (identifier == 0)
             {
-                switch (Value)
+                SimulationParameters.studentsMaskSettings = Value switch
                 {
-                    case 0:
-                        SimulationDefaults.studentsMaskSettings = MaskFactor.none;
-                        break;
-                    case 1:
-                        SimulationDefaults.studentsMaskSettings = MaskFactor.cloth;
-                        break;
-                    case 2:
-                        SimulationDefaults.studentsMaskSettings = MaskFactor.surgical;
-                        break;
-                    case 3:
-                        SimulationDefaults.studentsMaskSettings = MaskFactor.N95;
-                        break;
-                    default:
-                        SimulationDefaults.studentsMaskSettings = MaskFactor.none;
-                        break;
-                }
+                    0 => MaskFactor.none,
+                    1 => MaskFactor.cloth,
+                    2 => MaskFactor.surgical,
+                    3 => MaskFactor.N95,
+                    _ => MaskFactor.none,
+                };
             }
             else
             {
-                switch (Value)
+                SimulationParameters.teacherMaskSettings = Value switch
                 {
-                    case 0:
-                        SimulationDefaults.teacherMaskSettings = MaskFactor.none;
-                        break;
-                    case 1:
-                        SimulationDefaults.teacherMaskSettings = MaskFactor.cloth;
-                        break;
-                    case 2:
-                        SimulationDefaults.teacherMaskSettings = MaskFactor.surgical;
-                        break;
-                    case 3:
-                        SimulationDefaults.teacherMaskSettings = MaskFactor.N95;
-                        break;
-                    default:
-                        SimulationDefaults.teacherMaskSettings = MaskFactor.none;
-                        break;
-                }
+                    0 => MaskFactor.none,
+                    1 => MaskFactor.cloth,
+                    2 => MaskFactor.surgical,
+                    3 => MaskFactor.N95,
+                    _ => MaskFactor.none,
+                };
             }
         }
         #endregion

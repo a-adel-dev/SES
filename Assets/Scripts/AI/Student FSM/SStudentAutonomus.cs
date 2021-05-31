@@ -18,6 +18,7 @@ namespace SES.AIControl.FSM
             {
                 behaviorControl.BehaviorGoToLocker();
             }
+            behaviorControl.AgentHealth.SetActivityType(ActivityType.Breathing);
         }
 
         public override void Update(StudentBehaviorControl behaviorControl)

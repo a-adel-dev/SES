@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using SES.Core;
 namespace SES.AIControl.FSM
 {
     public class SStudentInTransit : StudentBaseState
@@ -8,6 +8,7 @@ namespace SES.AIControl.FSM
             //Debug.Log($"in transit");
             behaviorControl.ResumeAgent();
             behaviorControl.ClearLocker();
+            behaviorControl.AgentHealth.SetActivityType(ActivityType.Breathing);
         }
 
         public override void Update(StudentBehaviorControl behaviorControl)

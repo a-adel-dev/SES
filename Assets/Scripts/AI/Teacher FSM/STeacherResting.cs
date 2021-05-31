@@ -24,6 +24,7 @@ namespace SES.AIControl.FSM
             {
                 behaviorControl.NavigateTo(behaviorControl.currentDesk.transform.position);
             }
+            behaviorControl.AgentHealth.SetActivityType(ActivityType.Talking);
         }
 
         public override void Update(TeacherBehaviorControl behaviorControl)

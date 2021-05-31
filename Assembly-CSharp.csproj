@@ -88,7 +88,6 @@
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomSpace.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomBaseState.cs" />
     <Compile Include="Assets\Scripts\School\FSM\SSchoolBaseState.cs" />
-    <Compile Include="Assets\Scripts\Health\Droplet.cs" />
     <Compile Include="Assets\Scripts\UI\ErrorPanelUI.cs" />
     <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\FollowCamera.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomEmpty.cs" />
@@ -172,6 +171,7 @@
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomOnBreak.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\IActivity.cs" />
     <Compile Include="Assets\Scripts\Core\Enums.cs" />
+    <Compile Include="Assets\Scripts\Health\IAgentHealth.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

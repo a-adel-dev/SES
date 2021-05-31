@@ -775,6 +775,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6908067080847658155}
     m_Modifications:
+    - target: {fileID: 3717130888090133382, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 6.980806
+      objectReference: {fileID: 0}
+    - target: {fileID: 3717130888090133382, guid: 71e29a9d1cca7644b81eb51eb90ce803,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.20810771
+      objectReference: {fileID: 0}
     - target: {fileID: 3784705064329411916, guid: 71e29a9d1cca7644b81eb51eb90ce803,
         type: 3}
       propertyPath: m_Icon

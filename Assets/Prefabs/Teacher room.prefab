@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0de4493fa125d847a32426efb665e98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentAgent: 
 --- !u!1 &1797133121296139298
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,6 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0de4493fa125d847a32426efb665e98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentAgent: 
 --- !u!1 &3481446190629634681
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0de4493fa125d847a32426efb665e98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentAgent: 
 --- !u!1 &4179776608280208101
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +156,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4179776608280208101}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.9500003, y: 0, z: 2.3799992}
+  m_LocalPosition: {x: 1.47, y: 0, z: 2.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5708007398092535966}
@@ -202,6 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0de4493fa125d847a32426efb665e98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentAgent: 
 --- !u!1 &6038756631478423509
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,6 +218,7 @@ GameObject:
   - component: {fileID: 5054096880724676003}
   - component: {fileID: 3178547743717243584}
   - component: {fileID: 1257264199286992339}
+  - component: {fileID: 2823759681374819375}
   m_Layer: 0
   m_Name: Teacher room
   m_TagString: Teachersroom
@@ -254,8 +259,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.880283, y: 3, z: 4.129513}
-  m_Center: {x: -0.14225125, y: 1.5, z: 0.12036514}
+  m_Size: {x: 5.7714033, y: 3, z: 4.222838}
+  m_Center: {x: -0.19669104, y: 1.5, z: 0.16702771}
 --- !u!114 &3178547743717243584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,7 +297,26 @@ MonoBehaviour:
   boardSpots: []
   teachersSpace: {fileID: 0}
   board: {fileID: 0}
-  entrance: {fileID: 4179776608280208101}
+  entrance: {fileID: 6419833328614113107}
+  availableDesksCount: 
+  availableLockersCount: 
+--- !u!114 &2823759681374819375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6038756631478423509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spaceVolume: 0
+  outdoor: 0
+  concentration: 0
+  currentConcentration: 0
+  airExchangeRate: 3
 --- !u!1 &7690194369818530701
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,6 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0de4493fa125d847a32426efb665e98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentAgent: 
 --- !u!1 &8782589647105708042
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,6 +404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0de4493fa125d847a32426efb665e98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentAgent: 
 --- !u!1 &9158657385566395319
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,3 +448,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0de4493fa125d847a32426efb665e98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentAgent: 
