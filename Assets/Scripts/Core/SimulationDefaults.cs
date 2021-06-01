@@ -54,7 +54,7 @@ namespace SES.Core
         public static float ViralLoad { get; set; } = 10E11f;
         public static float JetEntrainmentCoefficient { get; set; } = 0.1f;
         public static float MouthArea { get; set; } = 2f;
-        public static float InitialAirExchangeRate { get; set; } = 3f;
+        public static int InitialAirExchangeRate { get; set; } = 3;
         public static float N95MaskValue { get; set; } = 0.05f;
         public static float SurgicalMaskValue { get; set; } = 0.15f;
         public static float ClothMaskValue { get; set; } = 0.8f;

@@ -22,7 +22,7 @@ namespace SES.Core
         public static bool schoolHalfCapacity { get; set; } = false;
         public static bool classroomHalfCapacity { get; set; } = false;
         
-        internal static int airControlSettings { get; set; } = 0;
+        public static int airControlSettings { get; set; } = 0;
         #endregion
     }
 }

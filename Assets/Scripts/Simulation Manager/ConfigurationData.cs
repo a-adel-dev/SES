@@ -80,7 +80,7 @@ namespace SES.SimManager
         public float MouthArea { get; set; } = 2f;//"Mouth area (cm^2")
 
         //Space parameters
-        public float InitialAirExchangeRate { get; set; } = 3f;
+        public int InitialAirExchangeRate { get; set; } = 3;
 
         //Mask Parameters
         public float N95MaskValue { get; set; } = 0.05f;
@@ -174,7 +174,7 @@ namespace SES.SimManager
             ViralLoad = float.Parse(values[36]);
             JetEntrainmentCoefficient = float.Parse(values[37]);
             MouthArea = float.Parse(values[38]);
-            InitialAirExchangeRate = float.Parse(values[39]);
+            InitialAirExchangeRate = int.Parse(values[39]);
             N95MaskValue = float.Parse(values[40]);
             SurgicalMaskValue = float.Parse(values[41]);
             ClothMaskValue = float.Parse(values[42]);
@@ -182,9 +182,6 @@ namespace SES.SimManager
             hoursTimeBeforeContagious = int.Parse(values[44]);
             minutesTimeBeforeContagios = int.Parse(values[45]);
             TimeBeforeContagious = new TimeSpan(hoursTimeBeforeContagious, minutesTimeBeforeContagios, 0);
-
-
-
         }
     }
 }

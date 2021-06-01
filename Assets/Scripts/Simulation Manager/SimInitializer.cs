@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using SES.Core;
 using SES.School;
+using SES.Health;
+using System;
 
 namespace SES.SimManager
 {
@@ -24,6 +26,8 @@ namespace SES.SimManager
 
         public void InitializeVariables()
         {
+            GeneralHealthParamaters.Spaces = FindObjectsOfType<SpaceHealth>();
+            GeneralHealthParamaters.Initialize();
             school.InitializeProperties();
             school.subspaces.Initialize();
             spawner.Initialize();

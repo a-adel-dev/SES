@@ -1,5 +1,4 @@
 ﻿using SES.Core;
-using System;
 
 namespace SES.SimManager
 {
@@ -57,8 +56,6 @@ namespace SES.SimManager
             SimulationDefaults.TimeBeforeContagious = configurationData.TimeBeforeContagious;
 
         }
-
-
 
         private static void GetStudentMaskSettings(int maskSettings)
         {

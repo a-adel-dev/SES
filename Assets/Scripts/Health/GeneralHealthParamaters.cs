@@ -6,11 +6,10 @@ using SES.Core;
 
 namespace SES.Health
 {
-    public class GeneralHealthParamaters : MonoBehaviour
+    public class GeneralHealthParamaters
     {
         public static int numContagious = 0;
         public static int numInfected = 0;
-
         public List<ITeacherAI> teachers = new List<ITeacherAI>();
         public List<IStudentAI> students = new List<IStudentAI>();
 
@@ -21,26 +20,25 @@ namespace SES.Health
         public int numStudentsContagious = 0;
         public int numTeachersInfected = 0;
         public int numTeachersContagious = 0;
-        public MaskFactor studentsMasks = MaskFactor.none;
-        public MaskFactor teachersMasks = MaskFactor.none;
-        public List<float> globalAirControl = new List<float>();
-        public int airControlSettings = 3;
+        static List<float> globalAirControl = new List<float>();
 
-        HealthStats healthstats;
-        SpaceHealth[] spaces;
+        public static SpaceHealth[] Spaces { get; set; }
 
-        private void Start()
+        public static void Initialize()
         {
-            healthstats = FindObjectOfType<HealthStats>();
-            foreach (SpaceHealth space in FindObjectsOfType<SpaceHealth>())
-            {
-                space.SetAirExhangeRate(SimulationDefaults.InitialAirExchangeRate);
-            }
             PopulateAirControlList();
-            spaces = FindObjectsOfType<SpaceHealth>();
+            SetAirControl(SimulationDefaults.InitialAirExchangeRate);
         }
 
-        private void PopulateAirControlList()
+        public static void SetAirControl(int index)
+        {
+            foreach (SpaceHealth space in Spaces)
+            {
+                space.SetAirExhangeRate(globalAirControl[index]);
+            }
+        }
+
+        private static void PopulateAirControlList()
         {
             globalAirControl.Add(0.12f);
             globalAirControl.Add(0.23f);

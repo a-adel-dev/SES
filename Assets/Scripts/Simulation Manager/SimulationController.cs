@@ -37,6 +37,7 @@ namespace SES.SimManager
             //set teacher masks
             GeneralHealthParamaters.SetMaskForAgents();
             //set space Air control
+            GeneralHealthParamaters.SetAirControl(SimulationParameters.airControlSettings);
         }
 
         public void PauseSim()
