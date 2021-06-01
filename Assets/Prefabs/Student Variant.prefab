@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2236803571653420811}
   - component: {fileID: 4303726832511484569}
   - component: {fileID: 990702009896981836}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: StudentMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,12 +107,12 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5291464329011596176}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.21850702
-  m_Height: 1.3
+  m_Radius: 0.3371639
+  m_Height: 1.4331948
   m_Direction: 1
-  m_Center: {x: -0.00000002980232, y: 0.65047395, z: 0.07715115}
+  m_Center: {x: -0.00000003256373, y: 0.71707135, z: -0.041505635}
 --- !u!54 &2114567257
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -192,6 +192,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maskFactor: 1
+--- !u!114 &2351132416878510012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6679094881373598523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f14f0d4573c0b0245a850df887526285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 2100000, guid: a7d28cde4661890478e3b309936f8e20, type: 2}
+  originalMaterial: {fileID: 2100000, guid: e0355a26428b05a4a89fbb21bdbe56f0, type: 2}
+  mask:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!1001 &2315893126524298578
 PrefabInstance:
   m_ObjectHideFlags: 0

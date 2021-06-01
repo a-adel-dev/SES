@@ -8,9 +8,7 @@ namespace SES.UI
 {
     public class SpacePanelUI : MonoBehaviour
     {
-        GeneralHealthParamaters healthParamaters;
         SpaceHealth space;
-        [SerializeField] GameObject spacePanel;
         public bool spacePanelUp = false;
         SpaceHealth[] spacesList;
         [Header("Fields")]
@@ -31,7 +29,7 @@ namespace SES.UI
         void Start()
         {
             PopulateClassSelectorDropDown();
-            animator = spacePanel.GetComponent<Animator>();
+            animator = GetComponent<Animator>();
             airControlDropdown.onValueChanged.AddListener(delegate { SetAirExchangeRate(airControlDropdown); });
         }
 

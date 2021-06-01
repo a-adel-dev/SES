@@ -27,15 +27,26 @@ namespace SES.Spaces
             {
                 //if healthy
                 //transfer student to healthy collector space
-                other.GetComponent<StudentBehaviorControl>().IdleAgent();
-                other.gameObject.transform.GetChild(2).GetComponent<MeshRenderer>().enabled = false;
-                other.gameObject.transform.position = HealthyCollector.transform.position;
-                //invoke event
-                egressEvent.Invoke();
+                if (other.GetComponent<IAgentHealth>().HealthCondition == HealthCondition.healthy)
+                {
+                    other.GetComponent<StudentBehaviorControl>().IdleAgent();
+                    other.gameObject.transform.GetChild(2).GetComponent<MeshRenderer>().enabled = false;
+                    other.gameObject.transform.position = HealthyCollector.transform.position;
+                    //invoke event
+                    egressEvent.Invoke();
+                }
 
                 //if not healthy
                 //transfer student to infected collector space
                 //invoke event
+                else if (other.GetComponent<IAgentHealth>().HealthCondition != HealthCondition.healthy)
+                {
+                    other.GetComponent<StudentBehaviorControl>().IdleAgent();
+                    other.gameObject.transform.GetChild(2).GetComponent<MeshRenderer>().enabled = false;
+                    other.gameObject.transform.position = InfectedCollector.transform.position;
+                    //invoke event
+                    egressEvent.Invoke();
+                }   
             }
         }
 

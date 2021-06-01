@@ -5,7 +5,7 @@ using SES.Core;
 
 namespace SES.Health
 {
-    public class SpaceHealth : MonoBehaviour
+    public class SpaceHealth : MonoBehaviour, ISpaceHealth
     {
         public float SpaceVolume { get; set; }
         [SerializeField] bool outdoor = false;
@@ -53,7 +53,7 @@ namespace SES.Health
             if (other.GetComponent<AgentHealth>())
             {
                 agentsInSpace.Remove(other.GetComponent<AgentHealth>());
-                
+
             }
         }
 
@@ -92,7 +92,7 @@ namespace SES.Health
             return false;
         }
 
-        private void DissipateConcentration()
+        public void DissipateConcentration()
         {
             if (Outdoor)
             { return; }

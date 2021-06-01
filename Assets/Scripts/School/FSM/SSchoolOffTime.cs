@@ -18,6 +18,16 @@ namespace SES.School
             Debug.Log(string.Format("{0:c} have been skipped", skippingTime));
             Debug.Log("----------------------------------------");
             //calculate Air dissipation in classes and add it to SpaceHealthControl
+            foreach (ISpaceHealth space in progressionController.Spaces)
+            {
+                if (space.Concentration > 0)
+                {
+                    for (int i = 0; i < skippingTime.TotalMinutes; i++)
+                    {
+                        space.DissipateConcentration();
+                    }
+                }
+            }
             ResetStudents();
         }
 

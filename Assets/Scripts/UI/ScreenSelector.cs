@@ -8,6 +8,7 @@ namespace SES.UI
         GameObject agent;
         GameObject previousAgent;
         AgentPanelUI info;
+        [SerializeField] SpacePanelUI spacePanel;
 
         void Start()
         {
@@ -19,13 +20,12 @@ namespace SES.UI
             if (Input.GetMouseButtonDown(0))
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Agents")))
+                int combinedLayer = 1 << LayerMask.NameToLayer("Students") | 1 << LayerMask.NameToLayer("Teachers");
+                if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, combinedLayer))
                 {
                     //Debug.Log($"selection");
                     ActivateAgentPanel();
-                    Transform selection = hit.transform;
+                    Transform selection = hitInfo.transform;
                     agent = selection.parent.gameObject;
                     info.SetAgent(agent);
                     info.UpdateMaskDropdown();
@@ -50,11 +50,11 @@ namespace SES.UI
         }
         public void ActivateAgentPanel()
         {
-            //if (GetComponent<SpacePanelUI>().spacePanelUp)
-            //{
-            //    GetComponent<SpacePanelUI>().MovePanelDown();
-            //}
-            GetComponent<AgentPanelUI>().MovePanelUp();
+            if (spacePanel.spacePanelUp)
+            {
+                spacePanel.MovePanelDown();
+            }
+            info.MovePanelUp();
         }
 
         public void DeactivateAgentPanel()

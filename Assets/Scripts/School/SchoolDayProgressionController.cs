@@ -14,7 +14,7 @@ namespace SES.School
         List<IClassroom> workingClasses = new List<IClassroom>();
         public int remainingEgressStudents { get; set; }
         List<ClassLabPair> classlabPairs = new List<ClassLabPair>();
-
+        public ISpaceHealth[] Spaces { get; set; }
 
         #region FSm
         private SSchoolBaseState currentState;
@@ -44,7 +44,7 @@ namespace SES.School
 
         public void InitializeProperties()
         {
-            subspaces = GetComponent<SchoolSubSpacesBucket>();  
+            subspaces = GetComponent<SchoolSubSpacesBucket>();
         }
 
         public void StartSchoolDay()

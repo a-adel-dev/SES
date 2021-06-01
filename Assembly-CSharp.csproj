@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\AI\Student FSM\SStudentIdle.cs" />
     <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherPOI.cs" />
     <Compile Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\Dialogue.cs" />
+    <Compile Include="Assets\Scripts\Core\Interfaces\IAgentHealth.cs" />
     <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\AI.cs" />
     <Compile Include="Assets\Scripts\UI\MainControlPanel.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ActivityGroup.cs" />
@@ -171,7 +172,8 @@
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomOnBreak.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\IActivity.cs" />
     <Compile Include="Assets\Scripts\Core\Enums.cs" />
-    <Compile Include="Assets\Scripts\Health\IAgentHealth.cs" />
+    <Compile Include="Assets\Scripts\SelectionVisualization.cs" />
+    <Compile Include="Assets\Scripts\Core\Interfaces\ISpaceHealth.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -28,6 +28,7 @@ namespace SES.SimManager
         {
             GeneralHealthParamaters.Spaces = FindObjectsOfType<SpaceHealth>();
             GeneralHealthParamaters.Initialize();
+            school.Spaces = FindObjectsOfType<SpaceHealth>();
             school.InitializeProperties();
             school.subspaces.Initialize();
             spawner.Initialize();

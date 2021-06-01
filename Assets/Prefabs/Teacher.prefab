@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6026206921469479861}
   - component: {fileID: 5814924620246741618}
   - component: {fileID: 4046706270717907237}
+  - component: {fileID: -4971777396633131471}
   m_Layer: 0
   m_Name: Teacher
   m_TagString: Untagged
@@ -115,6 +116,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maskFactor: 1
+--- !u!114 &-4971777396633131471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7421273884367575080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f14f0d4573c0b0245a850df887526285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 2100000, guid: 6298d93ef6900da4f9057ef812cc3365, type: 2}
+  originalMaterial: {fileID: 2100000, guid: 57369e6478238ca4389cf302504d1352, type: 2}
+  mask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!54 &6450622551144230936
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -390,7 +408,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7cac16bb559ec27438a92b4e6fe96291,
         type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cac16bb559ec27438a92b4e6fe96291, type: 3}

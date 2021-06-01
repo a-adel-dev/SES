@@ -225,13 +225,19 @@ namespace SES.UI
 
         public void MovePanelUp()
         {
-            animator.Play("PlayerPanelUp");
+            if (agentPanelUp == false)
+            {
+                animator.Play("PlayerPanelUp");
+            }
             agentPanelUp = true;
         }
 
         public void MovePanelDown()
         {
-            animator.Play("PlayerPanelDown");
+            if (agentPanelUp)
+            {
+                animator.Play("PlayerPanelDown");
+            }
             agentPanelUp = false;
         }
     }
