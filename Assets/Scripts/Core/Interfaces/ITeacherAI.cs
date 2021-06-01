@@ -6,6 +6,7 @@
         IClassroom currentClass { get; set; }
 
         bool IsInTeacherroom();
+        int GetClassMovementStyle();
 
         void GoToClassroom();
 
@@ -14,5 +15,6 @@
         void ClearCurrentClassroom();
         void ClassroomFree();
         void ClassroomRestricted();
+
     }
 }

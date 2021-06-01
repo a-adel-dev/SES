@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+
 using SES.Core;
 
 namespace SES.Health
@@ -80,6 +80,72 @@ namespace SES.Health
             foreach (ITeacherAI teacher in TotalAgentsBucket.GetTeachers())
             {
                 teacher.AgentHealth.SetMaskFactor(SimulationParameters.teacherMaskSettings);
+            }
+        }
+
+        public static void SetMakForStudents(MaskFactor factor)
+        {
+            foreach (IStudentAI student in TotalAgentsBucket.GetStudents())
+            {
+                student.AgentHealth.SetMaskFactor(factor);
+            }
+        }
+
+        public static void SetMaskForTeachers(MaskFactor factor)
+        {
+            foreach (ITeacherAI teacher in TotalAgentsBucket.GetTeachers())
+            {
+                teacher.AgentHealth.SetMaskFactor(factor);
+            }
+        }
+
+        public static void SetRandomMaksForTeachers()
+        {
+            foreach (var teacher in TotalAgentsBucket.GetTeachers())
+            {
+                int randomIndex = Random.Range(0, 100);
+
+                if (randomIndex <= 25)
+                {
+                    teacher.AgentHealth.SetMaskFactor(MaskFactor.none);
+                }
+                else if (randomIndex > 25 && randomIndex <= 50)
+                {
+                    teacher.AgentHealth.SetMaskFactor(MaskFactor.cloth);
+                }
+                else if (randomIndex > 50 && randomIndex <= 75)
+                {
+                    teacher.AgentHealth.SetMaskFactor(MaskFactor.surgical);
+                }
+                else
+                {
+                    teacher.AgentHealth.SetMaskFactor(MaskFactor.N95);
+                }
+            }
+        }
+
+        public static void SetRandomMaksForStudents()
+        {
+            foreach (var teacher in TotalAgentsBucket.GetStudents())
+            {
+                int randomIndex = Random.Range(0, 100);
+
+                if (randomIndex <= 25)
+                {
+                    teacher.AgentHealth.SetMaskFactor(MaskFactor.none);
+                }
+                else if (randomIndex > 25 && randomIndex <= 50)
+                {
+                    teacher.AgentHealth.SetMaskFactor(MaskFactor.cloth);
+                }
+                else if (randomIndex > 50 && randomIndex <= 75)
+                {
+                    teacher.AgentHealth.SetMaskFactor(MaskFactor.surgical);
+                }
+                else
+                {
+                    teacher.AgentHealth.SetMaskFactor(MaskFactor.N95);
+                }
             }
         }
     }

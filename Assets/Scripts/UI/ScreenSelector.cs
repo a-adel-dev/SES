@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
-/*
+
 namespace SES.UI
 {
     public class ScreenSelector : MonoBehaviour
@@ -25,10 +23,10 @@ namespace SES.UI
 
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Agents")))
                 {
-
+                    //Debug.Log($"selection");
                     ActivateAgentPanel();
                     Transform selection = hit.transform;
-                    agent = selection.gameObject;
+                    agent = selection.parent.gameObject;
                     info.SetAgent(agent);
                     info.UpdateMaskDropdown();
                     info.UpdateActivityDropdown();
@@ -52,10 +50,10 @@ namespace SES.UI
         }
         public void ActivateAgentPanel()
         {
-            if (GetComponent<SpacePanelUI>().spacePanelUp)
-            {
-                GetComponent<SpacePanelUI>().MovePanelDown();
-            }
+            //if (GetComponent<SpacePanelUI>().spacePanelUp)
+            //{
+            //    GetComponent<SpacePanelUI>().MovePanelDown();
+            //}
             GetComponent<AgentPanelUI>().MovePanelUp();
         }
 
@@ -72,4 +70,3 @@ namespace SES.UI
         }
     }
 }
-*/

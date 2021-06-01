@@ -14,6 +14,7 @@ namespace SES.AIControl.FSM
 
         public override void EnterState(TeacherBehaviorControl behaviorControl)
         {
+
             if (PickLocker(behaviorControl))
             {
                 behaviorControl.NavigateTo(lockerToVisit.transform.position);

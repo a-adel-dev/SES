@@ -11,6 +11,7 @@ namespace SES.AIControl.FSM
 
         public override void EnterState(TeacherBehaviorControl behaviorControl)
         {
+
             behaviorControl.visitedPOI = true;
             behaviorControl.NavigateTo(behaviorControl.poi.transform.position);
             POIWaitingTime = Random.Range(SimulationDefaults.lockerWaitingTime - 0.5f, SimulationDefaults.lockerWaitingTime + 1);

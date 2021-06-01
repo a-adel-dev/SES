@@ -15,5 +15,6 @@ namespace SES.Core
         void SetActivityType(ActivityType type);
 
         void SetMaskFactor(MaskFactor factor);
+        ActivityType Activity { get; set; }
     }
 }

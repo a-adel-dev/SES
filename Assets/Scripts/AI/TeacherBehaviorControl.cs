@@ -187,7 +187,27 @@ namespace SES.AIControl
 
         public void GoToAnotherLevel(Vector3 location)
         {
-            throw new NotImplementedException();
+            nav.SetDestination(location);
+        }
+
+        /// <summary>
+        /// Returns information about teacher movement style in classroom
+        /// </summary>
+        /// <returns>1 if free movement, 0 if restricted, -1 if not in class</returns>
+        public int GetClassMovementStyle()
+        {
+            if (currentState.GetType() == typeof( STeacherInClassFree))
+            {
+                return 1;
+            }
+            else if (currentState.GetType() == typeof(STeacherInClassRestricted))
+            {
+                return 0;
+            }
+            else
+            {
+                return -1;
+            }
         }
     }
 

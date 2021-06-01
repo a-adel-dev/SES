@@ -7,6 +7,7 @@ namespace SES.AIControl.FSM
     {
         public override void EnterState(TeacherBehaviorControl behaviorControl)
         {
+
             if (behaviorControl.currentDesk != null)
             {
                 behaviorControl.currentDesk.ClearSpot();

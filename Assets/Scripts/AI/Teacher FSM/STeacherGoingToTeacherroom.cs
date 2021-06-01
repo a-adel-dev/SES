@@ -11,6 +11,7 @@ namespace SES.AIControl.FSM
 
         public override void EnterState(TeacherBehaviorControl behaviorControl)
         {
+
             behaviorControl.NavigateTo(behaviorControl.teacherroom.GetGameObject().transform.position);
             behaviorControl.AgentHealth.SetActivityType(ActivityType.Breathing);
         }

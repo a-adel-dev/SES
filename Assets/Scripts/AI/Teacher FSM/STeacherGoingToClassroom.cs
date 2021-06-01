@@ -5,9 +5,10 @@ namespace SES.AIControl.FSM
 {
     class STeacherGoingToClassroom : STeacherBaseState
     {
-
+        
         public override void EnterState(TeacherBehaviorControl behaviorControl)
         {
+
             behaviorControl.NavigateTo(behaviorControl.currentClass.GetGameObject().transform.position);
             if (behaviorControl.currentDesk != null)
             {

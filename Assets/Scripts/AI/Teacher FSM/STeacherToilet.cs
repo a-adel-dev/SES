@@ -15,6 +15,7 @@ namespace SES.AIControl.FSM
 
         public override void EnterState(TeacherBehaviorControl behaviorControl)
         {
+
             toiletToVisit = behaviorControl.bathroomToVisit.RequestToilet(behaviorControl);
             toiletWaitingTime = Random.Range(SimulationDefaults.lockerWaitingTime, SimulationDefaults.lockerWaitingTime + 3);
             if (toiletToVisit != null)

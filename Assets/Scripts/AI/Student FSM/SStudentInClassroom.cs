@@ -9,7 +9,7 @@ namespace SES.AIControl.FSM
         {
             behaviorControl.ResumeAgent();
             behaviorControl.BackToDesk();
-            behaviorControl.GetComponent<MeshRenderer>().enabled = true;
+            behaviorControl.gameObject.transform.GetChild(2).GetComponent<MeshRenderer>().enabled = true;
             behaviorControl.ClearLocker();
             behaviorControl.AgentHealth.SetActivityType(ActivityType.Breathing);
         }

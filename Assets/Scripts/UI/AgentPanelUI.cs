@@ -5,24 +5,24 @@ using UnityEngine.UI;
 using SES.Health;
 using SES.AIControl;
 using SES.Core;
-/*
+using System;
+
 namespace SES.UI
 {
     public class AgentPanelUI : MonoBehaviour
     {
-        //GeneralHealthParamaters healthParamaters;
-        //AgentHealth agentHealth;
         GameObject agent;
         public bool agentPanelUp = false;
-
-        [SerializeField] GameObject agentPanel;
+        IAgentHealth agentHealth;
         [Header("Fields")]
         [SerializeField] Text agentName;
         [SerializeField] Text infected;
         [SerializeField] Text infectionQuanta;
         [SerializeField] Text maskFactor;
         [SerializeField] Button infect;
-        [SerializeField] Dropdown maskOptions;
+        [SerializeField] Dropdown maskOptionsDropdown;
+        [SerializeField] Button maskAllButton;
+        [SerializeField] Button maskRandomButton;
         [SerializeField] Slider maskFactorSlider;
         [SerializeField] Text maskFactorValue;
         [SerializeField] GameObject maskLabels;
@@ -34,8 +34,7 @@ namespace SES.UI
 
         void Start()
         {
-            //healthParamaters = FindObjectOfType<GeneralHealthParamaters>();
-            animator = agentPanel.GetComponent<Animator>();
+            animator = GetComponent<Animator>(); 
         }
 
         void Update()
@@ -47,32 +46,32 @@ namespace SES.UI
         {
             if (agent == null) { return; }
             agentName.text = agent.name;
-            //infected.text = agentHealth.IsInfected() ? "Yes" : "No";
-            //infectionQuanta.text = agentHealth.IsInfected() ? "infected" : string.Format("{0:N3}", agentHealth.GetInfectionQuanta());
-            //maskFactor.text = string.Format("{0:P2}", agentHealth.GetMaskFactor());
-            //maskFactorValue.text = string.Format("{0:P2}", agentHealth.GetMaskFactor());
+            infected.text = agentHealth.HealthCondition.ToString();
+            infectionQuanta.text = agentHealth.HealthCondition != HealthCondition.healthy ? "infected" : string.Format("{0:N3}", agentHealth.GetInfectionQuanta());
+            maskFactor.text = string.Format("{0:P2}", agentHealth.GetMaskFactor());
+            maskFactorValue.text = string.Format("{0:P2}", agentHealth.GetMaskFactor());
         }
 
         public void UIConfigureTeacherMovement()
         {
-            if (agent.GetComponent<TeacherAI>() && agent.GetComponent<TeacherAI>().IsInClassroom())
+            if (agent.GetComponent<ITeacherAI>() == null)
             {
-                if (agent.GetComponent<TeacherAI>().movementStyle == TeacherMovementStyle.restricted)
-                {
-                    freeMovementButton.gameObject.SetActive(true);
+                return;
+            }
+            switch (agent.GetComponent<ITeacherAI>().GetClassMovementStyle())
+            {
+                case -1:
                     restrictMovementButton.gameObject.SetActive(false);
-
-                }
-                else if (agent.GetComponent<TeacherAI>().movementStyle == TeacherMovementStyle.classroom)
-                {
+                    freeMovementButton.gameObject.SetActive(false);
+                    break;
+                case 0:
+                    restrictMovementButton.gameObject.SetActive(false);
+                    freeMovementButton.gameObject.SetActive(true);
+                    break;
+                case 1:
                     restrictMovementButton.gameObject.SetActive(true);
                     freeMovementButton.gameObject.SetActive(false);
-                }
-            }
-            else
-            {
-                restrictMovementButton.gameObject.SetActive(false);
-                freeMovementButton.gameObject.SetActive(false);
+                    break;
             }
         }
 
@@ -83,7 +82,7 @@ namespace SES.UI
 
         public void SetMaskForSelected()
         {
-            switch (maskOptions.value)
+            switch (maskOptionsDropdown.value)
             {
                 case 0:
                     agentHealth.SetMaskFactor(MaskFactor.none);
@@ -103,10 +102,50 @@ namespace SES.UI
                     break;
             }
         }
-
-        public void SetCustomMaskForSelected()
+        public void SetMasks()
         {
-            agentHealth.SetMaskFactor(maskFactorSlider.value);
+            if (agent.GetComponent<ITeacherAI>() != null)
+            {
+                GeneralHealthParamaters.SetMaskForTeachers(MaskDropDownEnumValue());
+            }
+            else if (agent.GetComponent<IStudentAI>() != null)
+            {
+                GeneralHealthParamaters.SetMakForStudents(MaskDropDownEnumValue());
+            }
+        }
+
+        public void SetMasksRandom()
+        {
+            if (agent.GetComponent<ITeacherAI>() != null)
+            {
+                GeneralHealthParamaters.SetRandomMaksForTeachers();
+            }
+            else if (agent.GetComponent<IStudentAI>() != null)
+            {
+                GeneralHealthParamaters.SetRandomMaksForStudents();
+            }
+        }
+
+
+        private MaskFactor MaskDropDownEnumValue()
+        {
+            MaskFactor factor = MaskFactor.none;
+            switch (maskOptionsDropdown.value)
+            {
+                case 0:
+                    factor = MaskFactor.none;
+                    break;
+                case 1:
+                    factor = MaskFactor.cloth;
+                    break;
+                case 2:
+                    factor = MaskFactor.surgical;
+                    break;
+                case 3:
+                    factor = MaskFactor.N95;
+                    break;
+            }
+            return factor;
         }
 
         public void UpdateMaskDropdown()
@@ -115,27 +154,27 @@ namespace SES.UI
 
             if (agentHealth.GetMaskFactor() == 1f)
             {
-                maskOptions.value = 0;
+                maskOptionsDropdown.value = 0;
                 ShowMaskSlider(false);
             }
-            else if (agentHealth.GetMaskFactor() == healthParamaters.clothMaskValue)
+            else if (agentHealth.GetMaskFactor() == SimulationDefaults.ClothMaskValue)
             {
-                maskOptions.value = 1;
+                maskOptionsDropdown.value = 1;
                 ShowMaskSlider(false);
             }
-            else if (agentHealth.GetMaskFactor() == healthParamaters.surgicalMaskValue)
+            else if (agentHealth.GetMaskFactor() == SimulationDefaults.SurgicalMaskValue)
             {
-                maskOptions.value = 2;
+                maskOptionsDropdown.value = 2;
                 ShowMaskSlider(false);
             }
-            else if (agentHealth.GetMaskFactor() == healthParamaters.n95MaskValue)
+            else if (agentHealth.GetMaskFactor() == SimulationDefaults.N95MaskValue)
             {
-                maskOptions.value = 3;
+                maskOptionsDropdown.value = 3;
                 ShowMaskSlider(false);
             }
             else
             {
-                maskOptions.value = 4;
+                maskOptionsDropdown.value = 4;
                 ShowMaskSlider(true);
                 maskFactorSlider.value = agentHealth.GetMaskFactor();
             }
@@ -151,12 +190,12 @@ namespace SES.UI
         public void SetAgent(GameObject _agent)
         {
             agent = _agent;
-            agentHealth = _agent.GetComponent<AgentHealth>();
+            agentHealth = _agent.GetComponent<IAgentHealth>();
         }
 
         public void UpdateActivityDropdown()
         {
-            switch (agentHealth.activity)
+            switch (agentHealth.Activity)
             {
                 case ActivityType.Breathing:
                     activityOptions.value = 0;
@@ -170,33 +209,16 @@ namespace SES.UI
             }
         }
 
-        public void UISetActivityLevel()
-        {
-            if (agent == null) { return; }
-            switch (activityOptions.value)
-            {
-                case 0:
-                    agentHealth.SetActivityType(ActivityType.Breathing);
-                    break;
-                case 1:
-                    agentHealth.SetActivityType(ActivityType.Talking);
-                    break;
-                case 2:
-                    agentHealth.SetActivityType(ActivityType.LoudTalking);
-                    break;
-            }
-        }
-
         public void UIRestrictMovement()
         {
-            agent.GetComponent<TeacherAI>().RestrictClassMovement();
+            agent.GetComponent<ITeacherAI>().ClassroomRestricted();
             freeMovementButton.gameObject.SetActive(true);
             restrictMovementButton.gameObject.SetActive(false);
         }
 
         public void UIFreeMovement()
         {
-            agent.GetComponent<TeacherAI>().FreeClassMovement();
+            agent.GetComponent<ITeacherAI>().ClassroomFree();
             restrictMovementButton.gameObject.SetActive(true);
             freeMovementButton.gameObject.SetActive(false);
         }
@@ -214,4 +236,3 @@ namespace SES.UI
         }
     }
 }
-*/

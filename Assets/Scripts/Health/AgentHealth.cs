@@ -7,7 +7,7 @@ namespace SES.Health
     public class AgentHealth : MonoBehaviour, IAgentHealth
     {
         public HealthCondition HealthCondition { get; set; } = HealthCondition.healthy;
-        public ActivityType Activity { get; private set; } = ActivityType.Breathing;
+        public ActivityType Activity { get; set; } = ActivityType.Breathing;
 
         [SerializeField] float maskFactor = 1f;
         float breathingFlowRate;

@@ -1,7 +1,6 @@
+-class section index out of range bug
 
-- class section index out of range bug
--constrict short range infection only to people in the room
--update breathing state dynamically.
+
 
 
 
@@ -11,3 +10,4 @@ TODO:
 Mange teachers at end of day.
 camera move to selected classes
 indicate selected classes.
+Highlight hovered agents. (visual feedback)
