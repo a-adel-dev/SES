@@ -108,6 +108,7 @@
     <Compile Include="Assets\Scripts\Core\DateTimeRecorder.cs" />
     <Compile Include="Assets\PandaBehaviour\Examples\00_ChangeColor\Assets\MyCube.cs" />
     <Compile Include="Assets\Scripts\Spaces\EgressPoint.cs" />
+    <Compile Include="Assets\Scripts\SelectionVisualization.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomInSession.cs" />
     <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\BulletImpact.cs" />
     <Compile Include="Assets\Scripts\UI\SpacePanelUI.cs" />
@@ -171,9 +172,8 @@
     <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherGoingToTeacherroom.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomOnBreak.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\IActivity.cs" />
-    <Compile Include="Assets\Scripts\Core\Enums.cs" />
-    <Compile Include="Assets\Scripts\SelectionVisualization.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\ISpaceHealth.cs" />
+    <Compile Include="Assets\Scripts\Core\Enums.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

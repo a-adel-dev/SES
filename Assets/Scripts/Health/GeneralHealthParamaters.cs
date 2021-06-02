@@ -8,8 +8,8 @@ namespace SES.Health
 {
     public class GeneralHealthParamaters
     {
-        public static int numContagious = 0;
-        public static int numInfected = 0;
+        public static int NumContagious { get; set; } = 0;
+        public static int NumInfected { get; set; } = 0;
         public List<ITeacherAI> teachers = new List<ITeacherAI>();
         public List<IStudentAI> students = new List<IStudentAI>();
 

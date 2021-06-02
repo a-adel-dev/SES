@@ -127,15 +127,15 @@ namespace SES.Health
         public void InfectAgent()
         {
             HealthCondition = HealthCondition.contagious;
+            Debug.Log($"{gameObject.name} has become contagious!");
             transform.GetChild(0).gameObject.SetActive(true);
-            GeneralHealthParamaters.numContagious++;
+            GeneralHealthParamaters.NumContagious++;
         }
 
         public void ExposeAgent()
         {
-            Debug.Log($"adding to infected");
             HealthCondition = HealthCondition.infected;
-            GeneralHealthParamaters.numInfected++;
+            GeneralHealthParamaters.NumInfected++;
             contagiousTime = new DateTime();
             contagiousTime = DateTimeRecorder.schoolTime + SimulationDefaults.TimeBeforeContagious;
         }
@@ -171,10 +171,8 @@ namespace SES.Health
         {
             if (HealthCondition == HealthCondition.infected && updatedHealthStats == false && DateTimeRecorder.schoolTime >= contagiousTime)
             {
-                HealthCondition = HealthCondition.contagious;
-                //Debug.Log(String.Format("{0:hh mm ss} contagious time, {1:hh mm ss} schooldate", contagiousTime, DateTimeRecorder.schoolTime));
-                GeneralHealthParamaters.numContagious++;
-                GeneralHealthParamaters.numInfected--;
+                InfectAgent();
+                GeneralHealthParamaters.NumInfected--;
                 updatedHealthStats = true;
             }
         }

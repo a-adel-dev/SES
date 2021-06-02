@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using SES.Health;
+using SES.Core;
 
 namespace SES.UI
 {
@@ -18,15 +19,6 @@ namespace SES.UI
         int numInfected;
         int numContagious;
 
-        HealthStats healthStats;
-
-
-        // Start is called before the first frame update
-        void Start()
-        {
-            healthStats = FindObjectOfType<HealthStats>();
-        }
-
         // Update is called once per frame
         void Update()
         {
@@ -35,9 +27,9 @@ namespace SES.UI
 
         private void UpdateInfo()
         {
-            numAgents = healthStats.GetNumAgents();
-            numInfected = GeneralHealthParamaters.numInfected;
-            numContagious = GeneralHealthParamaters.numContagious;
+            numAgents = TotalAgentsBucket.GetStudents().Count + TotalAgentsBucket.GetTeachers().Count;
+            numInfected = GeneralHealthParamaters.NumInfected;
+            numContagious = GeneralHealthParamaters.NumContagious;
             numAgentsText.text = numAgents.ToString();
             numContagiousText.text = numContagious.ToString();
             numInfectedText.text = numInfected.ToString();
@@ -45,7 +37,6 @@ namespace SES.UI
             float percentageContagious = (float)numContagious / numAgents;
             percentInfectedText.text = String.Format("{0:P2}", percentageInfected);
             percentContagiousText.text = String.Format("{0:P2}", percentageContagious);
-
         }
     }
 }
