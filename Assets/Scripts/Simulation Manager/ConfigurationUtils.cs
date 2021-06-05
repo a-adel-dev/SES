@@ -54,6 +54,7 @@ namespace SES.SimManager
             SimulationDefaults.ClothMaskValue = configurationData.ClothMaskValue;
             SimulationDefaults.SpaceInfectionThreshold = configurationData.SpaceInfectionThreshold;
             SimulationDefaults.TimeBeforeContagious = configurationData.TimeBeforeContagious;
+            SimulationDefaults.MaxInfectionChance = configurationData.MaxInfectionChance;
 
         }
 

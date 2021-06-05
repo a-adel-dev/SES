@@ -227,5 +227,10 @@ namespace SES.AIControl
             }
             lockerToVisit = null;
         }
+
+        public string GetStatus()
+        {
+            return currentStateName;
+        }
     }
 }

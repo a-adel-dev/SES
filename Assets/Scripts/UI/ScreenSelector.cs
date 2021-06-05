@@ -29,7 +29,6 @@ namespace SES.UI
                     agent = selection.parent.gameObject;
                     info.SetAgent(agent);
                     info.UpdateMaskDropdown();
-                    info.UpdateActivityDropdown();
                     info.UIConfigureTeacherMovement();
 
                     agent.transform.GetChild(1).gameObject.SetActive(true);

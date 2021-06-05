@@ -21,5 +21,7 @@ namespace SES.Core
 
         IAgentHealth AgentHealth { get; set; }
 
+        string GetStatus();
+
     }
 }

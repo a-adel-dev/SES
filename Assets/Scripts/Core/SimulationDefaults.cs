@@ -60,6 +60,8 @@ namespace SES.Core
         public static float ClothMaskValue { get; set; } = 0.8f;
         public static float SpaceInfectionThreshold { get; set; } = .001f;
         public static TimeSpan TimeBeforeContagious { get; set; } = new TimeSpan(0, 10, 0);
+
+        public static float MaxInfectionChance { get; set; } = 1f;
         #endregion
     }
 }

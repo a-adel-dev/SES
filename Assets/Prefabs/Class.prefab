@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4570525801431744672}
   - component: {fileID: 1508162435210513214}
   - component: {fileID: 689897394844726692}
+  - component: {fileID: 3275342888239369824}
   m_Layer: 0
   m_Name: Class
   m_TagString: Classroom
@@ -133,11 +134,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c86588a31614e44a006a1785468e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spaceVolume: 0
   outdoor: 0
-  concentration: 0
-  currentConcentration: 0
-  airExchangeRate: 3
+--- !u!114 &3275342888239369824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3784705064329411916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b11acaa509db7b43a6060008c1a130a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6490279545308601080
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,14 +249,13 @@ GameObject:
   - component: {fileID: 3724687241162378974}
   - component: {fileID: 417379429586437887}
   - component: {fileID: 860905329564007496}
-  - component: {fileID: 6825415178536927470}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3724687241162378974
 Transform:
   m_ObjectHideFlags: 0
@@ -311,15 +319,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6825415178536927470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7378286807094158857}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b11acaa509db7b43a6060008c1a130a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

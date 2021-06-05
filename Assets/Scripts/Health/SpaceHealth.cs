@@ -75,7 +75,7 @@ namespace SES.Health
 
             foreach (AgentHealth agent in agentsInSpace)
             {
-                Concentration += agent.Breathe() / (EffectiveAirExchangeRate * SpaceVolume);
+                Concentration += agent.Breathe() / (EffectiveAirExchangeRate * SpaceVolume) * 1000000f;
             }
         }
 
@@ -112,8 +112,7 @@ namespace SES.Health
             if (Mathf.Abs(Concentration) <= Mathf.Epsilon) { return; }
             foreach (AgentHealth agent in agentsInSpace)
             {
-                float threshold = Random.Range(0f, 10f);//should be (0,100)
-                                                        //Debug.Log($"{threshold} against {agent.GetInfectionQuanta()}");
+                float threshold = Random.Range(0f, SimulationDefaults.MaxInfectionChance);
                 if (agent.HealthCondition == HealthCondition.healthy && agent.GetInfectionQuanta() > threshold)
                 {
                     agent.ExposeAgent();

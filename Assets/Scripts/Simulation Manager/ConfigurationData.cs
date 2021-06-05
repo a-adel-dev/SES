@@ -99,8 +99,9 @@ namespace SES.SimManager
         /// </summary>
         //originally (66,0,0)
         public TimeSpan TimeBeforeContagious { get; set; } = new TimeSpan(0, 10, 0);
-        int hoursTimeBeforeContagious = 0;
-        int minutesTimeBeforeContagios = 10;
+        public int hoursTimeBeforeContagious { get; set; } = 0;
+        public int minutesTimeBeforeContagios { get; set; } = 10;
+        public float MaxInfectionChance { get; set; } = 100f;
         #endregion
 
         public ConfigurationData()
@@ -182,6 +183,7 @@ namespace SES.SimManager
             hoursTimeBeforeContagious = int.Parse(values[44]);
             minutesTimeBeforeContagios = int.Parse(values[45]);
             TimeBeforeContagious = new TimeSpan(hoursTimeBeforeContagious, minutesTimeBeforeContagios, 0);
+            MaxInfectionChance = float.Parse(values[46]);
         }
     }
 }

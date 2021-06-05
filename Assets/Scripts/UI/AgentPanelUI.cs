@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using SES.Health;
-using SES.AIControl;
 using SES.Core;
-using System;
+
 
 namespace SES.UI
 {
@@ -19,6 +16,8 @@ namespace SES.UI
         [SerializeField] Text infected;
         [SerializeField] Text infectionQuanta;
         [SerializeField] Text maskFactor;
+        [SerializeField] Text activityOptionsText;
+        [SerializeField] Text statusText;
         [SerializeField] Button infect;
         [SerializeField] Dropdown maskOptionsDropdown;
         [SerializeField] Button maskAllButton;
@@ -26,7 +25,6 @@ namespace SES.UI
         [SerializeField] Slider maskFactorSlider;
         [SerializeField] Text maskFactorValue;
         [SerializeField] GameObject maskLabels;
-        [SerializeField] Dropdown activityOptions;
         [SerializeField] Button restrictMovementButton;
         [SerializeField] Button freeMovementButton;
 
@@ -47,9 +45,11 @@ namespace SES.UI
             if (agent == null) { return; }
             agentName.text = agent.name;
             infected.text = agentHealth.HealthCondition.ToString();
-            infectionQuanta.text = agentHealth.HealthCondition != HealthCondition.healthy ? "infected" : string.Format("{0:N3}", agentHealth.GetInfectionQuanta());
+            infectionQuanta.text = agentHealth.HealthCondition != HealthCondition.healthy ? "infected" : string.Format("{0:F9}", agentHealth.GetInfectionQuanta());
             maskFactor.text = string.Format("{0:P2}", agentHealth.GetMaskFactor());
             maskFactorValue.text = string.Format("{0:P2}", agentHealth.GetMaskFactor());
+            activityOptionsText.text = agentHealth.Activity.ToString();
+            statusText.text = agent.GetComponent<IAI>().GetStatus();
         }
 
         public void UIConfigureTeacherMovement()
@@ -193,21 +193,21 @@ namespace SES.UI
             agentHealth = _agent.GetComponent<IAgentHealth>();
         }
 
-        public void UpdateActivityDropdown()
-        {
-            switch (agentHealth.Activity)
-            {
-                case ActivityType.Breathing:
-                    activityOptions.value = 0;
-                    break;
-                case ActivityType.Talking:
-                    activityOptions.value = 1;
-                    break;
-                case ActivityType.LoudTalking:
-                    activityOptions.value = 2;
-                    break;
-            }
-        }
+        //public void UpdateActivityDropdown()
+        //{
+        //    switch (agentHealth.Activity)
+        //    {
+        //        case ActivityType.Breathing:
+        //            activityOptions.value = 0;
+        //            break;
+        //        case ActivityType.Talking:
+        //            activityOptions.value = 1;
+        //            break;
+        //        case ActivityType.LoudTalking:
+        //            activityOptions.value = 2;
+        //            break;
+        //    }
+        //}
 
         public void UIRestrictMovement()
         {

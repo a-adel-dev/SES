@@ -34,7 +34,7 @@ namespace SES.AIControl.FSM
 
             if (sessionTimer > toiletWaitingTime)
             {
-                toiletToVisit.ClearSpot();
+                behaviorControl.bathroomToVisit.ReleaseToilet(toiletToVisit);
                 toiletToVisit = null;
                 behaviorControl.bathroomToVisit = null;
                 behaviorControl.GoToClassroom();

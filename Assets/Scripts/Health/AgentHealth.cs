@@ -12,21 +12,13 @@ namespace SES.Health
         [SerializeField] float maskFactor = 1f;
         float breathingFlowRate;
         float numberDensity;
-        float dropletVolume;
         public SpaceHealth CurrentSpace { get; set; }
         float infectionQuanta = 0f;
-        float infectiuosQuanta = 0f;
         float shortRangeInfectionQuanta = 0f;
         DateTime contagiousTime;
         bool updatedHealthStats = false;
         float timer = 0f;
-
-
-        void Start()
-        {
-            float criticalRadiusInM = SimulationDefaults.CriticalRadius * 1E-6f;
-            dropletVolume = Mathf.PI * Mathf.Pow(criticalRadiusInM, 3f);
-        }
+        float numberofBreathsPerMinute = 20f;
 
         private void Update()
         {
@@ -43,17 +35,36 @@ namespace SES.Health
 
         public float Breathe()
         {
+            float infectiousQuanta = 0f;
             //if healthy, breathe in , don't return infectionquanta
-            if (HealthCondition == HealthCondition.healthy || HealthCondition == HealthCondition.infected)
+            if (HealthCondition == HealthCondition.healthy)
             {
-                //Debug.Log($"{CurrentSpace.GetComponent<SpaceHealth>()}");
-                infectionQuanta = breathingFlowRate * (CurrentSpace.GetComponent<SpaceHealth>().Concentration +
-                    shortRangeInfectionQuanta) * SimulationDefaults.ViralInfectivity * maskFactor;
+                //go through all the radii up to the critical radius (integrate) with an accuracy of 0.1micron
+                for (int i = 1; i < (int)SimulationDefaults.CriticalRadius * 10; i++)
+                {
+                    infectionQuanta = breathingFlowRate * (CurrentSpace.GetComponent<SpaceHealth>().Concentration +
+                    shortRangeInfectionQuanta) * SimulationDefaults.ViralInfectivity * maskFactor * numberofBreathsPerMinute;
+                }
                 return 0f;
             }
 
-            infectiuosQuanta = (breathingFlowRate * maskFactor * numberDensity * dropletVolume * SimulationDefaults.ViralLoad) * 3.48E+14f / 60f;
-            return infectiuosQuanta;
+            else if (HealthCondition == HealthCondition.infected)
+            {
+                return 0f;
+            }
+
+            else if (HealthCondition == HealthCondition.contagious)
+            {
+                infectiousQuanta = 0f;
+                //go through all the radii up to the critical radius (integrate) with an accuracy of 0.1micron
+                for (int i = 1; i < (int)SimulationDefaults.CriticalRadius * 10; i++)
+                {
+                    float radiusInMeters = (float)i / 10 * 1E-6f;
+                    infectiousQuanta += breathingFlowRate * maskFactor * numberDensity * Mathf.PI * radiusInMeters * radiusInMeters * radiusInMeters *
+                              SimulationDefaults.ViralLoad * numberofBreathsPerMinute;
+                }
+            }
+            return infectiousQuanta;
         }
 
         public void SetActivityType(ActivityType type)
@@ -127,7 +138,7 @@ namespace SES.Health
         public void InfectAgent()
         {
             HealthCondition = HealthCondition.contagious;
-            Debug.Log($"{gameObject.name} has become contagious!");
+            //Debug.Log($"{gameObject.name} has become contagious!");
             transform.GetChild(0).gameObject.SetActive(true);
             GeneralHealthParamaters.NumContagious++;
         }

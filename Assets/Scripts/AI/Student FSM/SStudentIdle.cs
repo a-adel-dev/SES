@@ -13,5 +13,10 @@ namespace SES.AIControl.FSM
         {
 
         }
+
+        public override string ToString()
+        {
+            return "Idle";
+        }
     }
 }

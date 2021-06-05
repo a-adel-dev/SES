@@ -6,23 +6,16 @@ namespace SES.Spaces
 {
     public class Bathroom : MonoBehaviour, IBathroom
     {
-        List<Spot> toilets = new List<Spot>();
-        List<Spot> availableToilets = new List<Spot>();
+        SpotBucket toilets;
 
-        private void OnTriggerEnter(Collider other)
+        private void Start()
         {
-            if (other.CompareTag("Toilet"))
-            {
-                toilets.Add(other.GetComponent<Spot>());
-                availableToilets.Add(other.GetComponent<Spot>());
-            }
+            toilets = GetComponent<SpotBucket>();
         }
-
 
         public void ReleaseToilet(Spot toilet)
         {
-            toilet.ClearSpot();
-            availableToilets.Add(toilet);
+            toilets.ClearDesk(toilet);
         }
 
         public GameObject GetGameObject()
@@ -30,18 +23,9 @@ namespace SES.Spaces
             return gameObject;
         }
 
-        public Spot RequestToilet(IAI student)
+        public Spot RequestToilet(IAI agent)
         {
-            ListHandler.Shuffle(toilets);
-            foreach (Spot toilet in toilets)
-            {
-                if (toilet.ISpotAvailable())
-                {
-                    toilet.FillSpot(student);
-                    return toilet;
-                }
-            }
-            return null;
+            return toilets.GetAvailableDesk(agent);
         }
 
         public Spot RequestDesk(IAI agent)

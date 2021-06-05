@@ -57,6 +57,11 @@ namespace SES.School
             }
         }
 
+        public void EndSim()
+        {
+            TransitionToState(simOver);
+        }
+
         public void PauseSchool()
         {
             currentState.resumed = true;

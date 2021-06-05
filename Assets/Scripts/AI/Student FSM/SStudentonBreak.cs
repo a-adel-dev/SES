@@ -35,5 +35,10 @@ namespace SES.AIControl.FSM
                 CheckAutonomy(behaviorControl);
             }
         }
+
+        public override string ToString()
+        {
+            return "On break";
+        }
     }
 }

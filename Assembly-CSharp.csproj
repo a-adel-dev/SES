@@ -62,16 +62,12 @@
     <Compile Include="Assets\Scripts\UI\MainControlsPanelUI.cs" />
     <Compile Include="Assets\Scripts\AI\Student FSM\SStudentInClassroom.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassActivity.cs" />
-    <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\ShooterGameController.cs" />
     <Compile Include="Assets\Scripts\AI\Student FSM\SStudentIdle.cs" />
     <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherPOI.cs" />
-    <Compile Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\Dialogue.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\IAgentHealth.cs" />
-    <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\AI.cs" />
     <Compile Include="Assets\Scripts\UI\MainControlPanel.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ActivityGroup.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\IBathroom.cs" />
-    <Compile Include="Assets\PandaBehaviour\Examples\01_Move\Assets\Move.cs" />
     <Compile Include="Assets\Scripts\UI\HealthStatsPanelUI.cs" />
     <Compile Include="Assets\StrategyCameraLite\Scripts\StrategyCamera.cs" />
     <Compile Include="Assets\Scripts\School\SchoolDayProgressionController.cs" />
@@ -85,32 +81,24 @@
     <Compile Include="Assets\Scripts\AI\Student FSM\SStudentLockerBehavior.cs" />
     <Compile Include="Assets\Scripts\Spaces\Corridor.cs" />
     <Compile Include="Assets\Scripts\Core\Events\StudentEgressEvent.cs" />
-    <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\WaypointPath.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomSpace.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomBaseState.cs" />
     <Compile Include="Assets\Scripts\School\FSM\SSchoolBaseState.cs" />
     <Compile Include="Assets\Scripts\UI\ErrorPanelUI.cs" />
-    <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\FollowCamera.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomEmpty.cs" />
     <Compile Include="Assets\Scripts\School\FSM\SSimOver.cs" />
     <Compile Include="Assets\Scripts\Simulation Manager\AISpawner.cs" />
     <Compile Include="Assets\Scripts\School\FSM\SSchoolOffTime.cs" />
     <Compile Include="Assets\Scripts\UI\AgentPanelUI.cs" />
-    <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\AIVision.cs" />
     <Compile Include="Assets\Scripts\Health\GeneralHealthParamaters.cs" />
-    <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\TriggerType.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\ITeacherAI.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\ISchool.cs" />
-    <Compile Include="Assets\Tester.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\ISpace.cs" />
-    <Compile Include="Assets\PandaBehaviour\Core\PandaBehaviour.cs" />
     <Compile Include="Assets\Scripts\Simulation Manager\SimulationController.cs" />
     <Compile Include="Assets\Scripts\Core\DateTimeRecorder.cs" />
-    <Compile Include="Assets\PandaBehaviour\Examples\00_ChangeColor\Assets\MyCube.cs" />
     <Compile Include="Assets\Scripts\Spaces\EgressPoint.cs" />
     <Compile Include="Assets\Scripts\SelectionVisualization.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomInSession.cs" />
-    <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\BulletImpact.cs" />
     <Compile Include="Assets\Scripts\UI\SpacePanelUI.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\ILab.cs" />
     <Compile Include="Assets\Scripts\Core\SimulationParameters.cs" />
@@ -121,11 +109,9 @@
     <Compile Include="Assets\Scripts\UI\ScreenSelector.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\IStudentAI.cs" />
     <Compile Include="Assets\Scripts\Spaces\Teachersroom.cs" />
-    <Compile Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\Computer.cs" />
     <Compile Include="Assets\Scripts\School\SchoolSubSpacesBucket.cs" />
     <Compile Include="Assets\Scripts\UI\Label.cs" />
     <Compile Include="Assets\Scripts\School\FSM\SSchoolClassesInSession.cs" />
-    <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Unit.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\IntVariable.cs" />
     <Compile Include="Assets\Scripts\UI\ToolTip.cs" />
     <Compile Include="Assets\Scripts\Spaces\Bathroom.cs" />
@@ -140,9 +126,7 @@
     <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherToilet.cs" />
     <Compile Include="Assets\Scripts\AI\Student FSM\SStudentToiletBehavior.cs" />
     <Compile Include="Assets\Scripts\AI\Student FSM\StudentBaseState.cs" />
-    <Compile Include="Assets\Scripts\Spaces\Classroom\BehaviorController.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomProgressionControl.cs" />
-    <Compile Include="Assets\Scripts\Health\HealthStats.cs" />
     <Compile Include="Assets\Scripts\AI\StudentBehaviorControl.cs" />
     <Compile Include="Assets\Scripts\AI\Student FSM\SStudentInTransit.cs" />
     <Compile Include="Assets\Scripts\AI\Student FSM\SStudentNearPOIBehavior.cs" />
@@ -152,7 +136,6 @@
     <Compile Include="Assets\Scripts\Health\AgentHealth.cs" />
     <Compile Include="Assets\Scripts\AI\Student FSM\SStudentDoingActivity.cs" />
     <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherGoingToClassroom.cs" />
-    <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Patroller.cs" />
     <Compile Include="Assets\Scripts\Health\SpaceHealthVisualization.cs" />
     <Compile Include="Assets\Scripts\AI\Student FSM\SStudentBackToClassBehavior.cs" />
     <Compile Include="Assets\Scripts\Health\SpaceHealth.cs" />
@@ -160,40 +143,27 @@
     <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherInClassFree.cs" />
     <Compile Include="Assets\Scripts\Health\ShortRangeInfector.cs" />
     <Compile Include="Assets\Scripts\Core\ListHandler.cs" />
-    <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Bullet.cs" />
     <Compile Include="Assets\Scripts\Simulation Manager\ConfigurationData.cs" />
     <Compile Include="Assets\Scripts\Core\ClassLabPair.cs" />
     <Compile Include="Assets\Scripts\Core\SpotBucket.cs" />
-    <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\UnitExplosion.cs" />
-    <Compile Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\Player.cs" />
     <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherLocker.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\IAISpawner.cs" />
-    <Compile Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\HUD.cs" />
     <Compile Include="Assets\Scripts\AI\Teacher FSM\STeacherGoingToTeacherroom.cs" />
     <Compile Include="Assets\Scripts\Spaces\Classroom\ClassroomFSM\SClassroomOnBreak.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\IActivity.cs" />
     <Compile Include="Assets\Scripts\Core\Interfaces\ISpaceHealth.cs" />
     <Compile Include="Assets\Scripts\Core\Enums.cs" />
+    <Compile Include="Assets\Scripts\UI\FinalPanelUI.cs" />
+    <Compile Include="Assets\Scripts\UI\DoF.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
-     <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\TagDialogue.BT.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
-     <None Include="Assets\Behaviors\BathroomActivity.BT.txt" />
-     <None Include="Assets\PandaBehaviour\Core\PandaBehaviour.dll" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
-     <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\PlayTag.commented.BT.txt" />
-     <None Include="Assets\PandaBehaviour\Examples\01_Move\Assets\Move.BT.txt" />
-     <None Include="Assets\PandaBehaviour\README.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
-     <None Include="Assets\Behaviors\POIBehavior.BT.txt" />
-     <None Include="Assets\PandaBehaviour\LICENSE.TXT" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets\Scripts\TextFile1.txt" />
-     <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Player.BT.txt" />
-     <None Include="Assets\PandaBehaviour\Core\PandaBehaviour.xml" />
-     <None Include="Assets\PandaBehaviour\ChangeLog.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
      <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
@@ -202,25 +172,12 @@
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
-     <None Include="Assets\Behaviors\Main.BT.txt" />
-     <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Sniper.BT.txt" />
-     <None Include="Assets\Behaviors\BathroomBehavior.BT.txt" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
-     <None Include="Assets\PandaBehaviour\Examples\00_ChangeColor\Assets\ChangeColor.BT.txt" />
-     <None Include="Assets\Behaviors\LockerBehavior.BT.txt" />
-     <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Hunter.BT.txt" />
-     <None Include="Assets\Behaviors\GoBack.BT.txt" />
-     <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\Computer.BT.txt" />
-     <None Include="Assets\Behaviors\BoardActivity.BT.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
-     <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Patroller.BT.txt" />
-     <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\PlayTag.BT.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
-     <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\AI.BT.lib.txt" />
      <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
-     <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\GameController.BT.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
     <Reference Include="UnityEngine">
       <HintPath>D:\Program Files\2020.3.7f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
@@ -443,9 +400,6 @@
     </Reference>
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>D:\Program Files\2020.3.7f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
-    </Reference>
-    <Reference Include="PandaBehaviour">
-      <HintPath>Assets\PandaBehaviour\Core\PandaBehaviour.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>D:\Program Files\2020.3.7f1\Editor\Data\NetStandard\ref\2.0.0\netstandard.dll</HintPath>

@@ -68,20 +68,6 @@ namespace SES.UI
             resumeSim.gameObject.SetActive(false);
         }
 
-        public void ShowSpacePanel()
-        {
-            //if (GetComponent<AgentPanelUI>().agentPanelUp)
-            //{
-            //    GetComponent<ScreenSelector>().DeactivateAgentPanel();
-            //}
-            //GetComponent<SpacePanelUI>().MovePanelUp();
-        }
-
-        public void HideSpacePanel()
-        {
-            //GetComponent<SpacePanelUI>().MovePanelDown();
-        }
-
         public void EnableStart()
         {
             startSim.interactable = true;
@@ -97,6 +83,11 @@ namespace SES.UI
         {
             mainControlsShowButton.gameObject.SetActive(true);
             mainControlsHideButton.gameObject.SetActive(false);
+        }
+
+        public void DisablePanel()
+        {
+            gameObject.SetActive(false);
         }
 
     }

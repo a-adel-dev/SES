@@ -71,7 +71,7 @@ namespace SES.UI
             spaceNameText.text = space.gameObject.name;
             spaceVolumeText.text = string.Format("{0:F2} m^3", space.SpaceVolume);
             isOutdoorText.text = space.Outdoor ? "Yes" : "No";
-            concentrationText.text = string.Format("{0:F3} m^3", space.Concentration);
+            concentrationText.text = string.Format("{0:F5} cm^3", space.Concentration);
             numAgentsText.text = space.GetNumAgents().ToString();
             UpdateACH();
             ACHText.text = string.Format("{0:F2}", space.GetAirExhangeRate());

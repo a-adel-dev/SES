@@ -38,5 +38,15 @@ namespace SES.UI
             percentInfectedText.text = String.Format("{0:P2}", percentageInfected);
             percentContagiousText.text = String.Format("{0:P2}", percentageContagious);
         }
+
+        public void EnablePanel()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void DisablePanel()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

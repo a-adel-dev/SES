@@ -146,7 +146,7 @@ namespace SES.AIControl
 
         public void IdleAgent()
         {
-            throw new System.NotImplementedException();
+            nav.SetDestination(gameObject.transform.position);
         }
 
         public void NavigateTo(Vector3 location)
@@ -208,6 +208,11 @@ namespace SES.AIControl
             {
                 return -1;
             }
+        }
+
+        public string GetStatus()
+        {
+            return currentStateName;
         }
     }
 
