@@ -9,15 +9,18 @@ namespace SES.Core
     {
         public static DateTime schoolTime { get; set; }
 
-        static int month { get; set; } = 1;
-        static int day { get; set; } = 1;
-        static int hour { get; set; } = 8;
-        static int minute { get; set; } = 0;
+        static int Month { get; set; } = 1;
+        static int Day { get; set; } = 1;
+        static int Hour { get; set; } = 8;
+        static int Minute { get; set; } = 0;
+
+        static DateTime nextDay;
 
         
         public static void StartSchoolDate()
         {
-            schoolTime = new DateTime(2020, month, day, hour, minute, 00);
+            schoolTime = new DateTime(2020, Month, Day, Hour, Minute, 00);
+            nextDay = schoolTime + new TimeSpan(24, 0, 0);
         }
 
         public static void UpdateSchoolTime(TimeSpan timeSpan)
@@ -25,11 +28,11 @@ namespace SES.Core
             schoolTime += timeSpan;
         }
 
-
         public static TimeSpan SkipToNextDay()
         {
-            TimeSpan skippingTime = new DateTime(2020,month, day + 1, 8, 00, 00) - schoolTime;
+            TimeSpan skippingTime = nextDay - schoolTime; 
             schoolTime += skippingTime;
+            nextDay = schoolTime + new TimeSpan(24, 0, 0);
             return skippingTime;
         }
     }
