@@ -51,6 +51,7 @@ namespace SES.UI
         public void UIStartSim()
         {
             sim.StartSim();
+            startSim.gameObject.SetActive(false);
             pauseSim.gameObject.SetActive(true);
         }
 
