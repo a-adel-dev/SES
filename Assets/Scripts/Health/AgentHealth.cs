@@ -148,7 +148,7 @@ namespace SES.Health
             HealthCondition = HealthCondition.infected;
             GeneralHealthParamaters.NumInfected++;
             contagiousTime = new DateTime();
-            contagiousTime = DateTimeRecorder.schoolTime + SimulationDefaults.TimeBeforeContagious;
+            contagiousTime = DateTimeRecorder.SchoolTime + SimulationDefaults.TimeBeforeContagious;
         }
 
         public float GetInfectionQuanta()
@@ -180,7 +180,7 @@ namespace SES.Health
 
         void UpdateHealth()
         {
-            if (HealthCondition == HealthCondition.infected && updatedHealthStats == false && DateTimeRecorder.schoolTime >= contagiousTime)
+            if (HealthCondition == HealthCondition.infected && updatedHealthStats == false && DateTimeRecorder.SchoolTime >= contagiousTime)
             {
                 InfectAgent();
                 GeneralHealthParamaters.NumInfected--;

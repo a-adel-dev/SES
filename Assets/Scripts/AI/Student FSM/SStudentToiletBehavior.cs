@@ -7,7 +7,7 @@ namespace SES.AIControl.FSM
     public class SStudentToiletBehavior : StudentBaseState
     {
         
-        Spot toiletToVisit;
+        
 
         float timer = 0;
         float toiletWaitingTime = 2.0f;
@@ -15,10 +15,10 @@ namespace SES.AIControl.FSM
 
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
-            toiletToVisit = behaviorControl.bathroomToVisit.RequestToilet(behaviorControl);
-            if (toiletToVisit != null)
+            behaviorControl.ToiletToVisit = behaviorControl.bathroomToVisit.RequestToilet(behaviorControl);
+            if (behaviorControl.ToiletToVisit != null)
             {
-                behaviorControl.NavigateTo(toiletToVisit.transform.position);
+                behaviorControl.NavigateTo(behaviorControl.ToiletToVisit.transform.position);
                 toiletWaitingTime = Random.Range(SimulationDefaults.lockerWaitingTime,
                                                  SimulationDefaults.lockerWaitingTime + 3);
             }
@@ -34,8 +34,8 @@ namespace SES.AIControl.FSM
 
             if (sessionTimer > toiletWaitingTime)
             {
-                behaviorControl.bathroomToVisit.ReleaseToilet(toiletToVisit);
-                toiletToVisit = null;
+                behaviorControl.bathroomToVisit.ReleaseToilet(behaviorControl.ToiletToVisit);
+                behaviorControl.ToiletToVisit = null;
                 behaviorControl.bathroomToVisit = null;
                 behaviorControl.GoToClassroom();
             }

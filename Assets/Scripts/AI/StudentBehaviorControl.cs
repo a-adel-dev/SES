@@ -23,6 +23,8 @@ namespace SES.AIControl
         public ISpace poi { get; set; }
         public Spot lockerToVisit { get; set; }
 
+        public Spot ToiletToVisit { get; set; }
+
         public IAgentHealth AgentHealth { get; set; }
 
         public string currentLabText = "";

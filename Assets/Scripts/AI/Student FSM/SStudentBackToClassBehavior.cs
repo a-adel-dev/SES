@@ -10,6 +10,11 @@ namespace SES.AIControl.FSM
 
         public override void EnterState(StudentBehaviorControl behaviorControl)
         {
+            if (behaviorControl.ToiletToVisit != null)
+            {
+                behaviorControl.bathroomToVisit.ReleaseToilet(behaviorControl.ToiletToVisit);
+                behaviorControl.ToiletToVisit = null;
+            }
             stopForPOI = Random.Range(1, 100) <= POIChance;
             if (behaviorControl.CurrentClassroom != null)
             {

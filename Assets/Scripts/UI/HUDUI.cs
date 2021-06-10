@@ -44,7 +44,7 @@ namespace SES.UI
             //year - month - day - hour - minute - seconds
             //DateTime dt = new DateTime(0, 0, 0, 0, schoolManager.schoolTime, 0);
 
-            classDate.text = String.Format("{0:f}", DateTimeRecorder.schoolTime);
+            classDate.text = String.Format("{0:f}", DateTimeRecorder.SchoolTime);
 
         }
 
