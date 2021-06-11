@@ -45,6 +45,10 @@ namespace SES.School
         public void InitializeProperties()
         {
             subspaces = GetComponent<SchoolSubSpacesBucket>();
+            foreach (Bathroom bathroom in subspaces.bathrooms)
+            {
+                bathroom.Toilets.Initialize();
+            }
         }
 
         public void StartSchoolDay()

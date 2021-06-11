@@ -5,16 +5,16 @@ namespace SES.Spaces
 {
     public class Bathroom : MonoBehaviour, IBathroom
     {
-        SpotBucket toilets;
+        public SpotBucket Toilets { get; set; }
 
         private void Start()
         {
-            toilets = GetComponent<SpotBucket>();
+            Toilets = GetComponent<SpotBucket>();
         }
 
         public void ReleaseToilet(Spot toilet)
         {
-            toilets.ClearDesk(toilet);
+            Toilets.ClearDesk(toilet);
         }
 
         public GameObject GetGameObject()
@@ -24,7 +24,7 @@ namespace SES.Spaces
 
         public Spot RequestToilet(IAI agent)
         {
-            return toilets.GetAvailableDesk(agent);
+            return Toilets.GetAvailableDesk(agent);
         }
 
         public Spot RequestDesk(IAI agent)

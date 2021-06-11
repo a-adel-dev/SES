@@ -38,6 +38,7 @@ namespace SES.SimManager
             foreach (IClassroom classroom in classrooms)
             {
                 int counter = 1;
+                classroom.InitializeSubSpaces();
                 int spawnCounter = classroom.classroomSubSpaces.GetAvailableDesksCount();
                 for (int i = 0; i < spawnCounter; i++)
                 {
@@ -64,7 +65,6 @@ namespace SES.SimManager
             
             behavior.currentDesk = desk;//assign desk to the student
             desk.FillSpot(behavior);//fill desk with student
-
             
             student.transform.parent = classroom.GetGameObject().transform;//make the student a child of the class
             behavior.SetSpawnLocation();//set student original position for dat reset purpose
@@ -107,6 +107,7 @@ namespace SES.SimManager
             {
                 foreach (Lab lab in school.subspaces.labs)
                 {
+                    lab.SubSpaces.Initialize();
                     GameObject teacher = Instantiate(teacherprefab, lab.SubSpaces.Entrance.position, Quaternion.identity);
                     NavMeshAgent teacherNav = teacher.GetComponent<NavMeshAgent>();
                     TeacherBehaviorControl behavior = teacher.GetComponent<TeacherBehaviorControl>();
@@ -121,6 +122,7 @@ namespace SES.SimManager
             //spawn teacherrooms teachers
             foreach (ITeachersroom teachersroom in teacherrooms)
             {
+                teachersroom.subspaces.Initialize();
                 int spawnCounter = teachersroom.subspaces.GetAvailableDesksCount();
                 for (int i = 0; i < spawnCounter; i += 2)
                 {

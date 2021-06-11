@@ -190,5 +190,10 @@ namespace SES.Spaces.Classroom
                 studentsBucket.ReceiveStudent(student);
             }
         }
+
+        public void InitializeSubSpaces()
+        {
+            classroomSubSpaces.Initialize();
+        }
     }
 }

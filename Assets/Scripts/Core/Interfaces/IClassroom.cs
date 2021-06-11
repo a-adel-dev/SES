@@ -27,5 +27,7 @@ namespace SES.Core
         List<IStudentAI> RequestLabStudents();
         void EmptyClass();
         void MarkStudents(List<IStudentAI> students);
+
+        void InitializeSubSpaces();
     }
 }

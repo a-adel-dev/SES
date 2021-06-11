@@ -38,11 +38,7 @@ namespace SES.Core
         public Transform Board { get => board; }
         public Transform Entrance { get => entrance; }
 
-        
-
-
-
-        private void Start()
+        public void Initialize()
         {
             PopulateAvailableLockers();
             PopulateAvailableDesks();
